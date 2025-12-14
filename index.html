@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbacoa de la Casa Vieja - Menú Interactivo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f0e8;
+            color: #5c3d2e;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(to right, #8B4513, #A0522D);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.8rem;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        @media (max-width: 992px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .menu-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(139, 69, 19, 0.1);
+            border: 1px solid #e0d3c6;
+        }
+
+        .section-title {
+            color: #8B4513;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0d3c6;
+            font-family: 'Georgia', serif;
+        }
+
+        .menu-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .category-btn {
+            padding: 8px 20px;
+            background-color: #f1e6d6;
+            border: 1px solid #d4b896;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: #5c3d2e;
+        }
+
+        .category-btn.active, .category-btn:hover {
+            background-color: #8B4513;
+            color: white;
+            border-color: #8B4513;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            border: 1px solid #e0d3c6;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(139, 69, 19, 0.15);
+        }
+
+        .product-img {
+            height: 180px;
+            width: 100%;
+            object-fit: cover;
+            border-bottom: 1px solid #e0d3c6;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: #5c3d2e;
+            font-weight: 600;
+        }
+
+        .product-desc {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #8B4513;
+        }
+
+        .add-to-cart {
+            background-color: #8B4513;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            background-color: #A0522D;
+        }
+
+        .cart-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(139, 69, 19, 0.1);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+            border: 1px solid #e0d3c6;
+        }
+
+        .cart-items {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e0d3c6;
+            padding-bottom: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #f8f8f8;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item-info h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            color: #5c3d2e;
+        }
+
+        .cart-item-price {
+            color: #7f8c8d;
+            font-weight: 600;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cart-item-qty {
+            width: 50px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        .remove-item {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cart-totals {
+            margin-bottom: 25px;
+            background-color: #f9f5f0;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 8px 0;
+        }
+
+        .total-row.final {
+            border-top: 2px solid #e0d3c6;
+            margin-top: 10px;
+            padding-top: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #5c3d2e;
+        }
+
+        .shipping-section {
+            margin-bottom: 25px;
+        }
+
+        .shipping-select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid #d4b896;
+            font-size: 1rem;
+            margin-top: 10px;
+            background-color: #f9f5f0;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background-color: #8B4513;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .checkout-btn:hover {
+            background-color: #A0522D;
+        }
+
+        .checkout-form {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(139, 69, 19, 0.1);
+            margin-top: 30px;
+            display: none;
+            border: 1px solid #e0d3c6;
+        }
+
+        .form-title {
+            color: #8B4513;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0d3c6;
+            font-family: 'Georgia', serif;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #5c3d2e;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid #d4b896;
+            font-size: 1rem;
+            background-color: #f9f5f0;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .submit-order-btn {
+            background-color: #8B4513;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .submit-order-btn:hover {
+            background-color: #A0522D;
+        }
+
+        .empty-cart {
+            text-align: center;
+            color: #7f8c8d;
+            padding: 40px 20px;
+        }
+
+        .empty-cart i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #d4b896;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            border: 2px solid #8B4513;
+        }
+
+        .modal h3 {
+            margin-bottom: 15px;
+            color: #8B4513;
+            font-family: 'Georgia', serif;
+        }
+
+        .modal p {
+            margin-bottom: 20px;
+            color: #5c3d2e;
+            line-height: 1.6;
+        }
+
+        .modal-btn {
+            background-color: #8B4513;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        footer {
+            background-color: #5c3d2e;
+            color: #f1e6d6;
+            text-align: center;
+            padding: 25px 0;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .whatsapp-contact {
+            background-color: #25D366;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            margin-top: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Estilos para la notificación */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #8B4513;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1001;
+            border-left: 5px solid #A0522D;
+        }
+
+        .restaurant-info {
+            background-color: #f9f5f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #e0d3c6;
+            text-align: center;
+        }
+
+        .restaurant-info p {
+            color: #5c3d2e;
+            margin-bottom: 10px;
+        }
+
+        .restaurant-info h3 {
+            color: #8B4513;
+            margin-bottom: 15px;
+            font-family: 'Georgia', serif;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-utensils"></i>
+                    <h1>Barbacoa de la Casa Vieja</h1>
+                </div>
+                <div class="cart-icon" id="cartIcon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <div class="cart-count" id="cartCount">0</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="restaurant-info">
+            <h3>¡Bienvenido a la mejor barbacoa de la ciudad!</h3>
+            <p>Ordena en línea y recibe tu pedido en la puerta de tu casa</p>
+            <p>Horario: Lunes a Domingo 8:00 AM - 6:00 PM</p>
+        </div>
+        
+        <div class="main-content">
+            <!-- Sección del menú -->
+            <section class="menu-section">
+                <h2 class="section-title">Nuestro Menú</h2>
+                
+                <div class="menu-categories">
+                    <button class="category-btn active" data-category="all">Todo el Menú</button>
+                    <button class="category-btn" data-category="barbacoa">Barbacoa</button>
+                    <button class="category-btn" data-category="bebidas">Bebidas</button>
+                    <button class="category-btn" data-category="postres">Postres</button>
+                    <button class="category-btn" data-category="otros">Otros</button>
+                </div>
+
+                <div class="products-grid" id="productsGrid">
+                    <!-- Los productos se cargarán aquí con JavaScript -->
+                </div>
+            </section>
+
+            <!-- Sección del carrito -->
+            <section class="cart-section">
+                <h2 class="section-title">Tu Pedido</h2>
+                
+                <div class="cart-items" id="cartItems">
+                    <!-- Los elementos del carrito se cargarán aquí -->
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <p>Tu carrito está vacío</p>
+                    </div>
+                </div>
+
+                <div class="cart-totals">
+                    <div class="total-row">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">$0.00</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Costo de envío:</span>
+                        <span id="shippingCost">$0.00</span>
+                    </div>
+                    <div class="total-row final">
+                        <span>Total:</span>
+                        <span id="total">$0.00</span>
+                    </div>
+                </div>
+
+                <div class="shipping-section">
+                    <h3 class="section-title">Área de Envío</h3>
+                    <select class="shipping-select" id="shippingArea">
+                        <option value="0">Selecciona un área</option>
+                        <!-- Las opciones se cargarán con JavaScript -->
+                    </select>
+                </div>
+
+                <button class="checkout-btn" id="checkoutBtn">
+                    <i class="fas fa-check-circle"></i> Proceder al Pedido
+                </button>
+            </section>
+        </div>
+
+        <!-- Formulario de checkout -->
+        <section class="checkout-form" id="checkoutForm">
+            <h2 class="form-title">Información de Envío</h2>
+            
+            <form id="orderForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="customerName">Nombre Completo *</label>
+                        <input type="text" id="customerName" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerPhone">Teléfono *</label>
+                        <input type="tel" id="customerPhone" class="form-control" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="customerAddress">Dirección *</label>
+                    <input type="text" id="customerAddress" class="form-control" placeholder="Calle, número, colonia, referencias" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="customerNotes">Instrucciones adicionales</label>
+                    <textarea id="customerNotes" class="form-control" rows="3" placeholder="Ej: Sin cebolla, más consome, entregar en puerta, etc."></textarea>
+                </div>
+                
+                <button type="submit" class="submit-order-btn">
+                    <i class="fab fa-whatsapp"></i> Enviar Pedido por WhatsApp
+                </button>
+            </form>
+        </section>
+    </div>
+
+    <!-- Modal de confirmación -->
+    <div class="modal" id="confirmationModal">
+        <div class="modal-content">
+            <h3>¡Pedido Enviado!</h3>
+            <p>Tu pedido ha sido enviado a Barbacoa de la Casa Vieja por WhatsApp. Te contactaremos pronto para confirmar tu pedido.</p>
+            <p>Si tienes alguna duda, comunícate al: <strong>+52 55 7867 7774</strong></p>
+            <button class="modal-btn" id="closeModalBtn">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- Notificación -->
+    <div class="notification" id="notification">
+        Producto agregado al carrito
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>Barbacoa de la Casa Vieja &copy; 2023 - Tradición y sabor de generación en generación</p>
+                <p>Envíos a domicilio - Horario: Lunes a Domingo 8:00 AM - 6:00 PM</p>
+                <div class="whatsapp-contact">
+                    <i class="fab fa-whatsapp"></i> WhatsApp: +52 55 7867 7774
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ============================================
+        // ZONA DE CONFIGURACIÓN - EDITAR AQUÍ
+        // ============================================
+
+        // 1. CONFIGURAR NÚMERO DE WHATSAPP
+        const whatsappNumber = "+525578677774"; // Número proporcionado
+
+        // 2. CONFIGURAR ÁREAS DE ENVÍO Y SUS COSTOS
+        const shippingAreas = [
+            { id: 1, name: "Centro - Sin costo", cost: 0.00 },
+            { id: 2, name: "Colonias cercanas - $30", cost: 30.00 },
+            { id: 3, name: "Zona Norte - $50", cost: 50.00 },
+            { id: 4, name: "Zona Sur - $50", cost: 50.00 },
+            { id: 5, name: "Zona Oriente - $60", cost: 60.00 },
+            { id: 6, name: "Zona Poniente - $60", cost: 60.00 },
+            { id: 7, name: "Recoger en local", cost: 0.00 }
+        ];
+
+        // 3. CONFIGURAR PRODUCTOS DEL MENÚ
+        const products = [
+            // Barbacoa
+            {
+                id: 1,
+                name: "Kilogramo de barbacoa sin hueso",
+                category: "barbacoa",
+                description: "Deliciosa barbacoa de borrego cocida a fuego lento por horas. Incluye tortillas, cebolla, cilantro, salsa y limón.",
+                price: 780.00,
+                image: "https://images.unsplash.com/photo-1594041680534-e8c8cdebd659?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 2,
+                name: "1/2 Kilogramo de barbacoa sin hueso",
+                category: "barbacoa",
+                description: "Media porción de nuestra deliciosa barbacoa de borrego. Incluye tortillas, cebolla, cilantro, salsa y limón.",
+                price: 390.00,
+                image: "https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 3,
+                name: "1/4 Kilogramo de barbacoa sin hueso",
+                category: "barbacoa",
+                description: "Cuarto de kilogramo de barbacoa de borrego. Incluye tortillas, cebolla, cilantro, salsa y limón.",
+                price: 195.00,
+                image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 4,
+                name: "Kilogramo de pancita",
+                category: "barbacoa",
+                description: "Menudo de pancita de res, cocido a la perfección con nuestro sazón especial.",
+                price: 780.00,
+                image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 5,
+                name: "1/2 Kilogramo de pancita",
+                category: "barbacoa",
+                description: "Media porción de nuestra deliciosa pancita de res.",
+                price: 390.00,
+                image: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 6,
+                name: "1/4 Kilogramo de pancita",
+                category: "barbacoa",
+                description: "Cuarto de kilogramo de pancita de res.",
+                price: 195.00,
+                image: "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 7,
+                name: "Taco de barbacoa",
+                category: "barbacoa",
+                description: "Taco de barbacoa de borrego en tortilla de maíz. Incluye cebolla, cilantro y salsa.",
+                price: 55.00,
+                image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 8,
+                name: "Taco de pancita",
+                category: "barbacoa",
+                description: "Taco de pancita de res en tortilla de maíz. Incluye cebolla, cilantro y salsa.",
+                price: 55.00,
+                image: "https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 9,
+                name: "Plato de consomé",
+                category: "barbacoa",
+                description: "Consomé de borrego tradicional, servido con garbanzo, arroz y hierbabuena.",
+                price: 145.00,
+                image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 10,
+                name: "Litro de consomé",
+                category: "barbacoa",
+                description: "Un litro de nuestro delicioso consomé de borrego.",
+                price: 180.00,
+                image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 11,
+                name: "1/2 Litro de consomé",
+                category: "barbacoa",
+                description: "Medio litro de consomé de borrego.",
+                price: 90.00,
+                image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 12,
+                name: "Flautas doradas de barbacoa (orden de 3)",
+                category: "barbacoa",
+                description: "Tres flautas doradas rellenas de barbacoa, bañadas en crema, queso y lechuga.",
+                price: 140.00,
+                image: "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 13,
+                name: "Flauta dorada de barbacoa",
+                category: "barbacoa",
+                description: "Flauta dorada individual rellena de barbacoa.",
+                price: 48.00,
+                image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 14,
+                name: "Flautas doradas de pollo (orden de 3)",
+                category: "barbacoa",
+                description: "Tres flautas doradas rellenas de pollo, bañadas en crema, queso y lechuga.",
+                price: 110.00,
+                image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 15,
+                name: "Flauta dorada de pollo",
+                category: "barbacoa",
+                description: "Flauta dorada individual rellena de pollo.",
+                price: 38.00,
+                image: "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 16,
+                name: "Plato de aguacate",
+                category: "barbacoa",
+                description: "Rebanadas de aguacate fresco para acompañar tu barbacoa.",
+                price: 45.00,
+                image: "https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 17,
+                name: "Plato de nopales",
+                category: "barbacoa",
+                description: "Nopales asados con cebolla y cilantro.",
+                price: 65.00,
+                image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            
+            // Bebidas
+            {
+                id: 18,
+                name: "Café de olla",
+                category: "bebidas",
+                description: "Café tradicional mexicano preparado con canela y piloncillo.",
+                price: 38.00,
+                image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 19,
+                name: "Jugo de temporada",
+                category: "bebidas",
+                description: "Jugo natural de la temporada (naranja, toronja, zanahoria, etc.).",
+                price: 40.00,
+                image: "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 20,
+                name: "Agua del día",
+                category: "bebidas",
+                description: "Agua fresca del día (horchata, jamaica, tamarindo, etc.).",
+                price: 28.00,
+                image: "https://images.unsplash.com/photo-1577805947697-89e18249d767?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 21,
+                name: "Sangría (355 ml)",
+                category: "bebidas",
+                description: "Refrescante bebida de frutas.",
+                price: 35.00,
+                image: "https://images.unsplash.com/photo-1437418747212-8d9709afab22?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 22,
+                name: "Pepsi (355 ml)",
+                category: "bebidas",
+                description: "Refresco de cola.",
+                price: 35.00,
+                image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 23,
+                name: "7 Up (355 ml)",
+                category: "bebidas",
+                description: "Refresco de lima-limón.",
+                price: 35.00,
+                image: "https://images.unsplash.com/photo-1624517452488-04869289c4ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 24,
+                name: "Boing (355 ml)",
+                category: "bebidas",
+                description: "Jugo de manzana, uva, mango o guayaba.",
+                price: 35.00,
+                image: "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 25,
+                name: "Coca-Cola regular (355 ml)",
+                category: "bebidas",
+                description: "Refresco de cola regular.",
+                price: 35.00,
+                image: "https://images.unsplash.com/photo-1554866585-cd94860890b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 26,
+                name: "Coca-Cola light (355 ml)",
+                category: "bebidas",
+                description: "Refresco de cola light.",
+                price: 35.00,
+                image: "https://images.unsplash.com/photo-1554866585-cd94860890b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 27,
+                name: "Agua mineral (355 ml)",
+                category: "bebidas",
+                description: "Agua mineral natural.",
+                price: 35.00,
+                image: "https://images.unsplash.com/photo-1523362628745-0c100150b504?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 28,
+                name: "Mundet rojo (355 ml)",
+                category: "bebidas",
+                description: "Refresco de manzana roja.",
+                price: 35.00,
+                image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 29,
+                name: "Mundet manzana (355 ml)",
+                category: "bebidas",
+                description: "Refresco de manzana verde.",
+                price: 35.00,
+                image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 30,
+                name: "Cerveza (Indio o Carta Blanca)",
+                category: "bebidas",
+                description: "Cerveza clara mexicana.",
+                price: 45.00,
+                image: "https://images.unsplash.com/photo-1571613316887-6f8d5cbf7ef7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            
+            // Postres
+            {
+                id: 31,
+                name: "Flan de cajeta",
+                category: "postres",
+                description: "Tradicional flan casero bañado en cajeta.",
+                price: 35.00,
+                image: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 32,
+                name: "Flan de queso",
+                category: "postres",
+                description: "Flan con un toque especial de queso crema.",
+                price: 35.00,
+                image: "https://images.unsplash.com/photo-1488477181946-6428a0291777?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 33,
+                name: "Flan de mazapán",
+                category: "postres",
+                description: "Flan con sabor a mazapán, decorado con cacahuates.",
+                price: 35.00,
+                image: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 34,
+                name: "Pan dulce",
+                category: "postres",
+                description: "Selección de pan dulce tradicional mexicano.",
+                price: 25.00,
+                image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            
+            // Otros
+            {
+                id: 35,
+                name: "Paletas Meyvi",
+                category: "otros",
+                description: "Paleta de hielo con sabor a frutas.",
+                price: 35.00,
+                image: "https://images.unsplash.com/photo-1579389083046-e3df9c2c32b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 36,
+                name: "Chocolate con oreo",
+                category: "otros",
+                description: "Chocolate caliente con galletas oreo trituradas.",
+                price: 35.00,
+                image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 37,
+                name: "Carajillo de café",
+                category: "otros",
+                description: "Café combinado con licor 43.",
+                price: 35.00,
+                image: "https://images.unsplash.com/photo-1498804103079-a6351b050096?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 38,
+                name: "Fresas con crema",
+                category: "otros",
+                description: "Fresas frescas con crema batida.",
+                price: 25.00,
+                image: "https://images.unsplash.com/photo-1570586437263-ab629fccc6c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 39,
+                name: "Limón con panditas",
+                category: "otros",
+                description: "Limón preparado con gomitas de osito.",
+                price: 25.00,
+                image: "https://images.unsplash.com/photo-1567306301408-9b74779a11af?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            }
+        ];
+
+        // ============================================
+        // FIN DE ZONA DE CONFIGURACIÓN
+        // ============================================
+
+        // Variables globales
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let currentCategory = 'all';
+
+        // Actualizar número de WhatsApp en el footer (ya está en el HTML)
+
+        // Inicializar la aplicación
+        document.addEventListener('DOMContentLoaded', function() {
+            renderProducts();
+            renderShippingOptions();
+            updateCartDisplay();
+            
+            // Manejar clics en categorías
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentCategory = this.getAttribute('data-category');
+                    renderProducts();
+                });
+            });
+            
+            // Mostrar formulario de checkout
+            document.getElementById('checkoutBtn').addEventListener('click', function() {
+                if (cart.length === 0) {
+                    showNotification('Tu carrito está vacío');
+                    return;
+                }
+                
+                const shippingArea = document.getElementById('shippingArea').value;
+                if (shippingArea === "0") {
+                    showNotification('Por favor selecciona un área de envío');
+                    return;
+                }
+                
+                document.getElementById('checkoutForm').style.display = 'block';
+                window.scrollTo({
+                    top: document.getElementById('checkoutForm').offsetTop - 20,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Manejar envío del formulario
+            document.getElementById('orderForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                sendOrderToWhatsApp();
+            });
+            
+            // Cerrar modal
+            document.getElementById('closeModalBtn').addEventListener('click', function() {
+                document.getElementById('confirmationModal').style.display = 'none';
+            });
+            
+            // Mostrar/ocultar carrito
+            document.getElementById('cartIcon').addEventListener('click', function() {
+                document.querySelector('.cart-section').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Renderizar productos en la página
+        function renderProducts() {
+            const productsGrid = document.getElementById('productsGrid');
+            productsGrid.innerHTML = '';
+            
+            const filteredProducts = currentCategory === 'all' 
+                ? products 
+                : products.filter(product => product.category === currentCategory);
+            
+            if (filteredProducts.length === 0) {
+                productsGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #7f8c8d; padding: 40px;">No hay productos en esta categoría.</p>';
+                return;
+            }
+            
+            filteredProducts.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="product-img">
+                    <div class="product-info">
+                        <h3 class="product-title">${product.name}</h3>
+                        <p class="product-desc">${product.description}</p>
+                        <div class="product-footer">
+                            <div class="product-price">$${product.price.toFixed(2)}</div>
+                            <button class="add-to-cart" onclick="addToCart(${product.id})">
+                                <i class="fas fa-cart-plus"></i> Añadir
+                            </button>
+                        </div>
+                    </div>
+                `;
+                productsGrid.appendChild(productCard);
+            });
+        }
+
+        // Renderizar opciones de envío
+        function renderShippingOptions() {
+            const shippingSelect = document.getElementById('shippingArea');
+            shippingSelect.innerHTML = '<option value="0">Selecciona un área</option>';
+            
+            shippingAreas.forEach(area => {
+                const option = document.createElement('option');
+                option.value = area.cost;
+                option.textContent = `${area.name} ${area.cost > 0 ? '- $' + area.cost.toFixed(2) : ''}`;
+                shippingSelect.appendChild(option);
+            });
+            
+            // Actualizar costo de envío cuando cambia la selección
+            shippingSelect.addEventListener('change', updateCartDisplay);
+        }
+
+        // Agregar producto al carrito
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            
+            // Verificar si el producto ya está en el carrito
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    quantity: 1
+                });
+            }
+            
+            // Guardar en localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            // Actualizar vista del carrito
+            updateCartDisplay();
+            
+            // Mostrar notificación
+            showNotification(`${product.name} agregado al carrito`);
+        }
+
+        // Actualizar visualización del carrito
+        function updateCartDisplay() {
+            const cartItemsContainer = document.getElementById('cartItems');
+            const cartCount = document.getElementById('cartCount');
+            const subtotalElement = document.getElementById('subtotal');
+            const shippingCostElement = document.getElementById('shippingCost');
+            const totalElement = document.getElementById('total');
+            
+            // Actualizar contador
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // Calcular subtotal
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            // Obtener costo de envío
+            const shippingSelect = document.getElementById('shippingArea');
+            const shippingCost = parseFloat(shippingSelect.value) || 0;
+            
+            // Calcular total
+            const total = subtotal + shippingCost;
+            
+            // Actualizar valores en la UI
+            subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+            shippingCostElement.textContent = `$${shippingCost.toFixed(2)}`;
+            totalElement.textContent = `$${total.toFixed(2)}`;
+            
+            // Renderizar elementos del carrito
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <p>Tu carrito está vacío</p>
+                    </div>
+                `;
+            } else {
+                cartItemsContainer.innerHTML = '';
+                cart.forEach(item => {
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    cartItem.innerHTML = `
+                        <div class="cart-item-info">
+                            <h4>${item.name}</h4>
+                            <div class="cart-item-price">$${item.price.toFixed(2)} c/u</div>
+                        </div>
+                        <div class="cart-item-controls">
+                            <input type="number" min="1" value="${item.quantity}" class="cart-item-qty" onchange="updateQuantity(${item.id}, this.value)">
+                            <button class="remove-item" onclick="removeFromCart(${item.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(cartItem);
+                });
+            }
+        }
+
+        // Actualizar cantidad de un producto en el carrito
+        function updateQuantity(productId, newQuantity) {
+            const quantity = parseInt(newQuantity);
+            
+            if (quantity < 1) {
+                removeFromCart(productId);
+                return;
+            }
+            
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity = quantity;
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartDisplay();
+            }
+        }
+
+        // Eliminar producto del carrito
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+            showNotification('Producto eliminado del carrito');
+        }
+
+        // Enviar pedido por WhatsApp
+        function sendOrderToWhatsApp() {
+            const customerName = document.getElementById('customerName').value;
+            const customerPhone = document.getElementById('customerPhone').value;
+            const customerAddress = document.getElementById('customerAddress').value;
+            const customerNotes = document.getElementById('customerNotes').value;
+            
+            // Obtener área de envío seleccionada
+            const shippingSelect = document.getElementById('shippingArea');
+            const selectedOption = shippingSelect.options[shippingSelect.selectedIndex].text;
+            
+            // Calcular totales
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const shippingCost = parseFloat(shippingSelect.value) || 0;
+            const total = subtotal + shippingCost;
+            
+            // Construir mensaje
+            let message = `*NUEVO PEDIDO - Barbacoa de la Casa Vieja*%0A%0A`;
+            message += `*Cliente:* ${customerName}%0A`;
+            message += `*Teléfono:* ${customerPhone}%0A`;
+            message += `*Dirección:* ${customerAddress}%0A`;
+            message += `*Área de envío:* ${selectedOption}%0A`;
+            
+            if (customerNotes) {
+                message += `*Instrucciones:* ${customerNotes}%0A`;
+            }
+            
+            message += `%0A*DETALLE DEL PEDIDO:*%0A`;
+            
+            cart.forEach(item => {
+                message += `- ${item.name} x${item.quantity}: $${(item.price * item.quantity).toFixed(2)}%0A`;
+            });
+            
+            message += `%0A*SUBTOTAL:* $${subtotal.toFixed(2)}%0A`;
+            message += `*ENVÍO:* $${shippingCost.toFixed(2)}%0A`;
+            message += `*TOTAL:* $${total.toFixed(2)}%0A%0A`;
+            message += `*Fecha y hora:* ${new Date().toLocaleString('es-MX')}`;
+            
+            // Crear enlace de WhatsApp
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
+            
+            // Abrir en nueva ventana
+            window.open(whatsappUrl, '_blank');
+            
+            // Mostrar modal de confirmación
+            document.getElementById('confirmationModal').style.display = 'flex';
+            
+            // Limpiar carrito y formulario
+            cart = [];
+            localStorage.removeItem('cart');
+            document.getElementById('orderForm').reset();
+            document.getElementById('checkoutForm').style.display = 'none';
+            
+            // Actualizar vista del carrito
+            updateCartDisplay();
+        }
+
+        // Mostrar notificación temporal
+        function showNotification(text) {
+            const notification = document.getElementById('notification');
+            notification.textContent = text;
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

@@ -993,11 +993,7 @@
                         <button class="use-current-location-btn" id="useCurrentLocationBtn">
                             <i class="fas fa-location-arrow"></i> Usar mi ubicación actual
                         </button>
-                         
-                    <div id="deliveryAddressSection" style="display: none; margin-top: 15px;">
-                        <label for="deliveryAddress">Dirección para envío </label>
-                        <input type="text" id="deliveryAddress" class="form-control" placeholder="Calle, número, colonia, ciudad">
-                        
+               
                         <button class="calculate-shipping-btn" id="calculateShippingBtn">
                             <i class="fas fa-map-marker-alt"></i> Calcular Costo de Envío
                         </button>
@@ -1019,7 +1015,12 @@
                         <div class="loading" id="shippingLoading">
                             <i class="fas fa-spinner"></i> Calculando distancia y costo...
                         </div>
-                        
+                                  
+                    <div id="deliveryAddressSection" style="display: none; margin-top: 15px;">
+                        <label for="deliveryAddress">Dirección para envío </label>
+                        <input type="text" id="deliveryAddress" class="form-control" placeholder="Calle, número, colonia, ciudad">
+                        </div>
+                    
                         <!-- Información de distancia y costo -->
                         <div class="distance-details" id="distanceDetails" style="display: none;">
                             <div class="distance-row">

@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barbacoa de la Casa Vieja - Menú Interactivo</title>
+    <title>Barbacoa de la Casa Vieja - Menú Interactivo con Mapbox</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Mapbox CSS -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -699,6 +701,194 @@
         .error-message.active {
             display: block;
         }
+
+        /* Estilos para Mapbox */
+        .mapbox-container {
+            margin-top: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid #8B4513;
+            display: none;
+            height: 300px;
+            position: relative;
+        }
+
+        .mapbox-container.active {
+            display: block;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+
+        .map-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 10;
+        }
+
+        .map-btn {
+            background-color: #8B4513;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .map-btn:hover {
+            background-color: #A0522D;
+        }
+
+        .map-address-search {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 60px;
+            z-index: 10;
+            background-color: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            padding: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .map-address-search input {
+            flex-grow: 1;
+            border: none;
+            padding: 8px;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .map-address-search button {
+            background-color: #8B4513;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 15px;
+            margin-left: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .map-marker-info {
+            background-color: white;
+            padding: 10px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            max-width: 200px;
+            font-size: 0.9rem;
+        }
+
+        .map-marker-info h4 {
+            color: #8B4513;
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+
+        .distance-details {
+            background-color: #f0f8ff;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            border-left: 4px solid #3498db;
+        }
+
+        .distance-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .distance-row.total {
+            font-weight: bold;
+            border-top: 1px solid #3498db;
+            padding-top: 10px;
+            margin-top: 10px;
+            font-size: 1.1rem;
+            color: #2c3e50;
+        }
+
+        .delivery-zone {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .zone-close {
+            background-color: #2ecc71;
+            color: white;
+        }
+
+        .zone-medium {
+            background-color: #f39c12;
+            color: white;
+        }
+
+        .zone-far {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .zone-out {
+            background-color: #7f8c8d;
+            color: white;
+        }
+
+        .delivery-limit-warning {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+            border-left: 4px solid #f5c6cb;
+            display: none;
+        }
+
+        .delivery-limit-warning.active {
+            display: block;
+        }
+
+        .use-current-location-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .use-current-location-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .location-icon {
+            color: #3498db;
+            margin-right: 5px;
+        }
     </style>
 </head>
 <body>
@@ -707,7 +897,6 @@
             <div class="header-content">
                 <!-- Logo del restaurante en el header -->
                 <div class="logo-container">
-                    <!-- REEMPLAZA ESTA URL CON LA DE TU LOGO -->
                     <img src="https://cdn-icons-png.flaticon.com/512/1046/1046751.png" alt="Logo Barbacoa de la Casa Vieja" class="logo-img">
                     <h1 class="logo-text">Barbacoa de la Casa Vieja</h1>
                 </div>
@@ -724,7 +913,7 @@
             <h3>¡Bienvenido a la mejor barbacoa de la ciudad!</h3>
             <p>Ordena en línea y recibe tu pedido en la puerta de tu casa</p>
             <p>Horario: Sábado y Domingo 8:00 AM - 2:00 PM</p>
-            <p><strong>Dirección del restaurante:</strong> Av. Principal #123, Centro, Ciudad de México</p>
+            <p><strong>Dirección del restaurante:</strong> <i class="fas fa-map-marker-alt location-icon"></i> Alejandría 35, Claveria, Azcapotzalco, 02080 Ciudad de México, CDMX</p>
         </div>
         
         <div class="main-content">
@@ -788,27 +977,64 @@
                     <div id="deliveryAddressSection" style="display: none; margin-top: 15px;">
                         <label for="deliveryAddress">Dirección para envío *</label>
                         <input type="text" id="deliveryAddress" class="form-control" placeholder="Calle, número, colonia, ciudad">
-                        <button class="calculate-shipping-btn" id="calculateShippingBtn">
-                            <i class="fas fa-map-marker-alt"></i> Calcular Costo de Envío
+                        
+                        <button class="use-current-location-btn" id="useCurrentLocationBtn">
+                            <i class="fas fa-location-arrow"></i> Usar mi ubicación actual
                         </button>
+                        
+                        <button class="calculate-shipping-btn" id="calculateShippingBtn">
+                            <i class="fas fa-map-marker-alt"></i> Calcular Costo de Envío con Mapbox
+                        </button>
+                        
+                        <!-- Contenedor del mapa -->
+                        <div class="mapbox-container" id="mapboxContainer">
+                            <div class="map-address-search">
+                                <input type="text" id="mapSearch" placeholder="Buscar dirección en el mapa...">
+                                <button id="mapSearchBtn"><i class="fas fa-search"></i></button>
+                            </div>
+                            <div class="map-controls">
+                                <button class="map-btn" id="zoomInBtn" title="Acercar"><i class="fas fa-plus"></i></button>
+                                <button class="map-btn" id="zoomOutBtn" title="Alejar"><i class="fas fa-minus"></i></button>
+                                <button class="map-btn" id="locateBtn" title="Mi ubicación"><i class="fas fa-crosshairs"></i></button>
+                            </div>
+                            <div id="map"></div>
+                        </div>
                         
                         <div class="loading" id="shippingLoading">
                             <i class="fas fa-spinner"></i> Calculando distancia y costo...
                         </div>
                         
-                        <div class="shipping-info" id="shippingInfo">
-                            <div class="shipping-details">
-                                <span>Distancia aproximada:</span>
+                        <!-- Información de distancia y costo -->
+                        <div class="distance-details" id="distanceDetails" style="display: none;">
+                            <div class="distance-row">
+                                <span>Distancia:</span>
                                 <span id="distanceText">-- km</span>
                             </div>
-                            <div class="shipping-details">
+                            <div class="distance-row">
                                 <span>Tiempo estimado:</span>
                                 <span id="timeText">-- min</span>
                             </div>
-                            <div class="shipping-details">
-                                <span><strong>Costo de envío:</strong></span>
+                            <div class="distance-row">
+                                <span>Tarifa base:</span>
+                                <span id="baseRateText">$0.00</span>
+                            </div>
+                            <div class="distance-row">
+                                <span>Tarifa por km:</span>
+                                <span id="perKmText">$0.00</span>
+                            </div>
+                            <div class="distance-row">
+                                <span>Zona de entrega:</span>
+                                <span id="deliveryZoneText">--</span>
+                            </div>
+                            <div class="distance-row total">
+                                <span>Costo de envío:</span>
                                 <span id="calculatedShippingCost"><strong>$0.00</strong></span>
                             </div>
+                        </div>
+                        
+                        <!-- Advertencia de límite de entrega -->
+                        <div class="delivery-limit-warning" id="deliveryLimitWarning">
+                            <i class="fas fa-exclamation-triangle"></i> Lo sentimos, no entregamos a más de <span id="maxDistanceText">20</span> km de distancia.
                         </div>
                     </div>
                 </div>
@@ -895,7 +1121,6 @@
     <!-- Modal de confirmación -->
     <div class="modal" id="confirmationModal">
         <div class="modal-content">
-            <!-- Logo en el modal -->
             <img src="https://cdn-icons-png.flaticon.com/512/1046/1046751.png" alt="Logo" class="modal-logo">
             <h3>¡Pedido Enviado!</h3>
             <p>Tu pedido ha sido enviado a Barbacoa de la Casa Vieja por WhatsApp. Te contactaremos pronto para confirmar tu pedido.</p>
@@ -912,7 +1137,6 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <!-- Logo en el footer -->
                 <img src="https://cdn-icons-png.flaticon.com/512/1046/1046751.png" alt="Logo Barbacoa" class="footer-logo">
                 <p>Barbacoa de la Casa Vieja &copy; 2025 - Tradición y sabor desde 1989</p>
                 <p>Envíos a domicilio - Horario: Sábado y Domingo 8:00 AM - 2:00 PM</p>
@@ -923,6 +1147,9 @@
         </div>
     </footer>
 
+    <!-- Mapbox GL JS -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js"></script>
+    
     <script>
         // ============================================
         // ZONA DE CONFIGURACIÓN - EDITAR AQUÍ
@@ -933,17 +1160,28 @@
 
         // 2. CONFIGURAR DIRECCIÓN DEL RESTAURANTE (para cálculo de distancias)
         const restaurantAddress = "Alejandría 35, Claveria, Azcapotzalco, 02080 Ciudad de México, CDMX";
+        const restaurantCoords = [-99.1853, 19.4646]; // NUEVAS COORDENADAS EXACTAS DEL RESTAURANTE
 
-        // 3. CONFIGURAR TARIFAS DE ENVÍO
+        // 3. CONFIGURAR TARIFAS DE ENVÍO CON MAPBOX
         const shippingRates = {
             baseRate: 30.00, // Tarifa base
             perKmRate: 5.00, // Tarifa por kilómetro adicional
             freeDeliveryThreshold: 50000.00, // Pedidos mayores a esta cantidad tienen envío gratis
-            maxDistance: 20, // Distancia máxima en km para entregas (más allá no se entrega)
-            minOrderForDelivery: 100.00 // Pedido mínimo para entrega a domicilio
+            maxDistance: 20, // Distancia máxima en km para entregas
+            minOrderForDelivery: 100.00, // Pedido mínimo para entrega a domicilio
+            deliveryZones: [
+                { maxDistance: 5, name: "Zona Cercana", rateMultiplier: 1.0 },
+                { maxDistance: 10, name: "Zona Media", rateMultiplier: 1.2 },
+                { maxDistance: 15, name: "Zona Lejana", rateMultiplier: 1.5 },
+                { maxDistance: 20, name: "Zona Límite", rateMultiplier: 2.0 }
+            ]
         };
 
-        // 4. CONFIGURAR PRODUCTOS DEL MENÚ
+        // 4. CONFIGURAR TOKEN DE MAPBOX
+        const mapboxToken = 'pk.eyJ1IjoiY3Jvbm9zYmFyYmFjb2EiLCJhIjoiY21qYXlzN2EzMGEwcTNkcTF3c2w2YWc2bCJ9.dKvmIuJz1h-loUcVlx5Ojw';
+        mapboxgl.accessToken = mapboxToken;
+
+        // 5. CONFIGURAR PRODUCTOS DEL MENÚ
         const products = [
             // Barbacoa
             {
@@ -1279,11 +1517,18 @@
         let paymentMethod = 'card'; // Por defecto tarjeta
         let cashAmount = 0;
         let changeAmount = 0;
+        let map = null;
+        let restaurantMarker = null;
+        let deliveryMarker = null;
+        let routeLayer = null;
+        let userLocation = null;
+        let deliveryZone = "";
 
         // Inicializar la aplicación
         document.addEventListener('DOMContentLoaded', function() {
             renderProducts();
             updateCartDisplay();
+            initMapbox();
             
             // Manejar clics en categorías
             document.querySelectorAll('.category-btn').forEach(btn => {
@@ -1305,18 +1550,38 @@
                     if (deliveryType === 'delivery') {
                         addressSection.style.display = 'block';
                         finalAddressSection.style.display = 'block';
+                        // Mostrar el mapa
+                        document.getElementById('mapboxContainer').classList.add('active');
+                        // Centrar el mapa en la ubicación del restaurante
+                        if (map) {
+                            map.setCenter(restaurantCoords);
+                            map.setZoom(12);
+                        }
                     } else {
                         addressSection.style.display = 'none';
                         finalAddressSection.style.display = 'none';
                         currentShippingCost = 0;
                         updateCartDisplay();
-                        document.getElementById('shippingInfo').classList.remove('active');
+                        document.getElementById('mapboxContainer').classList.remove('active');
+                        document.getElementById('distanceDetails').style.display = 'none';
+                        document.getElementById('deliveryLimitWarning').classList.remove('active');
                     }
                 });
             });
             
+            // Usar ubicación actual
+            document.getElementById('useCurrentLocationBtn').addEventListener('click', getCurrentLocation);
+            
             // Calcular envío
-            document.getElementById('calculateShippingBtn').addEventListener('click', calculateShipping);
+            document.getElementById('calculateShippingBtn').addEventListener('click', calculateShippingWithMapbox);
+            
+            // Buscar dirección en el mapa
+            document.getElementById('mapSearchBtn').addEventListener('click', searchAddressOnMap);
+            document.getElementById('mapSearch').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchAddressOnMap();
+                }
+            });
             
             // Seleccionar método de pago
             document.getElementById('cashMethod').addEventListener('click', function() {
@@ -1395,6 +1660,377 @@
                 document.querySelector('.cart-section').scrollIntoView({ behavior: 'smooth' });
             });
         });
+
+        // Inicializar Mapbox
+        function initMapbox() {
+            if (!mapboxgl.accessToken) {
+                console.error('Token de Mapbox no configurado');
+                return;
+            }
+            
+            // Crear el mapa
+            map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/streets-v12',
+                center: restaurantCoords,
+                zoom: 12
+            });
+            
+            // Agregar controles de navegación
+            map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+            
+            // Agregar marcador del restaurante
+            restaurantMarker = new mapboxgl.Marker({ color: '#8B4513' })
+                .setLngLat(restaurantCoords)
+                .setPopup(new mapboxgl.Popup().setHTML(`
+                    <div class="map-marker-info">
+                        <h4>Barbacoa de la Casa Vieja</h4>
+                        <p>Alejandría 35, Claveria, Azcapotzalco</p>
+                        <p><strong>Punto de recolección</strong></p>
+                    </div>
+                `))
+                .addTo(map);
+            
+            // Configurar controles del mapa
+            document.getElementById('zoomInBtn').addEventListener('click', () => map.zoomIn());
+            document.getElementById('zoomOutBtn').addEventListener('click', () => map.zoomOut());
+            document.getElementById('locateBtn').addEventListener('click', getCurrentLocation);
+            
+            // Manejar clics en el mapa para colocar marcador
+            map.on('click', function(e) {
+                placeDeliveryMarker(e.lngLat);
+            });
+            
+            // Cargar el mapa
+            map.on('load', function() {
+                console.log('Mapa de Mapbox cargado correctamente');
+            });
+        }
+
+        // Obtener ubicación actual del usuario
+        function getCurrentLocation() {
+            if (!navigator.geolocation) {
+                showNotification('Tu navegador no soporta geolocalización');
+                return;
+            }
+            
+            document.getElementById('shippingLoading').classList.add('active');
+            
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    const userCoords = [position.coords.longitude, position.coords.latitude];
+                    userLocation = userCoords;
+                    
+                    // Colocar marcador en la ubicación del usuario
+                    placeDeliveryMarker(userCoords);
+                    
+                    // Obtener dirección a partir de las coordenadas
+                    reverseGeocode(userCoords);
+                    
+                    document.getElementById('shippingLoading').classList.remove('active');
+                },
+                function(error) {
+                    console.error('Error al obtener ubicación:', error);
+                    showNotification('No se pudo obtener tu ubicación. Por favor ingresa tu dirección manualmente.');
+                    document.getElementById('shippingLoading').classList.remove('active');
+                },
+                { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+            );
+        }
+
+        // Geocodificación inversa: obtener dirección a partir de coordenadas
+        function reverseGeocode(coords) {
+            const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${coords[0]},${coords[1]}.json?access_token=${mapboxgl.accessToken}&language=es`;
+            
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.features && data.features.length > 0) {
+                        const address = data.features[0].place_name;
+                        document.getElementById('deliveryAddress').value = address;
+                        document.getElementById('mapSearch').value = address;
+                        
+                        // Calcular envío automáticamente
+                        setTimeout(() => calculateShippingWithMapbox(), 500);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error en geocodificación inversa:', error);
+                });
+        }
+
+        // Colocar marcador de entrega en el mapa
+        function placeDeliveryMarker(coords) {
+            // Eliminar marcador anterior si existe
+            if (deliveryMarker) {
+                deliveryMarker.remove();
+            }
+            
+            // Eliminar capa de ruta anterior si existe
+            if (routeLayer && map.getLayer('route')) {
+                map.removeLayer('route');
+                map.removeSource('route');
+            }
+            
+            // Crear nuevo marcador
+            deliveryMarker = new mapboxgl.Marker({ color: '#3498db' })
+                .setLngLat(coords)
+                .setPopup(new mapboxgl.Popup().setHTML(`
+                    <div class="map-marker-info">
+                        <h4>Dirección de entrega</h4>
+                        <p>Ubicación seleccionada para entrega</p>
+                        <p><strong>Haz clic en "Calcular Envío"</strong></p>
+                    </div>
+                `))
+                .addTo(map);
+            
+            // Centrar mapa en los dos marcadores
+            if (restaurantMarker && deliveryMarker) {
+                const bounds = new mapboxgl.LngLatBounds();
+                bounds.extend(restaurantMarker.getLngLat());
+                bounds.extend(deliveryMarker.getLngLat());
+                map.fitBounds(bounds, { padding: 50 });
+            }
+        }
+
+        // Buscar dirección en el mapa
+        function searchAddressOnMap() {
+            const searchInput = document.getElementById('mapSearch').value;
+            if (!searchInput.trim()) return;
+            
+            document.getElementById('shippingLoading').classList.add('active');
+            
+            const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(searchInput)}.json?access_token=${mapboxgl.accessToken}&limit=1&language=es&country=mx&proximity=${restaurantCoords[0]},${restaurantCoords[1]}`;
+            
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.features && data.features.length > 0) {
+                        const coords = data.features[0].center;
+                        const placeName = data.features[0].place_name;
+                        
+                        // Actualizar campo de dirección
+                        document.getElementById('deliveryAddress').value = placeName;
+                        
+                        // Colocar marcador en el mapa
+                        placeDeliveryMarker(coords);
+                        
+                        document.getElementById('shippingLoading').classList.remove('active');
+                        
+                        // Calcular envío automáticamente
+                        setTimeout(() => calculateShippingWithMapbox(), 500);
+                    } else {
+                        showNotification('Dirección no encontrada. Intenta con más detalles.');
+                        document.getElementById('shippingLoading').classList.remove('active');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error en búsqueda de dirección:', error);
+                    showNotification('Error al buscar la dirección. Intenta nuevamente.');
+                    document.getElementById('shippingLoading').classList.remove('active');
+                });
+        }
+
+        // Calcular envío con Mapbox
+        function calculateShippingWithMapbox() {
+            if (!deliveryMarker) {
+                showNotification('Por favor selecciona una ubicación en el mapa primero');
+                return;
+            }
+            
+            const deliveryCoords = deliveryMarker.getLngLat();
+            const address = document.getElementById('deliveryAddress').value.trim();
+            
+            if (!address) {
+                showNotification('Por favor ingresa una dirección');
+                return;
+            }
+            
+            // Mostrar carga
+            document.getElementById('shippingLoading').classList.add('active');
+            document.getElementById('distanceDetails').style.display = 'none';
+            document.getElementById('deliveryLimitWarning').classList.remove('active');
+            
+            // Usar Mapbox Directions API para calcular ruta y distancia
+            const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${restaurantCoords[0]},${restaurantCoords[1]};${deliveryCoords.lng},${deliveryCoords.lat}?access_token=${mapboxgl.accessToken}&overview=full&geometries=geojson&steps=true&language=es`;
+            
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.routes && data.routes.length > 0) {
+                        const route = data.routes[0];
+                        
+                        // La distancia viene en metros, convertir a kilómetros
+                        deliveryDistance = route.distance / 1000;
+                        // El tiempo viene en segundos, convertir a minutos
+                        deliveryTime = Math.round(route.duration / 60);
+                        
+                        // Calcular costo de envío
+                        calculateShippingCost();
+                        
+                        // Dibujar ruta en el mapa
+                        drawRouteOnMap(route.geometry);
+                        
+                        // Actualizar UI con los resultados
+                        updateShippingUI();
+                        
+                        // Mostrar notificación
+                        showNotification('Costo de envío calculado correctamente');
+                    } else {
+                        throw new Error('No se pudo calcular la ruta');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al calcular ruta:', error);
+                    
+                    // Si falla la API, calcular distancia en línea recta como respaldo
+                    calculateStraightLineDistance(deliveryCoords);
+                    calculateShippingCost();
+                    updateShippingUI();
+                    
+                    showNotification('Costo de envío calculado (distancia aproximada)');
+                })
+                .finally(() => {
+                    document.getElementById('shippingLoading').classList.remove('active');
+                });
+        }
+
+        // Calcular distancia en línea recta (como respaldo)
+        function calculateStraightLineDistance(deliveryCoords) {
+            // Fórmula de Haversine para distancia entre dos puntos
+            const R = 6371; // Radio de la Tierra en km
+            const lat1 = restaurantCoords[1] * Math.PI / 180;
+            const lat2 = deliveryCoords.lat * Math.PI / 180;
+            const deltaLat = (deliveryCoords.lat - restaurantCoords[1]) * Math.PI / 180;
+            const deltaLon = (deliveryCoords.lng - restaurantCoords[0]) * Math.PI / 180;
+            
+            const a = Math.sin(deltaLat/2) * Math.sin(deltaLat/2) +
+                     Math.cos(lat1) * Math.cos(lat2) *
+                     Math.sin(deltaLon/2) * Math.sin(deltaLon/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            
+            deliveryDistance = R * c;
+            
+            // Estimación de tiempo basada en distancia (1.5 minutos por km en ciudad)
+            deliveryTime = Math.round(deliveryDistance * 1.5);
+        }
+
+        // Dibujar ruta en el mapa
+        function drawRouteOnMap(routeGeometry) {
+            // Eliminar ruta anterior si existe
+            if (routeLayer && map.getLayer('route')) {
+                map.removeLayer('route');
+                map.removeSource('route');
+            }
+            
+            // Agregar nueva ruta
+            map.addSource('route', {
+                type: 'geojson',
+                data: {
+                    type: 'Feature',
+                    properties: {},
+                    geometry: routeGeometry
+                }
+            });
+            
+            map.addLayer({
+                id: 'route',
+                type: 'line',
+                source: 'route',
+                layout: {
+                    'line-join': 'round',
+                    'line-cap': 'round'
+                },
+                paint: {
+                    'line-color': '#3498db',
+                    'line-width': 4,
+                    'line-opacity': 0.7
+                }
+            });
+            
+            routeLayer = 'route';
+        }
+
+        // Calcular costo de envío basado en distancia
+        function calculateShippingCost() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            // Determinar zona de entrega
+            let zoneMultiplier = 1.0;
+            let zoneName = "Fuera de zona";
+            let zoneClass = "zone-out";
+            
+            for (const zone of shippingRates.deliveryZones) {
+                if (deliveryDistance <= zone.maxDistance) {
+                    zoneMultiplier = zone.rateMultiplier;
+                    zoneName = zone.name;
+                    
+                    // Asignar clase CSS según la zona
+                    if (zone.maxDistance <= 5) zoneClass = "zone-close";
+                    else if (zone.maxDistance <= 10) zoneClass = "zone-medium";
+                    else if (zone.maxDistance <= 15) zoneClass = "zone-far";
+                    else zoneClass = "zone-out";
+                    
+                    break;
+                }
+            }
+            
+            deliveryZone = zoneName;
+            
+            // Calcular costo base
+            let calculatedCost = shippingRates.baseRate + (deliveryDistance * shippingRates.perKmRate * zoneMultiplier);
+            
+            // Redondear a 2 decimales
+            calculatedCost = Math.round(calculatedCost * 100) / 100;
+            
+            // Aplicar envío gratis si el pedido supera el umbral
+            if (subtotal >= shippingRates.freeDeliveryThreshold) {
+                calculatedCost = 0;
+            }
+            
+            // Validar distancia máxima
+            if (deliveryDistance > shippingRates.maxDistance) {
+                calculatedCost = 0;
+                document.getElementById('deliveryLimitWarning').classList.add('active');
+                document.getElementById('maxDistanceText').textContent = shippingRates.maxDistance;
+            } else {
+                document.getElementById('deliveryLimitWarning').classList.remove('active');
+            }
+            
+            // Actualizar costo de envío
+            currentShippingCost = calculatedCost;
+            
+            // Actualizar carrito
+            updateCartDisplay();
+            
+            // Devolver información de la zona
+            return {
+                cost: calculatedCost,
+                zone: zoneName,
+                zoneClass: zoneClass,
+                multiplier: zoneMultiplier
+            };
+        }
+
+        // Actualizar UI con información de envío
+        function updateShippingUI() {
+            const shippingInfo = calculateShippingCost();
+            
+            // Actualizar textos
+            document.getElementById('distanceText').textContent = `${deliveryDistance.toFixed(1)} km`;
+            document.getElementById('timeText').textContent = `${deliveryTime} min`;
+            document.getElementById('baseRateText').textContent = `$${shippingRates.baseRate.toFixed(2)}`;
+            document.getElementById('perKmText').textContent = `$${shippingRates.perKmRate.toFixed(2)} x km`;
+            document.getElementById('calculatedShippingCost').innerHTML = `<strong>$${currentShippingCost.toFixed(2)}</strong>`;
+            
+            // Actualizar zona de entrega
+            const zoneElement = document.getElementById('deliveryZoneText');
+            zoneElement.textContent = shippingInfo.zone;
+            zoneElement.className = `delivery-zone ${shippingInfo.zoneClass}`;
+            
+            // Mostrar detalles
+            document.getElementById('distanceDetails').style.display = 'block';
+        }
 
         // Renderizar productos en la página
         function renderProducts() {
@@ -1541,66 +2177,6 @@
             showNotification('Producto eliminado del carrito');
         }
 
-        // Calcular costo de envío basado en la dirección
-        function calculateShipping() {
-            const address = document.getElementById('deliveryAddress').value.trim();
-            
-            if (!address) {
-                showNotification('Por favor ingresa una dirección');
-                return;
-            }
-            
-            // Mostrar carga
-            document.getElementById('shippingLoading').classList.add('active');
-            document.getElementById('shippingInfo').classList.remove('active');
-            
-            // Calcular subtotal para verificar si aplica envío gratis
-            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            
-            // Simular una llamada a API
-            setTimeout(() => {
-                // Simular una distancia aleatoria entre 1 y 20 km
-                deliveryDistance = Math.floor(Math.random() * 20) + 1;
-                deliveryTime = Math.floor(deliveryDistance * 2) + 10; // Simular tiempo basado en distancia
-                
-                // Calcular costo de envío
-                let calculatedCost = shippingRates.baseRate + (deliveryDistance * shippingRates.perKmRate);
-                
-                // Aplicar envío gratis si el pedido supera el umbral
-                if (subtotal >= shippingRates.freeDeliveryThreshold) {
-                    calculatedCost = 0;
-                }
-                
-                // Validar distancia máxima
-                if (deliveryDistance > shippingRates.maxDistance) {
-                    document.getElementById('shippingLoading').classList.remove('active');
-                    showNotification(`Lo sentimos, no entregamos a más de ${shippingRates.maxDistance} km de distancia`);
-                    currentShippingCost = 0;
-                    updateCartDisplay();
-                    return;
-                }
-                
-                // Actualizar costo de envío
-                currentShippingCost = calculatedCost;
-                
-                // Actualizar UI con los resultados
-                document.getElementById('distanceText').textContent = `${deliveryDistance.toFixed(1)} km`;
-                document.getElementById('timeText').textContent = `${deliveryTime} min`;
-                document.getElementById('calculatedShippingCost').innerHTML = `<strong>$${currentShippingCost.toFixed(2)}</strong>`;
-                
-                // Ocultar carga y mostrar información
-                document.getElementById('shippingLoading').classList.remove('active');
-                document.getElementById('shippingInfo').classList.add('active');
-                
-                // Actualizar carrito
-                updateCartDisplay();
-                
-                // Mostrar notificación
-                showNotification('Costo de envío calculado correctamente');
-                
-            }, 1500); // Simular demora de red
-        }
-
         // Seleccionar método de pago
         function selectPaymentMethod(method) {
             paymentMethod = method;
@@ -1713,6 +2289,7 @@
                 message += `*Tipo de entrega:* Envío a domicilio%0A`;
                 message += `*Dirección:* ${customerAddress}%0A`;
                 message += `*Distancia:* ${deliveryDistance.toFixed(1)} km%0A`;
+                message += `*Zona de entrega:* ${deliveryZone}%0A`;
                 message += `*Costo de envío:* $${currentShippingCost.toFixed(2)}%0A`;
             } else {
                 message += `*Tipo de entrega:* Recoger en local%0A`;
@@ -1758,7 +2335,22 @@
             document.getElementById('orderForm').reset();
             document.getElementById('checkoutForm').style.display = 'none';
             document.getElementById('deliveryAddress').value = '';
-            document.getElementById('shippingInfo').classList.remove('active');
+            document.getElementById('mapSearch').value = '';
+            document.getElementById('distanceDetails').style.display = 'none';
+            document.getElementById('deliveryLimitWarning').classList.remove('active');
+            
+            // Eliminar marcador de entrega y ruta
+            if (deliveryMarker) {
+                deliveryMarker.remove();
+                deliveryMarker = null;
+            }
+            
+            if (routeLayer && map.getLayer('route')) {
+                map.removeLayer('route');
+                map.removeSource('route');
+                routeLayer = null;
+            }
+            
             currentShippingCost = 0;
             cashAmount = 0;
             changeAmount = 0;

@@ -897,7 +897,7 @@
             <div class="header-content">
                 <!-- Logo del restaurante en el header -->
                 <div class="logo-container">
-                    <img src="https://cdn-icons-png.flaticon.com/512/1046/1046751.png" alt="Logo Barbacoa de la Casa Vieja" class="logo-img">
+                    <img src="https://i.postimg.cc/brZVHry3/IMG_4398.jpg" alt="Logo Barbacoa de la Casa Vieja" class="logo-img">
                     <h1 class="logo-text">Barbacoa de la Casa Vieja</h1>
                 </div>
                 <div class="cart-icon" id="cartIcon">
@@ -973,17 +973,13 @@
                             <span>Envío a domicilio</span>
                         </label>
                     </div>
-                    
-                    <div id="deliveryAddressSection" style="display: none; margin-top: 15px;">
-                        <label for="deliveryAddress">Dirección para envío *</label>
-                        <input type="text" id="deliveryAddress" class="form-control" placeholder="Calle, número, colonia, ciudad">
-                        
-                        <button class="use-current-location-btn" id="useCurrentLocationBtn">
+                     <button class="use-current-location-btn" id="useCurrentLocationBtn">
                             <i class="fas fa-location-arrow"></i> Usar mi ubicación actual
                         </button>
+                    <div id="deliveryAddressSection" style="display: none; margin-top: 15px;">
                         
                         <button class="calculate-shipping-btn" id="calculateShippingBtn">
-                            <i class="fas fa-map-marker-alt"></i> Calcular Costo de Envío con Mapbox
+                            <i class="fas fa-map-marker-alt"></i> Calcular Costo de Envío
                         </button>
                         
                         <!-- Contenedor del mapa -->
@@ -999,7 +995,8 @@
                             </div>
                             <div id="map"></div>
                         </div>
-                        
+                        <label for="deliveryAddress">Dirección para envío *</label>
+                        <input type="text" id="deliveryAddress" class="form-control" placeholder="Calle, número, colonia, ciudad">
                         <div class="loading" id="shippingLoading">
                             <i class="fas fa-spinner"></i> Calculando distancia y costo...
                         </div>

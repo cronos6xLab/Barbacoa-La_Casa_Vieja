@@ -637,6 +637,661 @@
 
         .payment-method:hover {
             background-color: #f1e6d6;
+  <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbacoa de la Casa Vieja - Menú Interactivo con Mapbox</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Mapbox CSS -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f0e8;
+            color: #5c3d2e;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(to right, #8B4513, #A0522D);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* ESTILOS MEJORADOS PARA EL LOGO */
+        .logo-img {
+            height: 70px;
+            width: auto;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 3px solid #f1e6d6;
+            background-color: white;
+            padding: 3px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            color: white;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.8rem;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        @media (max-width: 992px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .menu-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(139, 69, 19, 0.1);
+            border: 1px solid #e0d3c6;
+        }
+
+        .section-title {
+            color: #8B4513;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0d3c6;
+            font-family: 'Georgia', serif;
+        }
+
+        .menu-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .category-btn {
+            padding: 8px 20px;
+            background-color: #f1e6d6;
+            border: 1px solid #d4b896;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: #5c3d2e;
+        }
+
+        .category-btn.active, .category-btn:hover {
+            background-color: #8B4513;
+            color: white;
+            border-color: #8B4513;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            border: 1px solid #e0d3c6;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(139, 69, 19, 0.15);
+        }
+
+        .product-img {
+            height: 180px;
+            width: 100%;
+            object-fit: cover;
+            border-bottom: 1px solid #e0d3c6;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: #5c3d2e;
+            font-weight: 600;
+        }
+
+        .product-desc {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #8B4513;
+        }
+
+        .add-to-cart {
+            background-color: #8B4513;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            background-color: #A0522D;
+        }
+
+        .cart-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(139, 69, 19, 0.1);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+            border: 1px solid #e0d3c6;
+        }
+
+        .cart-items {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e0d3c6;
+            padding-bottom: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #f8f8f8;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item-info h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            color: #5c3d2e;
+        }
+
+        .cart-item-price {
+            color: #7f8c8d;
+            font-weight: 600;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cart-item-qty {
+            width: 50px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        .remove-item {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cart-totals {
+            margin-bottom: 25px;
+            background-color: #f9f5f0;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 8px 0;
+        }
+
+        .total-row.final {
+            border-top: 2px solid #e0d3c6;
+            margin-top: 10px;
+            padding-top: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #5c3d2e;
+        }
+
+        .shipping-section {
+            margin-bottom: 25px;
+        }
+
+        .calculate-shipping-btn {
+            width: 100%;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .calculate-shipping-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background-color: #8B4513;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .checkout-btn:hover {
+            background-color: #A0522D;
+        }
+
+        .checkout-form {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(139, 69, 19, 0.1);
+            margin-top: 30px;
+            display: none;
+            border: 1px solid #e0d3c6;
+        }
+
+        .form-title {
+            color: #8B4513;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0d3c6;
+            font-family: 'Georgia', serif;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #5c3d2e;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid #d4b896;
+            font-size: 1rem;
+            background-color: #f9f5f0;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .submit-order-btn {
+            background-color: #8B4513;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .submit-order-btn:hover {
+            background-color: #A0522D;
+        }
+
+        .empty-cart {
+            text-align: center;
+            color: #7f8c8d;
+            padding: 40px 20px;
+        }
+
+        .empty-cart i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #d4b896;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            border: 2px solid #8B4513;
+        }
+
+        /* ESTILOS MEJORADOS PARA EL LOGO EN EL MODAL */
+        .modal-logo {
+            height: 80px;
+            width: auto;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 3px solid #8B4513;
+            background-color: white;
+            padding: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal h3 {
+            margin-bottom: 15px;
+            color: #8B4513;
+            font-family: 'Georgia', serif;
+        }
+
+        .modal p {
+            margin-bottom: 20px;
+            color: #5c3d2e;
+            line-height: 1.6;
+        }
+
+        .modal-btn {
+            background-color: #8B4513;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        footer {
+            background-color: #5c3d2e;
+            color: #f1e6d6;
+            text-align: center;
+            padding: 25px 0;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* ESTILOS MEJORADOS PARA EL LOGO EN EL FOOTER */
+        .footer-logo {
+            height: 60px;
+            width: auto;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 2px solid #f1e6d6;
+            background-color: white;
+            padding: 3px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .whatsapp-contact {
+            background-color: #25D366;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            margin-top: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #8B4513;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1001;
+            border-left: 5px solid #A0522D;
+        }
+
+        .restaurant-info {
+            background-color: #f9f5f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #e0d3c6;
+            text-align: center;
+        }
+
+        .restaurant-info p {
+            color: #5c3d2e;
+            margin-bottom: 10px;
+        }
+
+        .restaurant-info h3 {
+            color: #8B4513;
+            margin-bottom: 15px;
+            font-family: 'Georgia', serif;
+        }
+
+        .shipping-info {
+            background-color: #e8f4fc;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            border-left: 4px solid #3498db;
+            display: none;
+        }
+
+        .shipping-info.active {
+            display: block;
+        }
+
+        .shipping-details {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed #3498db;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            color: #3498db;
+            margin: 10px 0;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .fa-spinner {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .radio-option input {
+            width: 18px;
+            height: 18px;
+        }
+
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            border: 1px solid #d4b896;
+            border-radius: 8px;
+            background-color: #f9f5f0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-method:hover {
+            background-color: #f1e6d6;
         }
 
         .payment-method.selected {
@@ -895,9 +1550,9 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <!-- Logo del restaurante en el header -->
+                <!-- LOGO ACTUALIZADO CON EL NUEVO ENLACE -->
                 <div class="logo-container">
-                    <img src="https://i.postimg.cc/brZVHry3/IMG_4398.jpg" alt="Logo Barbacoa de la Casa Vieja" class="logo-img">
+                    <img src="https://ibb.co/zV7kY0VZ" alt="Logo Barbacoa de la Casa Vieja" class="logo-img">
                     <h1 class="logo-text">Barbacoa de la Casa Vieja</h1>
                 </div>
                 <div class="cart-icon" id="cartIcon">
@@ -966,18 +1621,26 @@
                     <div class="radio-group">
                         <label class="radio-option">
                             <input type="radio" name="deliveryType" value="pickup" checked>
-                            <span>Recoger en local</span>
+                            <span>Pasar a Recoger</span>
                         </label>
                         <label class="radio-option">
                             <input type="radio" name="deliveryType" value="delivery">
                             <span>Envío a domicilio</span>
                         </label>
                     </div>
-                     <button class="use-current-location-btn" id="useCurrentLocationBtn">
+                        
+                        <button class="use-current-location-btn" id="useCurrentLocationBtn">
                             <i class="fas fa-location-arrow"></i> Usar mi ubicación actual
                         </button>
-                    <div id="deliveryAddressSection" style="display: none; margin-top: 15px;">
-                   
+                    
+                         <div id="deliveryAddressSection" style="display: none; margin-top: 15px;">
+                        <label for="deliveryAddress">Dirección para envío *</label>
+                        <input type="text" id="deliveryAddress" class="form-control" placeholder="Calle, número, colonia, ciudad">
+                             
+                        <button class="calculate-shipping-btn" id="calculateShippingBtn">
+                            <i class="fas fa-map-marker-alt"></i> Calcular Costo de Envío
+                        </button>
+                        
                         <!-- Contenedor del mapa -->
                         <div class="mapbox-container" id="mapboxContainer">
                             <div class="map-address-search">
@@ -991,11 +1654,7 @@
                             </div>
                             <div id="map"></div>
                         </div>
-                          <button class="calculate-shipping-btn" id="calculateShippingBtn">
-                            <i class="fas fa-map-marker-alt"></i> Calcular Costo de Envío
-                        </button>
-                        <label for="deliveryAddress">Dirección para envío *</label>
-                        <input type="text" id="deliveryAddress" class="form-control" placeholder="Calle, número, colonia, ciudad">
+                        
                         <div class="loading" id="shippingLoading">
                             <i class="fas fa-spinner"></i> Calculando distancia y costo...
                         </div>
@@ -1117,7 +1776,8 @@
     <!-- Modal de confirmación -->
     <div class="modal" id="confirmationModal">
         <div class="modal-content">
-            <img src="https://i.postimg.cc/brZVHry3/IMG_4398.jpg" alt="Logo" class="modal-logo">
+            <!-- LOGO ACTUALIZADO EN EL MODAL -->
+            <img src="https://ibb.co/zV7kY0VZ" alt="Logo Barbacoa de la Casa Vieja" class="modal-logo">
             <h3>¡Pedido Enviado!</h3>
             <p>Tu pedido ha sido enviado a Barbacoa de la Casa Vieja por WhatsApp. Te contactaremos pronto para confirmar tu pedido.</p>
             <p>Si tienes alguna duda, comunícate al: <strong>+52 55 7867 7774</strong></p>
@@ -1133,7 +1793,8 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <img src="https://i.postimg.cc/brZVHry3/IMG_4398.jpg" alt="Logo Barbacoa" class="footer-logo">
+                <!-- LOGO ACTUALIZADO EN EL FOOTER -->
+                <img src="https://ibb.co/zV7kY0VZ" alt="Logo Barbacoa de la Casa Vieja" class="footer-logo">
                 <p>Barbacoa de la Casa Vieja &copy; 2025 - Tradición y sabor desde 1989</p>
                 <p>Envíos a domicilio - Horario: Sábado y Domingo 8:00 AM - 2:00 PM</p>
                 <div class="whatsapp-contact">
@@ -1148,23 +1809,20 @@
     
     <script>
         // ============================================
-        // ZONA DE CONFIGURACIÓN - EDITAR AQUÍ
+        // ZONA DE CONFIGURACIÓN
         // ============================================
 
-        // 1. CONFIGURAR NÚMERO DE WHATSAPP
-        const whatsappNumber = "+525578677774"; // Número proporcionado
-
-        // 2. CONFIGURAR DIRECCIÓN DEL RESTAURANTE (para cálculo de distancias)
+        const whatsappNumber = "+525578677774";
         const restaurantAddress = "Alejandría 35, Claveria, Azcapotzalco, 02080 Ciudad de México, CDMX";
-        const restaurantCoords = [-99.1853, 19.4646]; // NUEVAS COORDENADAS EXACTAS DEL RESTAURANTE
+        const restaurantCoords = [-99.1853, 19.4646];
 
-        // 3. CONFIGURAR TARIFAS DE ENVÍO CON MAPBOX
+        // TARIFAS CORREGIDAS - ¡IMPORTANTE!
         const shippingRates = {
-            baseRate: 30.00, // Tarifa base
-            perKmRate: 5.00, // Tarifa por kilómetro adicional
-            freeDeliveryThreshold: 50000.00, // Pedidos mayores a esta cantidad tienen envío gratis
-            maxDistance: 20, // Distancia máxima en km para entregas
-            minOrderForDelivery: 100.00, // Pedido mínimo para entrega a domicilio
+            baseRate: 30.00,
+            perKmRate: 5.00,
+            freeDeliveryThreshold: 500.00,
+            maxDistance: 20,
+            minOrderForDelivery: 100.00,
             deliveryZones: [
                 { maxDistance: 5, name: "Zona Cercana", rateMultiplier: 1.0 },
                 { maxDistance: 10, name: "Zona Media", rateMultiplier: 1.2 },
@@ -1173,11 +1831,9 @@
             ]
         };
 
-        // 4. CONFIGURAR TOKEN DE MAPBOX
         const mapboxToken = 'pk.eyJ1IjoiY3Jvbm9zYmFyYmFjb2EiLCJhIjoiY21qYXlzN2EzMGEwcTNkcTF3c2w2YWc2bCJ9.dKvmIuJz1h-loUcVlx5Ojw';
         mapboxgl.accessToken = mapboxToken;
 
-        // 5. CONFIGURAR PRODUCTOS DEL MENÚ
         const products = [
             // Barbacoa
             {
@@ -1510,7 +2166,7 @@
         let currentShippingCost = 0;
         let deliveryDistance = 0;
         let deliveryTime = 0;
-        let paymentMethod = 'card'; // Por defecto tarjeta
+        let paymentMethod = 'card';
         let cashAmount = 0;
         let changeAmount = 0;
         let map = null;
@@ -1546,9 +2202,7 @@
                     if (deliveryType === 'delivery') {
                         addressSection.style.display = 'block';
                         finalAddressSection.style.display = 'block';
-                        // Mostrar el mapa
                         document.getElementById('mapboxContainer').classList.add('active');
-                        // Centrar el mapa en la ubicación del restaurante
                         if (map) {
                             map.setCenter(restaurantCoords);
                             map.setZoom(12);
@@ -1598,37 +2252,31 @@
                     return;
                 }
                 
-                // Validar si es envío a domicilio y se calculó el costo
                 const deliveryType = document.querySelector('input[name="deliveryType"]:checked').value;
                 const deliveryTypeFinal = document.getElementById('deliveryTypeFinal');
                 const finalAddressSection = document.getElementById('finalAddressSection');
                 
-                // Configurar formulario según tipo de entrega
                 if (deliveryType === 'delivery') {
                     deliveryTypeFinal.value = 'delivery';
                     finalAddressSection.style.display = 'block';
                     
-                    // Validar que se haya calculado el envío
                     if (currentShippingCost === 0) {
                         showNotification('Por favor calcula el costo de envío primero');
                         return;
                     }
                     
-                    // Validar pedido mínimo para envío
                     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
                     if (subtotal < shippingRates.minOrderForDelivery) {
                         showNotification(`El pedido mínimo para envío a domicilio es de $${shippingRates.minOrderForDelivery}.00`);
                         return;
                     }
                     
-                    // Copiar dirección al formulario final
                     document.getElementById('customerAddress').value = document.getElementById('deliveryAddress').value;
                 } else {
                     deliveryTypeFinal.value = 'pickup';
                     finalAddressSection.style.display = 'none';
                 }
                 
-                // Seleccionar tarjeta por defecto
                 selectPaymentMethod('card');
                 
                 document.getElementById('checkoutForm').style.display = 'block';
@@ -1664,7 +2312,6 @@
                 return;
             }
             
-            // Crear el mapa
             map = new mapboxgl.Map({
                 container: 'map',
                 style: 'mapbox://styles/mapbox/streets-v12',
@@ -1672,10 +2319,8 @@
                 zoom: 12
             });
             
-            // Agregar controles de navegación
             map.addControl(new mapboxgl.NavigationControl(), 'top-right');
             
-            // Agregar marcador del restaurante
             restaurantMarker = new mapboxgl.Marker({ color: '#8B4513' })
                 .setLngLat(restaurantCoords)
                 .setPopup(new mapboxgl.Popup().setHTML(`
@@ -1687,17 +2332,14 @@
                 `))
                 .addTo(map);
             
-            // Configurar controles del mapa
             document.getElementById('zoomInBtn').addEventListener('click', () => map.zoomIn());
             document.getElementById('zoomOutBtn').addEventListener('click', () => map.zoomOut());
             document.getElementById('locateBtn').addEventListener('click', getCurrentLocation);
             
-            // Manejar clics en el mapa para colocar marcador
             map.on('click', function(e) {
                 placeDeliveryMarker(e.lngLat);
             });
             
-            // Cargar el mapa
             map.on('load', function() {
                 console.log('Mapa de Mapbox cargado correctamente');
             });
@@ -1717,10 +2359,7 @@
                     const userCoords = [position.coords.longitude, position.coords.latitude];
                     userLocation = userCoords;
                     
-                    // Colocar marcador en la ubicación del usuario
                     placeDeliveryMarker(userCoords);
-                    
-                    // Obtener dirección a partir de las coordenadas
                     reverseGeocode(userCoords);
                     
                     document.getElementById('shippingLoading').classList.remove('active');
@@ -1746,7 +2385,6 @@
                         document.getElementById('deliveryAddress').value = address;
                         document.getElementById('mapSearch').value = address;
                         
-                        // Calcular envío automáticamente
                         setTimeout(() => calculateShippingWithMapbox(), 500);
                     }
                 })
@@ -1757,18 +2395,15 @@
 
         // Colocar marcador de entrega en el mapa
         function placeDeliveryMarker(coords) {
-            // Eliminar marcador anterior si existe
             if (deliveryMarker) {
                 deliveryMarker.remove();
             }
             
-            // Eliminar capa de ruta anterior si existe
             if (routeLayer && map.getLayer('route')) {
                 map.removeLayer('route');
                 map.removeSource('route');
             }
             
-            // Crear nuevo marcador
             deliveryMarker = new mapboxgl.Marker({ color: '#3498db' })
                 .setLngLat(coords)
                 .setPopup(new mapboxgl.Popup().setHTML(`
@@ -1780,7 +2415,6 @@
                 `))
                 .addTo(map);
             
-            // Centrar mapa en los dos marcadores
             if (restaurantMarker && deliveryMarker) {
                 const bounds = new mapboxgl.LngLatBounds();
                 bounds.extend(restaurantMarker.getLngLat());
@@ -1805,15 +2439,11 @@
                         const coords = data.features[0].center;
                         const placeName = data.features[0].place_name;
                         
-                        // Actualizar campo de dirección
                         document.getElementById('deliveryAddress').value = placeName;
-                        
-                        // Colocar marcador en el mapa
                         placeDeliveryMarker(coords);
                         
                         document.getElementById('shippingLoading').classList.remove('active');
                         
-                        // Calcular envío automáticamente
                         setTimeout(() => calculateShippingWithMapbox(), 500);
                     } else {
                         showNotification('Dirección no encontrada. Intenta con más detalles.');
@@ -1842,12 +2472,10 @@
                 return;
             }
             
-            // Mostrar carga
             document.getElementById('shippingLoading').classList.add('active');
             document.getElementById('distanceDetails').style.display = 'none';
             document.getElementById('deliveryLimitWarning').classList.remove('active');
             
-            // Usar Mapbox Directions API para calcular ruta y distancia
             const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${restaurantCoords[0]},${restaurantCoords[1]};${deliveryCoords.lng},${deliveryCoords.lat}?access_token=${mapboxgl.accessToken}&overview=full&geometries=geojson&steps=true&language=es`;
             
             fetch(url)
@@ -1856,21 +2484,16 @@
                     if (data.routes && data.routes.length > 0) {
                         const route = data.routes[0];
                         
-                        // La distancia viene en metros, convertir a kilómetros
                         deliveryDistance = route.distance / 1000;
-                        // El tiempo viene en segundos, convertir a minutos
                         deliveryTime = Math.round(route.duration / 60);
                         
-                        // Calcular costo de envío
+                        console.log(`Distancia calculada: ${deliveryDistance} km, Tiempo: ${deliveryTime} min`);
+                        
                         calculateShippingCost();
-                        
-                        // Dibujar ruta en el mapa
-                        drawRouteOnMap(route.geometry);
-                        
-                        // Actualizar UI con los resultados
                         updateShippingUI();
                         
-                        // Mostrar notificación
+                        drawRouteOnMap(route.geometry);
+                        
                         showNotification('Costo de envío calculado correctamente');
                     } else {
                         throw new Error('No se pudo calcular la ruta');
@@ -1879,7 +2502,6 @@
                 .catch(error => {
                     console.error('Error al calcular ruta:', error);
                     
-                    // Si falla la API, calcular distancia en línea recta como respaldo
                     calculateStraightLineDistance(deliveryCoords);
                     calculateShippingCost();
                     updateShippingUI();
@@ -1893,8 +2515,7 @@
 
         // Calcular distancia en línea recta (como respaldo)
         function calculateStraightLineDistance(deliveryCoords) {
-            // Fórmula de Haversine para distancia entre dos puntos
-            const R = 6371; // Radio de la Tierra en km
+            const R = 6371;
             const lat1 = restaurantCoords[1] * Math.PI / 180;
             const lat2 = deliveryCoords.lat * Math.PI / 180;
             const deltaLat = (deliveryCoords.lat - restaurantCoords[1]) * Math.PI / 180;
@@ -1906,20 +2527,16 @@
             const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
             
             deliveryDistance = R * c;
-            
-            // Estimación de tiempo basada en distancia (1.5 minutos por km en ciudad)
             deliveryTime = Math.round(deliveryDistance * 1.5);
         }
 
         // Dibujar ruta en el mapa
         function drawRouteOnMap(routeGeometry) {
-            // Eliminar ruta anterior si existe
             if (routeLayer && map.getLayer('route')) {
                 map.removeLayer('route');
                 map.removeSource('route');
             }
             
-            // Agregar nueva ruta
             map.addSource('route', {
                 type: 'geojson',
                 data: {
@@ -1951,7 +2568,6 @@
         function calculateShippingCost() {
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             
-            // Determinar zona de entrega
             let zoneMultiplier = 1.0;
             let zoneName = "Fuera de zona";
             let zoneClass = "zone-out";
@@ -1961,7 +2577,6 @@
                     zoneMultiplier = zone.rateMultiplier;
                     zoneName = zone.name;
                     
-                    // Asignar clase CSS según la zona
                     if (zone.maxDistance <= 5) zoneClass = "zone-close";
                     else if (zone.maxDistance <= 10) zoneClass = "zone-medium";
                     else if (zone.maxDistance <= 15) zoneClass = "zone-far";
@@ -1973,33 +2588,27 @@
             
             deliveryZone = zoneName;
             
-            // Calcular costo base
-            let calculatedCost = shippingRates.baseRate + (deliveryDistance * shippingRates.perKmRate * zoneMultiplier);
+            let calculatedCost = 0;
             
-            // Redondear a 2 decimales
-            calculatedCost = Math.round(calculatedCost * 100) / 100;
-            
-            // Aplicar envío gratis si el pedido supera el umbral
-            if (subtotal >= shippingRates.freeDeliveryThreshold) {
-                calculatedCost = 0;
-            }
-            
-            // Validar distancia máxima
-            if (deliveryDistance > shippingRates.maxDistance) {
-                calculatedCost = 0;
+            if (deliveryDistance <= shippingRates.maxDistance && deliveryDistance > 0) {
+                calculatedCost = shippingRates.baseRate + (deliveryDistance * shippingRates.perKmRate * zoneMultiplier);
+                calculatedCost = Math.round(calculatedCost * 100) / 100;
+                
+                if (subtotal >= shippingRates.freeDeliveryThreshold) {
+                    calculatedCost = 0;
+                }
+            } else if (deliveryDistance > shippingRates.maxDistance) {
                 document.getElementById('deliveryLimitWarning').classList.add('active');
                 document.getElementById('maxDistanceText').textContent = shippingRates.maxDistance;
+                calculatedCost = 0;
             } else {
                 document.getElementById('deliveryLimitWarning').classList.remove('active');
             }
             
-            // Actualizar costo de envío
             currentShippingCost = calculatedCost;
             
-            // Actualizar carrito
             updateCartDisplay();
             
-            // Devolver información de la zona
             return {
                 cost: calculatedCost,
                 zone: zoneName,
@@ -2012,20 +2621,23 @@
         function updateShippingUI() {
             const shippingInfo = calculateShippingCost();
             
-            // Actualizar textos
-            document.getElementById('distanceText').textContent = `${deliveryDistance.toFixed(1)} km`;
-            document.getElementById('timeText').textContent = `${deliveryTime} min`;
-            document.getElementById('baseRateText').textContent = `$${shippingRates.baseRate.toFixed(2)}`;
-            document.getElementById('perKmText').textContent = `$${shippingRates.perKmRate.toFixed(2)} x km`;
-            document.getElementById('calculatedShippingCost').innerHTML = `<strong>$${currentShippingCost.toFixed(2)}</strong>`;
-            
-            // Actualizar zona de entrega
-            const zoneElement = document.getElementById('deliveryZoneText');
-            zoneElement.textContent = shippingInfo.zone;
-            zoneElement.className = `delivery-zone ${shippingInfo.zoneClass}`;
-            
-            // Mostrar detalles
-            document.getElementById('distanceDetails').style.display = 'block';
+            if (deliveryDistance > 0 && deliveryDistance <= shippingRates.maxDistance) {
+                document.getElementById('distanceText').textContent = `${deliveryDistance.toFixed(1)} km`;
+                document.getElementById('timeText').textContent = `${deliveryTime} min`;
+                document.getElementById('baseRateText').textContent = `$${shippingRates.baseRate.toFixed(2)}`;
+                document.getElementById('perKmText').textContent = `$${shippingRates.perKmRate.toFixed(2)} x km`;
+                document.getElementById('calculatedShippingCost').innerHTML = `<strong>$${currentShippingCost.toFixed(2)}</strong>`;
+                
+                const zoneElement = document.getElementById('deliveryZoneText');
+                zoneElement.textContent = shippingInfo.zone;
+                zoneElement.className = `delivery-zone ${shippingInfo.zoneClass}`;
+                
+                document.getElementById('distanceDetails').style.display = 'block';
+                document.getElementById('deliveryLimitWarning').classList.remove('active');
+            } else if (deliveryDistance > shippingRates.maxDistance) {
+                document.getElementById('distanceDetails').style.display = 'none';
+                document.getElementById('deliveryLimitWarning').classList.add('active');
+            }
         }
 
         // Renderizar productos en la página
@@ -2066,7 +2678,6 @@
         function addToCart(productId) {
             const product = products.find(p => p.id === productId);
             
-            // Verificar si el producto ya está en el carrito
             const existingItem = cart.find(item => item.id === productId);
             
             if (existingItem) {
@@ -2080,13 +2691,8 @@
                 });
             }
             
-            // Guardar en localStorage
             localStorage.setItem('cart', JSON.stringify(cart));
-            
-            // Actualizar vista del carrito
             updateCartDisplay();
-            
-            // Mostrar notificación
             showNotification(`${product.name} agregado al carrito`);
         }
 
@@ -2098,27 +2704,20 @@
             const shippingCostElement = document.getElementById('shippingCost');
             const totalElement = document.getElementById('total');
             
-            // Actualizar contador
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
             cartCount.textContent = totalItems;
             
-            // Calcular subtotal
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            
-            // Calcular total
             const total = subtotal + currentShippingCost;
             
-            // Actualizar valores en la UI
             subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
             shippingCostElement.textContent = `$${currentShippingCost.toFixed(2)}`;
             totalElement.textContent = `$${total.toFixed(2)}`;
             
-            // Actualizar cambio si es necesario
             if (paymentMethod === 'cash' && cashAmount > 0) {
                 calculateChange();
             }
             
-            // Renderizar elementos del carrito
             if (cart.length === 0) {
                 cartItemsContainer.innerHTML = `
                     <div class="empty-cart">
@@ -2177,7 +2776,6 @@
         function selectPaymentMethod(method) {
             paymentMethod = method;
             
-            // Actualizar UI
             document.getElementById('cashMethod').classList.remove('selected');
             document.getElementById('cardMethod').classList.remove('selected');
             document.getElementById('cashDetails').classList.remove('active');
@@ -2187,7 +2785,6 @@
                 document.getElementById('cashMethod').classList.add('selected');
                 document.getElementById('cashDetails').classList.add('active');
                 document.getElementById('cash').checked = true;
-                // Calcular cambio si ya hay un monto
                 calculateChange();
             } else {
                 document.getElementById('cardMethod').classList.add('selected');
@@ -2260,13 +2857,9 @@
                 }
             }
             
-            // Calcular subtotal
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            
-            // Calcular total
             const total = subtotal + currentShippingCost;
             
-            // Obtener información de pago
             const paymentMethodText = paymentMethod === 'cash' ? 'Efectivo' : 'Tarjeta (Terminal)';
             let paymentDetails = '';
             
@@ -2276,7 +2869,6 @@
                 paymentDetails = `*Monto con el que paga:* $${cashAmount.toFixed(2)}%0A*Cambio a dar:* $${changeAmount.toFixed(2)}%0A`;
             }
             
-            // Construir mensaje
             let message = `*NUEVO PEDIDO - Barbacoa de la Casa Vieja*%0A%0A`;
             message += `*Cliente:* ${customerName}%0A`;
             message += `*Teléfono:* ${customerPhone}%0A`;
@@ -2316,16 +2908,11 @@
             message += `*TOTAL:* $${total.toFixed(2)}%0A%0A`;
             message += `*Fecha y hora:* ${new Date().toLocaleString('es-MX')}`;
             
-            // Crear enlace de WhatsApp
             const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
-            
-            // Abrir en nueva ventana
             window.open(whatsappUrl, '_blank');
             
-            // Mostrar modal de confirmación
             document.getElementById('confirmationModal').style.display = 'flex';
             
-            // Limpiar carrito y formulario
             cart = [];
             localStorage.removeItem('cart');
             document.getElementById('orderForm').reset();
@@ -2335,7 +2922,6 @@
             document.getElementById('distanceDetails').style.display = 'none';
             document.getElementById('deliveryLimitWarning').classList.remove('active');
             
-            // Eliminar marcador de entrega y ruta
             if (deliveryMarker) {
                 deliveryMarker.remove();
                 deliveryMarker = null;
@@ -2351,10 +2937,7 @@
             cashAmount = 0;
             changeAmount = 0;
             
-            // Restablecer método de pago a tarjeta
             selectPaymentMethod('card');
-            
-            // Actualizar vista del carrito
             updateCartDisplay();
         }
 

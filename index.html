@@ -28,19 +28,34 @@
         }
 
         header {
-            background: linear-gradient(to right, #8B4513, #A0522D);
+            background: url('https://i.ibb.co/kgqNxXqB/IMG-4399.jpg') no-repeat center center;
+            background-size: cover;
             color: white;
             padding: 20px 0;
             box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);
             position: sticky;
             top: 0;
             z-index: 100;
+            position: relative;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
         }
 
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+            z-index: 2;
         }
 
         .logo-container {
@@ -913,7 +928,7 @@
             <div class="header-content">
                 <!-- LOGO ACTUALIZADO CON EL NUEVO ENLACE -->
                 <div class="logo-container">
-                    <img src="https://ibb.co/zV7kY0VZ" alt="Logo Barbacoa de la Casa Vieja" class="logo-img">
+                    <img src="https://i.ibb.co/jkWp21kD/IMG-4398.jpg" alt="Logo Barbacoa de la Casa Vieja" class="logo-img">
                     <h1 class="logo-text">Barbacoa de la Casa Vieja</h1>
                 </div>
                 <div class="cart-icon" id="cartIcon">
@@ -1138,7 +1153,7 @@
     <div class="modal" id="confirmationModal">
         <div class="modal-content">
             <!-- LOGO ACTUALIZADO EN EL MODAL -->
-            <img src="https://ibb.co/zV7kY0VZ" alt="Logo Barbacoa de la Casa Vieja" class="modal-logo">
+            <img src="https://i.ibb.co/jkWp21kD/IMG-4398.jpg" alt="Logo Barbacoa de la Casa Vieja" class="modal-logo">
             <h3>¡Pedido Enviado!</h3>
             <p>Tu pedido ha sido enviado a Barbacoa de la Casa Vieja por WhatsApp. Te contactaremos pronto para confirmar tu pedido.</p>
             <p>Si tienes alguna duda, comunícate al: <strong>+52 55 7867 7774</strong></p>
@@ -1155,7 +1170,7 @@
         <div class="container">
             <div class="footer-content">
                 <!-- LOGO ACTUALIZADO EN EL FOOTER -->
-                <img src="https://ibb.co/zV7kY0VZ" alt="Logo Barbacoa de la Casa Vieja" class="footer-logo">
+                <img src="https://i.ibb.co/jkWp21kD/IMG-4398.jpg" alt="Logo Barbacoa de la Casa Vieja" class="footer-logo">
                 <p>Barbacoa de la Casa Vieja &copy; 2025 - Tradición y sabor desde 1989</p>
                 <p>Envíos a domicilio - Horario: Sábado y Domingo 8:00 AM - 2:00 PM</p>
                 <div class="whatsapp-contact">

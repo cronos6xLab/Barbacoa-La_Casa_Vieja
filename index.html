@@ -1194,16 +1194,16 @@
 
         // TARIFAS CORREGIDAS - ¡IMPORTANTE!
         const shippingRates = {
-            baseRate: 30.00,
-            perKmRate: 5.00,
+            baseRate: 0.00,
+            perKmRate: 10.00,
             freeDeliveryThreshold: 50000.00,
-            maxDistance: 20,
+            maxDistance: 15,
             minOrderForDelivery: 100.00,
             deliveryZones: [
-                { maxDistance: 5, name: "Zona Cercana", rateMultiplier: 1.0 },
-                { maxDistance: 10, name: "Zona Media", rateMultiplier: 1.2 },
-                { maxDistance: 15, name: "Zona Lejana", rateMultiplier: 1.5 },
-                { maxDistance: 20, name: "Zona Límite", rateMultiplier: 2.0 }
+                { maxDistance: 6, name: "Zona Cercana", rateMultiplier: 0.6 },
+                { maxDistance: 9, name: "Zona Media", rateMultiplier: 0.9 },
+                { maxDistance: 12, name: "Zona Lejana", rateMultiplier: 1.2 },
+                { maxDistance: 15, name: "Zona Límite", rateMultiplier: 1.5 }
             ]
         };
 

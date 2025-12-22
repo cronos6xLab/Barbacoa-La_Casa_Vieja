@@ -52,7 +52,7 @@
 
         .header-content {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             position: relative;
             z-index: 2;
@@ -83,16 +83,34 @@
             color: white;
         }
 
-        .cart-icon {
-            position: relative;
+        /* Icono flotante del carrito */
+        .floating-cart-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #8B4513;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
             cursor: pointer;
-            font-size: 1.8rem;
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.5);
+            z-index: 1001;
+            transition: transform 0.3s ease;
         }
 
-        .cart-count {
+        .floating-cart-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .floating-cart-icon .cart-count {
             position: absolute;
-            top: -10px;
-            right: -10px;
+            top: -5px;
+            right: -5px;
             background-color: #e74c3c;
             color: white;
             border-radius: 50%;
@@ -103,6 +121,10 @@
             align-items: center;
             font-size: 0.9rem;
             font-weight: bold;
+        }
+
+        .cart-icon {
+            display: none; /* Ocultar el icono original del header */
         }
 
         .main-content {
@@ -923,17 +945,19 @@
     </style>
 </head>
 <body>
+    <!-- Icono flotante del carrito -->
+    <div class="floating-cart-icon" id="floatingCartIcon">
+        <i class="fas fa-shopping-cart"></i>
+        <div class="cart-count" id="floatingCartCount">0</div>
+    </div>
+    
     <header>
         <div class="container">
             <div class="header-content">
                 <!-- LOGO ACTUALIZADO CON EL NUEVO ENLACE -->
                 <div class="logo-container">
                     <img src="https://i.ibb.co/jkWp21kD/IMG-4398.jpg" alt="Logo Barbacoa de la Casa Vieja" class="logo-img">
-                    <h1 class="logo-text"> </h1>
-                </div>
-                <div class="cart-icon" id="cartIcon">
-                    <i class="fas fa-shopping-cart"></i>
-                    <div class="cart-count" id="cartCount">0</div>
+                    <h1 class="logo-text">Barbacoa de la Casa Vieja</h1>
                 </div>
             </div>
         </div>
@@ -1065,7 +1089,7 @@
                         
                         <!-- Advertencia de límite de entrega -->
                         <div class="delivery-limit-warning" id="deliveryLimitWarning">
-                            <i class="fas fa-exclamation-triangle"></i> Lo sentimos, no entregamos a más de <span id="maxDistanceText">20</span> km de distancia.
+                            <i class="fas fa-exclamation-triangle"></i> Lo sentimos, no entregamos a más de <span id="maxDistanceText">15</span> km de distancia.
                         </div>
                     </div>
                 </div>
@@ -1192,19 +1216,13 @@
         const restaurantAddress = "Alejandría 35, Claveria, Azcapotzalco, 02080 Ciudad de México, CDMX";
         const restaurantCoords = [-99.1853, 19.4646];
 
-        // TARIFAS CORREGIDAS - ¡IMPORTANTE!
+        // TARIFAS CORREGIDAS - Solo $10 por km, sin tarifa base
         const shippingRates = {
-            baseRate: 0.00,
-            perKmRate: 10.00,
-            freeDeliveryThreshold: 50000.00,
+            baseRate: 0.00,  // SIN TARIFA BASE
+            perKmRate: 10.00, // SOLO $10 POR KM
+            freeDeliveryThreshold: 5000.00, // Envío gratis a partir de $5000
             maxDistance: 15,
-            minOrderForDelivery: 100.00,
-            deliveryZones: [
-                { maxDistance: 6, name: "Zona Cercana", rateMultiplier: 0.6 },
-                { maxDistance: 9, name: "Zona Media", rateMultiplier: 0.9 },
-                { maxDistance: 12, name: "Zona Lejana", rateMultiplier: 1.2 },
-                { maxDistance: 15, name: "Zona Límite", rateMultiplier: 1.5 }
-            ]
+            minOrderForDelivery: 100.00
         };
 
         const mapboxToken = 'pk.eyJ1IjoiY3Jvbm9zYmFyYmFjb2EiLCJhIjoiY21qYXlzN2EzMGEwcTNkcTF3c2w2YWc2bCJ9.dKvmIuJz1h-loUcVlx5Ojw';
@@ -1568,6 +1586,11 @@
                 });
             });
             
+            // Manejar clic en icono flotante del carrito
+            document.getElementById('floatingCartIcon').addEventListener('click', function() {
+                document.querySelector('.cart-section').scrollIntoView({ behavior: 'smooth' });
+            });
+            
             // Manejar cambio en tipo de entrega
             document.querySelectorAll('input[name="deliveryType"]').forEach(radio => {
                 radio.addEventListener('change', function() {
@@ -1673,11 +1696,6 @@
             // Cerrar modal
             document.getElementById('closeModalBtn').addEventListener('click', function() {
                 document.getElementById('confirmationModal').style.display = 'none';
-            });
-            
-            // Mostrar/ocultar carrito
-            document.getElementById('cartIcon').addEventListener('click', function() {
-                document.querySelector('.cart-section').scrollIntoView({ behavior: 'smooth' });
             });
         });
 
@@ -1940,26 +1958,26 @@
             routeLayer = 'route';
         }
 
-        // Calcular costo de envío basado en distancia
+        // Calcular costo de envío basado en distancia (SOLO $10 POR KM)
         function calculateShippingCost() {
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             
-            let zoneMultiplier = 1.0;
             let zoneName = "Fuera de zona";
             let zoneClass = "zone-out";
             
-            for (const zone of shippingRates.deliveryZones) {
-                if (deliveryDistance <= zone.maxDistance) {
-                    zoneMultiplier = zone.rateMultiplier;
-                    zoneName = zone.name;
-                    
-                    if (zone.maxDistance <= 5) zoneClass = "zone-close";
-                    else if (zone.maxDistance <= 10) zoneClass = "zone-medium";
-                    else if (zone.maxDistance <= 15) zoneClass = "zone-far";
-                    else zoneClass = "zone-out";
-                    
-                    break;
-                }
+            // Determinar zona basada solo en la distancia (sin multiplicadores)
+            if (deliveryDistance <= 5) {
+                zoneName = "Zona Cercana";
+                zoneClass = "zone-close";
+            } else if (deliveryDistance <= 10) {
+                zoneName = "Zona Media";
+                zoneClass = "zone-medium";
+            } else if (deliveryDistance <= 15) {
+                zoneName = "Zona Lejana";
+                zoneClass = "zone-far";
+            } else {
+                zoneName = "Fuera de zona";
+                zoneClass = "zone-out";
             }
             
             deliveryZone = zoneName;
@@ -1967,9 +1985,11 @@
             let calculatedCost = 0;
             
             if (deliveryDistance <= shippingRates.maxDistance && deliveryDistance > 0) {
-                calculatedCost = shippingRates.baseRate + (deliveryDistance * shippingRates.perKmRate * zoneMultiplier);
+                // SOLO cobrar $10 por kilómetro, sin tarifa base
+                calculatedCost = deliveryDistance * shippingRates.perKmRate;
                 calculatedCost = Math.round(calculatedCost * 100) / 100;
                 
+                // Envío gratis si el subtotal es mayor o igual a 5000
                 if (subtotal >= shippingRates.freeDeliveryThreshold) {
                     calculatedCost = 0;
                 }
@@ -1988,8 +2008,7 @@
             return {
                 cost: calculatedCost,
                 zone: zoneName,
-                zoneClass: zoneClass,
-                multiplier: zoneMultiplier
+                zoneClass: zoneClass
             };
         }
 
@@ -2000,7 +2019,7 @@
             if (deliveryDistance > 0 && deliveryDistance <= shippingRates.maxDistance) {
                 document.getElementById('distanceText').textContent = `${deliveryDistance.toFixed(1)} km`;
                 document.getElementById('timeText').textContent = `${deliveryTime} min`;
-                document.getElementById('baseRateText').textContent = `$${shippingRates.baseRate.toFixed(2)}`;
+                document.getElementById('baseRateText').textContent = `$0.00`; // Tarifa base es 0
                 document.getElementById('perKmText').textContent = `$${shippingRates.perKmRate.toFixed(2)} x km`;
                 document.getElementById('calculatedShippingCost').innerHTML = `<strong>$${currentShippingCost.toFixed(2)}</strong>`;
                 
@@ -2075,13 +2094,13 @@
         // Actualizar visualización del carrito
         function updateCartDisplay() {
             const cartItemsContainer = document.getElementById('cartItems');
-            const cartCount = document.getElementById('cartCount');
+            const floatingCartCount = document.getElementById('floatingCartCount');
             const subtotalElement = document.getElementById('subtotal');
             const shippingCostElement = document.getElementById('shippingCost');
             const totalElement = document.getElementById('total');
             
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            cartCount.textContent = totalItems;
+            floatingCartCount.textContent = totalItems;
             
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             const total = subtotal + currentShippingCost;

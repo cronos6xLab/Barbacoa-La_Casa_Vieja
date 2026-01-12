@@ -624,6 +624,33 @@
             display: block;
         }
 
+        /* AUTO CALCULATING STATUS */
+        .auto-calculating-status {
+            background: #fff9e6;
+            color: #8a6d3b;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border-left: 4px solid #f0ad4e;
+            display: none;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .auto-calculating-status.active {
+            display: block;
+        }
+
+        .auto-calculating-status i {
+            margin-right: 8px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         /* MODAL DE PRODUCTO */
         .product-modal {
             display: none;
@@ -942,11 +969,6 @@
             animation: spin 1s linear infinite;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
         /* =========================================
            RESPONSIVIDAD
            ========================================= */
@@ -1119,6 +1141,11 @@
                         <i class="fas fa-spinner"></i> Calculando distancia...
                     </div>
                     
+                    <!-- Estado de cálculo automático -->
+                    <div class="auto-calculating-status" id="autoCalculatingStatus">
+                        <i class="fas fa-sync-alt"></i> Calculando costo de envío...
+                    </div>
+                    
                     <div class="distance-details" id="distanceDetails">
                         <div class="distance-row">
                             <span>Distancia:</span>
@@ -1142,9 +1169,7 @@
                         <i class="fas fa-exclamation-triangle"></i> No entregamos a más de 15 km de distancia.
                     </div>
                     
-                    <button class="calculate-shipping-btn" id="calculateShippingBtn">
-                        <i class="fas fa-calculator"></i> Calcular Envío
-                    </button>
+                    <!-- Botón de calcular envío eliminado - ahora es automático -->
                 </div>
 
                 <button class="checkout-btn" id="checkoutBtn">
@@ -1595,15 +1620,13 @@
                         document.getElementById('mapboxContainer').classList.remove('active');
                         document.getElementById('distanceDetails').classList.remove('active');
                         document.getElementById('deliveryLimitWarning').classList.remove('active');
+                        document.getElementById('autoCalculatingStatus').classList.remove('active');
                     }
                 });
             });
             
             // Usar ubicación actual
             document.getElementById('useCurrentLocationBtn').addEventListener('click', getCurrentLocation);
-            
-            // Calcular envío
-            document.getElementById('calculateShippingBtn').addEventListener('click', calculateShippingWithMapbox);
             
             // Buscar dirección
             document.getElementById('mapSearchBtn').addEventListener('click', searchAddressOnMap);
@@ -1641,7 +1664,7 @@
                     finalAddressSection.style.display = 'block';
                     
                     if (currentShippingCost === 0) {
-                        showNotification('Por favor calcula el costo de envío primero');
+                        showNotification('Por favor selecciona una ubicación en el mapa primero');
                         return;
                     }
                     
@@ -2049,7 +2072,7 @@
         }
 
         // ============================================
-        // FUNCIONES DE MAPA Y ENVÍO
+        // FUNCIONES DE MAPA Y ENVÍO - CORREGIDAS
         // ============================================
         function initMap() {
             if (map) return;
@@ -2089,30 +2112,34 @@
                 return;
             }
             
-            document.getElementById('shippingLoading').classList.add('active');
+            // Mostrar estado de cálculo
+            document.getElementById('autoCalculatingStatus').classList.add('active');
             
             navigator.geolocation.getCurrentPosition(
                 function(position) {
                     const userCoords = [position.coords.longitude, position.coords.latitude];
                     userLocation = userCoords;
                     
-                    placeDeliveryMarker(userCoords);
-                    getAddressFromCoordinates(userCoords);
-                    
-                    document.getElementById('shippingLoading').classList.remove('active');
+                    placeDeliveryMarker({lng: userCoords[0], lat: userCoords[1]});
+                    getAddressFromCoordinates({lng: userCoords[0], lat: userCoords[1]});
                 },
                 function(error) {
                     console.error('Error al obtener ubicación:', error);
                     showNotification('No se pudo obtener tu ubicación. Por favor ingresa tu dirección manualmente.');
-                    document.getElementById('shippingLoading').classList.remove('active');
+                    document.getElementById('autoCalculatingStatus').classList.remove('active');
                 },
-                { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+                { 
+                    enableHighAccuracy: true, 
+                    timeout: 10000, 
+                    maximumAge: 0 
+                }
             );
         }
 
-        // NUEVA FUNCIÓN: Obtener dirección a partir de coordenadas
+        // FUNCIÓN CORREGIDA: Obtener dirección a partir de coordenadas con restricción a México
         function getAddressFromCoordinates(coords) {
-            const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${coords.lng},${coords.lat}.json?access_token=${mapboxgl.accessToken}&language=es&limit=1`;
+            // Configurar parámetros para geocodificación inversa en México
+            const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${coords.lng},${coords.lat}.json?access_token=${mapboxgl.accessToken}&language=es&country=mx&limit=1`;
             
             fetch(url)
                 .then(response => response.json())
@@ -2122,17 +2149,37 @@
                         document.getElementById('deliveryAddress').value = address;
                         document.getElementById('mapSearch').value = address;
                         
-                        // Mostrar notificación
-                        showNotification('Dirección obtenida: ' + address);
+                        // Calcular envío automáticamente
+                        setTimeout(() => calculateShippingWithMapbox(), 500);
+                        
                     } else {
-                        showNotification('No se pudo obtener la dirección de esta ubicación');
-                        document.getElementById('deliveryAddress').value = `Coordenadas: ${coords.lat.toFixed(6)}, ${coords.lng.toFixed(6)}`;
+                        // Si no encuentra dirección en México, intentar sin restricción de país
+                        const fallbackUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${coords.lng},${coords.lat}.json?access_token=${mapboxgl.accessToken}&language=es&limit=1`;
+                        
+                        return fetch(fallbackUrl)
+                            .then(response => response.json())
+                            .then(fallbackData => {
+                                if (fallbackData.features && fallbackData.features.length > 0) {
+                                    const fallbackAddress = fallbackData.features[0].place_name;
+                                    document.getElementById('deliveryAddress').value = fallbackAddress;
+                                    document.getElementById('mapSearch').value = fallbackAddress;
+                                    
+                                    // Calcular envío automáticamente
+                                    setTimeout(() => calculateShippingWithMapbox(), 500);
+                                } else {
+                                    document.getElementById('deliveryAddress').value = `Coordenadas: ${coords.lat.toFixed(6)}, ${coords.lng.toFixed(6)}`;
+                                    // Calcular envío automáticamente incluso sin dirección
+                                    setTimeout(() => calculateShippingWithMapbox(), 500);
+                                }
+                            });
                     }
                 })
                 .catch(error => {
                     console.error('Error al obtener dirección:', error);
                     showNotification('Error al obtener la dirección');
                     document.getElementById('deliveryAddress').value = `Coordenadas: ${coords.lat.toFixed(6)}, ${coords.lng.toFixed(6)}`;
+                    // Calcular envío automáticamente incluso con error
+                    setTimeout(() => calculateShippingWithMapbox(), 500);
                 });
         }
 
@@ -2168,8 +2215,10 @@
             const searchInput = document.getElementById('mapSearch').value;
             if (!searchInput.trim()) return;
             
-            document.getElementById('shippingLoading').classList.add('active');
+            // Mostrar estado de cálculo
+            document.getElementById('autoCalculatingStatus').classList.add('active');
             
+            // Configurar búsqueda en México
             const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(searchInput)}.json?access_token=${mapboxgl.accessToken}&limit=1&language=es&country=mx&proximity=${restaurantCoords[0]},${restaurantCoords[1]}`;
             
             fetch(url)
@@ -2180,26 +2229,28 @@
                         const placeName = data.features[0].place_name;
                         
                         document.getElementById('deliveryAddress').value = placeName;
-                        placeDeliveryMarker(coords);
+                        placeDeliveryMarker({lng: coords[0], lat: coords[1]});
                         
-                        document.getElementById('shippingLoading').classList.remove('active');
+                        // Calcular envío automáticamente
+                        setTimeout(() => calculateShippingWithMapbox(), 500);
                         
-                        showNotification('Dirección encontrada: ' + placeName);
                     } else {
-                        showNotification('Dirección no encontrada. Intenta con más detalles.');
-                        document.getElementById('shippingLoading').classList.remove('active');
+                        showNotification('Dirección no encontrada en México. Intenta con más detalles.');
+                        document.getElementById('autoCalculatingStatus').classList.remove('active');
                     }
                 })
                 .catch(error => {
                     console.error('Error en búsqueda de dirección:', error);
                     showNotification('Error al buscar la dirección. Intenta nuevamente.');
-                    document.getElementById('shippingLoading').classList.remove('active');
+                    document.getElementById('autoCalculatingStatus').classList.remove('active');
                 });
         }
 
+        // FUNCIÓN MODIFICADA: Cálculo automático de envío
         function calculateShippingWithMapbox() {
             if (!deliveryMarker) {
                 showNotification('Por favor selecciona una ubicación en el mapa primero');
+                document.getElementById('autoCalculatingStatus').classList.remove('active');
                 return;
             }
             
@@ -2208,10 +2259,12 @@
             
             if (!address) {
                 showNotification('Por favor ingresa una dirección');
+                document.getElementById('autoCalculatingStatus').classList.remove('active');
                 return;
             }
             
-            document.getElementById('shippingLoading').classList.add('active');
+            // Mostrar estado de cálculo
+            document.getElementById('autoCalculatingStatus').classList.add('active');
             document.getElementById('distanceDetails').classList.remove('active');
             document.getElementById('deliveryLimitWarning').classList.remove('active');
             
@@ -2231,7 +2284,7 @@
                         
                         drawRouteOnMap(route.geometry);
                         
-                        showNotification('Costo de envío calculado correctamente');
+                        showNotification('Costo de envío calculado automáticamente');
                     } else {
                         throw new Error('No se pudo calcular la ruta');
                     }
@@ -2239,6 +2292,7 @@
                 .catch(error => {
                     console.error('Error al calcular ruta:', error);
                     
+                    // Calcular distancia en línea recta como respaldo
                     calculateStraightLineDistance(deliveryCoords);
                     calculateShippingCost();
                     updateShippingUI();
@@ -2246,7 +2300,8 @@
                     showNotification('Costo de envío calculado (distancia aproximada)');
                 })
                 .finally(() => {
-                    document.getElementById('shippingLoading').classList.remove('active');
+                    // Ocultar estado de cálculo
+                    document.getElementById('autoCalculatingStatus').classList.remove('active');
                 });
         }
 
@@ -2504,6 +2559,7 @@
             document.getElementById('mapSearch').value = '';
             document.getElementById('distanceDetails').classList.remove('active');
             document.getElementById('deliveryLimitWarning').classList.remove('active');
+            document.getElementById('autoCalculatingStatus').classList.remove('active');
             
             if (deliveryMarker) {
                 deliveryMarker.remove();

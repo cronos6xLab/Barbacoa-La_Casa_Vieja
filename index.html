@@ -1088,7 +1088,7 @@
                         <input type="radio" name="deliveryType" value="pickup" checked>
                         <span><i class="fas fa-store"></i> Pasar a recoger</span>
                     </label>
-                    <label style="display:flex; align-items:center; gap:10px; cursor:pointer; background:white; padding:10px; border:1px solid #eee; border-radius:8px;">
+                    <label style="display:flex; align-items:center; gap:10px; cursor:pointer; background:white; padding:10px; border:1px solid #eee; border-radius=8px;">
                         <input type="radio" name="deliveryType" value="delivery">
                         <span><i class="fas fa-motorcycle"></i> Envío a domicilio</span>
                     </label>
@@ -1107,7 +1107,13 @@
                         <div id="map"></div>
                     </div>
                     
-                    <input type="text" id="deliveryAddress" class="form-control" placeholder="Dirección exacta (calle, número)" style="margin-top:10px;">
+                    <div style="margin-top: 10px;">
+                        <label for="deliveryAddress" style="display: block; margin-bottom: 5px; font-weight: 600; color: var(--text-main);">Dirección seleccionada:</label>
+                        <input type="text" id="deliveryAddress" class="form-control" placeholder="Haz clic en el mapa o busca una dirección" readonly style="background-color: #f9f9f9; cursor: pointer;">
+                        <small style="display: block; margin-top: 5px; color: var(--text-light); font-size: 0.85rem;">
+                            <i class="fas fa-info-circle"></i> Haz clic en cualquier punto del mapa para seleccionar la dirección
+                        </small>
+                    </div>
                     
                     <div class="loading" id="shippingLoading">
                         <i class="fas fa-spinner"></i> Calculando distancia...
@@ -1303,7 +1309,6 @@
                 description: "Deliciosa barbacoa de borrego cocida a fuego lento por horas. Incluye tortillas, cebolla, cilantro, salsa y limón.",
                 price: 780.00,
                 image: "https://i.ibb.co/8nq6VhpF/IMG-4420.jpg",
-                // AQUÍ AÑADES TUS MODIFICADORES - EJEMPLO:
                 modifiers: [
                     { id: 1, name: "Extra tortillas", description: "Paquete adicional de tortillas", price: 25.00 },
                     { id: 2, name: "Extra consome", description: "Consome adicional 250ml", price: 30.00 },
@@ -2071,8 +2076,10 @@
                 `))
                 .addTo(map);
             
+            // Al hacer clic en el mapa, obtener la dirección del lugar
             map.on('click', function(e) {
                 placeDeliveryMarker(e.lngLat);
+                getAddressFromCoordinates(e.lngLat);
             });
         }
 
@@ -2090,7 +2097,7 @@
                     userLocation = userCoords;
                     
                     placeDeliveryMarker(userCoords);
-                    reverseGeocode(userCoords);
+                    getAddressFromCoordinates(userCoords);
                     
                     document.getElementById('shippingLoading').classList.remove('active');
                 },
@@ -2103,8 +2110,9 @@
             );
         }
 
-        function reverseGeocode(coords) {
-            const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${coords[0]},${coords[1]}.json?access_token=${mapboxgl.accessToken}&language=es`;
+        // NUEVA FUNCIÓN: Obtener dirección a partir de coordenadas
+        function getAddressFromCoordinates(coords) {
+            const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${coords.lng},${coords.lat}.json?access_token=${mapboxgl.accessToken}&language=es&limit=1`;
             
             fetch(url)
                 .then(response => response.json())
@@ -2114,11 +2122,17 @@
                         document.getElementById('deliveryAddress').value = address;
                         document.getElementById('mapSearch').value = address;
                         
-                        setTimeout(() => calculateShippingWithMapbox(), 500);
+                        // Mostrar notificación
+                        showNotification('Dirección obtenida: ' + address);
+                    } else {
+                        showNotification('No se pudo obtener la dirección de esta ubicación');
+                        document.getElementById('deliveryAddress').value = `Coordenadas: ${coords.lat.toFixed(6)}, ${coords.lng.toFixed(6)}`;
                     }
                 })
                 .catch(error => {
-                    console.error('Error en geocodificación inversa:', error);
+                    console.error('Error al obtener dirección:', error);
+                    showNotification('Error al obtener la dirección');
+                    document.getElementById('deliveryAddress').value = `Coordenadas: ${coords.lat.toFixed(6)}, ${coords.lng.toFixed(6)}`;
                 });
         }
 
@@ -2170,7 +2184,7 @@
                         
                         document.getElementById('shippingLoading').classList.remove('active');
                         
-                        setTimeout(() => calculateShippingWithMapbox(), 500);
+                        showNotification('Dirección encontrada: ' + placeName);
                     } else {
                         showNotification('Dirección no encontrada. Intenta con más detalles.');
                         document.getElementById('shippingLoading').classList.remove('active');

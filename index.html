@@ -37,7 +37,7 @@
             font-family: 'DM Sans', sans-serif;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden; /* Evita scroll horizontal */
+            overflow-x: hidden;
         }
 
         h1, h2, h3, h4 {
@@ -152,7 +152,7 @@
             flex-wrap: wrap;
             gap: 10px;
             margin-bottom: 30px;
-            overflow-x: auto; /* Scroll horizontal si es necesario */
+            overflow-x: auto;
             padding-bottom: 10px;
         }
 
@@ -239,20 +239,64 @@
             color: var(--primary);
         }
 
+        /* CONTROLES DE CANTIDAD EN PRODUCTO */
+        .product-quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .quantity-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .quantity-btn:hover {
+            background-color: #e0e0e0;
+        }
+
+        .quantity-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .quantity-display {
+            min-width: 30px;
+            text-align: center;
+            font-weight: 600;
+        }
+
         .add-to-cart {
-            background-color: #fff;
-            color: var(--primary);
-            border: 2px solid var(--primary);
+            background-color: var(--primary);
+            color: white;
+            border: none;
             border-radius: 10px;
             padding: 6px 14px;
             cursor: pointer;
             font-weight: 700;
             transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex: 1;
+            justify-content: center;
         }
 
         .add-to-cart:hover {
-            background-color: var(--primary);
-            color: white;
+            background-color: var(--primary-dark);
+        }
+
+        .add-to-cart.in-cart {
+            background-color: #27ae60;
         }
 
         /* CARRITO LATERAL */
@@ -276,8 +320,25 @@
             border-bottom: 1px solid #eee;
         }
 
-        .cart-item h4 { font-size: 0.9rem; }
-        .cart-item-qty { width: 35px; text-align: center; padding: 4px; border: 1px solid #ddd; border-radius: 4px; }
+        .cart-item h4 { 
+            font-size: 0.9rem; 
+            margin-bottom: 4px;
+        }
+        
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .cart-item-qty { 
+            width: 40px; 
+            text-align: center; 
+            padding: 4px; 
+            border: 1px solid #ddd; 
+            border-radius: 4px; 
+            font-size: 0.9rem;
+        }
         
         .remove-item {
             background: #ffebee;
@@ -287,6 +348,9 @@
             border-radius: 6px;
             border: none;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         /* MAPA Y FORMULARIOS */
@@ -295,17 +359,18 @@
             border-radius: 12px;
             overflow: hidden;
             box-shadow: var(--shadow-md);
-            height: 300px; /* Altura del contenedor */
+            height: 300px;
             position: relative;
             display: none;
         }
 
-        .mapbox-container.active { display: block; }
+        .mapbox-container.active { 
+            display: block; 
+        }
 
-        /* --- CORRECCIÓN CRUCIAL PARA QUE SE VEA EL MAPA --- */
         #map {
             width: 100%;
-            height: 100%; /* El mapa debe llenar el contenedor */
+            height: 100%;
             position: absolute;
             top: 0;
             left: 0;
@@ -327,6 +392,7 @@
             border-radius: 8px;
             border: none;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            font-size: 0.9rem;
         }
 
         #mapSearchBtn {
@@ -336,6 +402,7 @@
             border: none;
             border-radius: 8px;
             cursor: pointer;
+            font-weight: 600;
         }
 
         /* BOTONES */
@@ -351,10 +418,49 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-top: 15px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
-        .checkout-btn { background-color: var(--accent); }
-        .submit-order-btn { background-color: #25D366; }
+        .checkout-btn { 
+            background-color: var(--accent); 
+        }
+        
+        .checkout-btn:hover { 
+            background-color: #d35400; 
+        }
+        
+        .submit-order-btn { 
+            background-color: #25D366; 
+        }
+        
+        .submit-order-btn:hover { 
+            background-color: #1da851; 
+        }
+
+        .calculate-shipping-btn {
+            width: 100%;
+            padding: 12px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            margin-top: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+
+        .calculate-shipping-btn:hover {
+            background: #2980b9;
+        }
 
         .form-control {
             width: 100%;
@@ -365,7 +471,9 @@
             font-size: 1rem;
         }
 
-        .form-group { margin-bottom: 15px; }
+        .form-group { 
+            margin-bottom: 15px; 
+        }
 
         /* FLOATING ICON */
         .floating-cart-icon {
@@ -379,23 +487,27 @@
             border-radius: 50%;
             box-shadow: 0 5px 20px rgba(0,0,0,0.3);
             z-index: 999;
-            display: none; /* Oculto en PC, visible en móvil */
+            display: none;
             align-items: center;
             justify-content: center;
             font-size: 1.4rem;
+            cursor: pointer;
         }
 
         .cart-count {
             position: absolute;
-            top: -5px; right: -5px;
+            top: -5px; 
+            right: -5px;
             background: var(--accent);
-            width: 24px; height: 24px;
+            width: 24px; 
+            height: 24px;
             border-radius: 50%;
             font-size: 0.8rem;
             display: flex;
             align-items: center;
             justify-content: center;
             border: 2px solid white;
+            font-weight: bold;
         }
 
         /* NOTIFICACIÓN TOAST */
@@ -414,6 +526,12 @@
             width: max-content;
             max-width: 90%;
             text-align: center;
+            animation: fadeInOut 3s ease;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+            10%, 90% { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
 
         /* FOOTER */
@@ -425,19 +543,181 @@
             text-align: center;
         }
         
-        .footer-logo { height: 60px; width: auto; border-radius: 50%; margin-bottom: 15px; }
+        .footer-logo { 
+            height: 60px; 
+            width: auto; 
+            border-radius: 50%; 
+            margin-bottom: 15px; 
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        /* CASH DETAILS */
+        .cash-details {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .cash-details.active {
+            display: block;
+        }
+
+        .change-info {
+            background: #e8f5e8;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+            text-align: center;
+            font-weight: 600;
+            color: #2d572c;
+            display: none;
+        }
+
+        .change-info.active {
+            display: block;
+        }
+
+        /* DELIVERY INFO */
+        .distance-details {
+            background: #e8f4fc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: none;
+            border-left: 4px solid #3498db;
+        }
+
+        .distance-details.active {
+            display: block;
+        }
+
+        .distance-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .distance-row.total {
+            font-weight: bold;
+            border-top: 1px solid #3498db;
+            padding-top: 8px;
+            margin-top: 8px;
+            font-size: 1rem;
+        }
+
+        .delivery-limit-warning {
+            background: #ffeaea;
+            color: #c0392b;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border-left: 4px solid #c0392b;
+            display: none;
+            font-size: 0.9rem;
+        }
+
+        .delivery-limit-warning.active {
+            display: block;
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .modal-logo {
+            height: 80px;
+            width: auto;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            border: 3px solid var(--primary);
+        }
+
+        /* PAYMENT METHODS */
+        .payment-methods {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .payment-method {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .payment-method:hover {
+            border-color: var(--primary);
+        }
+
+        .payment-method.selected {
+            border-color: var(--primary);
+            background-color: #fff9f0;
+        }
+
+        .payment-method input {
+            display: none;
+        }
+
+        /* LOADING */
+        .loading {
+            text-align: center;
+            padding: 10px;
+            color: #3498db;
+            display: none;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .fa-spinner {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 
         /* =========================================
-           RESPONSIVIDAD (MEDIA QUERIES)
+           RESPONSIVIDAD
            ========================================= */
         
         @media (max-width: 992px) {
             .main-content {
-                grid-template-columns: 1fr; /* Una sola columna */
+                grid-template-columns: 1fr;
             }
             
             .cart-section {
-                order: 2; /* El carrito va al final en tablets */
+                order: 2;
             }
         }
 
@@ -453,7 +733,6 @@
             .restaurant-info { padding: 20px; margin-top: -20px; }
             .restaurant-info h3 { font-size: 1.4rem; }
             
-            /* Ajuste de Grid para móviles: 2 columnas pequeñas en vez de 1 gigante */
             .products-grid {
                 grid-template-columns: repeat(2, 1fr); 
                 gap: 12px;
@@ -462,24 +741,27 @@
             .product-card { border-radius: 12px; }
             .product-img { height: 130px; }
             .product-info { padding: 12px; }
-            .product-title { font-size: 0.95rem; font-weight: 700; line-height: 1.2; }
-            .product-desc { display: none; /* Ocultar descripción en móvil para ahorrar espacio */ }
+            .product-title { font-size: 0.95rem; line-height: 1.2; }
+            .product-desc { display: none; }
             .product-price { font-size: 1rem; }
             .add-to-cart { padding: 5px 10px; font-size: 0.9rem; }
 
-            .floating-cart-icon { display: flex; } /* Mostrar botón flotante */
+            .floating-cart-icon { display: flex; }
             
             .modal-content { width: 90%; padding: 20px; }
         }
 
         @media (max-width: 480px) {
             .products-grid {
-                grid-template-columns: 1fr 1fr; /* Forzar 2 columnas */
+                grid-template-columns: 1fr 1fr;
             }
             .section-title { font-size: 1.3rem; }
             
-            /* Ajustes finos para pantallas muy angostas */
             .category-btn { padding: 6px 14px; font-size: 0.9rem; }
+            
+            .payment-methods {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -506,6 +788,9 @@
             <h3><i class="fas fa-fire-burner"></i> Tradición desde 1989</h3>
             <p style="font-size: 0.9rem; color: #666;">Sábados y Domingos 8:00 AM - 2:00 PM</p>
             <p style="font-size: 0.9rem;"><i class="fas fa-map-pin" style="color:var(--accent)"></i> Claveria, Azcapotzalco</p>
+            <p style="font-size: 0.9rem; margin-top: 10px; background: #fff5e6; padding: 8px; border-radius: 8px; border-left: 4px solid var(--accent);">
+                <strong>Envío:</strong> $10 por km (hasta 15 km) • Pedido mínimo: $100
+            </p>
         </div>
         
         <div class="main-content">
@@ -513,14 +798,16 @@
                 <h2 class="section-title">Menú</h2>
                 
                 <div class="menu-categories">
-                    <button class="category-btn active" data-category="all">Todo</button>
+                    <button class="category-btn active" data-category="all">Todo el Menú</button>
                     <button class="category-btn" data-category="barbacoa">Barbacoa</button>
                     <button class="category-btn" data-category="bebidas">Bebidas</button>
                     <button class="category-btn" data-category="postres">Postres</button>
+                    <button class="category-btn" data-category="otros">Otros</button>
                 </div>
 
                 <div class="products-grid" id="productsGrid">
-                    </div>
+                    <!-- Los productos se cargarán aquí con JavaScript -->
+                </div>
             </section>
 
             <section class="cart-section" id="cartSection">
@@ -563,65 +850,125 @@
 
                     <div class="mapbox-container" id="mapboxContainer">
                         <div class="map-address-search">
-                            <input type="text" id="mapSearch" placeholder="Buscar calle...">
+                            <input type="text" id="mapSearch" placeholder="Buscar dirección...">
                             <button id="mapSearchBtn"><i class="fas fa-search"></i></button>
                         </div>
-                        <div id="map"></div> </div>
+                        <div id="map"></div>
+                    </div>
                     
                     <input type="text" id="deliveryAddress" class="form-control" placeholder="Dirección exacta (calle, número)" style="margin-top:10px;">
                     
-                    <button id="calculateShippingBtn" style="width:100%; padding:10px; background:var(--primary); color:white; border:none; border-radius:8px; margin-top:10px; cursor:pointer;">
-                        Calcular Envío
-                    </button>
-                    
-                    <div id="distanceDetails" style="display:none; text-align:center; margin-top:10px; font-size:0.9rem; color:#666;">
-                        Distancia: <span id="distanceText">--</span>
+                    <div class="loading" id="shippingLoading">
+                        <i class="fas fa-spinner"></i> Calculando distancia...
                     </div>
+                    
+                    <div class="distance-details" id="distanceDetails">
+                        <div class="distance-row">
+                            <span>Distancia:</span>
+                            <span id="distanceText">-- km</span>
+                        </div>
+                        <div class="distance-row">
+                            <span>Tiempo estimado:</span>
+                            <span id="timeText">-- min</span>
+                        </div>
+                        <div class="distance-row">
+                            <span>Tarifa por km:</span>
+                            <span>$10.00</span>
+                        </div>
+                        <div class="distance-row total">
+                            <span>Costo de envío:</span>
+                            <span id="calculatedShippingCost" style="color: var(--primary);">$0.00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="delivery-limit-warning" id="deliveryLimitWarning">
+                        <i class="fas fa-exclamation-triangle"></i> No entregamos a más de 15 km de distancia.
+                    </div>
+                    
+                    <button class="calculate-shipping-btn" id="calculateShippingBtn">
+                        <i class="fas fa-calculator"></i> Calcular Envío
+                    </button>
                 </div>
 
-                <button class="checkout-btn" id="checkoutBtn">Pagar <i class="fas fa-arrow-right"></i></button>
+                <button class="checkout-btn" id="checkoutBtn">
+                    <i class="fas fa-shopping-bag"></i> Proceder al Pago
+                </button>
             </section>
         </div>
 
         <section class="checkout-form" id="checkoutForm" style="display: none; max-width: 600px; margin: 0 auto;">
-            <h2 class="section-title">Finalizar</h2>
+            <h2 class="section-title">Finalizar Pedido</h2>
             <form id="orderForm">
                 <div class="form-group">
-                    <label>Nombre</label>
+                    <label>Nombre Completo *</label>
                     <input type="text" id="customerName" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label>Teléfono</label>
+                    <label>Teléfono *</label>
                     <input type="tel" id="customerPhone" class="form-control" required>
                 </div>
                 
                 <div class="form-group">
-                    <label>Método de Pago</label>
-                    <div style="display:flex; gap:10px; margin-top:5px;">
-                        <label style="flex:1; padding:10px; border:1px solid #ddd; border-radius:8px; text-align:center;">
-                            <input type="radio" name="paymentMethod" value="cash" id="cashOption"> Efectivo
-                        </label>
-                        <label style="flex:1; padding:10px; border:1px solid #ddd; border-radius:8px; text-align:center;">
-                            <input type="radio" name="paymentMethod" value="card" checked> Tarjeta
-                        </label>
+                    <label>Tipo de Entrega</label>
+                    <select id="deliveryTypeFinal" class="form-control" required>
+                        <option value="pickup">Recoger en local</option>
+                        <option value="delivery">Envío a domicilio</option>
+                    </select>
+                </div>
+                
+                <div class="form-group" id="finalAddressSection" style="display: none;">
+                    <label>Dirección para envío *</label>
+                    <input type="text" id="customerAddress" class="form-control" placeholder="Calle, número, colonia">
+                </div>
+                
+                <div class="form-group">
+                    <label>Método de Pago *</label>
+                    <div class="payment-methods">
+                        <div class="payment-method" id="cashMethod">
+                            <input type="radio" id="cash" name="paymentMethod" value="cash">
+                            <i class="fas fa-money-bill-wave"></i> Efectivo
+                        </div>
+                        <div class="payment-method selected" id="cardMethod">
+                            <input type="radio" id="card" name="paymentMethod" value="card" checked>
+                            <i class="fas fa-credit-card"></i> Tarjeta
+                        </div>
                     </div>
                     
-                    <div id="cashInputGroup" style="display:none; margin-top:10px;">
-                        <label>¿Con cuánto pagas?</label>
-                        <input type="number" id="cashAmount" class="form-control" placeholder="$0.00">
-                        <small id="changeText" style="color:var(--primary); font-weight:bold;"></small>
+                    <div class="cash-details" id="cashDetails">
+                        <label>¿Con cuánto pagarás? *</label>
+                        <input type="number" id="cashAmount" class="form-control" placeholder="Ej. 500.00" min="0" step="0.01">
+                        <div class="change-info" id="changeInfo">
+                            Cambio: <span id="changeAmount">$0.00</span>
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Notas</label>
-                    <textarea id="customerNotes" class="form-control" rows="2"></textarea>
+                    <label>Notas adicionales</label>
+                    <textarea id="customerNotes" class="form-control" rows="2" placeholder="Ej: Sin cebolla, más consome, etc."></textarea>
                 </div>
 
-                <button type="submit" class="submit-order-btn"><i class="fab fa-whatsapp"></i> Enviar Pedido</button>
-                <button type="button" id="cancelCheckout" style="width:100%; padding:10px; background:transparent; border:none; color:#666; margin-top:10px; cursor:pointer;">Cancelar</button>
+                <button type="submit" class="submit-order-btn">
+                    <i class="fab fa-whatsapp"></i> Enviar Pedido por WhatsApp
+                </button>
+                <button type="button" id="cancelCheckout" style="width:100%; padding:10px; background:transparent; border:none; color:#666; margin-top:10px; cursor:pointer;">
+                    <i class="fas fa-arrow-left"></i> Regresar
+                </button>
             </form>
         </section>
+    </div>
+
+    <!-- Modal de confirmación -->
+    <div class="modal" id="confirmationModal">
+        <div class="modal-content">
+            <img src="https://i.ibb.co/jkWp21kD/IMG-4398.jpg" alt="Logo" class="modal-logo">
+            <h3 style="color: var(--primary); margin-bottom: 15px;">¡Pedido Enviado!</h3>
+            <p style="margin-bottom: 20px; color: var(--text-light);">Tu pedido ha sido enviado por WhatsApp. Te contactaremos pronto para confirmar.</p>
+            <p style="margin-bottom: 20px; font-weight: 600;">WhatsApp: +52 55 7867 7774</p>
+            <button class="checkout-btn" id="closeModalBtn" style="background: var(--primary);">
+                <i class="fas fa-check"></i> Cerrar
+            </button>
+        </div>
     </div>
 
     <div class="notification" id="notification">Mensaje aquí</div>
@@ -630,295 +977,976 @@
         <div class="container">
             <img src="https://i.ibb.co/jkWp21kD/IMG-4398.jpg" alt="Logo Footer" class="footer-logo">
             <p>&copy; 2025 Barbacoa de la Casa Vieja</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">
+                <i class="fab fa-whatsapp" style="color: #25D366;"></i> WhatsApp: +52 55 7867 7774
+            </p>
         </div>
     </footer>
 
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js"></script>
     <script>
-        /* ================= CONFIGURACIÓN ================= */
-        const whatsappNumber = "525578677774"; // Número destino
-        const restaurantCoords = [-99.1853, 19.4646]; // Coordenadas local
-        const mapboxToken = 'pk.eyJ1IjoiY3Jvbm9zYmFyYmFjb2EiLCJhIjoiY21qYXlzN2EzMGEwcTNkcTF3c2w2YWc2bCJ9.dKvmIuJz1h-loUcVlx5Ojw';
+        // ============================================
+        // CONFIGURACIÓN
+        // ============================================
+        const whatsappNumber = "+525578677774";
+        const restaurantAddress = "Alejandría 35, Claveria, Azcapotzalco, 02080 Ciudad de México, CDMX";
+        const restaurantCoords = [-99.1853, 19.4646];
         
-        // Productos (JSON Simple)
+        // Tarifas de envío
+        const shippingRates = {
+            perKmRate: 10.00, // $10 por km
+            maxDistance: 15, // Límite de 15 km
+            minOrderForDelivery: 100.00 // Pedido mínimo para envío
+        };
+
+        const mapboxToken = 'pk.eyJ1IjoiY3Jvbm9zYmFyYmFjb2EiLCJhIjoiY21qYXlzN2EzMGEwcTNkcTF3c2w2YWc2bCJ9.dKvmIuJz1h-loUcVlx5Ojw';
+        mapboxgl.accessToken = mapboxToken;
+
+        // Productos completos del primer código
         const products = [
-            { id: 1, name: "1 Kg Barbacoa", price: 780, cat: "barbacoa", img: "https://i.ibb.co/8nq6VhpF/IMG-4420.jpg", desc: "Incluye tortillas y salsas" },
-            { id: 2, name: "1/2 Kg Barbacoa", price: 390, cat: "barbacoa", img: "https://i.ibb.co/fYGGQmbQ/IMG-4423.jpg", desc: "Media porción deliciosa" },
-            { id: 3, name: "1/4 Kg Barbacoa", price: 195, cat: "barbacoa", img: "https://i.ibb.co/21HD2W3h/IMG-4428.png", desc: "Ideal para 1 persona" },
-            { id: 4, name: "Consomé (Litro)", price: 90, cat: "barbacoa", img: "https://i.ibb.co/sdFbnRs0/IMG-4490.jpg", desc: "Con arroz y garbanzo" },
-            { id: 5, name: "Flautas (3 pzas)", price: 140, cat: "barbacoa", img: "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", desc: "Con crema y queso" },
-            { id: 6, name: "Café de Olla", price: 38, cat: "bebidas", img: "https://i.ibb.co/Kcm8QRb1/IMG-4614.png", desc: "Tradicional" },
-            { id: 7, name: "Flan Casero", price: 35, cat: "postres", img: "https://i.ibb.co/Kx9J9yQD/IMG-4615.png", desc: "De la casa" }
+            // Barbacoa
+            {
+                id: 1,
+                name: "Kilogramo de barbacoa sin hueso",
+                category: "barbacoa",
+                description: "Deliciosa barbacoa de borrego cocida a fuego lento por horas. Incluye tortillas, cebolla, cilantro, salsa y limón.",
+                price: 780.00,
+                image: "https://i.ibb.co/8nq6VhpF/IMG-4420.jpg"
+            },
+            {
+                id: 2,
+                name: "1/2 Kilogramo de barbacoa sin hueso",
+                category: "barbacoa",
+                description: "Media porción de nuestra deliciosa barbacoa de borrego. Incluye tortillas, cebolla, cilantro, salsa y limón.",
+                price: 390.00,
+                image: "https://i.ibb.co/fYGGQmbQ/IMG-4423.jpg"
+            },
+            {
+                id: 3,
+                name: "1/4 Kilogramo de barbacoa sin hueso",
+                category: "barbacoa",
+                description: "Cuarto de kilogramo de barbacoa de borrego. Incluye tortillas, cebolla, cilantro, salsa y limón.",
+                price: 195.00,
+                image: "https://i.ibb.co/21HD2W3h/IMG-4428.png"
+            },
+            {
+                id: 4,
+                name: "Kilogramo de pancita",
+                category: "barbacoa",
+                description: "Menudo de pancita de res, cocido a la perfección con nuestro sazón especial.",
+                price: 780.00,
+                image: "https://i.ibb.co/v4fr6mGB/Photoroom-20260103-133225.jpg"
+            },
+            {
+                id: 5,
+                name: "1/2 Kilogramo de pancita",
+                category: "barbacoa",
+                description: "Media porción de nuestra deliciosa pancita de res.",
+                price: 390.00,
+                image: "https://i.ibb.co/4gMSF82Y/Photoroom-20260103-132344.jpg"
+            },
+            {
+                id: 6,
+                name: "1/4 Kilogramo de pancita",
+                category: "barbacoa",
+                description: "Cuarto de kilogramo de pancita de res.",
+                price: 195.00,
+                image: "https://i.ibb.co/4gMSF82Y/Photoroom-20260103-132344.jpg"
+            },
+            {
+                id: 7,
+                name: "Litro de consomé",
+                category: "barbacoa",
+                description: "Un litro de nuestro delicioso consomé de borrego.",
+                price: 180.00,
+                image: "https://i.ibb.co/sdFbnRs0/IMG-4490.jpg"
+            },
+            {
+                id: 8,
+                name: "1/2 Litro de consomé",
+                category: "barbacoa",
+                description: "Medio litro de consomé de borrego.",
+                price: 90.00,
+                image: "https://i.ibb.co/sdTLHhTW/IMG-4491.jpg"
+            },
+            {
+                id: 9,
+                name: "Flautas doradas de barbacoa (orden de 3)",
+                category: "barbacoa",
+                description: "Tres flautas doradas rellenas de barbacoa, bañadas en crema, queso y lechuga.",
+                price: 140.00,
+                image: "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 10,
+                name: "Flauta dorada de barbacoa (individual)",
+                category: "barbacoa",
+                description: "Flauta dorada individual rellena de barbacoa.",
+                price: 48.00,
+                image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 11,
+                name: "Flautas doradas de pollo (orden de 3)",
+                category: "barbacoa",
+                description: "Tres flautas doradas rellenas de pollo, bañadas en crema, queso y lechuga.",
+                price: 110.00,
+                image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 12,
+                name: "Plato de aguacate",
+                category: "barbacoa",
+                description: "Rebanadas de aguacate fresco para acompañar tu barbacoa.",
+                price: 45.00,
+                image: "https://i.ibb.co/hxB52mJD/Photoroom-20260103-105901.jpg"
+            },
+            {
+                id: 13,
+                name: "Plato de nopales",
+                category: "barbacoa",
+                description: "Nopales asados con cebolla y cilantro.",
+                price: 65.00,
+                image: "https://i.ibb.co/60vgn0px/Photoroom-20260103-110001.jpg"
+            },
+            
+            // Bebidas
+            {
+                id: 14,
+                name: "Café de olla",
+                category: "bebidas",
+                description: "Café tradicional mexicano preparado con canela y piloncillo.",
+                price: 38.00,
+                image: "https://i.ibb.co/Kcm8QRb1/IMG-4614.png"
+            },
+            {
+                id: 15,
+                name: "Agua del día",
+                category: "bebidas",
+                description: "Agua fresca del día (horchata, jamaica, tamarindo, etc.).",
+                price: 28.00,
+                image: "https://images.unsplash.com/photo-1577805947697-89e18249d767?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            
+            {
+                id: 16,
+                name: "Coca-Cola regular (355 ml)",
+                category: "bebidas",
+                description: "Refresco de cola regular.",
+                price: 35.00,
+                image: "https://images.unsplash.com/photo-1554866585-cd94860890b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            },
+            
+            // Postres
+            {
+                id: 17,
+                name: "Flan de cajeta",
+                category: "postres",
+                description: "Tradicional flan casero bañado en cajeta.",
+                price: 35.00,
+                image: "https://i.ibb.co/Kx9J9yQD/IMG-4615.png"
+            },
+            {
+                id: 18,
+                name: "Flan de queso",
+                category: "postres",
+                description: "Flan con un toque especial de queso crema.",
+                price: 35.00,
+                image: "https://i.ibb.co/WNvTLTpF/IMG-4617.png"
+            },
+            {
+                id: 19,
+                name: "Flan de mazapán",
+                category: "postres",
+                description: "Flan con sabor a mazapán, decorado con cacahuates.",
+                price: 35.00,
+                image: "https://i.ibb.co/jPtZQnCr/IMG-4616.png"
+            }
         ];
 
-        /* ================= LÓGICA ================= */
-        let cart = [];
-        let map, deliveryMarker;
-        let shippingCost = 0;
+        // ============================================
+        // VARIABLES GLOBALES
+        // ============================================
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let currentCategory = 'all';
+        let currentShippingCost = 0;
         let deliveryDistance = 0;
+        let deliveryTime = 0;
+        let paymentMethod = 'card';
+        let cashAmount = 0;
+        let changeAmount = 0;
+        let map = null;
+        let restaurantMarker = null;
+        let deliveryMarker = null;
+        let routeLayer = null;
+        let userLocation = null;
+        let deliveryZone = "";
 
-        // Inicializar
-        document.addEventListener('DOMContentLoaded', () => {
-            mapboxgl.accessToken = mapboxToken;
-            renderProducts('all');
+        // ============================================
+        // INICIALIZACIÓN
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            renderProducts();
+            updateCartDisplay();
             
-            // Eventos Categorías
+            // Categorías
             document.querySelectorAll('.category-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
+                btn.addEventListener('click', function() {
                     document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-                    e.target.classList.add('active');
-                    renderProducts(e.target.dataset.category);
+                    this.classList.add('active');
+                    currentCategory = this.getAttribute('data-category');
+                    renderProducts();
                 });
             });
-
-            // Toggle Entrega
+            
+            // Icono flotante del carrito
+            document.getElementById('floatingCartIcon').addEventListener('click', function() {
+                document.getElementById('cartSection').scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Cambio en tipo de entrega
             document.querySelectorAll('input[name="deliveryType"]').forEach(radio => {
-                radio.addEventListener('change', (e) => {
-                    const isDelivery = e.target.value === 'delivery';
-                    document.getElementById('deliveryAddressSection').style.display = isDelivery ? 'block' : 'none';
-                    document.getElementById('mapboxContainer').classList.toggle('active', isDelivery);
+                radio.addEventListener('change', function() {
+                    const deliveryType = this.value;
+                    const addressSection = document.getElementById('deliveryAddressSection');
+                    const finalAddressSection = document.getElementById('finalAddressSection');
                     
-                    shippingCost = 0;
-                    updateCartUI();
-
-                    if (isDelivery && !map) {
-                        initMap(); // Iniciar mapa solo si se selecciona envío
-                    } else if (isDelivery && map) {
-                        setTimeout(() => map.resize(), 100); // REPARACIÓN IMPORTANTE
+                    if (deliveryType === 'delivery') {
+                        addressSection.style.display = 'block';
+                        document.getElementById('mapboxContainer').classList.add('active');
+                        initMap();
+                    } else {
+                        addressSection.style.display = 'none';
+                        currentShippingCost = 0;
+                        updateCartDisplay();
+                        document.getElementById('mapboxContainer').classList.remove('active');
+                        document.getElementById('distanceDetails').classList.remove('active');
+                        document.getElementById('deliveryLimitWarning').classList.remove('active');
                     }
                 });
             });
-
-            // Lógica de Pago Efectivo
-            document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
-                radio.addEventListener('change', (e) => {
-                    document.getElementById('cashInputGroup').style.display = e.target.value === 'cash' ? 'block' : 'none';
+            
+            // Usar ubicación actual
+            document.getElementById('useCurrentLocationBtn').addEventListener('click', getCurrentLocation);
+            
+            // Calcular envío
+            document.getElementById('calculateShippingBtn').addEventListener('click', calculateShippingWithMapbox);
+            
+            // Buscar dirección
+            document.getElementById('mapSearchBtn').addEventListener('click', searchAddressOnMap);
+            document.getElementById('mapSearch').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchAddressOnMap();
+                }
+            });
+            
+            // Métodos de pago
+            document.getElementById('cashMethod').addEventListener('click', function() {
+                selectPaymentMethod('cash');
+            });
+            
+            document.getElementById('cardMethod').addEventListener('click', function() {
+                selectPaymentMethod('card');
+            });
+            
+            // Calcular cambio
+            document.getElementById('cashAmount').addEventListener('input', calculateChange);
+            
+            // Checkout
+            document.getElementById('checkoutBtn').addEventListener('click', function() {
+                if (cart.length === 0) {
+                    showNotification('Tu carrito está vacío');
+                    return;
+                }
+                
+                const deliveryType = document.querySelector('input[name="deliveryType"]:checked').value;
+                const deliveryTypeFinal = document.getElementById('deliveryTypeFinal');
+                const finalAddressSection = document.getElementById('finalAddressSection');
+                
+                if (deliveryType === 'delivery') {
+                    deliveryTypeFinal.value = 'delivery';
+                    finalAddressSection.style.display = 'block';
+                    
+                    if (currentShippingCost === 0) {
+                        showNotification('Por favor calcula el costo de envío primero');
+                        return;
+                    }
+                    
+                    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                    if (subtotal < shippingRates.minOrderForDelivery) {
+                        showNotification(`El pedido mínimo para envío a domicilio es de $${shippingRates.minOrderForDelivery}.00`);
+                        return;
+                    }
+                    
+                    document.getElementById('customerAddress').value = document.getElementById('deliveryAddress').value;
+                } else {
+                    deliveryTypeFinal.value = 'pickup';
+                    finalAddressSection.style.display = 'none';
+                }
+                
+                selectPaymentMethod('card');
+                
+                document.getElementById('checkoutForm').style.display = 'block';
+                window.scrollTo({
+                    top: document.getElementById('checkoutForm').offsetTop - 20,
+                    behavior: 'smooth'
                 });
             });
-
-            document.getElementById('cashAmount').addEventListener('input', (e) => {
-                const total = getCartTotal();
-                const pay = parseFloat(e.target.value) || 0;
-                const change = pay - total;
-                document.getElementById('changeText').textContent = change >= 0 ? `Cambio: $${change.toFixed(2)}` : 'Monto insuficiente';
-            });
             
-            // Botón Checkout
-            document.getElementById('checkoutBtn').addEventListener('click', () => {
-                if(cart.length === 0) return showToast("El carrito está vacío");
-                document.getElementById('checkoutForm').style.display = 'block';
-                document.getElementById('checkoutForm').scrollIntoView({ behavior: 'smooth' });
-            });
-
-            document.getElementById('cancelCheckout').addEventListener('click', () => {
+            // Cancelar checkout
+            document.getElementById('cancelCheckout').addEventListener('click', function() {
                 document.getElementById('checkoutForm').style.display = 'none';
             });
-
-            // Botón Flotante
-            document.getElementById('floatingCartIcon').addEventListener('click', () => {
-                document.getElementById('cartSection').scrollIntoView({ behavior: 'smooth' });
-            });
-
-            // Formulario Final
-            document.getElementById('orderForm').addEventListener('submit', (e) => {
+            
+            // Enviar formulario
+            document.getElementById('orderForm').addEventListener('submit', function(e) {
                 e.preventDefault();
-                sendWhatsApp();
+                if (validatePayment()) {
+                    sendOrderToWhatsApp();
+                }
             });
-
-            // Mapa Search
-            document.getElementById('mapSearchBtn').addEventListener('click', searchAddress);
-            document.getElementById('calculateShippingBtn').addEventListener('click', calculateRoute);
-            document.getElementById('useCurrentLocationBtn').addEventListener('click', getGeoLocation);
+            
+            // Cerrar modal
+            document.getElementById('closeModalBtn').addEventListener('click', function() {
+                document.getElementById('confirmationModal').style.display = 'none';
+            });
         });
 
-        /* ================= FUNCIONES ================= */
-        
-        function renderProducts(cat) {
-            const grid = document.getElementById('productsGrid');
-            grid.innerHTML = '';
-            const filtered = cat === 'all' ? products : products.filter(p => p.cat === cat);
+        // ============================================
+        // FUNCIONES DE PRODUCTOS Y CARRITO
+        // ============================================
+        function renderProducts() {
+            const productsGrid = document.getElementById('productsGrid');
+            productsGrid.innerHTML = '';
             
-            filtered.forEach(p => {
-                grid.innerHTML += `
-                    <div class="product-card">
-                        <img src="${p.img}" class="product-img" alt="${p.name}">
-                        <div class="product-info">
-                            <h3 class="product-title">${p.name}</h3>
-                            <p class="product-desc">${p.desc}</p>
-                            <div class="product-footer">
-                                <div class="product-price">$${p.price}</div>
-                                <button class="add-to-cart" onclick="addToCart(${p.id})">Agregar</button>
+            const filteredProducts = currentCategory === 'all' 
+                ? products 
+                : products.filter(product => product.category === currentCategory);
+            
+            if (filteredProducts.length === 0) {
+                productsGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #7f8c8d; padding: 40px;">No hay productos en esta categoría.</p>';
+                return;
+            }
+            
+            filteredProducts.forEach(product => {
+                const cartItem = cart.find(item => item.id === product.id);
+                const quantity = cartItem ? cartItem.quantity : 0;
+                
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="product-img">
+                    <div class="product-info">
+                        <h3 class="product-title">${product.name}</h3>
+                        <p class="product-desc">${product.description}</p>
+                        <div class="product-footer">
+                            <div class="product-price">$${product.price.toFixed(2)}</div>
+                            <div class="product-quantity-controls">
+                                ${quantity > 0 ? `
+                                    <button class="quantity-btn" onclick="adjustQuantity(${product.id}, -1)" ${quantity <= 1 ? 'disabled' : ''}>
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <div class="quantity-display">${quantity}</div>
+                                    <button class="quantity-btn" onclick="adjustQuantity(${product.id}, 1)">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                ` : ''}
+                                <button class="add-to-cart ${quantity > 0 ? 'in-cart' : ''}" onclick="addToCart(${product.id})">
+                                    <i class="fas fa-${quantity > 0 ? 'check' : 'cart-plus'}"></i>
+                                    ${quantity > 0 ? 'En carrito' : 'Añadir'}
+                                </button>
                             </div>
                         </div>
                     </div>
                 `;
+                productsGrid.appendChild(productCard);
             });
         }
 
-        function addToCart(id) {
-            const p = products.find(i => i.id === id);
-            const exist = cart.find(i => i.id === id);
-            if(exist) exist.qty++;
-            else cart.push({ ...p, qty: 1 });
-            updateCartUI();
-            showToast(`${p.name} agregado`);
-        }
-
-        function removeFromCart(id) {
-            cart = cart.filter(i => i.id !== id);
-            updateCartUI();
-        }
-
-        function updateCartUI() {
-            const container = document.getElementById('cartItems');
-            const subtotal = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
-            const total = subtotal + shippingCost;
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
             
-            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
-            document.getElementById('shippingCost').textContent = `$${shippingCost.toFixed(2)}`;
-            document.getElementById('total').textContent = `$${total.toFixed(2)}`;
-            document.getElementById('floatingCartCount').textContent = cart.reduce((acc,i)=>acc+i.qty,0);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    quantity: 1
+                });
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+            renderProducts();
+            showNotification(`${product.name} agregado al carrito`);
+        }
 
-            if(cart.length === 0) {
-                container.innerHTML = '<p style="text-align:center;color:#999;">Carrito vacío</p>';
+        function adjustQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            
+            if (item) {
+                item.quantity += change;
+                
+                if (item.quantity <= 0) {
+                    cart = cart.filter(item => item.id !== productId);
+                }
+                
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartDisplay();
+                renderProducts();
+            }
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+            renderProducts();
+            showNotification('Producto eliminado del carrito');
+        }
+
+        function updateCartDisplay() {
+            const cartItemsContainer = document.getElementById('cartItems');
+            const floatingCartCount = document.getElementById('floatingCartCount');
+            const subtotalElement = document.getElementById('subtotal');
+            const shippingCostElement = document.getElementById('shippingCost');
+            const totalElement = document.getElementById('total');
+            
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            floatingCartCount.textContent = totalItems;
+            
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const total = subtotal + currentShippingCost;
+            
+            subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+            shippingCostElement.textContent = `$${currentShippingCost.toFixed(2)}`;
+            totalElement.textContent = `$${total.toFixed(2)}`;
+            
+            if (paymentMethod === 'cash' && cashAmount > 0) {
+                calculateChange();
+            }
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <p style="text-align:center; color:#999; margin-top:20px;">Tu canasta está vacía</p>
+                `;
+            } else {
+                cartItemsContainer.innerHTML = '';
+                cart.forEach(item => {
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    cartItem.innerHTML = `
+                        <div>
+                            <h4>${item.name}</h4>
+                            <small>$${item.price.toFixed(2)} c/u</small>
+                        </div>
+                        <div class="cart-item-controls">
+                            <input type="number" min="1" value="${item.quantity}" class="cart-item-qty" onchange="updateQuantity(${item.id}, this.value)">
+                            <button class="remove-item" onclick="removeFromCart(${item.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(cartItem);
+                });
+            }
+        }
+
+        function updateQuantity(productId, newQuantity) {
+            const quantity = parseInt(newQuantity);
+            
+            if (quantity < 1) {
+                removeFromCart(productId);
                 return;
             }
-
-            container.innerHTML = cart.map(item => `
-                <div class="cart-item">
-                    <div>
-                        <h4>${item.name}</h4>
-                        <small>$${item.price} x ${item.qty}</small>
-                    </div>
-                    <button class="remove-item" onclick="removeFromCart(${item.id})"><i class="fas fa-times"></i></button>
-                </div>
-            `).join('');
+            
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity = quantity;
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartDisplay();
+                renderProducts();
+            }
         }
 
-        function getCartTotal() {
-            return cart.reduce((acc, i) => acc + (i.price * i.qty), 0) + shippingCost;
-        }
-
-        function showToast(msg) {
-            const t = document.getElementById('notification');
-            t.textContent = msg;
-            t.style.display = 'block';
-            setTimeout(() => t.style.display = 'none', 3000);
-        }
-
-        /* ================= MAPBOX ================= */
+        // ============================================
+        // FUNCIONES DE MAPA Y ENVÍO
+        // ============================================
         function initMap() {
+            if (map) return;
+            
+            if (!mapboxgl.accessToken) {
+                console.error('Token de Mapbox no configurado');
+                return;
+            }
+            
             map = new mapboxgl.Map({
                 container: 'map',
                 style: 'mapbox://styles/mapbox/streets-v12',
                 center: restaurantCoords,
                 zoom: 13
             });
-
-            // Marcador Restaurante
-            new mapboxgl.Marker({ color: '#8B4513' }).setLngLat(restaurantCoords).addTo(map);
-
-            map.on('click', (e) => {
-                setDeliveryPoint(e.lngLat);
+            
+            restaurantMarker = new mapboxgl.Marker({ color: '#8B4513' })
+                .setLngLat(restaurantCoords)
+                .setPopup(new mapboxgl.Popup().setHTML(`
+                    <div style="padding: 10px;">
+                        <h4 style="margin: 0 0 5px; color: #8B4513;">Barbacoa de la Casa Vieja</h4>
+                        <p style="margin: 0; font-size: 0.9rem;">${restaurantAddress}</p>
+                    </div>
+                `))
+                .addTo(map);
+            
+            map.on('click', function(e) {
+                placeDeliveryMarker(e.lngLat);
             });
         }
 
-        function setDeliveryPoint(lngLat) {
-            if(deliveryMarker) deliveryMarker.remove();
-            deliveryMarker = new mapboxgl.Marker({ color: '#E67E22' }).setLngLat(lngLat).addTo(map);
+        function getCurrentLocation() {
+            if (!navigator.geolocation) {
+                showNotification('Tu navegador no soporta geolocalización');
+                return;
+            }
+            
+            document.getElementById('shippingLoading').classList.add('active');
+            
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    const userCoords = [position.coords.longitude, position.coords.latitude];
+                    userLocation = userCoords;
+                    
+                    placeDeliveryMarker(userCoords);
+                    reverseGeocode(userCoords);
+                    
+                    document.getElementById('shippingLoading').classList.remove('active');
+                },
+                function(error) {
+                    console.error('Error al obtener ubicación:', error);
+                    showNotification('No se pudo obtener tu ubicación. Por favor ingresa tu dirección manualmente.');
+                    document.getElementById('shippingLoading').classList.remove('active');
+                },
+                { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+            );
         }
 
-        function searchAddress() {
-            const query = document.getElementById('mapSearch').value;
-            if(!query) return;
+        function reverseGeocode(coords) {
+            const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${coords[0]},${coords[1]}.json?access_token=${mapboxgl.accessToken}&language=es`;
             
-            fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${query}.json?access_token=${mapboxToken}&bbox=-99.3,19.3,-99.0,19.6&limit=1`)
-                .then(res => res.json())
+            fetch(url)
+                .then(response => response.json())
                 .then(data => {
-                    if(data.features.length) {
-                        const center = data.features[0].center;
-                        map.flyTo({ center: center, zoom: 15 });
-                        setDeliveryPoint(center);
-                        document.getElementById('deliveryAddress').value = data.features[0].place_name;
-                    } else {
-                        showToast("Dirección no encontrada");
+                    if (data.features && data.features.length > 0) {
+                        const address = data.features[0].place_name;
+                        document.getElementById('deliveryAddress').value = address;
+                        document.getElementById('mapSearch').value = address;
+                        
+                        setTimeout(() => calculateShippingWithMapbox(), 500);
                     }
+                })
+                .catch(error => {
+                    console.error('Error en geocodificación inversa:', error);
                 });
         }
 
-        function getGeoLocation() {
-            if(!navigator.geolocation) return showToast("Geolocalización no soportada");
-            navigator.geolocation.getCurrentPosition(pos => {
-                const coords = [pos.coords.longitude, pos.coords.latitude];
-                map.flyTo({ center: coords, zoom: 15 });
-                setDeliveryPoint(coords);
-                
-                // Reverse Geocode para llenar el input
-                fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${coords[0]},${coords[1]}.json?access_token=${mapboxToken}`)
-                .then(res => res.json())
+        function placeDeliveryMarker(coords) {
+            if (deliveryMarker) {
+                deliveryMarker.remove();
+            }
+            
+            if (routeLayer && map.getLayer('route')) {
+                map.removeLayer('route');
+                map.removeSource('route');
+            }
+            
+            deliveryMarker = new mapboxgl.Marker({ color: '#3498db' })
+                .setLngLat(coords)
+                .setPopup(new mapboxgl.Popup().setHTML(`
+                    <div style="padding: 10px;">
+                        <h4 style="margin: 0 0 5px; color: #3498db;">Dirección de entrega</h4>
+                        <p style="margin: 0; font-size: 0.9rem;">Ubicación seleccionada para entrega</p>
+                    </div>
+                `))
+                .addTo(map);
+            
+            if (restaurantMarker && deliveryMarker) {
+                const bounds = new mapboxgl.LngLatBounds();
+                bounds.extend(restaurantMarker.getLngLat());
+                bounds.extend(deliveryMarker.getLngLat());
+                map.fitBounds(bounds, { padding: 50 });
+            }
+        }
+
+        function searchAddressOnMap() {
+            const searchInput = document.getElementById('mapSearch').value;
+            if (!searchInput.trim()) return;
+            
+            document.getElementById('shippingLoading').classList.add('active');
+            
+            const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(searchInput)}.json?access_token=${mapboxgl.accessToken}&limit=1&language=es&country=mx&proximity=${restaurantCoords[0]},${restaurantCoords[1]}`;
+            
+            fetch(url)
+                .then(response => response.json())
                 .then(data => {
-                    if(data.features.length) document.getElementById('deliveryAddress').value = data.features[0].place_name;
+                    if (data.features && data.features.length > 0) {
+                        const coords = data.features[0].center;
+                        const placeName = data.features[0].place_name;
+                        
+                        document.getElementById('deliveryAddress').value = placeName;
+                        placeDeliveryMarker(coords);
+                        
+                        document.getElementById('shippingLoading').classList.remove('active');
+                        
+                        setTimeout(() => calculateShippingWithMapbox(), 500);
+                    } else {
+                        showNotification('Dirección no encontrada. Intenta con más detalles.');
+                        document.getElementById('shippingLoading').classList.remove('active');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error en búsqueda de dirección:', error);
+                    showNotification('Error al buscar la dirección. Intenta nuevamente.');
+                    document.getElementById('shippingLoading').classList.remove('active');
                 });
-            });
         }
 
-        function calculateRoute() {
-            if(!deliveryMarker) return showToast("Selecciona un punto en el mapa");
+        function calculateShippingWithMapbox() {
+            if (!deliveryMarker) {
+                showNotification('Por favor selecciona una ubicación en el mapa primero');
+                return;
+            }
             
-            const dest = deliveryMarker.getLngLat();
-            // Calcular distancia en línea recta simple para demo (Mapbox directions API requiere más config a veces)
-            // Usamos fórmula Haversine simplificada
-            const R = 6371; 
-            const dLat = (dest.lat - restaurantCoords[1]) * Math.PI / 180;
-            const dLon = (dest.lng - restaurantCoords[0]) * Math.PI / 180;
-            const a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(restaurantCoords[1] * Math.PI / 180) * Math.cos(dest.lat * Math.PI / 180) * Math.sin(dLon/2) * Math.sin(dLon/2);
+            const deliveryCoords = deliveryMarker.getLngLat();
+            const address = document.getElementById('deliveryAddress').value.trim();
+            
+            if (!address) {
+                showNotification('Por favor ingresa una dirección');
+                return;
+            }
+            
+            document.getElementById('shippingLoading').classList.add('active');
+            document.getElementById('distanceDetails').classList.remove('active');
+            document.getElementById('deliveryLimitWarning').classList.remove('active');
+            
+            const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${restaurantCoords[0]},${restaurantCoords[1]};${deliveryCoords.lng},${deliveryCoords.lat}?access_token=${mapboxgl.accessToken}&overview=full&geometries=geojson&steps=true&language=es`;
+            
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.routes && data.routes.length > 0) {
+                        const route = data.routes[0];
+                        
+                        deliveryDistance = route.distance / 1000;
+                        deliveryTime = Math.round(route.duration / 60);
+                        
+                        calculateShippingCost();
+                        updateShippingUI();
+                        
+                        drawRouteOnMap(route.geometry);
+                        
+                        showNotification('Costo de envío calculado correctamente');
+                    } else {
+                        throw new Error('No se pudo calcular la ruta');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al calcular ruta:', error);
+                    
+                    calculateStraightLineDistance(deliveryCoords);
+                    calculateShippingCost();
+                    updateShippingUI();
+                    
+                    showNotification('Costo de envío calculado (distancia aproximada)');
+                })
+                .finally(() => {
+                    document.getElementById('shippingLoading').classList.remove('active');
+                });
+        }
+
+        function calculateStraightLineDistance(deliveryCoords) {
+            const R = 6371;
+            const lat1 = restaurantCoords[1] * Math.PI / 180;
+            const lat2 = deliveryCoords.lat * Math.PI / 180;
+            const deltaLat = (deliveryCoords.lat - restaurantCoords[1]) * Math.PI / 180;
+            const deltaLon = (deliveryCoords.lng - restaurantCoords[0]) * Math.PI / 180;
+            
+            const a = Math.sin(deltaLat/2) * Math.sin(deltaLat/2) +
+                     Math.cos(lat1) * Math.cos(lat2) *
+                     Math.sin(deltaLon/2) * Math.sin(deltaLon/2);
             const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-            deliveryDistance = (R * c).toFixed(2);
             
-            // Costo: $10 por km
-            shippingCost = Math.ceil(deliveryDistance * 10);
-            if(shippingCost < 20) shippingCost = 20; // Mínimo
-            
-            document.getElementById('distanceText').textContent = `${deliveryDistance} km`;
-            updateCartUI();
-            showToast(`Envío calculado: $${shippingCost}`);
+            deliveryDistance = R * c;
+            deliveryTime = Math.round(deliveryDistance * 1.5);
         }
 
-        /* ================= WHATSAPP ================= */
-        function sendWhatsApp() {
-            const name = document.getElementById('customerName').value;
-            const phone = document.getElementById('customerPhone').value;
-            const notes = document.getElementById('customerNotes').value;
-            const type = document.querySelector('input[name="deliveryType"]:checked').value;
-            const payMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+        function drawRouteOnMap(routeGeometry) {
+            if (routeLayer && map.getLayer('route')) {
+                map.removeLayer('route');
+                map.removeSource('route');
+            }
             
-            let text = `Hola! Soy *${name}*, quiero hacer un pedido:%0A%0A`;
+            map.addSource('route', {
+                type: 'geojson',
+                data: {
+                    type: 'Feature',
+                    properties: {},
+                    geometry: routeGeometry
+                }
+            });
+            
+            map.addLayer({
+                id: 'route',
+                type: 'line',
+                source: 'route',
+                layout: {
+                    'line-join': 'round',
+                    'line-cap': 'round'
+                },
+                paint: {
+                    'line-color': '#3498db',
+                    'line-width': 4,
+                    'line-opacity': 0.7
+                }
+            });
+            
+            routeLayer = 'route';
+        }
+
+        function calculateShippingCost() {
+            let zoneName = "Fuera de zona";
+            let zoneClass = "zone-out";
+            
+            if (deliveryDistance <= 5) {
+                zoneName = "Zona Cercana";
+                zoneClass = "zone-close";
+            } else if (deliveryDistance <= 10) {
+                zoneName = "Zona Media";
+                zoneClass = "zone-medium";
+            } else if (deliveryDistance <= 15) {
+                zoneName = "Zona Lejana";
+                zoneClass = "zone-far";
+            } else {
+                zoneName = "Fuera de zona";
+                zoneClass = "zone-out";
+            }
+            
+            deliveryZone = zoneName;
+            
+            let calculatedCost = 0;
+            
+            if (deliveryDistance <= shippingRates.maxDistance && deliveryDistance > 0) {
+                calculatedCost = deliveryDistance * shippingRates.perKmRate;
+                calculatedCost = Math.round(calculatedCost * 100) / 100;
+            } else if (deliveryDistance > shippingRates.maxDistance) {
+                document.getElementById('deliveryLimitWarning').classList.add('active');
+                calculatedCost = 0;
+            } else {
+                document.getElementById('deliveryLimitWarning').classList.remove('active');
+            }
+            
+            currentShippingCost = calculatedCost;
+            
+            updateCartDisplay();
+            
+            return {
+                cost: calculatedCost,
+                zone: zoneName,
+                zoneClass: zoneClass
+            };
+        }
+
+        function updateShippingUI() {
+            const shippingInfo = calculateShippingCost();
+            
+            if (deliveryDistance > 0 && deliveryDistance <= shippingRates.maxDistance) {
+                document.getElementById('distanceText').textContent = `${deliveryDistance.toFixed(1)} km`;
+                document.getElementById('timeText').textContent = `${deliveryTime} min`;
+                document.getElementById('calculatedShippingCost').innerHTML = `$${currentShippingCost.toFixed(2)}`;
+                
+                document.getElementById('distanceDetails').classList.add('active');
+                document.getElementById('deliveryLimitWarning').classList.remove('active');
+            } else if (deliveryDistance > shippingRates.maxDistance) {
+                document.getElementById('distanceDetails').classList.remove('active');
+                document.getElementById('deliveryLimitWarning').classList.add('active');
+            }
+        }
+
+        // ============================================
+        // FUNCIONES DE PAGO
+        // ============================================
+        function selectPaymentMethod(method) {
+            paymentMethod = method;
+            
+            document.getElementById('cashMethod').classList.remove('selected');
+            document.getElementById('cardMethod').classList.remove('selected');
+            document.getElementById('cashDetails').classList.remove('active');
+            document.getElementById('changeInfo').classList.remove('active');
+            
+            if (method === 'cash') {
+                document.getElementById('cashMethod').classList.add('selected');
+                document.getElementById('cashDetails').classList.add('active');
+                document.getElementById('cash').checked = true;
+                calculateChange();
+            } else {
+                document.getElementById('cardMethod').classList.add('selected');
+                document.getElementById('card').checked = true;
+            }
+        }
+
+        function calculateChange() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const total = subtotal + currentShippingCost;
+            
+            cashAmount = parseFloat(document.getElementById('cashAmount').value) || 0;
+            
+            if (cashAmount > 0 && cashAmount >= total) {
+                changeAmount = cashAmount - total;
+                document.getElementById('changeAmount').textContent = `$${changeAmount.toFixed(2)}`;
+                document.getElementById('changeInfo').classList.add('active');
+            } else if (cashAmount > 0 && cashAmount < total) {
+                document.getElementById('changeInfo').classList.remove('active');
+            } else {
+                document.getElementById('changeInfo').classList.remove('active');
+            }
+        }
+
+        function validatePayment() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const total = subtotal + currentShippingCost;
+            
+            if (paymentMethod === 'cash') {
+                cashAmount = parseFloat(document.getElementById('cashAmount').value) || 0;
+                
+                if (cashAmount === 0) {
+                    showNotification('Por favor ingresa el monto con el que pagarás en efectivo');
+                    return false;
+                }
+                
+                if (cashAmount < total) {
+                    showNotification(`El monto en efectivo debe ser mayor o igual al total de $${total.toFixed(2)}`);
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+
+        // ============================================
+        // WHATSAPP
+        // ============================================
+        function sendOrderToWhatsApp() {
+            const customerName = document.getElementById('customerName').value;
+            const customerPhone = document.getElementById('customerPhone').value;
+            const deliveryType = document.getElementById('deliveryTypeFinal').value;
+            const customerNotes = document.getElementById('customerNotes').value;
+            
+            let customerAddress = '';
+            if (deliveryType === 'delivery') {
+                customerAddress = document.getElementById('customerAddress').value;
+                if (!customerAddress) {
+                    showNotification('Por favor ingresa una dirección para envío');
+                    return;
+                }
+            }
+            
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const total = subtotal + currentShippingCost;
+            
+            const paymentMethodText = paymentMethod === 'cash' ? 'Efectivo' : 'Tarjeta (Terminal)';
+            let paymentDetails = '';
+            
+            if (paymentMethod === 'cash') {
+                cashAmount = parseFloat(document.getElementById('cashAmount').value) || 0;
+                changeAmount = cashAmount - total;
+                paymentDetails = `*Monto con el que paga:* $${cashAmount.toFixed(2)}%0A*Cambio a dar:* $${changeAmount.toFixed(2)}%0A`;
+            }
+            
+            let message = `*NUEVO PEDIDO - Barbacoa de la Casa Vieja*%0A%0A`;
+            message += `*Cliente:* ${customerName}%0A`;
+            message += `*Teléfono:* ${customerPhone}%0A`;
+            
+            if (deliveryType === 'delivery') {
+                message += `*Tipo de entrega:* Envío a domicilio%0A`;
+                message += `*Dirección:* ${customerAddress}%0A`;
+                message += `*Distancia:* ${deliveryDistance.toFixed(1)} km%0A`;
+                message += `*Zona de entrega:* ${deliveryZone}%0A`;
+                message += `*Costo de envío:* $${currentShippingCost.toFixed(2)}%0A`;
+            } else {
+                message += `*Tipo de entrega:* Recoger en local%0A`;
+            }
+            
+            message += `*Método de pago:* ${paymentMethodText}%0A`;
+            
+            if (paymentMethod === 'cash') {
+                message += paymentDetails;
+            }
+            
+            if (customerNotes) {
+                message += `*Instrucciones:* ${customerNotes}%0A`;
+            }
+            
+            message += `%0A*DETALLE DEL PEDIDO:*%0A`;
             
             cart.forEach(item => {
-                text += `▪ ${item.qty}x ${item.name} ($${item.price})%0A`;
+                message += `- ${item.name} x${item.quantity}: $${(item.price * item.quantity).toFixed(2)}%0A`;
             });
-
-            text += `%0A*Subtotal:* $${(getCartTotal() - shippingCost).toFixed(2)}`;
             
-            if(type === 'delivery') {
-                const address = document.getElementById('deliveryAddress').value;
-                text += `%0A*Envío:* $${shippingCost} (Distancia: ${deliveryDistance}km)`;
-                text += `%0A*Dirección:* ${address}`;
-            } else {
-                text += `%0A*Entrega:* Recoger en tienda`;
-            }
-
-            text += `%0A*TOTAL:* $${getCartTotal().toFixed(2)}`;
-            text += `%0A*Pago:* ${payMethod === 'cash' ? 'Efectivo' : 'Tarjeta'}`;
+            message += `%0A*SUBTOTAL:* $${subtotal.toFixed(2)}%0A`;
             
-            if(payMethod === 'cash') {
-                const amount = document.getElementById('cashAmount').value;
-                text += ` (Pago con $${amount})`;
+            if (deliveryType === 'delivery') {
+                message += `*ENVÍO:* $${currentShippingCost.toFixed(2)}%0A`;
             }
+            
+            message += `*TOTAL:* $${total.toFixed(2)}%0A%0A`;
+            message += `*Fecha y hora:* ${new Date().toLocaleString('es-MX')}`;
+            
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+            
+            document.getElementById('confirmationModal').style.display = 'flex';
+            
+            cart = [];
+            localStorage.removeItem('cart');
+            document.getElementById('orderForm').reset();
+            document.getElementById('checkoutForm').style.display = 'none';
+            document.getElementById('deliveryAddress').value = '';
+            document.getElementById('mapSearch').value = '';
+            document.getElementById('distanceDetails').classList.remove('active');
+            document.getElementById('deliveryLimitWarning').classList.remove('active');
+            
+            if (deliveryMarker) {
+                deliveryMarker.remove();
+                deliveryMarker = null;
+            }
+            
+            if (routeLayer && map.getLayer('route')) {
+                map.removeLayer('route');
+                map.removeSource('route');
+                routeLayer = null;
+            }
+            
+            currentShippingCost = 0;
+            cashAmount = 0;
+            changeAmount = 0;
+            
+            selectPaymentMethod('card');
+            updateCartDisplay();
+            renderProducts();
+        }
 
-            if(notes) text += `%0A*Notas:* ${notes}`;
-
-            window.open(`https://wa.me/${whatsappNumber}?text=${text}`, '_blank');
+        // ============================================
+        // UTILIDADES
+        // ============================================
+        function showNotification(text) {
+            const notification = document.getElementById('notification');
+            notification.textContent = text;
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
         }
     </script>
 </body>

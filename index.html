@@ -1367,7 +1367,7 @@
 
         // Productos actualizados según tus especificaciones
         const products = [
-            // BARBACOA POR KG CON MODIFICADORES ESPECÍFICOS
+            // BARBACOA POR KG CON MODIFICADORES ESPECÍFICOS (CON SELECCIÓN DE CORTE)
             {
                 id: 1,
                 name: "Kilogramo de barbacoa",
@@ -1376,7 +1376,7 @@
                 price: 780.00,
                 image: "https://i.ibb.co/8nq6VhpF/IMG-4420.jpg",
                 modifiers: {
-                    // Modificadores de selección única (solo se puede elegir uno)
+                    // Modificadores de selección única (solo se puede elegir uno) - SOLO PARA BARBACOA
                     selection: [
                         { id: 100, name: "Masiza o pierna", description: "Selección de corte", price: 0.00 },
                         { id: 101, name: "Espaldilla", description: "Selección de corte", price: 0.00 },
@@ -1434,7 +1434,7 @@
                 }
             },
             
-            // PRODUCTOS DE PANCITA CON LOS MISMOS MODIFICADORES QUE BARBACOA POR KILO
+            // PRODUCTOS DE PANCITA SIN MODIFICADORES DE SELECCIÓN DE CORTE (SOLO EXTRAS)
             {
                 id: 4,
                 name: "Kilogramo de pancita",
@@ -1443,13 +1443,8 @@
                 price: 780.00,
                 image: "https://i.ibb.co/v4fr6mGB/Photoroom-20260103-133225.jpg",
                 modifiers: {
-                    // Modificadores de selección única (solo se puede elegir uno)
-                    selection: [
-                        { id: 100, name: "Masiza o pierna", description: "Selección de corte", price: 0.00 },
-                        { id: 101, name: "Espaldilla", description: "Selección de corte", price: 0.00 },
-                        { id: 102, name: "Costilla", description: "Selección de corte", price: 0.00 },
-                        { id: 103, name: "Cuello", description: "Selección de corte", price: 0.00 }
-                    ],
+                    // SIN MODIFICADORES DE SELECCIÓN (vacío) - SOLO EXTRAS
+                    selection: [],
                     // Modificadores adicionales (se pueden seleccionar múltiples)
                     extras: [
                         { id: 104, name: "Extra tortillas 1/4", description: "Paquete adicional de tortillas", price: 15.00 },
@@ -1466,12 +1461,7 @@
                 price: 390.00,
                 image: "https://i.ibb.co/4gMSF82Y/Photoroom-20260103-132344.jpg",
                 modifiers: {
-                    selection: [
-                        { id: 100, name: "Masiza o pierna", description: "Selección de corte", price: 0.00 },
-                        { id: 101, name: "Espaldilla", description: "Selección de corte", price: 0.00 },
-                        { id: 102, name: "Costilla", description: "Selección de corte", price: 0.00 },
-                        { id: 103, name: "Cuello", description: "Selección de corte", price: 0.00 }
-                    ],
+                    selection: [], // VACÍO - sin selección de corte
                     extras: [
                         { id: 104, name: "Extra tortillas 1/4", description: "Paquete adicional de tortillas", price: 15.00 },
                         { id: 105, name: "Extra de salsa", description: "Salsa adicional", price: 10.00 },
@@ -1487,12 +1477,7 @@
                 price: 195.00,
                 image: "https://i.ibb.co/4gMSF82Y/Photoroom-20260103-132344.jpg",
                 modifiers: {
-                    selection: [
-                        { id: 100, name: "Masiza o pierna", description: "Selección de corte", price: 0.00 },
-                        { id: 101, name: "Espaldilla", description: "Selección de corte", price: 0.00 },
-                        { id: 102, name: "Costilla", description: "Selección de corte", price: 0.00 },
-                        { id: 103, name: "Cuello", description: "Selección de corte", price: 0.00 }
-                    ],
+                    selection: [], // VACÍO - sin selección de corte
                     extras: [
                         { id: 104, name: "Extra tortillas 1/4", description: "Paquete adicional de tortillas", price: 15.00 },
                         { id: 105, name: "Extra de salsa", description: "Salsa adicional", price: 10.00 },
@@ -1939,11 +1924,17 @@
                 return;
             }
             
-            // Mostrar modificadores de selección única (radio buttons)
+            // Mostrar modificadores de selección única (radio buttons) - SOLO PARA BARBACOA Y AGUA DEL DÍA
             if (hasSelection) {
                 const selectionGroup = document.createElement('div');
                 selectionGroup.className = 'modifier-group';
-                selectionGroup.innerHTML = '<div class="modifiers-title" style="margin-top: 15px;">Selecciona el corte:</div>';
+                
+                // Mostrar título diferente según el producto
+                if (currentModalProduct.category === 'barbacoa') {
+                    selectionGroup.innerHTML = '<div class="modifiers-title" style="margin-top: 15px;">Selecciona el corte:</div>';
+                } else if (currentModalProduct.category === 'bebidas' && (currentModalProduct.id === 12 || currentModalProduct.id === 13)) {
+                    selectionGroup.innerHTML = '<div class="modifiers-title" style="margin-top: 15px;">Selecciona el sabor:</div>';
+                }
                 
                 modifiers.selection.forEach(modifier => {
                     const modifierOption = document.createElement('div');
@@ -2051,9 +2042,9 @@
         function addToCartFromModal() {
             if (!currentModalProduct) return;
             
-            // Para productos de barbacoa y pancita, validar que se haya seleccionado un corte
-            if ((currentModalProduct.category === 'barbacoa' || currentModalProduct.category === 'pancita') && !selectedSelection) {
-                showNotification('Por favor selecciona un corte para la ' + currentModalProduct.name);
+            // Para productos de barbacoa, validar que se haya seleccionado un corte
+            if (currentModalProduct.category === 'barbacoa' && !selectedSelection) {
+                showNotification('Por favor selecciona un corte para la barbacoa');
                 return;
             }
             
@@ -2062,6 +2053,8 @@
                 showNotification('Por favor selecciona un sabor para el agua del día');
                 return;
             }
+            
+            // Para pancita NO se requiere selección de corte (selection está vacío)
             
             const cartItem = {
                 id: currentModalProduct.id,
@@ -2118,7 +2111,6 @@
             
             // Para productos con modificadores obligatorios, abrir el modal
             if ((product.category === 'barbacoa' && product.modifiers.selection.length > 0) ||
-                (product.category === 'pancita' && product.modifiers.selection.length > 0) ||
                 (product.id === 12 || product.id === 13)) {
                 openProductModal(productId);
                 return;

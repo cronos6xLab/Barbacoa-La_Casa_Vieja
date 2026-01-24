@@ -803,6 +803,45 @@
             left: 18px;
         }
 
+        /* SELECTORES DE OPCIÓN ÚNICA (RADIO BUTTONS) */
+        .modifier-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f5f5f5;
+            cursor: pointer;
+        }
+
+        .modifier-option:last-child {
+            border-bottom: none;
+        }
+
+        .modifier-option input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .modifier-option label {
+            flex: 1;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modifier-option-text {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .option-price {
+            font-weight: 600;
+            color: var(--primary);
+            white-space: nowrap;
+            margin-left: 15px;
+        }
+
         /* CONTROLES DE CANTIDAD EN MODAL */
         .modal-quantity-controls {
             display: flex;
@@ -1050,7 +1089,7 @@
             <div class="header-content">
                 <div class="logo-container">
                     <img src="https://i.ibb.co/jkWp21kD/IMG-4398.jpg" alt="Logo Barbacoa" class="logo-img">
-                    <h1 class="logo-text">                   </h1>
+                    <h1 class="logo-text">Barbacoa de la Casa Vieja</h1>
                 </div>
             </div>
         </div>
@@ -1072,10 +1111,10 @@
                 
                 <div class="menu-categories">
                     <button class="category-btn active" data-category="all">Todo el Menú</button>
-                    <button class="category-btn" data-category="barbacoa">Barbacoa</button>
+                    <button class="category-btn" data-category="barbacoa">Barbacoa por Kg</button>
+                    <button class="category-btn" data-category="consome">Consomé</button>
+                    <button class="category-btn" data-category="flautas">Flautas</button>
                     <button class="category-btn" data-category="bebidas">Bebidas</button>
-                    <button class="category-btn" data-category="postres">Postres</button>
-                    <button class="category-btn" data-category="otros">Otros</button>
                 </div>
 
                 <div class="products-grid" id="productsGrid">
@@ -1110,7 +1149,7 @@
                         <input type="radio" name="deliveryType" value="pickup" checked>
                         <span><i class="fas fa-store"></i> Pasar a recoger</span>
                     </label>
-                    <label style="display:flex; align-items:center; gap:10px; cursor:pointer; background:white; padding:10px; border:1px solid #eee; border-radius=8px;">
+                    <label style="display:flex; align-items:center; gap:10px; cursor:pointer; background:white; padding:10px; border:1px solid #eee; border-radius:8px;">
                         <input type="radio" name="deliveryType" value="delivery">
                         <span><i class="fas fa-motorcycle"></i> Envío a domicilio</span>
                     </label>
@@ -1252,7 +1291,7 @@
                 <p id="modalProductDesc" class="product-modal-desc"></p>
                 <div id="modalProductPrice" class="product-modal-price"></div>
                 
-                <!-- SECCIÓN DE MODIFICADORES - AQUÍ AÑADIR TUS MODIFICADORES -->
+                <!-- SECCIÓN DE MODIFICADORES -->
                 <div class="modifiers-section" id="modifiersSection">
                     <h4 class="modifiers-title">Personaliza tu pedido</h4>
                     <div id="modifiersList">
@@ -1325,235 +1364,212 @@
         const mapboxToken = 'pk.eyJ1IjoiY3Jvbm9zYmFyYmFjb2EiLCJhIjoiY21qYXlzN2EzMGEwcTNkcTF3c2w2YWc2bCJ9.dKvmIuJz1h-loUcVlx5Ojw';
         mapboxgl.accessToken = mapboxToken;
 
-        // Productos completos del primer código con modificadores
+        // Productos actualizados según tus especificaciones
         const products = [
+            // BARBACOA POR KG CON MODIFICADORES ESPECÍFICOS
             {
                 id: 1,
-                name: "Kilogramo de barbacoa sin hueso",
+                name: "Kilogramo de barbacoa",
                 category: "barbacoa",
                 description: "Deliciosa barbacoa de borrego cocida a fuego lento por horas. Incluye tortillas, cebolla, cilantro, salsa y limón.",
                 price: 780.00,
                 image: "https://i.ibb.co/8nq6VhpF/IMG-4420.jpg",
-                modifiers: [
-                    { id: 1, name: "Extra tortillas", description: "Paquete adicional de tortillas", price: 25.00 },
-                    { id: 2, name: "Extra consome", description: "Consome adicional 250ml", price: 30.00 },
-                    { id: 3, name: "Sin cebolla", description: "Preparado sin cebolla", price: 0.00 },
-                    { id: 4, name: "Extra salsa picante", description: "Salsa adicional", price: 15.00 }
-                ]
+                modifiers: {
+                    // Modificadores de selección única (solo se puede elegir uno)
+                    selection: [
+                        { id: 100, name: "Masiza o pierna", description: "Selección de corte", price: 0.00 },
+                        { id: 101, name: "Espaldilla", description: "Selección de corte", price: 0.00 },
+                        { id: 102, name: "Costilla", description: "Selección de corte", price: 0.00 },
+                        { id: 103, name: "Cuello", description: "Selección de corte", price: 0.00 }
+                    ],
+                    // Modificadores adicionales (se pueden seleccionar múltiples)
+                    extras: [
+                        { id: 104, name: "Extra tortillas 1/4", description: "Paquete adicional de tortillas", price: 15.00 },
+                        { id: 105, name: "Extra de salsa", description: "Salsa adicional", price: 10.00 },
+                        { id: 106, name: "Extra limón", description: "Limón adicional", price: 10.00 }
+                    ]
+                }
             },
             {
                 id: 2,
-                name: "1/2 Kilogramo de barbacoa sin hueso",
+                name: "1/2 Kilogramo de barbacoa",
                 category: "barbacoa",
                 description: "Media porción de nuestra deliciosa barbacoa de borrego. Incluye tortillas, cebolla, cilantro, salsa y limón.",
                 price: 390.00,
                 image: "https://i.ibb.co/fYGGQmbQ/IMG-4423.jpg",
-                modifiers: [
-                    { id: 1, name: "Extra tortillas", description: "Paquete adicional de tortillas", price: 25.00 },
-                    { id: 3, name: "Sin cebolla", description: "Preparado sin cebolla", price: 0.00 }
-                ]
+                modifiers: {
+                    selection: [
+                        { id: 100, name: "Masiza o pierna", description: "Selección de corte", price: 0.00 },
+                        { id: 101, name: "Espaldilla", description: "Selección de corte", price: 0.00 },
+                        { id: 102, name: "Costilla", description: "Selección de corte", price: 0.00 },
+                        { id: 103, name: "Cuello", description: "Selección de corte", price: 0.00 }
+                    ],
+                    extras: [
+                        { id: 104, name: "Extra tortillas 1/4", description: "Paquete adicional de tortillas", price: 15.00 },
+                        { id: 105, name: "Extra de salsa", description: "Salsa adicional", price: 10.00 },
+                        { id: 106, name: "Extra limón", description: "Limón adicional", price: 10.00 }
+                    ]
+                }
             },
             {
                 id: 3,
-                name: "1/4 Kilogramo de barbacoa sin hueso",
+                name: "1/4 Kilogramo de barbacoa",
                 category: "barbacoa",
                 description: "Cuarto de kilogramo de barbacoa de borrego. Incluye tortillas, cebolla, cilantro, salsa y limón.",
                 price: 195.00,
                 image: "https://i.ibb.co/21HD2W3h/IMG-4428.png",
-                modifiers: [
-                    { id: 1, name: "Extra tortillas", description: "Paquete adicional de tortillas", price: 15.00 },
-                    { id: 3, name: "Sin cebolla", description: "Preparado sin cebolla", price: 0.00 }
-                ]
+                modifiers: {
+                    selection: [
+                        { id: 100, name: "Masiza o pierna", description: "Selección de corte", price: 0.00 },
+                        { id: 101, name: "Espaldilla", description: "Selección de corte", price: 0.00 },
+                        { id: 102, name: "Costilla", description: "Selección de corte", price: 0.00 },
+                        { id: 103, name: "Cuello", description: "Selección de corte", price: 0.00 }
+                    ],
+                    extras: [
+                        { id: 104, name: "Extra tortillas 1/4", description: "Paquete adicional de tortillas", price: 15.00 },
+                        { id: 105, name: "Extra de salsa", description: "Salsa adicional", price: 10.00 },
+                        { id: 106, name: "Extra limón", description: "Limón adicional", price: 10.00 }
+                    ]
+                }
             },
+            
+            // PRODUCTOS DE CONSUMÉ SOLO CON MODIFICADOR "SIN GARBANZO"
             {
                 id: 4,
-                name: "Kilogramo de pancita",
-                category: "barbacoa",
-                description: "Menudo de pancita de res, cocido a la perfección con nuestro sazón especial.",
-                price: 780.00,
-                image: "https://i.ibb.co/v4fr6mGB/Photoroom-20260103-133225.jpg",
-                modifiers: [
-                    { id: 5, name: "Extra hierbabuena", description: "Hierbabuena fresca adicional", price: 10.00 },
-                    { id: 6, name: "Extra limón", description: "Limón adicional", price: 5.00 },
-                    { id: 7, name: "Sin garbanzo", description: "Preparado sin garbanzo", price: 0.00 }
-                ]
-            },
-            {
-                id: 5,
-                name: "1/2 Kilogramo de pancita",
-                category: "barbacoa",
-                description: "Media porción de nuestra deliciosa pancita de res.",
-                price: 390.00,
-                image: "https://i.ibb.co/4gMSF82Y/Photoroom-20260103-132344.jpg",
-                modifiers: [
-                    { id: 5, name: "Extra hierbabuena", description: "Hierbabuena fresca adicional", price: 10.00 },
-                    { id: 6, name: "Extra limón", description: "Limón adicional", price: 5.00 }
-                ]
-            },
-            {
-                id: 6,
-                name: "1/4 Kilogramo de pancita",
-                category: "barbacoa",
-                description: "Cuarto de kilogramo de pancita de res.",
-                price: 195.00,
-                image: "https://i.ibb.co/4gMSF82Y/Photoroom-20260103-132344.jpg",
-                modifiers: [
-                    { id: 5, name: "Extra hierbabuena", description: "Hierbabuena fresca adicional", price: 10.00 }
-                ]
-            },
-            {
-                id: 7,
                 name: "Litro de consomé",
-                category: "barbacoa",
+                category: "consome",
                 description: "Un litro de nuestro delicioso consomé de borrego.",
                 price: 180.00,
                 image: "https://i.ibb.co/sdFbnRs0/IMG-4490.jpg",
-                modifiers: [
-                    { id: 8, name: "Extra garbanzo", description: "Garbanzo adicional", price: 15.00 },
-                    { id: 9, name: "Extra arroz", description: "Arroz adicional", price: 10.00 }
-                ]
+                modifiers: {
+                    selection: [],
+                    extras: [
+                        { id: 107, name: "Sin garbanzo", description: "Preparado sin garbanzo", price: 0.00 }
+                    ]
+                }
             },
             {
-                id: 8,
+                id: 5,
                 name: "1/2 Litro de consomé",
-                category: "barbacoa",
+                category: "consome",
                 description: "Medio litro de consomé de borrego.",
                 price: 90.00,
                 image: "https://i.ibb.co/sdTLHhTW/IMG-4491.jpg",
-                modifiers: [
-                    { id: 8, name: "Extra garbanzo", description: "Garbanzo adicional", price: 10.00 }
-                ]
+                modifiers: {
+                    selection: [],
+                    extras: [
+                        { id: 107, name: "Sin garbanzo", description: "Preparado sin garbanzo", price: 0.00 }
+                    ]
+                }
             },
+            
+            // PRODUCTOS DE FLAUTAS CON MODIFICADORES ESPECÍFICOS
             {
-                id: 9,
+                id: 6,
                 name: "Flautas doradas de barbacoa (orden de 3)",
-                category: "barbacoa",
+                category: "flautas",
                 description: "Tres flautas doradas rellenas de barbacoa, bañadas en crema, queso y lechuga.",
                 price: 140.00,
                 image: "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                modifiers: [
-                    { id: 10, name: "Extra crema", description: "Crema adicional", price: 10.00 },
-                    { id: 11, name: "Extra queso", description: "Queso rallado adicional", price: 15.00 },
-                    { id: 12, name: "Sin lechuga", description: "Preparado sin lechuga", price: 0.00 }
-                ]
+                modifiers: {
+                    selection: [],
+                    extras: [
+                        { id: 108, name: "Extra crema", description: "Crema adicional", price: 5.00 },
+                        { id: 109, name: "Extra queso", description: "Queso rallado adicional", price: 5.00 }
+                    ]
+                }
             },
             {
-                id: 10,
+                id: 7,
                 name: "Flauta dorada de barbacoa (individual)",
-                category: "barbacoa",
+                category: "flautas",
                 description: "Flauta dorada individual rellena de barbacoa.",
                 price: 48.00,
                 image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                modifiers: [
-                    { id: 10, name: "Extra crema", description: "Crema adicional", price: 5.00 },
-                    { id: 11, name: "Extra queso", description: "Queso rallado adicional", price: 8.00 }
-                ]
+                modifiers: {
+                    selection: [],
+                    extras: [
+                        { id: 108, name: "Extra crema", description: "Crema adicional", price: 5.00 },
+                        { id: 109, name: "Extra queso", description: "Queso rallado adicional", price: 5.00 }
+                    ]
+                }
             },
             {
-                id: 11,
+                id: 8,
                 name: "Flautas doradas de pollo (orden de 3)",
-                category: "barbacoa",
+                category: "flautas",
                 description: "Tres flautas doradas rellenas de pollo, bañadas en crema, queso y lechuga.",
                 price: 110.00,
                 image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                modifiers: [
-                    { id: 10, name: "Extra crema", description: "Crema adicional", price: 10.00 },
-                    { id: 11, name: "Extra queso", description: "Queso rallado adicional", price: 15.00 }
-                ]
-            },
-            {
-                id: 12,
-                name: "Plato de aguacate",
-                category: "barbacoa",
-                description: "Rebanadas de aguacate fresco para acompañar tu barbacoa.",
-                price: 45.00,
-                image: "https://i.ibb.co/hxB52mJD/Photoroom-20260103-105901.jpg",
-                modifiers: [
-                    { id: 13, name: "Extra limón", description: "Limón adicional", price: 5.00 },
-                    { id: 14, name: "Con sal y pimienta", description: "Condimentado", price: 0.00 }
-                ]
-            },
-            {
-                id: 13,
-                name: "Plato de nopales",
-                category: "barbacoa",
-                description: "Nopales asados con cebolla y cilantro.",
-                price: 65.00,
-                image: "https://i.ibb.co/60vgn0px/Photoroom-20260103-110001.jpg",
-                modifiers: [
-                    { id: 15, name: "Sin cebolla", description: "Preparado sin cebolla", price: 0.00 },
-                    { id: 16, name: "Extra cilantro", description: "Cilantro adicional", price: 5.00 }
-                ]
+                modifiers: {
+                    selection: [],
+                    extras: [
+                        { id: 108, name: "Extra crema", description: "Crema adicional", price: 5.00 },
+                        { id: 109, name: "Extra queso", description: "Queso rallado adicional", price: 5.00 }
+                    ]
+                }
             },
             
-            // Bebidas
+            // AGUA DEL DÍA CON SUS TAMAÑOS Y MODIFICADORES
             {
-                id: 14,
+                id: 9,
+                name: "Agua del día 1 litro",
+                category: "bebidas",
+                description: "Agua fresca del día 1 litro. Elige tu sabor favorito.",
+                price: 80.00,
+                image: "https://images.unsplash.com/photo-1577805947697-89e18249d767?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                modifiers: {
+                    selection: [
+                        { id: 110, name: "Pepino con limón y Chía", description: "Sabor refrescante de pepino con limón y chía", price: 0.00 },
+                        { id: 111, name: "Guayaba con Chía", description: "Sabor dulce de guayaba con chía", price: 0.00 },
+                        { id: 112, name: "Tamarindo", description: "Sabor agridulce de tamarindo", price: 0.00 },
+                        { id: 113, name: "Jamaica", description: "Sabor floral de jamaica", price: 0.00 }
+                    ],
+                    extras: []
+                }
+            },
+            {
+                id: 10,
+                name: "Agua del día 1/2 litro",
+                category: "bebidas",
+                description: "Agua fresca del día 1/2 litro. Elige tu sabor favorito.",
+                price: 40.00,
+                image: "https://images.unsplash.com/photo-1577805947697-89e18249d767?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                modifiers: {
+                    selection: [
+                        { id: 110, name: "Pepino con limón y Chía", description: "Sabor refrescante de pepino con limón y chía", price: 0.00 },
+                        { id: 111, name: "Guayaba con Chía", description: "Sabor dulce de guayaba con chía", price: 0.00 },
+                        { id: 112, name: "Tamarindo", description: "Sabor agridulce de tamarindo", price: 0.00 },
+                        { id: 113, name: "Jamaica", description: "Sabor floral de jamaica", price: 0.00 }
+                    ],
+                    extras: []
+                }
+            },
+            
+            // OTROS PRODUCTOS
+            {
+                id: 11,
                 name: "Café de olla",
                 category: "bebidas",
                 description: "Café tradicional mexicano preparado con canela y piloncillo.",
                 price: 38.00,
                 image: "https://i.ibb.co/Kcm8QRb1/IMG-4614.png",
-                modifiers: [
-                    { id: 17, name: "Extra dulce", description: "Más piloncillo", price: 5.00 },
-                    { id: 18, name: "Poco dulce", description: "Menos piloncillo", price: 0.00 }
-                ]
+                modifiers: {
+                    selection: [],
+                    extras: []
+                }
             },
             {
-                id: 15,
-                name: "Agua del día",
-                category: "bebidas",
-                description: "Agua fresca del día (horchata, jamaica, tamarindo, etc.).",
-                price: 28.00,
-                image: "https://images.unsplash.com/photo-1577805947697-89e18249d767?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                modifiers: []
-            },
-            
-            {
-                id: 16,
+                id: 12,
                 name: "Coca-Cola regular (300 ml)",
                 category: "bebidas",
                 description: "Refresco de cola regular.",
                 price: 35.00,
-                image: "https://i.ibb.co/tpkfLmfw/Photoroom-20260113-234527.jpg?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                modifiers: []
-            },
-            
-            // Postres
-            {
-                id: 17,
-                name: "Flan de cajeta",
-                category: "postres",
-                description: "Tradicional flan casero bañado en cajeta.",
-                price: 35.00,
-                image: "https://i.ibb.co/Kx9J9yQD/IMG-4615.png",
-                modifiers: [
-                    { id: 19, name: "Extra cajeta", description: "Más cajeta", price: 10.00 },
-                    { id: 20, name: "Con nuez", description: "Adornado con nuez", price: 15.00 }
-                ]
-            },
-            {
-                id: 18,
-                name: "Flan de queso",
-                category: "postres",
-                description: "Flan con un toque especial de queso crema.",
-                price: 35.00,
-                image: "https://i.ibb.co/WNvTLTpF/IMG-4617.png",
-                modifiers: [
-                    { id: 21, name: "Con frutos rojos", description: "Adornado con frutos rojos", price: 20.00 }
-                ]
-            },
-            {
-                id: 19,
-                name: "Flan de mazapán",
-                category: "postres",
-                description: "Flan con sabor a mazapán, decorado con cacahuates.",
-                price: 35.00,
-                image: "https://i.ibb.co/jPtZQnCr/IMG-4616.png",
-                modifiers: [
-                    { id: 22, name: "Extra cacahuate", description: "Más cacahuate", price: 10.00 },
-                    { id: 23, name: "Sin cacahuate", description: "Sin cacahuate", price: 0.00 }
-                ]
+                image: "https://i.ibb.co/tpkfLmfw/Photoroom-20260113-234527.jpg",
+                modifiers: {
+                    selection: [],
+                    extras: []
+                }
             }
         ];
 
@@ -1578,7 +1594,8 @@
         // Variables para el modal de producto
         let currentModalProduct = null;
         let modalQuantity = 1;
-        let selectedModifiers = [];
+        let selectedSelection = null; // Para modificadores de selección única
+        let selectedExtras = []; // Para modificadores múltiples
 
         // ============================================
         // INICIALIZACIÓN
@@ -1808,7 +1825,8 @@
             
             currentModalProduct = product;
             modalQuantity = 1;
-            selectedModifiers = [];
+            selectedSelection = null;
+            selectedExtras = [];
             
             // Actualizar contenido del modal
             document.getElementById('modalProductImage').src = product.image;
@@ -1828,7 +1846,10 @@
             
             // Mostrar/ocultar sección de modificadores
             const modifiersSection = document.getElementById('modifiersSection');
-            if (product.modifiers && product.modifiers.length > 0) {
+            const hasSelectionModifiers = product.modifiers.selection && product.modifiers.selection.length > 0;
+            const hasExtrasModifiers = product.modifiers.extras && product.modifiers.extras.length > 0;
+            
+            if (hasSelectionModifiers || hasExtrasModifiers) {
                 modifiersSection.style.display = 'block';
             } else {
                 modifiersSection.style.display = 'none';
@@ -1842,45 +1863,95 @@
             const modifiersList = document.getElementById('modifiersList');
             modifiersList.innerHTML = '';
             
-            if (!modifiers || modifiers.length === 0) {
+            const hasSelection = modifiers.selection && modifiers.selection.length > 0;
+            const hasExtras = modifiers.extras && modifiers.extras.length > 0;
+            
+            if (!hasSelection && !hasExtras) {
                 modifiersList.innerHTML = '<p style="color: var(--text-light); text-align: center; padding: 10px;">Sin opciones de personalización</p>';
                 return;
             }
             
-            modifiers.forEach(modifier => {
-                const modifierItem = document.createElement('div');
-                modifierItem.className = 'modifier-item';
-                modifierItem.dataset.modifierId = modifier.id;
+            // Mostrar modificadores de selección única (radio buttons)
+            if (hasSelection) {
+                const selectionGroup = document.createElement('div');
+                selectionGroup.className = 'modifier-group';
+                selectionGroup.innerHTML = '<div class="modifiers-title" style="margin-top: 15px;">Selecciona el corte:</div>';
                 
-                modifierItem.innerHTML = `
-                    <div class="modifier-info">
-                        <div class="modifier-name">${modifier.name}</div>
-                        ${modifier.description ? `<div class="modifier-desc">${modifier.description}</div>` : ''}
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 15px;">
-                        <div class="modifier-price">
-                            ${modifier.price > 0 ? `+$${modifier.price.toFixed(2)}` : 'Gratis'}
-                        </div>
-                        <div class="modifier-toggle"></div>
-                    </div>
-                `;
-                
-                // Configurar el toggle
-                const toggle = modifierItem.querySelector('.modifier-toggle');
-                toggle.addEventListener('click', function() {
-                    this.classList.toggle('active');
+                modifiers.selection.forEach(modifier => {
+                    const modifierOption = document.createElement('div');
+                    modifierOption.className = 'modifier-option';
                     
-                    if (this.classList.contains('active')) {
-                        selectedModifiers.push(modifier);
-                    } else {
-                        selectedModifiers = selectedModifiers.filter(m => m.id !== modifier.id);
-                    }
+                    modifierOption.innerHTML = `
+                        <input type="radio" id="modifier-${modifier.id}" name="selectionModifier" value="${modifier.id}">
+                        <label for="modifier-${modifier.id}">
+                            <div class="modifier-option-text">
+                                <div class="modifier-name">${modifier.name}</div>
+                                ${modifier.description ? `<div class="modifier-desc">${modifier.description}</div>` : ''}
+                            </div>
+                            <div class="option-price">
+                                ${modifier.price > 0 ? `+$${modifier.price.toFixed(2)}` : 'Gratis'}
+                            </div>
+                        </label>
+                    `;
                     
-                    calculateModalTotal();
+                    // Configurar el radio button
+                    const radioInput = modifierOption.querySelector('input[type="radio"]');
+                    radioInput.addEventListener('change', function() {
+                        if (this.checked) {
+                            selectedSelection = modifier;
+                            calculateModalTotal();
+                        }
+                    });
+                    
+                    selectionGroup.appendChild(modifierOption);
                 });
                 
-                modifiersList.appendChild(modifierItem);
-            });
+                modifiersList.appendChild(selectionGroup);
+            }
+            
+            // Mostrar modificadores extras (checkboxes)
+            if (hasExtras) {
+                const extrasGroup = document.createElement('div');
+                extrasGroup.className = 'modifier-group';
+                extrasGroup.innerHTML = '<div class="modifiers-title" style="margin-top: 15px;">Extras adicionales:</div>';
+                
+                modifiers.extras.forEach(modifier => {
+                    const modifierItem = document.createElement('div');
+                    modifierItem.className = 'modifier-item';
+                    modifierItem.dataset.modifierId = modifier.id;
+                    
+                    modifierItem.innerHTML = `
+                        <div class="modifier-info">
+                            <div class="modifier-name">${modifier.name}</div>
+                            ${modifier.description ? `<div class="modifier-desc">${modifier.description}</div>` : ''}
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div class="modifier-price">
+                                ${modifier.price > 0 ? `+$${modifier.price.toFixed(2)}` : 'Gratis'}
+                            </div>
+                            <div class="modifier-toggle"></div>
+                        </div>
+                    `;
+                    
+                    // Configurar el toggle
+                    const toggle = modifierItem.querySelector('.modifier-toggle');
+                    toggle.addEventListener('click', function() {
+                        this.classList.toggle('active');
+                        
+                        if (this.classList.contains('active')) {
+                            selectedExtras.push(modifier);
+                        } else {
+                            selectedExtras = selectedExtras.filter(m => m.id !== modifier.id);
+                        }
+                        
+                        calculateModalTotal();
+                    });
+                    
+                    extrasGroup.appendChild(modifierItem);
+                });
+                
+                modifiersList.appendChild(extrasGroup);
+            }
         }
 
         function updateModalQuantity() {
@@ -1893,8 +1964,13 @@
             
             let total = currentModalProduct.price;
             
-            // Sumar precios de modificadores seleccionados
-            selectedModifiers.forEach(modifier => {
+            // Sumar precio de selección única
+            if (selectedSelection) {
+                total += selectedSelection.price;
+            }
+            
+            // Sumar precios de extras seleccionados
+            selectedExtras.forEach(modifier => {
                 total += modifier.price;
             });
             
@@ -1907,33 +1983,47 @@
         function addToCartFromModal() {
             if (!currentModalProduct) return;
             
+            // Para productos de barbacoa, validar que se haya seleccionado un corte
+            if (currentModalProduct.category === 'barbacoa' && !selectedSelection) {
+                showNotification('Por favor selecciona un corte para la barbacoa');
+                return;
+            }
+            
+            // Para agua del día, validar que se haya seleccionado un sabor
+            if ((currentModalProduct.id === 9 || currentModalProduct.id === 10) && !selectedSelection) {
+                showNotification('Por favor selecciona un sabor para el agua del día');
+                return;
+            }
+            
             const cartItem = {
                 id: currentModalProduct.id,
                 name: currentModalProduct.name,
                 basePrice: currentModalProduct.price,
                 price: currentModalProduct.price,
                 quantity: modalQuantity,
-                modifiers: [...selectedModifiers],
+                selection: selectedSelection ? {...selectedSelection} : null,
+                extras: [...selectedExtras],
                 image: currentModalProduct.image
             };
             
             // Calcular precio total incluyendo modificadores
             let totalPrice = currentModalProduct.price;
-            selectedModifiers.forEach(modifier => {
+            if (selectedSelection) {
+                totalPrice += selectedSelection.price;
+            }
+            selectedExtras.forEach(modifier => {
                 totalPrice += modifier.price;
             });
             cartItem.price = totalPrice;
             
+            // Crear un identificador único para este producto con sus modificadores
+            const selectionId = selectedSelection ? selectedSelection.id : 'none';
+            const extrasIds = selectedExtras.map(m => m.id).sort().join(',');
+            cartItem.uniqueId = `${cartItem.id}-${selectionId}-${extrasIds}`;
+            
             // Buscar si ya existe el mismo producto con los mismos modificadores
             const existingIndex = cart.findIndex(item => {
-                if (item.id !== cartItem.id) return false;
-                if (item.modifiers.length !== cartItem.modifiers.length) return false;
-                
-                // Verificar si los modificadores son iguales
-                const itemModifiers = item.modifiers.map(m => m.id).sort();
-                const cartModifiers = cartItem.modifiers.map(m => m.id).sort();
-                
-                return JSON.stringify(itemModifiers) === JSON.stringify(cartModifiers);
+                return item.uniqueId === cartItem.uniqueId;
             });
             
             if (existingIndex >= 0) {
@@ -1957,7 +2047,16 @@
 
         function addToCart(productId) {
             const product = products.find(p => p.id === productId);
-            const existingItem = cart.find(item => item.id === productId && (!item.modifiers || item.modifiers.length === 0));
+            
+            // Para productos con modificadores obligatorios, abrir el modal
+            if ((product.category === 'barbacoa' && product.modifiers.selection.length > 0) ||
+                (product.id === 9 || product.id === 10)) {
+                openProductModal(productId);
+                return;
+            }
+            
+            // Para productos sin modificadores obligatorios, añadir directamente
+            const existingItem = cart.find(item => item.id === productId && !item.selection && (!item.extras || item.extras.length === 0));
             
             if (existingItem) {
                 existingItem.quantity += 1;
@@ -1968,8 +2067,10 @@
                     basePrice: product.price,
                     price: product.price,
                     quantity: 1,
-                    modifiers: [],
-                    image: product.image
+                    selection: null,
+                    extras: [],
+                    image: product.image,
+                    uniqueId: `${product.id}-none-`
                 });
             }
             
@@ -2033,13 +2134,19 @@
                 cart.forEach(item => {
                     const cartItem = document.createElement('div');
                     cartItem.className = 'cart-item';
+                    
+                    let modifiersText = '';
+                    if (item.selection) {
+                        modifiersText += `<small style="color: var(--accent); font-size: 0.8rem;">${item.selection.name}</small><br>`;
+                    }
+                    if (item.extras && item.extras.length > 0) {
+                        modifiersText += `<small style="color: var(--accent); font-size: 0.8rem;">${item.extras.map(m => m.name).join(', ')}</small><br>`;
+                    }
+                    
                     cartItem.innerHTML = `
                         <div>
                             <h4>${item.name}</h4>
-                            ${item.modifiers && item.modifiers.length > 0 ? 
-                                `<small style="color: var(--accent); font-size: 0.8rem;">
-                                    ${item.modifiers.map(m => m.name).join(', ')}
-                                </small><br>` : ''}
+                            ${modifiersText}
                             <small>$${item.price.toFixed(2)} c/u</small>
                         </div>
                         <div class="cart-item-controls">
@@ -2072,7 +2179,7 @@
         }
 
         // ============================================
-        // FUNCIONES DE MAPA Y ENVÍO - CORREGIDAS
+        // FUNCIONES DE MAPA Y ENVÍO
         // ============================================
         function initMap() {
             if (map) return;
@@ -2136,9 +2243,7 @@
             );
         }
 
-        // FUNCIÓN CORREGIDA: Obtener dirección a partir de coordenadas con restricción a México
         function getAddressFromCoordinates(coords) {
-            // Configurar parámetros para geocodificación inversa en México
             const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${coords.lng},${coords.lat}.json?access_token=${mapboxgl.accessToken}&language=es&country=mx&limit=1`;
             
             fetch(url)
@@ -2151,9 +2256,7 @@
                         
                         // Calcular envío automáticamente
                         setTimeout(() => calculateShippingWithMapbox(), 500);
-                        
                     } else {
-                        // Si no encuentra dirección en México, intentar sin restricción de país
                         const fallbackUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${coords.lng},${coords.lat}.json?access_token=${mapboxgl.accessToken}&language=es&limit=1`;
                         
                         return fetch(fallbackUrl)
@@ -2164,11 +2267,9 @@
                                     document.getElementById('deliveryAddress').value = fallbackAddress;
                                     document.getElementById('mapSearch').value = fallbackAddress;
                                     
-                                    // Calcular envío automáticamente
                                     setTimeout(() => calculateShippingWithMapbox(), 500);
                                 } else {
                                     document.getElementById('deliveryAddress').value = `Coordenadas: ${coords.lat.toFixed(6)}, ${coords.lng.toFixed(6)}`;
-                                    // Calcular envío automáticamente incluso sin dirección
                                     setTimeout(() => calculateShippingWithMapbox(), 500);
                                 }
                             });
@@ -2178,7 +2279,6 @@
                     console.error('Error al obtener dirección:', error);
                     showNotification('Error al obtener la dirección');
                     document.getElementById('deliveryAddress').value = `Coordenadas: ${coords.lat.toFixed(6)}, ${coords.lng.toFixed(6)}`;
-                    // Calcular envío automáticamente incluso con error
                     setTimeout(() => calculateShippingWithMapbox(), 500);
                 });
         }
@@ -2215,10 +2315,8 @@
             const searchInput = document.getElementById('mapSearch').value;
             if (!searchInput.trim()) return;
             
-            // Mostrar estado de cálculo
             document.getElementById('autoCalculatingStatus').classList.add('active');
             
-            // Configurar búsqueda en México
             const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(searchInput)}.json?access_token=${mapboxgl.accessToken}&limit=1&language=es&country=mx&proximity=${restaurantCoords[0]},${restaurantCoords[1]}`;
             
             fetch(url)
@@ -2231,9 +2329,7 @@
                         document.getElementById('deliveryAddress').value = placeName;
                         placeDeliveryMarker({lng: coords[0], lat: coords[1]});
                         
-                        // Calcular envío automáticamente
                         setTimeout(() => calculateShippingWithMapbox(), 500);
-                        
                     } else {
                         showNotification('Dirección no encontrada en México. Intenta con más detalles.');
                         document.getElementById('autoCalculatingStatus').classList.remove('active');
@@ -2246,7 +2342,6 @@
                 });
         }
 
-        // FUNCIÓN MODIFICADA: Cálculo automático de envío
         function calculateShippingWithMapbox() {
             if (!deliveryMarker) {
                 showNotification('Por favor selecciona una ubicación en el mapa primero');
@@ -2263,7 +2358,6 @@
                 return;
             }
             
-            // Mostrar estado de cálculo
             document.getElementById('autoCalculatingStatus').classList.add('active');
             document.getElementById('distanceDetails').classList.remove('active');
             document.getElementById('deliveryLimitWarning').classList.remove('active');
@@ -2292,7 +2386,6 @@
                 .catch(error => {
                     console.error('Error al calcular ruta:', error);
                     
-                    // Calcular distancia en línea recta como respaldo
                     calculateStraightLineDistance(deliveryCoords);
                     calculateShippingCost();
                     updateShippingUI();
@@ -2300,7 +2393,6 @@
                     showNotification('Costo de envío calculado (distancia aproximada)');
                 })
                 .finally(() => {
-                    // Ocultar estado de cálculo
                     document.getElementById('autoCalculatingStatus').classList.remove('active');
                 });
         }
@@ -2531,8 +2623,18 @@
             
             cart.forEach(item => {
                 message += `- ${item.name} x${item.quantity}: $${(item.price * item.quantity).toFixed(2)}`;
-                if (item.modifiers && item.modifiers.length > 0) {
-                    message += `%0A  (${item.modifiers.map(m => m.name).join(', ')})`;
+                
+                // Agregar información de modificadores
+                let modifiersInfo = [];
+                if (item.selection) {
+                    modifiersInfo.push(item.selection.name);
+                }
+                if (item.extras && item.extras.length > 0) {
+                    modifiersInfo = modifiersInfo.concat(item.extras.map(m => m.name));
+                }
+                
+                if (modifiersInfo.length > 0) {
+                    message += `%0A  (${modifiersInfo.join(', ')})`;
                 }
                 message += `%0A`;
             });

@@ -1115,6 +1115,7 @@
                     <button class="category-btn" data-category="pancita">Pancita</button>
                     <button class="category-btn" data-category="consome">Consomé</button>
                     <button class="category-btn" data-category="flautas">Flautas</button>
+                    <button class="category-btn" data-category="postres">Postres</button>
                     <button class="category-btn" data-category="bebidas">Bebidas</button>
                 </div>
 
@@ -1150,14 +1151,14 @@
                         <input type="radio" name="deliveryType" value="pickup" checked>
                         <span><i class="fas fa-store"></i> Pasar a recoger</span>
                     </label>
-                    <label style="display:flex; align-items:center; gap:10px; cursor:pointer; background:white; padding:10px; border:1px solid #eee; border-radius:8px;">
+                    <label style="display:flex; align-items:center; gap:10px; cursor:pointer; background:white; padding:10px; border:1px solid #eee; border-radius=8px;">
                         <input type="radio" name="deliveryType" value="delivery">
                         <span><i class="fas fa-motorcycle"></i> Envío a domicilio</span>
                     </label>
                 </div>
 
                 <div id="deliveryAddressSection" style="display: none;">
-                    <button id="useCurrentLocationBtn" style="width:100%; padding:10px; background:#e3f2fd; color:#1565c0; border:none; border-radius:8px; font-weight:600; cursor:pointer; margin-bottom:10px;">
+                    <button id="useCurrentLocationBtn" style="width:100%; padding:10px; background:#e3f2fd; color:#1565c0; border:none; border-radius=8px; font-weight:600; cursor:pointer; margin-bottom:10px;">
                         <i class="fas fa-location-arrow"></i> Usar mi ubicación
                     </button>
 
@@ -1516,10 +1517,10 @@
                 }
             },
             
-            // PRODUCTOS DE FLAUTAS CON MODIFICADORES ESPECÍFICOS
+            // PRODUCTOS DE FLAUTAS CON NOMBRES CORREGIDOS Y MODIFICADORES ESPECÍFICOS
             {
                 id: 9,
-                name: "Flautas doradas de barbacoa (orden de 3)",
+                name: "Flautas doradas de barbacoa, orden de tres",
                 category: "flautas",
                 description: "Tres flautas doradas rellenas de barbacoa, bañadas en crema, queso y lechuga.",
                 price: 140.00,
@@ -1534,10 +1535,10 @@
             },
             {
                 id: 10,
-                name: "Flauta dorada de barbacoa (individual)",
+                name: "Flautas doradas de barbacoa, orden de seis",
                 category: "flautas",
-                description: "Flauta dorada individual rellena de barbacoa.",
-                price: 48.00,
+                description: "Seis flautas doradas rellenas de barbacoa, bañadas en crema, queso y lechuga.",
+                price: 280.00,
                 image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
                 modifiers: {
                     selection: [],
@@ -1549,10 +1550,10 @@
             },
             {
                 id: 11,
-                name: "Flautas doradas de pollo (orden de 3)",
+                name: "Flautas doradas de barbacoa, orden de nueve",
                 category: "flautas",
-                description: "Tres flautas doradas rellenas de pollo, bañadas en crema, queso y lechuga.",
-                price: 110.00,
+                description: "Nueve flautas doradas rellenas de barbacoa, bañadas en crema, queso y lechuga.",
+                price: 420.00,
                 image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
                 modifiers: {
                     selection: [],
@@ -1563,9 +1564,47 @@
                 }
             },
             
-            // AGUA DEL DÍA CON SUS TAMAÑOS Y MODIFICADORES
+            // PRODUCTOS DE POSTRES (SIN MODIFICADORES)
             {
                 id: 12,
+                name: "Flan de cajeta",
+                category: "postres",
+                description: "Tradicional flan casero bañado en cajeta.",
+                price: 35.00,
+                image: "https://i.ibb.co/Kx9J9yQD/IMG-4615.png",
+                modifiers: {
+                    selection: [],
+                    extras: []
+                }
+            },
+            {
+                id: 13,
+                name: "Flan de queso",
+                category: "postres",
+                description: "Flan con un toque especial de queso crema.",
+                price: 35.00,
+                image: "https://i.ibb.co/WNvTLTpF/IMG-4617.png",
+                modifiers: {
+                    selection: [],
+                    extras: []
+                }
+            },
+            {
+                id: 14,
+                name: "Flan de mazapán",
+                category: "postres",
+                description: "Flan con sabor a mazapán, decorado con cacahuates.",
+                price: 35.00,
+                image: "https://i.ibb.co/jPtZQnCr/IMG-4616.png",
+                modifiers: {
+                    selection: [],
+                    extras: []
+                }
+            },
+            
+            // AGUA DEL DÍA CON SUS TAMAÑOS Y MODIFICADORES
+            {
+                id: 15,
                 name: "Agua del día 1 litro",
                 category: "bebidas",
                 description: "Agua fresca del día 1 litro. Elige tu sabor favorito.",
@@ -1582,7 +1621,7 @@
                 }
             },
             {
-                id: 13,
+                id: 16,
                 name: "Agua del día 1/2 litro",
                 category: "bebidas",
                 description: "Agua fresca del día 1/2 litro. Elige tu sabor favorito.",
@@ -1601,7 +1640,7 @@
             
             // OTROS PRODUCTOS
             {
-                id: 14,
+                id: 17,
                 name: "Café de olla",
                 category: "bebidas",
                 description: "Café tradicional mexicano preparado con canela y piloncillo.",
@@ -1613,7 +1652,7 @@
                 }
             },
             {
-                id: 15,
+                id: 18,
                 name: "Coca-Cola regular (300 ml)",
                 category: "bebidas",
                 description: "Refresco de cola regular.",
@@ -1932,7 +1971,7 @@
                 // Mostrar título diferente según el producto
                 if (currentModalProduct.category === 'barbacoa') {
                     selectionGroup.innerHTML = '<div class="modifiers-title" style="margin-top: 15px;">Selecciona el corte:</div>';
-                } else if (currentModalProduct.category === 'bebidas' && (currentModalProduct.id === 12 || currentModalProduct.id === 13)) {
+                } else if (currentModalProduct.category === 'bebidas' && (currentModalProduct.id === 15 || currentModalProduct.id === 16)) {
                     selectionGroup.innerHTML = '<div class="modifiers-title" style="margin-top: 15px;">Selecciona el sabor:</div>';
                 }
                 
@@ -2049,12 +2088,12 @@
             }
             
             // Para agua del día, validar que se haya seleccionado un sabor
-            if ((currentModalProduct.id === 12 || currentModalProduct.id === 13) && !selectedSelection) {
+            if ((currentModalProduct.id === 15 || currentModalProduct.id === 16) && !selectedSelection) {
                 showNotification('Por favor selecciona un sabor para el agua del día');
                 return;
             }
             
-            // Para pancita NO se requiere selección de corte (selection está vacío)
+            // Para pancita, flautas, postres, café, refrescos NO se requiere selección
             
             const cartItem = {
                 id: currentModalProduct.id,
@@ -2111,7 +2150,7 @@
             
             // Para productos con modificadores obligatorios, abrir el modal
             if ((product.category === 'barbacoa' && product.modifiers.selection.length > 0) ||
-                (product.id === 12 || product.id === 13)) {
+                (product.id === 15 || product.id === 16)) {
                 openProductModal(productId);
                 return;
             }

@@ -1112,6 +1112,7 @@
                 <div class="menu-categories">
                     <button class="category-btn active" data-category="all">Todo el Menú</button>
                     <button class="category-btn" data-category="barbacoa">Barbacoa por Kg</button>
+                    <button class="category-btn" data-category="pancita">Pancita</button>
                     <button class="category-btn" data-category="consome">Consomé</button>
                     <button class="category-btn" data-category="flautas">Flautas</button>
                     <button class="category-btn" data-category="bebidas">Bebidas</button>
@@ -1433,9 +1434,76 @@
                 }
             },
             
-            // PRODUCTOS DE CONSUMÉ SOLO CON MODIFICADOR "SIN GARBANZO"
+            // PRODUCTOS DE PANCITA CON LOS MISMOS MODIFICADORES QUE BARBACOA POR KILO
             {
                 id: 4,
+                name: "Kilogramo de pancita",
+                category: "pancita",
+                description: "Menudo de pancita de res, cocido a la perfección con nuestro sazón especial.",
+                price: 780.00,
+                image: "https://i.ibb.co/v4fr6mGB/Photoroom-20260103-133225.jpg",
+                modifiers: {
+                    // Modificadores de selección única (solo se puede elegir uno)
+                    selection: [
+                        { id: 100, name: "Masiza o pierna", description: "Selección de corte", price: 0.00 },
+                        { id: 101, name: "Espaldilla", description: "Selección de corte", price: 0.00 },
+                        { id: 102, name: "Costilla", description: "Selección de corte", price: 0.00 },
+                        { id: 103, name: "Cuello", description: "Selección de corte", price: 0.00 }
+                    ],
+                    // Modificadores adicionales (se pueden seleccionar múltiples)
+                    extras: [
+                        { id: 104, name: "Extra tortillas 1/4", description: "Paquete adicional de tortillas", price: 15.00 },
+                        { id: 105, name: "Extra de salsa", description: "Salsa adicional", price: 10.00 },
+                        { id: 106, name: "Extra limón", description: "Limón adicional", price: 10.00 }
+                    ]
+                }
+            },
+            {
+                id: 5,
+                name: "1/2 Kilogramo de pancita",
+                category: "pancita",
+                description: "Media porción de nuestra deliciosa pancita de res.",
+                price: 390.00,
+                image: "https://i.ibb.co/4gMSF82Y/Photoroom-20260103-132344.jpg",
+                modifiers: {
+                    selection: [
+                        { id: 100, name: "Masiza o pierna", description: "Selección de corte", price: 0.00 },
+                        { id: 101, name: "Espaldilla", description: "Selección de corte", price: 0.00 },
+                        { id: 102, name: "Costilla", description: "Selección de corte", price: 0.00 },
+                        { id: 103, name: "Cuello", description: "Selección de corte", price: 0.00 }
+                    ],
+                    extras: [
+                        { id: 104, name: "Extra tortillas 1/4", description: "Paquete adicional de tortillas", price: 15.00 },
+                        { id: 105, name: "Extra de salsa", description: "Salsa adicional", price: 10.00 },
+                        { id: 106, name: "Extra limón", description: "Limón adicional", price: 10.00 }
+                    ]
+                }
+            },
+            {
+                id: 6,
+                name: "1/4 Kilogramo de pancita",
+                category: "pancita",
+                description: "Cuarto de kilogramo de pancita de res.",
+                price: 195.00,
+                image: "https://i.ibb.co/4gMSF82Y/Photoroom-20260103-132344.jpg",
+                modifiers: {
+                    selection: [
+                        { id: 100, name: "Masiza o pierna", description: "Selección de corte", price: 0.00 },
+                        { id: 101, name: "Espaldilla", description: "Selección de corte", price: 0.00 },
+                        { id: 102, name: "Costilla", description: "Selección de corte", price: 0.00 },
+                        { id: 103, name: "Cuello", description: "Selección de corte", price: 0.00 }
+                    ],
+                    extras: [
+                        { id: 104, name: "Extra tortillas 1/4", description: "Paquete adicional de tortillas", price: 15.00 },
+                        { id: 105, name: "Extra de salsa", description: "Salsa adicional", price: 10.00 },
+                        { id: 106, name: "Extra limón", description: "Limón adicional", price: 10.00 }
+                    ]
+                }
+            },
+            
+            // PRODUCTOS DE CONSUMÉ SOLO CON MODIFICADOR "SIN GARBANZO"
+            {
+                id: 7,
                 name: "Litro de consomé",
                 category: "consome",
                 description: "Un litro de nuestro delicioso consomé de borrego.",
@@ -1449,7 +1517,7 @@
                 }
             },
             {
-                id: 5,
+                id: 8,
                 name: "1/2 Litro de consomé",
                 category: "consome",
                 description: "Medio litro de consomé de borrego.",
@@ -1465,7 +1533,7 @@
             
             // PRODUCTOS DE FLAUTAS CON MODIFICADORES ESPECÍFICOS
             {
-                id: 6,
+                id: 9,
                 name: "Flautas doradas de barbacoa (orden de 3)",
                 category: "flautas",
                 description: "Tres flautas doradas rellenas de barbacoa, bañadas en crema, queso y lechuga.",
@@ -1480,7 +1548,7 @@
                 }
             },
             {
-                id: 7,
+                id: 10,
                 name: "Flauta dorada de barbacoa (individual)",
                 category: "flautas",
                 description: "Flauta dorada individual rellena de barbacoa.",
@@ -1495,7 +1563,7 @@
                 }
             },
             {
-                id: 8,
+                id: 11,
                 name: "Flautas doradas de pollo (orden de 3)",
                 category: "flautas",
                 description: "Tres flautas doradas rellenas de pollo, bañadas en crema, queso y lechuga.",
@@ -1512,7 +1580,7 @@
             
             // AGUA DEL DÍA CON SUS TAMAÑOS Y MODIFICADORES
             {
-                id: 9,
+                id: 12,
                 name: "Agua del día 1 litro",
                 category: "bebidas",
                 description: "Agua fresca del día 1 litro. Elige tu sabor favorito.",
@@ -1529,7 +1597,7 @@
                 }
             },
             {
-                id: 10,
+                id: 13,
                 name: "Agua del día 1/2 litro",
                 category: "bebidas",
                 description: "Agua fresca del día 1/2 litro. Elige tu sabor favorito.",
@@ -1548,7 +1616,7 @@
             
             // OTROS PRODUCTOS
             {
-                id: 11,
+                id: 14,
                 name: "Café de olla",
                 category: "bebidas",
                 description: "Café tradicional mexicano preparado con canela y piloncillo.",
@@ -1560,7 +1628,7 @@
                 }
             },
             {
-                id: 12,
+                id: 15,
                 name: "Coca-Cola regular (300 ml)",
                 category: "bebidas",
                 description: "Refresco de cola regular.",
@@ -1983,14 +2051,14 @@
         function addToCartFromModal() {
             if (!currentModalProduct) return;
             
-            // Para productos de barbacoa, validar que se haya seleccionado un corte
-            if (currentModalProduct.category === 'barbacoa' && !selectedSelection) {
-                showNotification('Por favor selecciona un corte para la barbacoa');
+            // Para productos de barbacoa y pancita, validar que se haya seleccionado un corte
+            if ((currentModalProduct.category === 'barbacoa' || currentModalProduct.category === 'pancita') && !selectedSelection) {
+                showNotification('Por favor selecciona un corte para la ' + currentModalProduct.name);
                 return;
             }
             
             // Para agua del día, validar que se haya seleccionado un sabor
-            if ((currentModalProduct.id === 9 || currentModalProduct.id === 10) && !selectedSelection) {
+            if ((currentModalProduct.id === 12 || currentModalProduct.id === 13) && !selectedSelection) {
                 showNotification('Por favor selecciona un sabor para el agua del día');
                 return;
             }
@@ -2050,7 +2118,8 @@
             
             // Para productos con modificadores obligatorios, abrir el modal
             if ((product.category === 'barbacoa' && product.modifiers.selection.length > 0) ||
-                (product.id === 9 || product.id === 10)) {
+                (product.category === 'pancita' && product.modifiers.selection.length > 0) ||
+                (product.id === 12 || product.id === 13)) {
                 openProductModal(productId);
                 return;
             }

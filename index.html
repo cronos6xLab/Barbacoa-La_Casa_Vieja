@@ -1,28 +1,34 @@
-<!DOCTYPE html>
+￼<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Gran Mitla - Sales Artesanales y Productos Gourmet</title>
+    <!-- ============================================
+         TÍTULO DE LA PÁGINA - Editar aquí el nombre
+         ============================================ -->
+    <title>Gran Mitla - Catálogo de Productos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Playfair+Display:wght@600;800&display=swap" rel="stylesheet">
 
     <style>
+        /* ============================================
+           COLORES PRINCIPALES - Editar aquí para
+           cambiar la paleta de colores del sitio
+           ============================================ */
         :root {
-            --primary: #1B4332;
-            --primary-dark: #0B2B1D;
-            --accent: #D4A72C;
-            --accent-dark: #B8901F;
-            --bg-body: #FAF9F6;
-            --bg-card: #FFFFFF;
-            --text-main: #1A1A1A;
-            --text-light: #6B6B6B;
+            --primary: #5D3A1A;        /* Color principal (marrón tierra) */
+            --primary-dark: #3D2510;   /* Color principal oscuro */
+            --accent: #D4A843;         /* Color de acento (dorado/ámbar) */
+            --bg-body: #FAF8F5;        /* Fondo del cuerpo */
+            --bg-card: #FFFFFF;        /* Fondo de tarjetas */
+            --text-main: #2D2420;      /* Texto principal */
+            --text-light: #7D7D7D;     /* Texto secundario */
             --border-radius: 16px;
             --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
-            --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
-            --shadow-lg: 0 12px 48px rgba(27,67,50,0.15);
+            --shadow-md: 0 8px 24px rgba(0,0,0,0.06);
+            --shadow-lg: 0 12px 48px rgba(93, 58, 26, 0.15);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -40,797 +46,392 @@
 
         .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
 
-        /* HEADER */
+        /* ============================================
+           HEADER / ENCABEZADO
+           - Cambiar la imagen de fondo en background: url('...')
+           ============================================ */
         header {
-            background: linear-gradient(135deg, #1B4332 0%, #2D6A4F 50%, #1B4332 100%);
+            /* EDITAR: Cambiar la URL de la imagen de fondo del header */
+            background: linear-gradient(rgba(45,20,5,0.75), rgba(45,20,5,0.75)),
+                        url('https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=1200&q=80');
+            background-size: cover;
+            background-position: center;
             color: white;
             padding: 30px 0;
             position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: 3px solid var(--accent);
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo-container { display: flex; align-items: center; gap: 20px; }
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .logo-icon {
-            width: 70px;
-            height: 70px;
-            background: var(--accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            color: var(--primary-dark);
-            font-weight: 800;
-            border: 3px solid rgba(255,255,255,0.3);
+        /* EDITAR: La imagen del logo se cambia en el HTML más abajo (buscar logo-img) */
+        .logo-img {
+            height: 80px; width: 80px; border-radius: 50%;
+            border: 3px solid rgba(255,255,255,0.8);
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            font-family: 'Playfair Display', serif;
+            background: white; object-fit: contain;
         }
 
         .logo-text {
-            font-size: 2rem;
-            letter-spacing: -0.5px;
-            color: #fff;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            font-size: 2rem; letter-spacing: -0.5px; color: #fff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
         .logo-subtitle {
-            font-size: 0.85rem;
-            color: var(--accent);
             font-family: 'DM Sans', sans-serif;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
             font-weight: 400;
             letter-spacing: 2px;
             text-transform: uppercase;
         }
 
-        /* INFO */
+        /* INFO DEL NEGOCIO */
         .restaurant-info {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 30px;
-            margin: -25px auto 40px;
-            box-shadow: var(--shadow-md);
-            position: relative;
-            z-index: 101;
-            text-align: center;
-            max-width: 1000px;
-            border-top: 4px solid var(--accent);
+            background: white; border-radius: var(--border-radius);
+            padding: 30px; margin: -30px auto 40px;
+            box-shadow: var(--shadow-md); position: relative;
+            z-index: 101; text-align: center; max-width: 1000px;
         }
+        .restaurant-info h3 { color: var(--primary); font-size: 1.8rem; margin-bottom: 10px; }
 
-        .restaurant-info h3 {
-            color: var(--primary);
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-        }
-
-        /* LAYOUT */
+        /* LAYOUT PRINCIPAL */
         .main-content {
-            display: grid;
-            grid-template-columns: 1fr 380px;
-            gap: 30px;
-            margin-bottom: 60px;
+            display: grid; grid-template-columns: 1fr 380px;
+            gap: 30px; margin-bottom: 60px;
         }
 
         .menu-section, .cart-section, .checkout-form {
-            background-color: var(--bg-card);
-            border-radius: var(--border-radius);
-            padding: 30px;
-            box-shadow: var(--shadow-sm);
+            background-color: var(--bg-card); border-radius: var(--border-radius);
+            padding: 30px; box-shadow: var(--shadow-sm);
             border: 1px solid rgba(0,0,0,0.03);
         }
 
         .section-title {
-            color: var(--primary);
-            font-size: 1.5rem;
-            margin-bottom: 25px;
-            position: relative;
-            padding-bottom: 15px;
+            color: var(--primary); font-size: 1.5rem;
+            margin-bottom: 25px; position: relative; padding-bottom: 15px;
         }
-
         .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background-color: var(--accent);
+            content: ''; position: absolute; bottom: 0; left: 0;
+            width: 50px; height: 3px; background-color: var(--accent);
         }
 
         /* CATEGORÍAS */
         .menu-categories {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 30px;
-            overflow-x: auto;
-            padding-bottom: 10px;
+            display: flex; flex-wrap: wrap; gap: 10px;
+            margin-bottom: 30px; overflow-x: auto; padding-bottom: 10px;
         }
-
         .category-btn {
-            padding: 8px 18px;
-            background-color: transparent;
-            border: 2px solid #ddd;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 600;
-            color: var(--text-light);
-            font-family: 'DM Sans', sans-serif;
-            transition: all 0.2s ease;
+            padding: 8px 20px; background-color: transparent;
+            border: 2px solid #E0E0E0; border-radius: 50px;
+            cursor: pointer; font-weight: 600; color: var(--text-light);
+            font-family: 'DM Sans', sans-serif; transition: all 0.2s ease;
             white-space: nowrap;
-            font-size: 0.9rem;
         }
-
         .category-btn:hover, .category-btn.active {
-            border-color: var(--primary);
-            background-color: var(--primary);
-            color: white;
+            border-color: var(--primary); background-color: var(--primary); color: white;
         }
 
         /* PRODUCTOS */
         .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 20px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px;
         }
-
         .product-card {
-            background: white;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            border: 1px solid rgba(0,0,0,0.04);
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            cursor: pointer;
+            background: white; border-radius: var(--border-radius);
+            overflow: hidden; box-shadow: var(--shadow-sm);
+            transition: transform 0.2s ease; border: 1px solid rgba(0,0,0,0.02);
+            display: flex; flex-direction: column; height: 100%; cursor: pointer;
         }
-
-        .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .product-img-container {
-            height: 180px;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .product-img-container .product-emoji {
-            font-size: 3.5rem;
-            z-index: 2;
-        }
-
-        .product-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--accent);
-            color: var(--primary-dark);
-            font-size: 0.7rem;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 20px;
-            z-index: 3;
-            text-transform: uppercase;
-        }
-
-        .product-badge.consultar {
-            background: #e74c3c;
-            color: white;
-        }
-
-        .product-info {
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .product-title {
-            font-size: 1.05rem;
-            margin-bottom: 5px;
-            color: var(--text-main);
-            line-height: 1.3;
-        }
-
+        .product-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+        .product-img { height: 180px; width: 100%; object-fit: cover; }
+        .product-info { padding: 15px; display: flex; flex-direction: column; flex-grow: 1; }
+        .product-title { font-size: 1.1rem; margin-bottom: 5px; color: var(--text-main); }
         .product-desc {
-            color: var(--text-light);
-            font-size: 0.82rem;
-            margin-bottom: 15px;
-            flex-grow: 1;
-            line-height: 1.4;
+            color: var(--text-light); font-size: 0.85rem; margin-bottom: 15px;
+            flex-grow: 1; line-height: 1.4;
         }
+        .product-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+        .product-price { font-size: 1.2rem; font-weight: 700; color: var(--primary); }
+        .product-price .desde-label { font-size: 0.75rem; font-weight: 500; color: var(--text-light); }
 
-        .product-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: auto;
-        }
-
-        .product-price {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .product-price.consultar-price {
-            font-size: 0.85rem;
-            color: #e74c3c;
-            font-weight: 600;
-        }
-
-        .product-quantity-controls {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
+        /* CONTROLES DE CANTIDAD */
+        .product-quantity-controls { display: flex; align-items: center; gap: 8px; }
         .quantity-btn {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background-color: #f5f5f5;
-            border: 1px solid #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.8rem;
-            transition: all 0.2s;
+            width: 32px; height: 32px; border-radius: 50%;
+            background-color: #f5f5f5; border: 1px solid #ddd;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; font-weight: bold; transition: all 0.2s;
         }
-
         .quantity-btn:hover { background-color: #e0e0e0; }
         .quantity-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-        .quantity-display {
-            min-width: 28px;
-            text-align: center;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
+        .quantity-display { min-width: 30px; text-align: center; font-weight: 600; }
         .add-to-cart {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            padding: 6px 12px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.85rem;
+            background-color: var(--primary); color: white; border: none;
+            border-radius: 10px; padding: 6px 14px; cursor: pointer;
+            font-weight: 700; transition: all 0.2s; display: flex;
+            align-items: center; gap: 6px; flex: 1; justify-content: center;
         }
-
         .add-to-cart:hover { background-color: var(--primary-dark); }
         .add-to-cart.in-cart { background-color: #27ae60; }
-        .add-to-cart:disabled { background: #ccc; cursor: not-allowed; }
 
-        /* CARRITO */
-        .cart-section {
-            position: sticky;
-            top: 120px;
-            height: fit-content;
-        }
-
-        .cart-items {
-            max-height: 350px;
-            overflow-y: auto;
-            margin-bottom: 15px;
-        }
-
+        /* CARRITO LATERAL */
+        .cart-section { position: sticky; top: 110px; height: fit-content; }
+        .cart-items { max-height: 300px; overflow-y: auto; margin-bottom: 15px; }
         .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #eee;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 0; border-bottom: 1px solid #eee;
         }
-
-        .cart-item h4 { font-size: 0.85rem; margin-bottom: 3px; }
-
-        .cart-item-controls {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
+        .cart-item h4 { font-size: 0.9rem; margin-bottom: 4px; }
+        .cart-item-controls { display: flex; align-items: center; gap: 8px; }
         .cart-item-qty {
-            width: 40px;
-            text-align: center;
-            padding: 4px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 0.9rem;
+            width: 40px; text-align: center; padding: 4px;
+            border: 1px solid #ddd; border-radius: 4px; font-size: 0.9rem;
         }
-
         .remove-item {
-            background: #ffebee;
-            color: #d32f2f;
-            width: 28px;
-            height: 28px;
-            border-radius: 6px;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: #ffebee; color: #d32f2f; width: 28px; height: 28px;
+            border-radius: 6px; border: none; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
         }
 
         /* BOTONES */
         .checkout-btn, .submit-order-btn {
-            width: 100%;
-            border: none;
-            border-radius: 12px;
-            padding: 15px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            color: white;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 15px;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            width: 100%; border: none; border-radius: 12px;
+            padding: 15px; font-size: 1rem; font-weight: 700;
+            cursor: pointer; color: white; text-transform: uppercase;
+            letter-spacing: 1px; margin-top: 15px; transition: all 0.2s;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
         }
-
-        .checkout-btn { background-color: var(--accent); color: var(--primary-dark); }
-        .checkout-btn:hover { background-color: var(--accent-dark); }
+        .checkout-btn { background-color: var(--accent); }
+        .checkout-btn:hover { background-color: #b8892e; }
         .submit-order-btn { background-color: #25D366; }
         .submit-order-btn:hover { background-color: #1da851; }
 
         .form-control {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            margin-top: 5px;
-            font-size: 1rem;
-            font-family: 'DM Sans', sans-serif;
+            width: 100%; padding: 12px; border-radius: 8px;
+            border: 1px solid #ddd; margin-top: 5px; font-size: 1rem;
         }
-
         .form-group { margin-bottom: 15px; }
 
         /* FLOATING ICON */
         .floating-cart-icon {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            background-color: var(--primary);
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-            z-index: 999;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            cursor: pointer;
+            position: fixed; bottom: 25px; right: 25px;
+            background-color: var(--primary); color: white;
+            width: 60px; height: 60px; border-radius: 50%;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3); z-index: 999;
+            display: none; align-items: center; justify-content: center;
+            font-size: 1.4rem; cursor: pointer;
         }
-
         .cart-count {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: var(--accent);
-            color: var(--primary-dark);
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid white;
-            font-weight: bold;
+            position: absolute; top: -5px; right: -5px;
+            background: var(--accent); width: 24px; height: 24px;
+            border-radius: 50%; font-size: 0.8rem;
+            display: flex; align-items: center; justify-content: center;
+            border: 2px solid white; font-weight: bold;
         }
 
-        /* TOAST */
+        /* NOTIFICACIÓN TOAST */
         .notification {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--primary);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 50px;
-            z-index: 2000;
-            display: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            width: max-content;
-            max-width: 90%;
-            text-align: center;
-            animation: fadeInOut 3s ease;
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: #333; color: white; padding: 12px 24px;
+            border-radius: 50px; z-index: 2000; display: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); width: max-content;
+            max-width: 90%; text-align: center; animation: fadeInOut 3s ease;
         }
-
         @keyframes fadeInOut {
             0%, 100% { opacity: 0; transform: translateX(-50%) translateY(20px); }
             10%, 90% { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
 
-        /* PRODUCT MODAL */
-        .product-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .product-modal.active { display: flex; }
-
-        .product-modal-content {
-            background: white;
-            border-radius: var(--border-radius);
-            max-width: 500px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: var(--shadow-lg);
-            position: relative;
-        }
-
-        .product-modal-close {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: white;
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 1.2rem;
-            color: var(--text-main);
-            z-index: 10;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .product-modal-img-container {
-            width: 100%;
-            height: 220px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: var(--border-radius) var(--border-radius) 0 0;
-            overflow: hidden;
-        }
-
-        .product-modal-img-container .modal-emoji {
-            font-size: 5rem;
-            z-index: 2;
-        }
-
-        .product-modal-info { padding: 25px; }
-
-        .product-modal-title {
-            font-size: 1.5rem;
-            color: var(--primary);
-            margin-bottom: 10px;
-        }
-
-        .product-modal-desc {
-            color: var(--text-light);
-            margin-bottom: 15px;
-            line-height: 1.6;
-        }
-
-        .product-modal-price {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 15px;
-        }
-
-        .product-modal-details {
-            background: #f0f7f4;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border-left: 4px solid var(--primary);
-        }
-
-        .product-modal-details p {
-            font-size: 0.9rem;
-            color: var(--text-main);
-            margin-bottom: 5px;
-        }
-
-        .modal-quantity-controls {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            margin: 25px 0;
-        }
-
-        .modal-quantity-btn {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background-color: #f5f5f5;
-            border: 2px solid #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1.2rem;
-            transition: all 0.2s;
-        }
-
-        .modal-quantity-btn:hover { background-color: #e0e0e0; }
-        .modal-quantity-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-        .modal-quantity-display {
-            min-width: 50px;
-            text-align: center;
-            font-weight: 700;
-            font-size: 1.5rem;
-        }
-
-        .modal-total {
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            text-align: center;
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .modal-total-price {
-            color: var(--primary);
-            font-size: 1.4rem;
-            font-weight: 800;
-        }
-
-        .modal-add-to-cart {
-            width: 100%;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            padding: 18px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: all 0.2s;
-        }
-
-        .modal-add-to-cart:hover { background-color: var(--primary-dark); }
-        .modal-add-to-cart:disabled { background: #ccc; cursor: not-allowed; }
-
-        /* CONFIRMATION MODAL */
-        .confirmation-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .confirmation-modal.active { display: flex; }
-
-        .confirmation-modal-content {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 30px;
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .confirmation-logo-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: var(--primary-dark);
-            font-weight: 800;
-            margin: 0 auto 20px;
-            border: 3px solid var(--primary);
-            font-family: 'Playfair Display', serif;
-        }
-
-        /* PAYMENT */
-        .payment-methods {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .payment-method {
-            flex: 1;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            background: white;
-        }
-
-        .payment-method:hover { border-color: var(--primary); }
-        .payment-method.selected { border-color: var(--primary); background-color: #f0f7f4; }
-        .payment-method input { display: none; }
-
-        .cash-details {
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 10px;
-            display: none;
-        }
-
-        .cash-details.active { display: block; }
-
-        .change-info {
-            background: #e8f5e8;
-            padding: 10px;
-            border-radius: 6px;
-            margin-top: 10px;
-            text-align: center;
-            font-weight: 600;
-            color: #2d572c;
-            display: none;
-        }
-
-        .change-info.active { display: block; }
-
         /* FOOTER */
         footer {
-            background-color: var(--primary-dark);
-            color: rgba(255,255,255,0.7);
-            padding: 40px 0 20px;
-            margin-top: 50px;
-            text-align: center;
+            background-color: #2D2420; color: rgba(255,255,255,0.7);
+            padding: 40px 0 20px; margin-top: 50px; text-align: center;
+        }
+        .footer-logo {
+            height: 60px; width: 60px; border-radius: 50%; object-fit: contain;
+            margin-bottom: 15px; border: 2px solid rgba(255,255,255,0.2);
         }
 
-        .footer-logo-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: var(--primary-dark);
-            font-weight: 800;
-            margin: 0 auto 15px;
-            border: 2px solid rgba(255,255,255,0.2);
-            font-family: 'Playfair Display', serif;
+        /* CASH DETAILS */
+        .cash-details { background: #f9f9f9; padding: 15px; border-radius: 8px; margin-top: 10px; display: none; }
+        .cash-details.active { display: block; }
+        .change-info {
+            background: #e8f5e8; padding: 10px; border-radius: 6px; margin-top: 10px;
+            text-align: center; font-weight: 600; color: #2d572c; display: none;
+        }
+        .change-info.active { display: block; }
+
+        /* DELIVERY INFO */
+        .delivery-options { margin-top: 10px; }
+        .distance-details {
+            background: #e8f4fc; padding: 15px; border-radius: 8px; margin-top: 10px;
+            display: none; border-left: 4px solid #3498db;
+        }
+        .distance-details.active { display: block; }
+        .distance-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem; }
+        .distance-row.total {
+            font-weight: bold; border-top: 1px solid #3498db;
+            padding-top: 8px; margin-top: 8px; font-size: 1rem;
         }
 
-        /* DELIVERY SECTION */
-        .delivery-option-label {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            background: white;
-            padding: 10px;
-            border: 1px solid #eee;
-            border-radius: 8px;
-            transition: all 0.2s;
+        /* MODAL DE PRODUCTO */
+        .product-modal {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background-color: rgba(0,0,0,0.5);
+            z-index: 2000; justify-content: center; align-items: center; padding: 20px;
+        }
+        .product-modal.active { display: flex; }
+        .product-modal-content {
+            background: white; border-radius: var(--border-radius);
+            max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto;
+            box-shadow: var(--shadow-lg); position: relative;
+        }
+        .product-modal-close {
+            position: absolute; top: 15px; right: 15px; background: white;
+            border: none; width: 36px; height: 36px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; font-size: 1.2rem; color: var(--text-main);
+            z-index: 10; box-shadow: var(--shadow-sm);
+        }
+        .product-modal-img {
+            width: 100%; height: 200px; object-fit: cover;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+        .product-modal-info { padding: 25px; }
+        .product-modal-title { font-size: 1.5rem; color: var(--primary); margin-bottom: 10px; }
+        .product-modal-desc { color: var(--text-light); margin-bottom: 20px; line-height: 1.5; }
+        .product-modal-price { font-size: 1.8rem; font-weight: 800; color: var(--primary); margin-bottom: 25px; }
+
+        /* MODIFICADORES */
+        .modifiers-section { margin-bottom: 25px; }
+        .modifiers-title {
+            font-size: 1rem; font-weight: 600; margin-bottom: 15px;
+            color: var(--text-main); border-bottom: 1px solid #eee; padding-bottom: 8px;
+        }
+        .modifier-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 0; border-bottom: 1px solid #f5f5f5;
+        }
+        .modifier-info { display: flex; flex-direction: column; gap: 3px; }
+        .modifier-name { font-weight: 500; }
+        .modifier-desc { font-size: 0.85rem; color: var(--text-light); }
+        .modifier-price { font-weight: 600; color: var(--primary); white-space: nowrap; }
+        .modifier-toggle {
+            width: 40px; height: 24px; border-radius: 12px; background: #ddd;
+            position: relative; cursor: pointer; transition: all 0.3s;
+        }
+        .modifier-toggle.active { background: var(--primary); }
+        .modifier-toggle::after {
+            content: ''; position: absolute; width: 20px; height: 20px;
+            border-radius: 50%; background: white; top: 2px; left: 2px; transition: all 0.3s;
+        }
+        .modifier-toggle.active::after { left: 18px; }
+
+        /* SELECTORES RADIO */
+        .modifier-option {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 0; border-bottom: 1px solid #f5f5f5; cursor: pointer;
+        }
+        .modifier-option:last-child { border-bottom: none; }
+        .modifier-option input[type="radio"] { margin-right: 10px; accent-color: var(--primary); }
+        .modifier-option label {
+            flex: 1; cursor: pointer; display: flex;
+            justify-content: space-between; align-items: center;
+        }
+        .modifier-option-text { display: flex; flex-direction: column; gap: 3px; }
+        .option-price { font-weight: 600; color: var(--primary); white-space: nowrap; margin-left: 15px; }
+
+        /* CONTROLES DE CANTIDAD EN MODAL */
+        .modal-quantity-controls {
+            display: flex; align-items: center; justify-content: center;
+            gap: 20px; margin: 25px 0;
+        }
+        .modal-quantity-btn {
+            width: 44px; height: 44px; border-radius: 50%;
+            background-color: #f5f5f5; border: 2px solid #ddd;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; font-weight: bold; font-size: 1.2rem; transition: all 0.2s;
+        }
+        .modal-quantity-btn:hover { background-color: #e0e0e0; }
+        .modal-quantity-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .modal-quantity-display { min-width: 50px; text-align: center; font-weight: 700; font-size: 1.5rem; }
+        .modal-add-to-cart {
+            width: 100%; background-color: var(--primary); color: white;
+            border: none; border-radius: 12px; padding: 18px; font-size: 1.1rem;
+            font-weight: 700; cursor: pointer; display: flex; align-items: center;
+            justify-content: center; gap: 10px; transition: all 0.2s;
+        }
+        .modal-add-to-cart:hover { background-color: var(--primary-dark); }
+        .modal-add-to-cart.in-cart { background-color: #27ae60; }
+        .modal-total {
+            background: #f9f9f9; padding: 15px; border-radius: 8px;
+            margin: 20px 0; text-align: center; font-weight: 600; font-size: 1.1rem;
+        }
+        .modal-total-price { color: var(--primary); font-size: 1.4rem; font-weight: 800; }
+
+        /* MODAL DE CONFIRMACIÓN */
+        .confirmation-modal {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background-color: rgba(0,0,0,0.5);
+            z-index: 2000; justify-content: center; align-items: center; padding: 20px;
+        }
+        .confirmation-modal.active { display: flex; }
+        .confirmation-modal-content {
+            background: white; border-radius: var(--border-radius);
+            padding: 30px; max-width: 500px; width: 90%;
+            text-align: center; box-shadow: var(--shadow-lg);
+        }
+        .confirmation-modal-logo {
+            height: 80px; width: 80px; border-radius: 50%; object-fit: contain;
+            margin-bottom: 20px; border: 3px solid var(--primary);
         }
 
-        .delivery-option-label:hover { border-color: var(--primary); }
-
-        .delivery-address-section {
-            display: none;
-            margin-top: 10px;
+        /* PAYMENT METHODS */
+        .payment-methods { display: flex; gap: 10px; margin-top: 10px; }
+        .payment-method {
+            flex: 1; padding: 12px; border: 2px solid #ddd; border-radius: 8px;
+            text-align: center; cursor: pointer; transition: all 0.2s; background: white;
         }
+        .payment-method:hover { border-color: var(--primary); }
+        .payment-method.selected { border-color: var(--primary); background-color: #fdf6ec; }
+        .payment-method input { display: none; }
 
-        .delivery-address-section.active { display: block; }
-
-        .shipping-note {
-            background: #fff9e6;
-            padding: 12px;
-            border-radius: 8px;
-            border-left: 4px solid var(--accent);
-            font-size: 0.85rem;
-            margin-top: 10px;
-            color: #7a6520;
-        }
-
-        /* RESPONSIVE */
+        /* =========================================
+           RESPONSIVIDAD
+           ========================================= */
         @media (max-width: 992px) {
             .main-content { grid-template-columns: 1fr; }
             .cart-section { order: 2; }
         }
-
         @media (max-width: 768px) {
             .container { padding: 0 16px; }
             header { padding: 20px 0; }
             .header-content { flex-direction: column; text-align: center; }
             .logo-container { flex-direction: column; gap: 10px; }
-            .logo-icon { width: 55px; height: 55px; font-size: 1.4rem; }
+            .logo-img { height: 60px; width: 60px; }
             .logo-text { font-size: 1.6rem; }
-            .restaurant-info { padding: 20px; margin-top: -15px; }
-            .restaurant-info h3 { font-size: 1.3rem; }
-
-            .products-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
-            }
-
+            .restaurant-info { padding: 20px; margin-top: -20px; }
+            .restaurant-info h3 { font-size: 1.4rem; }
+            .products-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .product-card { border-radius: 12px; }
-            .product-img-container { height: 130px; }
-            .product-img-container .product-emoji { font-size: 2.5rem; }
+            .product-img { height: 130px; }
             .product-info { padding: 12px; }
-            .product-title { font-size: 0.9rem; line-height: 1.2; }
+            .product-title { font-size: 0.95rem; line-height: 1.2; }
             .product-desc { display: none; }
-            .product-price { font-size: 0.95rem; }
-            .add-to-cart { padding: 5px 8px; font-size: 0.8rem; }
-
+            .product-price { font-size: 1rem; }
+            .add-to-cart { padding: 5px 10px; font-size: 0.9rem; }
             .floating-cart-icon { display: flex; }
-
             .product-modal-content { max-height: 95vh; }
             .confirmation-modal-content { width: 90%; padding: 20px; }
-
-            .menu-categories { gap: 8px; }
-            .category-btn { padding: 6px 12px; font-size: 0.82rem; }
         }
-
         @media (max-width: 480px) {
             .products-grid { grid-template-columns: 1fr 1fr; }
             .section-title { font-size: 1.3rem; }
+            .category-btn { padding: 6px 14px; font-size: 0.9rem; }
             .payment-methods { flex-direction: column; }
             .product-modal-info { padding: 20px; }
         }
@@ -838,19 +439,31 @@
 </head>
 <body>
 
+    <!-- ============================================
+         ÍCONO FLOTANTE DEL CARRITO (móvil)
+         ============================================ -->
     <div class="floating-cart-icon" id="floatingCartIcon">
         <i class="fas fa-shopping-bag"></i>
         <div class="cart-count" id="floatingCartCount">0</div>
     </div>
 
+    <!-- ============================================
+         HEADER / ENCABEZADO
+         - EDITAR: Logo (src de la imagen)
+         - EDITAR: Nombre del negocio (logo-text)
+         - EDITAR: Subtítulo (logo-subtitle)
+         ============================================ -->
     <header>
         <div class="container">
             <div class="header-content">
                 <div class="logo-container">
-                    <div class="logo-icon">GM</div>
+                    <!-- EDITAR LOGO: Cambiar la URL src por tu imagen de logo -->
+                    <img src="https://placehold.co/80x80/5D3A1A/FFFFFF?text=GM" alt="Logo Gran Mitla" class="logo-img">
                     <div>
+                        <!-- EDITAR: Nombre del negocio -->
                         <h1 class="logo-text">Gran Mitla</h1>
-                        <div class="logo-subtitle">Sales Artesanales & Gourmet</div>
+                        <!-- EDITAR: Subtítulo o slogan -->
+                        <p class="logo-subtitle">Sales Artesanales & Más</p>
                     </div>
                 </div>
             </div>
@@ -858,37 +471,55 @@
     </header>
 
     <div class="container">
+        <!-- ============================================
+             INFO DEL NEGOCIO
+             - EDITAR: Título, descripción, horario, etc.
+             ============================================ -->
         <div class="restaurant-info">
-            <h3><i class="fas fa-mortar-pestle"></i> Tradición Oaxaqueña</h3>
-            <p style="font-size:0.95rem; color:#666; margin-bottom:8px;">Sales artesanales, productos gourmet y accesorios para mezcal</p>
-            <p style="font-size:0.9rem; margin-top:10px; background:#f0f7f4; padding:10px; border-radius:8px; border-left:4px solid var(--primary);">
-                <strong><i class="fab fa-whatsapp" style="color:#25D366"></i> Pedidos por WhatsApp</strong> — Envíos a toda la República
+            <!-- EDITAR: Título e ícono -->
+            <h3><i class="fas fa-pepper-hot"></i> Sabor Artesanal Oaxaqueño</h3>
+            <!-- EDITAR: Descripción del negocio -->
+            <p style="font-size: 0.95rem; color: #666; margin-bottom: 8px;">
+                Sales artesanales, chilitos y productos gourmet para acompañar tus destilados y platillos favoritos.
+            </p>
+            <!-- EDITAR: Información de contacto/envío -->
+            <p style="font-size: 0.9rem; margin-top: 10px; background: #fdf6ec; padding: 8px; border-radius: 8px; border-left: 4px solid var(--accent);">
+                <strong><i class="fas fa-truck"></i> Envíos a toda la República</strong> • Pedidos por WhatsApp
             </p>
         </div>
 
         <div class="main-content">
             <section class="menu-section">
+                <!-- EDITAR: Título de la sección del catálogo -->
                 <h2 class="section-title">Catálogo de Productos</h2>
 
+                <!-- ============================================
+                     CATEGORÍAS / FILTROS
+                     - EDITAR: Nombre de categorías y data-category
+                     - Deben coincidir con la propiedad "category"
+                       de cada producto en el JavaScript
+                     ============================================ -->
                 <div class="menu-categories">
-                    <button class="category-btn active" data-category="all">Todo</button>
+                    <button class="category-btn active" data-category="all">Todo el Catálogo</button>
                     <button class="category-btn" data-category="kits">Kits</button>
-                    <button class="category-btn" data-category="sal-gusano">Sal de Gusano</button>
-                    <button class="category-btn" data-category="sal-chapulin">Sal de Chapulín</button>
-                    <button class="category-btn" data-category="sales-especiales">Sales Especiales</button>
+                    <button class="category-btn" data-category="sales">Sales</button>
                     <button class="category-btn" data-category="chilito">Chilito Botanero</button>
-                    <button class="category-btn" data-category="sal-mar">Sal de Mar</button>
-                    <button class="category-btn" data-category="bebidas">Bebidas</button>
+                    <button class="category-btn" data-category="complementos">Complementos</button>
                 </div>
 
-                <div class="products-grid" id="productsGrid"></div>
+                <div class="products-grid" id="productsGrid">
+                    <!-- Los productos se cargan con JavaScript -->
+                </div>
             </section>
 
+            <!-- ============================================
+                 SECCIÓN DEL CARRITO
+                 ============================================ -->
             <section class="cart-section" id="cartSection">
                 <h2 class="section-title">Tu Pedido</h2>
 
                 <div class="cart-items" id="cartItems">
-                    <p style="text-align:center; color:#999; margin-top:20px;">Tu carrito está vacío</p>
+                    <p style="text-align:center; color:#999; margin-top:20px;">Tu canasta está vacía</p>
                 </div>
 
                 <div style="background:#f4f4f4; padding:15px; border-radius:8px; margin-bottom:15px;">
@@ -896,31 +527,38 @@
                         <span>Subtotal:</span>
                         <span id="subtotal" style="font-weight:bold;">$0.00</span>
                     </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:5px;" id="shippingRow">
+                        <span>Envío:</span>
+                        <span id="shippingCost">$0.00</span>
+                    </div>
                     <div style="display:flex; justify-content:space-between; font-size:1.2rem; color:var(--primary); border-top:1px dashed #ccc; padding-top:10px; margin-top:5px;">
                         <span>Total:</span>
                         <span id="total" style="font-weight:800;">$0.00</span>
                     </div>
                 </div>
 
+                <!-- ============================================
+                     TIPO DE ENTREGA
+                     ============================================ -->
                 <div style="margin-bottom:15px;">
-                    <label class="delivery-option-label">
+                    <label style="display:flex; align-items:center; gap:10px; margin-bottom:10px; cursor:pointer; background:white; padding:10px; border:1px solid #eee; border-radius:8px;">
                         <input type="radio" name="deliveryType" value="pickup" checked>
-                        <span><i class="fas fa-store"></i> Recoger / Punto de entrega</span>
+                        <span><i class="fas fa-store"></i> Pasar a recoger / Acordar entrega</span>
                     </label>
-                    <label class="delivery-option-label">
+                    <label style="display:flex; align-items:center; gap:10px; cursor:pointer; background:white; padding:10px; border:1px solid #eee; border-radius:8px;">
                         <input type="radio" name="deliveryType" value="delivery">
                         <span><i class="fas fa-truck"></i> Envío a domicilio</span>
                     </label>
                 </div>
 
-                <div class="delivery-address-section" id="deliveryAddressSection">
+                <div id="deliveryAddressSection" style="display: none;">
                     <div class="form-group">
-                        <label for="deliveryAddress" style="font-weight:600; font-size:0.9rem;">Dirección de envío:</label>
-                        <input type="text" id="deliveryAddress" class="form-control" placeholder="Calle, número, colonia, CP, ciudad, estado">
+                        <label for="deliveryAddress" style="font-weight: 600;">Dirección de envío:</label>
+                        <input type="text" id="deliveryAddress" class="form-control" placeholder="Ingresa tu dirección completa">
                     </div>
-                    <div class="shipping-note">
-                        <i class="fas fa-info-circle"></i> El costo de envío se calculará según tu ubicación y se te confirmará por WhatsApp antes de procesar el pedido.
-                    </div>
+                    <small style="display: block; margin-top: -10px; margin-bottom: 10px; color: var(--text-light); font-size: 0.85rem;">
+                        <i class="fas fa-info-circle"></i> El costo de envío se acordará por WhatsApp según tu ubicación.
+                    </small>
                 </div>
 
                 <button class="checkout-btn" id="checkoutBtn">
@@ -929,7 +567,10 @@
             </section>
         </div>
 
-        <section class="checkout-form" id="checkoutForm" style="display:none; max-width:600px; margin:0 auto;">
+        <!-- ============================================
+             FORMULARIO DE CHECKOUT
+             ============================================ -->
+        <section class="checkout-form" id="checkoutForm" style="display: none; max-width: 600px; margin: 0 auto;">
             <h2 class="section-title">Finalizar Pedido</h2>
             <form id="orderForm">
                 <div class="form-group">
@@ -941,9 +582,17 @@
                     <input type="tel" id="customerPhone" class="form-control" required>
                 </div>
 
-                <div class="form-group" id="finalAddressSection" style="display:none;">
-                    <label>Dirección completa para envío *</label>
-                    <input type="text" id="customerAddress" class="form-control" placeholder="Calle, número, colonia, CP, ciudad, estado">
+                <div class="form-group">
+                    <label>Tipo de Entrega</label>
+                    <select id="deliveryTypeFinal" class="form-control" required>
+                        <option value="pickup">Recoger / Acordar entrega</option>
+                        <option value="delivery">Envío a domicilio</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="finalAddressSection" style="display: none;">
+                    <label>Dirección para envío *</label>
+                    <input type="text" id="customerAddress" class="form-control" placeholder="Calle, número, colonia, ciudad, estado, C.P.">
                 </div>
 
                 <div class="form-group">
@@ -965,7 +614,7 @@
 
                     <div class="cash-details" id="cashDetails">
                         <label>¿Con cuánto pagarás? *</label>
-                        <input type="number" id="cashAmount" class="form-control" placeholder="Ej. 1500.00" min="0" step="0.01">
+                        <input type="number" id="cashAmount" class="form-control" placeholder="Ej. 1000.00" min="0" step="0.01">
                         <div class="change-info" id="changeInfo">
                             Cambio: <span id="changeAmount">$0.00</span>
                         </div>
@@ -974,7 +623,7 @@
 
                 <div class="form-group">
                     <label>Notas adicionales</label>
-                    <textarea id="customerNotes" class="form-control" rows="2" placeholder="Ej: Facturación, horario de entrega, etc."></textarea>
+                    <textarea id="customerNotes" class="form-control" rows="2" placeholder="Ej: Facturación, indicaciones especiales, etc."></textarea>
                 </div>
 
                 <button type="submit" class="submit-order-btn">
@@ -987,26 +636,30 @@
         </section>
     </div>
 
-    <!-- Modal de producto -->
+    <!-- ============================================
+         MODAL DE PRODUCTO (se abre al hacer clic)
+         ============================================ -->
     <div class="product-modal" id="productModal">
         <div class="product-modal-content">
             <button class="product-modal-close" id="closeProductModal">
                 <i class="fas fa-times"></i>
             </button>
-            <div id="modalProductImageContainer" class="product-modal-img-container">
-                <span id="modalProductEmoji" class="modal-emoji"></span>
-            </div>
+            <img id="modalProductImage" src="" alt="" class="product-modal-img">
             <div class="product-modal-info">
                 <h3 id="modalProductTitle" class="product-modal-title"></h3>
                 <p id="modalProductDesc" class="product-modal-desc"></p>
                 <div id="modalProductPrice" class="product-modal-price"></div>
-                <div id="modalProductDetails" class="product-modal-details" style="display:none;"></div>
+
+                <div class="modifiers-section" id="modifiersSection">
+                    <h4 class="modifiers-title">Personaliza tu pedido</h4>
+                    <div id="modifiersList"></div>
+                </div>
 
                 <div class="modal-total">
                     Total: <span id="modalTotalPrice" class="modal-total-price">$0.00</span>
                 </div>
 
-                <div class="modal-quantity-controls" id="modalQuantitySection">
+                <div class="modal-quantity-controls">
                     <button class="modal-quantity-btn" id="modalDecreaseBtn">
                         <i class="fas fa-minus"></i>
                     </button>
@@ -1023,338 +676,343 @@
         </div>
     </div>
 
-    <!-- Modal de confirmación -->
+    <!-- ============================================
+         MODAL DE CONFIRMACIÓN
+         - EDITAR: Logo, nombre, WhatsApp
+         ============================================ -->
     <div class="confirmation-modal" id="confirmationModal">
         <div class="confirmation-modal-content">
-            <div class="confirmation-logo-icon">GM</div>
-            <h3 style="color:var(--primary); margin-bottom:15px;">¡Pedido Enviado!</h3>
-            <p style="margin-bottom:20px; color:var(--text-light);">Tu pedido ha sido enviado por WhatsApp. Te contactaremos pronto para confirmar disponibilidad y costo de envío.</p>
-            <p style="margin-bottom:20px; font-weight:600;"><i class="fab fa-whatsapp" style="color:#25D366"></i> WhatsApp: +52 55 1234 5678</p>
-            <button class="checkout-btn" id="closeModalBtn" style="background:var(--primary); color:white;">
+            <!-- EDITAR: Logo en confirmación -->
+            <img src="https://placehold.co/80x80/5D3A1A/FFFFFF?text=GM" alt="Logo" class="confirmation-modal-logo">
+            <h3 style="color: var(--primary); margin-bottom: 15px;">¡Pedido Enviado!</h3>
+            <p style="margin-bottom: 20px; color: var(--text-light);">Tu pedido ha sido enviado por WhatsApp. Te contactaremos pronto para confirmar disponibilidad y detalles de envío.</p>
+            <!-- EDITAR: Número de WhatsApp visible -->
+            <p style="margin-bottom: 20px; font-weight: 600;">WhatsApp: +52 55 1234 5678</p>
+            <button class="checkout-btn" id="closeModalBtn" style="background: var(--primary);">
                 <i class="fas fa-check"></i> Cerrar
             </button>
         </div>
     </div>
 
-    <div class="notification" id="notification">Mensaje</div>
+    <div class="notification" id="notification">Mensaje aquí</div>
 
+    <!-- ============================================
+         FOOTER / PIE DE PÁGINA
+         - EDITAR: Logo, nombre, WhatsApp, redes sociales
+         ============================================ -->
     <footer>
         <div class="container">
-            <div class="footer-logo-icon">GM</div>
-            <p style="color:rgba(255,255,255,0.9); font-weight:600;">&copy; 2025 Gran Mitla</p>
-            <p style="margin-top:5px; font-size:0.85rem;">Sales Artesanales & Productos Gourmet</p>
-            <p style="margin-top:10px; font-size:0.9rem;">
-                <i class="fab fa-whatsapp" style="color:#25D366;"></i> WhatsApp: +52 55 1234 5678
+            <!-- EDITAR: Logo del footer -->
+            <img src="https://placehold.co/60x60/5D3A1A/FFFFFF?text=GM" alt="Logo Footer" class="footer-logo">
+            <!-- EDITAR: Nombre en footer -->
+            <p>&copy; 2025 Gran Mitla - Sales Artesanales</p>
+            <!-- EDITAR: Número de WhatsApp -->
+            <p style="margin-top: 10px; font-size: 0.9rem;">
+                <i class="fab fa-whatsapp" style="color: #25D366;"></i> WhatsApp: +52 55 1234 5678
             </p>
         </div>
     </footer>
 
     <script>
         // ============================================
-        // CONFIGURACIÓN
         // ============================================
-        const whatsappNumber = "+525512345678"; // CAMBIAR al número real
+        //
+        //   CONFIGURACIÓN PRINCIPAL
+        //   Aquí se editan los datos más importantes:
+        //   - Número de WhatsApp
+        //   - Nombre del negocio
+        //   - Productos (nombre, descripción, precio, imagen)
+        //
+        // ============================================
+        // ============================================
 
-        const categoryColors = {
-            'kits': { bg: 'linear-gradient(135deg, #D4A72C 0%, #B8901F 100%)', emoji: '🎁' },
-            'sal-gusano': { bg: 'linear-gradient(135deg, #8B4513 0%, #A0522D 100%)', emoji: '🐛' },
-            'sal-chapulin': { bg: 'linear-gradient(135deg, #556B2F 0%, #6B8E23 100%)', emoji: '🦗' },
-            'sales-especiales': { bg: 'linear-gradient(135deg, #C0392B 0%, #E74C3C 100%)', emoji: '🌶️' },
-            'chilito': { bg: 'linear-gradient(135deg, #E74C3C 0%, #FF6347 100%)', emoji: '🌶️' },
-            'sal-mar': { bg: 'linear-gradient(135deg, #2980B9 0%, #3498DB 100%)', emoji: '🌊' },
-            'bebidas': { bg: 'linear-gradient(135deg, #E67E22 0%, #F39C12 100%)', emoji: '🍹' }
-        };
+        // ============================================
+        // NÚMERO DE WHATSAPP
+        // EDITAR: Cambiar por tu número con código de país
+        // Formato: +521234567890 (sin espacios ni guiones)
+        // ============================================
+        const whatsappNumber = "+525512345678";
+
+        // ============================================
+        // NOMBRE DEL NEGOCIO (para el mensaje de WhatsApp)
+        // ============================================
+        const businessName = "Gran Mitla";
+
+        // ============================================
+        // ============================================
+        //
+        //   PRODUCTOS DEL CATÁLOGO
+        //
+        //   Cada producto tiene estas propiedades:
+        //   - id: número único (no repetir)
+        //   - name: nombre del producto
+        //   - category: categoría (debe coincidir con data-category de los botones de filtro)
+        //   - description: descripción corta del producto
+        //   - price: precio base (el menor si tiene presentaciones)
+        //   - image: URL de la imagen del producto
+        //   - selectionTitle: título para el selector de presentación/opción
+        //   - modifiers:
+        //       - selection: opciones de selección única (presentaciones)
+        //           Cada una tiene: id, name, description, price (diferencia vs precio base)
+        //       - extras: opciones adicionales con toggle
+        //           Cada una tiene: id, name, description, price
+        //
+        //   PARA AGREGAR PRESENTACIONES:
+        //   El "price" del modifier es la DIFERENCIA respecto al precio base.
+        //   Ejemplo: Si el precio base es $232 y el frasco de 1kg cuesta $918,
+        //            el price del modifier sería: 918 - 232 = 686
+        //
+        // ============================================
+        // ============================================
 
         const products = [
-            // === KITS ===
+
+            // =============================================
+            // CATEGORÍA: KITS GRAN MITLA
+            // Productos sin presentaciones (precio único)
+            // =============================================
+
             {
                 id: 1,
                 name: "Kit Mi Despensa",
                 category: "kits",
-                description: "Kit completo para tener los mejores productos Gran Mitla en tu hogar.",
+                // EDITAR: Descripción del producto
+                description: "Kit completo para tu despensa con los mejores productos Gran Mitla. Incluye una selección variada de sales y complementos.",
+                // EDITAR: Precio del producto
                 price: 1194.00,
-                emoji: "🎁",
-                details: "Incluye una selección de nuestros mejores productos artesanales.",
-                consultarPrecio: false,
-                minQty: 1
+                // EDITAR: URL de la imagen del producto
+                image: "https://placehold.co/600x400/5D3A1A/FFFFFF?text=Kit+Mi+Despensa",
+                selectionTitle: "",
+                modifiers: { selection: [], extras: [] }
             },
             {
                 id: 2,
                 name: "Kit Fiesta Gran Mitla",
                 category: "kits",
-                description: "Todo lo que necesitas para una fiesta inolvidable con sabor oaxaqueño.",
+                description: "Todo lo que necesitas para una fiesta inolvidable con sabor oaxaqueño. Ideal para reuniones grandes.",
                 price: 1015.00,
-                emoji: "🎉",
-                details: "Kit ideal para reuniones y celebraciones.",
-                consultarPrecio: false,
-                minQty: 1
+                image: "https://placehold.co/600x400/5D3A1A/FFFFFF?text=Kit+Fiesta",
+                selectionTitle: "",
+                modifiers: { selection: [], extras: [] }
             },
             {
                 id: 3,
                 name: "Kit Básico Reunión",
                 category: "kits",
-                description: "Kit esencial para acompañar tus mezcales y destilados en reunión.",
+                description: "Kit esencial para tus reuniones con amigos. La introducción perfecta al mundo Gran Mitla.",
                 price: 836.00,
-                emoji: "🥂",
-                details: "Selección básica de productos Gran Mitla para reuniones.",
-                consultarPrecio: false,
-                minQty: 1
+                image: "https://placehold.co/600x400/5D3A1A/FFFFFF?text=Kit+Basico+Reunion",
+                selectionTitle: "",
+                modifiers: { selection: [], extras: [] }
             },
             {
                 id: 4,
-                name: "Set de Maridaje para Destilados",
+                name: "Kit de Salecitas Gran Mitla",
                 category: "kits",
-                description: "Set completo de maridaje diseñado para acompañar tus destilados favoritos.",
-                price: 1004.00,
-                emoji: "🥃",
-                details: "Perfecto para acompañar mezcal, tequila y otros destilados.",
-                consultarPrecio: false,
-                minQty: 1
+                description: "Selección de salecitas artesanales Gran Mitla en presentaciones pequeñas. Perfecto para regalar o probar todas las variedades.",
+                price: 659.00,
+                image: "https://placehold.co/600x400/5D3A1A/FFFFFF?text=Kit+Salecitas",
+                selectionTitle: "",
+                modifiers: { selection: [], extras: [] }
             },
             {
                 id: 5,
-                name: "Kit de Salecitas Gran Mitla",
-                category: "kits",
-                description: "Variedad de nuestras sales artesanales en un kit práctico y elegante.",
-                price: 659.00,
-                emoji: "🧂",
-                details: "Una selección de nuestras sales más populares.",
-                consultarPrecio: false,
-                minQty: 1
-            },
-            {
-                id: 6,
                 name: "Kit Mezcalero Gran Mitla",
                 category: "kits",
-                description: "Kit completo para el amante del mezcal con sales y accesorios.",
+                description: "El kit perfecto para los amantes del mezcal. Incluye sales y complementos ideales para maridar con destilados.",
                 price: 841.00,
-                emoji: "🌵",
-                details: "Todo lo necesario para disfrutar el mezcal como se merece.",
-                consultarPrecio: false,
-                minQty: 1
+                image: "https://placehold.co/600x400/5D3A1A/FFFFFF?text=Kit+Mezcalero",
+                selectionTitle: "",
+                modifiers: { selection: [], extras: [] }
             },
 
-            // === SAL DE GUSANO ===
+            // =============================================
+            // CATEGORÍA: SALES GRAN MITLA
+            // Productos con múltiples presentaciones
+            //
+            // NOTA IMPORTANTE SOBRE PRECIOS DE PRESENTACIONES:
+            // El "price" del producto es el precio de la presentación
+            // más económica (precio base).
+            // El "price" de cada modifier/selection es la DIFERENCIA
+            // entre su precio real y el precio base.
+            //
+            // Ejemplo para Sal de Gusano:
+            //   Frasco 50g = $232 (precio base) → modifier price: $0
+            //   Frasco 100g = $284 → modifier price: $284 - $232 = $52
+            //   Caja 25 sobres = $430 → modifier price: $430 - $232 = $198
+            //   Frasco 1kg = $918 → modifier price: $918 - $232 = $686
+            // =============================================
+
             {
-                id: 10,
-                name: "Sal de Gusano Gran Mitla — Frasco 1 kg",
-                category: "sal-gusano",
-                description: "Sal de gusano artesanal oaxaqueña. Presentación en frasco de un kilogramo.",
-                price: 918.00,
-                emoji: "🐛",
-                details: "Presentación: Frasco de 1 kilogramo. Elaborada artesanalmente en Oaxaca.",
-                consultarPrecio: false,
-                minQty: 1
+                id: 6,
+                name: "Sal de Gusano Gran Mitla",
+                category: "sales",
+                description: "Sal de gusano artesanal oaxaqueña, perfecta para acompañar mezcal y destilados. Disponible en varias presentaciones.",
+                price: 232.00,   // Precio base = presentación más barata (50g)
+                image: "https://placehold.co/600x400/D4A843/2D2420?text=Sal+de+Gusano",
+                selectionTitle: "Selecciona la presentación:",
+                modifiers: {
+                    selection: [
+                        // EDITAR: Presentaciones y precios
+                        // id: identificador único | name: nombre | description: detalle | price: DIFERENCIA vs precio base
+                        { id: 200, name: "Frasco 50g", description: "Presentación individual", price: 0.00 },         // Total: $232
+                        { id: 201, name: "Frasco 100g", description: "Presentación mediana", price: 52.00 },           // Total: $284
+                        { id: 202, name: "Caja 25 sobres de 5g", description: "Mínimo de compra: caja con 25 sobres", price: 198.00 },  // Total: $430
+                        { id: 203, name: "Frasco 1 kg", description: "Presentación familiar / negocio", price: 686.00 }  // Total: $918
+                    ],
+                    extras: []
+                }
             },
             {
+                id: 7,
+                name: "Sal de Chapulín Gran Mitla",
+                category: "sales",
+                description: "Sal de chapulín artesanal con un sabor único e inconfundible. Mismas presentaciones que la sal de gusano.",
+                price: 232.00,
+                image: "https://placehold.co/600x400/D4A843/2D2420?text=Sal+de+Chapulin",
+                selectionTitle: "Selecciona la presentación:",
+                modifiers: {
+                    selection: [
+                        { id: 210, name: "Frasco 50g", description: "Presentación individual", price: 0.00 },
+                        { id: 211, name: "Frasco 100g", description: "Presentación mediana", price: 52.00 },
+                        { id: 212, name: "Caja 25 sobres de 5g", description: "Mínimo de compra: caja con 25 sobres", price: 198.00 },
+                        { id: 213, name: "Frasco 1 kg", description: "Presentación familiar / negocio", price: 686.00 }
+                    ],
+                    extras: []
+                }
+            },
+            {
+                id: 8,
+                name: "Sal de Habanero Gran Mitla",
+                category: "sales",
+                description: "Sal con habanero, ideal para darle un toque picante a tus platillos y bebidas. Solo en presentaciones de 50g y 1kg.",
+                price: 195.00,   // Precio base = 50g
+                image: "https://placehold.co/600x400/E67E22/FFFFFF?text=Sal+de+Habanero",
+                selectionTitle: "Selecciona la presentación:",
+                modifiers: {
+                    selection: [
+                        { id: 220, name: "Frasco 50g", description: "Presentación individual", price: 0.00 },         // Total: $195
+                        { id: 221, name: "Frasco 1 kg", description: "Presentación familiar / negocio", price: 479.00 } // Total: $674
+                    ],
+                    extras: []
+                }
+            },
+            {
+                id: 9,
+                name: "Sal de Flor de Jamaica Gran Mitla",
+                category: "sales",
+                description: "Sal artesanal con flor de jamaica, un toque floral y único para tus bebidas y platillos.",
+                price: 195.00,
+                image: "https://placehold.co/600x400/C0392B/FFFFFF?text=Sal+de+Jamaica",
+                selectionTitle: "Selecciona la presentación:",
+                modifiers: {
+                    selection: [
+                        { id: 230, name: "Frasco 50g", description: "Presentación individual", price: 0.00 },
+                        { id: 231, name: "Frasco 1 kg", description: "Presentación familiar / negocio", price: 479.00 }
+                    ],
+                    extras: []
+                }
+            },
+
+            // =============================================
+            // CATEGORÍA: CHILITO BOTANERO
+            // =============================================
+
+            {
+                id: 10,
+                name: "Chilito Botanero Gran Mitla",
+                category: "chilito",
+                description: "Chilito botanero artesanal para botanas, frutas y lo que se te antoje. Presentaciones de 100g y 1kg.",
+                price: 195.00,   // Precio base = 100g
+                image: "https://placehold.co/600x400/E74C3C/FFFFFF?text=Chilito+Botanero",
+                selectionTitle: "Selecciona la presentación:",
+                modifiers: {
+                    selection: [
+                        { id: 240, name: "Frasco 100g", description: "Presentación individual", price: 0.00 },         // Total: $195
+                        { id: 241, name: "Frasco 1 kg", description: "Presentación familiar / negocio", price: 398.00 }  // Total: $593
+                    ],
+                    extras: []
+                }
+            },
+
+            // =============================================
+            // CATEGORÍA: COMPLEMENTOS
+            // =============================================
+
+            {
                 id: 11,
-                name: "Sal de Gusano Gran Mitla — Frasco 100 g",
-                category: "sal-gusano",
-                description: "Sal de gusano artesanal oaxaqueña. Presentación en frasco de 100 gramos.",
-                price: 284.00,
-                emoji: "🐛",
-                details: "Presentación: Frasco de 100 gramos.",
-                consultarPrecio: false,
-                minQty: 1
+                name: "Sal de Espuma de Mar",
+                category: "complementos",
+                description: "Sal natural de espuma de mar, perfecta para cocina gourmet. Presentaciones de 250g, 500g y 1kg.",
+                price: 138.00,   // Precio base = 250g
+                image: "https://placehold.co/600x400/3498DB/FFFFFF?text=Sal+de+Mar",
+                selectionTitle: "Selecciona la presentación:",
+                modifiers: {
+                    selection: [
+                        { id: 250, name: "Frasco 250g", description: "Presentación pequeña", price: 0.00 },    // Total: $138
+                        { id: 251, name: "Frasco 500g", description: "Presentación mediana", price: 33.00 },   // Total: $171
+                        { id: 252, name: "Frasco 1 kg", description: "Presentación grande", price: 85.00 }     // Total: $223
+                    ],
+                    extras: []
+                }
             },
             {
                 id: 12,
-                name: "Sal de Gusano Gran Mitla — Frasco 50 g",
-                category: "sal-gusano",
-                description: "Sal de gusano artesanal oaxaqueña. Presentación en frasco de 50 gramos.",
-                price: 232.00,
-                emoji: "🐛",
-                details: "Presentación: Frasco de 50 gramos. Perfecta para regalo o uso personal.",
-                consultarPrecio: false,
-                minQty: 1
+                name: "Sangrita Corazón Real",
+                category: "complementos",
+                description: "Sangrita artesanal en botella de 750 ml, el complemento perfecto para disfrutar tu mezcal o tequila.",
+                price: 307.00,
+                image: "https://placehold.co/600x400/C0392B/FFFFFF?text=Sangrita+750ml",
+                selectionTitle: "",
+                modifiers: { selection: [], extras: [] }
             },
             {
                 id: 13,
-                name: "Sal de Gusano Gran Mitla — Sobre 5 g (Caja 25 sobres)",
-                category: "sal-gusano",
-                description: "Sobres individuales de 5 g. Compra mínima: caja con 25 sobres.",
-                price: 430.00,
-                emoji: "🐛",
-                details: "Presentación: Caja con 25 sobres de 5 g cada uno. Mínimo de compra: 1 caja (25 sobres). Ideal para restaurantes, bares y eventos.",
-                consultarPrecio: false,
-                minQty: 1
-            },
-
-            // === SAL DE CHAPULÍN ===
-            {
-                id: 20,
-                name: "Sal de Chapulín Gran Mitla — Frasco 1 kg",
-                category: "sal-chapulin",
-                description: "Sal de chapulín artesanal oaxaqueña. Presentación en frasco de un kilogramo.",
-                price: 918.00,
-                emoji: "🦗",
-                details: "Presentación: Frasco de 1 kilogramo. Elaborada artesanalmente en Oaxaca.",
-                consultarPrecio: false,
-                minQty: 1
-            },
-            {
-                id: 21,
-                name: "Sal de Chapulín Gran Mitla — Frasco 100 g",
-                category: "sal-chapulin",
-                description: "Sal de chapulín artesanal oaxaqueña. Presentación en frasco de 100 gramos.",
-                price: 284.00,
-                emoji: "🦗",
-                details: "Presentación: Frasco de 100 gramos.",
-                consultarPrecio: false,
-                minQty: 1
-            },
-            {
-                id: 22,
-                name: "Sal de Chapulín Gran Mitla — Frasco 50 g",
-                category: "sal-chapulin",
-                description: "Sal de chapulín artesanal oaxaqueña. Presentación en frasco de 50 gramos.",
-                price: 232.00,
-                emoji: "🦗",
-                details: "Presentación: Frasco de 50 gramos. Perfecta para regalo o uso personal.",
-                consultarPrecio: false,
-                minQty: 1
-            },
-            {
-                id: 23,
-                name: "Sal de Chapulín Gran Mitla — Sobre 5 g (Caja 25 sobres)",
-                category: "sal-chapulin",
-                description: "Sobres individuales de 5 g. Compra mínima: caja con 25 sobres.",
-                price: 430.00,
-                emoji: "🦗",
-                details: "Presentación: Caja con 25 sobres de 5 g cada uno. Mínimo de compra: 1 caja (25 sobres). Ideal para restaurantes, bares y eventos.",
-                consultarPrecio: false,
-                minQty: 1
-            },
-
-            // === SALES ESPECIALES ===
-            {
-                id: 30,
-                name: "Sal de Habanero — Frasco 50 g",
-                category: "sales-especiales",
-                description: "Sal artesanal con habanero. Presentación en frasco de 50 gramos.",
-                price: 195.00,
-                emoji: "🌶️",
-                details: "Presentación: Frasco de 50 gramos. Sabor intenso y picante.",
-                consultarPrecio: false,
-                minQty: 1
-            },
-            {
-                id: 31,
-                name: "Sal de Habanero — Frasco 1 kg",
-                category: "sales-especiales",
-                description: "Sal artesanal con habanero. Presentación en frasco de un kilogramo.",
-                price: 674.00,
-                emoji: "🌶️",
-                details: "Presentación: Frasco de 1 kilogramo.",
-                consultarPrecio: false,
-                minQty: 1
-            },
-            {
-                id: 32,
-                name: "Sal de Flor de Jamaica — Frasco 50 g",
-                category: "sales-especiales",
-                description: "Sal artesanal con flor de jamaica. Presentación en frasco de 50 gramos.",
-                price: 195.00,
-                emoji: "🌺",
-                details: "Presentación: Frasco de 50 gramos. Sabor floral y único.",
-                consultarPrecio: false,
-                minQty: 1
-            },
-            {
-                id: 33,
-                name: "Sal de Flor de Jamaica — Frasco 1 kg",
-                category: "sales-especiales",
-                description: "Sal artesanal con flor de jamaica. Presentación en frasco de un kilogramo.",
-                price: 674.00,
-                emoji: "🌺",
-                details: "Presentación: Frasco de 1 kilogramo.",
-                consultarPrecio: false,
-                minQty: 1
-            },
-
-            // === CHILITO BOTANERO ===
-            {
-                id: 40,
-                name: "Chilito Botanero Gran Mitla — 100 g",
-                category: "chilito",
-                description: "Chilito botanero artesanal. Presentación de 100 gramos.",
-                price: 195.00,
-                emoji: "🌶️",
-                details: "Presentación: 100 gramos. Perfecto para botanear.",
-                consultarPrecio: false,
-                minQty: 1
-            },
-            {
-                id: 41,
-                name: "Chilito Botanero Gran Mitla — 1 kg",
-                category: "chilito",
-                description: "Chilito botanero artesanal. Presentación de un kilogramo.",
-                price: 593.00,
-                emoji: "🌶️",
-                details: "Presentación: 1 kilogramo. Ideal para negocios y eventos.",
-                consultarPrecio: false,
-                minQty: 1
-            },
-
-            // === SAL DE ESPUMA DE MAR ===
-            {
-                id: 50,
-                name: "Sal de Espuma de Mar — 250 g",
-                category: "sal-mar",
-                description: "Sal de espuma de mar artesanal. Presentación de 250 gramos.",
-                price: 0,
-                emoji: "🌊",
-                details: "Presentación: 250 gramos. Textura única y sabor delicado.",
-                consultarPrecio: true,
-                minQty: 1
-            },
-            {
-                id: 51,
-                name: "Sal de Espuma de Mar — 500 g",
-                category: "sal-mar",
-                description: "Sal de espuma de mar artesanal. Presentación de 500 gramos.",
-                price: 0,
-                emoji: "🌊",
-                details: "Presentación: 500 gramos.",
-                consultarPrecio: true,
-                minQty: 1
-            },
-            {
-                id: 52,
-                name: "Sal de Espuma de Mar — 1 kg",
-                category: "sal-mar",
-                description: "Sal de espuma de mar artesanal. Presentación de un kilogramo.",
-                price: 0,
-                emoji: "🌊",
-                details: "Presentación: 1 kilogramo.",
-                consultarPrecio: true,
-                minQty: 1
-            },
-
-            // === BEBIDAS ===
-            {
-                id: 60,
-                name: "Sangrita Corazón Real — 750 ml",
-                category: "bebidas",
-                description: "Sangrita artesanal para acompañar tus mezcales y tequilas. Botella de 750 ml.",
-                price: 0,
-                emoji: "🍹",
-                details: "Presentación: Botella de 750 ml. Perfecta para acompañar destilados.",
-                consultarPrecio: true,
-                minQty: 1
+                name: "Set de Maridaje para Destilados",
+                category: "complementos",
+                description: "Set completo de maridaje para disfrutar tus destilados favoritos. Incluye una selección curada de acompañamientos.",
+                price: 1004.00,
+                image: "https://placehold.co/600x400/8E44AD/FFFFFF?text=Set+Maridaje",
+                selectionTitle: "",
+                modifiers: { selection: [], extras: [] }
             }
         ];
 
         // ============================================
-        // VARIABLES GLOBALES
+        // FIN DE LA SECCIÓN DE PRODUCTOS
+        //
+        // PARA AGREGAR UN NUEVO PRODUCTO:
+        // 1. Copia un bloque de producto existente
+        // 2. Cambia el "id" a un número que no se haya usado
+        // 3. Edita name, category, description, price, image
+        // 4. Si tiene presentaciones, agrega los modifiers.selection
+        //    (recuerda: el price del modifier es la DIFERENCIA)
+        // 5. Asegúrate de que la "category" coincida con
+        //    un botón de filtro en el HTML
+        //
+        // PARA AGREGAR UNA NUEVA CATEGORÍA:
+        // 1. Agrega un botón en el HTML:
+        //    <button class="category-btn" data-category="nueva">Nueva Cat</button>
+        // 2. Usa ese mismo valor en la propiedad "category"
+        //    de los productos que pertenezcan a ella
         // ============================================
-        let cart = JSON.parse(localStorage.getItem('cartGranMitla')) || [];
+
+
+        // ============================================
+        // VARIABLES GLOBALES (no necesitas editar esto)
+        // ============================================
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
         let currentCategory = 'all';
+        let currentShippingCost = 0;
         let paymentMethod = 'transfer';
         let cashAmount = 0;
         let changeAmount = 0;
+
+        // Variables para el modal de producto
         let currentModalProduct = null;
         let modalQuantity = 1;
+        let selectedSelection = null;
+        let selectedExtras = [];
 
         // ============================================
         // INICIALIZACIÓN
@@ -1373,7 +1031,7 @@
                 });
             });
 
-            // Icono flotante
+            // Icono flotante del carrito
             document.getElementById('floatingCartIcon').addEventListener('click', function() {
                 document.getElementById('cartSection').scrollIntoView({ behavior: 'smooth' });
             });
@@ -1381,20 +1039,29 @@
             // Tipo de entrega
             document.querySelectorAll('input[name="deliveryType"]').forEach(radio => {
                 radio.addEventListener('change', function() {
-                    const section = document.getElementById('deliveryAddressSection');
+                    const addressSection = document.getElementById('deliveryAddressSection');
                     if (this.value === 'delivery') {
-                        section.classList.add('active');
+                        addressSection.style.display = 'block';
                     } else {
-                        section.classList.remove('active');
+                        addressSection.style.display = 'none';
+                        currentShippingCost = 0;
+                        updateCartDisplay();
                     }
                 });
             });
 
             // Métodos de pago
-            document.getElementById('cashMethod').addEventListener('click', () => selectPaymentMethod('cash'));
-            document.getElementById('transferMethod').addEventListener('click', () => selectPaymentMethod('transfer'));
-            document.getElementById('cardMethod').addEventListener('click', () => selectPaymentMethod('card'));
+            document.getElementById('cashMethod').addEventListener('click', function() {
+                selectPaymentMethod('cash');
+            });
+            document.getElementById('transferMethod').addEventListener('click', function() {
+                selectPaymentMethod('transfer');
+            });
+            document.getElementById('cardMethod').addEventListener('click', function() {
+                selectPaymentMethod('card');
+            });
 
+            // Calcular cambio
             document.getElementById('cashAmount').addEventListener('input', calculateChange);
 
             // Checkout
@@ -1405,17 +1072,23 @@
                 }
 
                 const deliveryType = document.querySelector('input[name="deliveryType"]:checked').value;
+                const deliveryTypeFinal = document.getElementById('deliveryTypeFinal');
                 const finalAddressSection = document.getElementById('finalAddressSection');
 
                 if (deliveryType === 'delivery') {
+                    deliveryTypeFinal.value = 'delivery';
                     finalAddressSection.style.display = 'block';
                     const addr = document.getElementById('deliveryAddress').value;
-                    document.getElementById('customerAddress').value = addr;
+                    if (addr) {
+                        document.getElementById('customerAddress').value = addr;
+                    }
                 } else {
+                    deliveryTypeFinal.value = 'pickup';
                     finalAddressSection.style.display = 'none';
                 }
 
                 selectPaymentMethod('transfer');
+
                 document.getElementById('checkoutForm').style.display = 'block';
                 window.scrollTo({
                     top: document.getElementById('checkoutForm').offsetTop - 20,
@@ -1423,10 +1096,12 @@
                 });
             });
 
+            // Cancelar checkout
             document.getElementById('cancelCheckout').addEventListener('click', function() {
                 document.getElementById('checkoutForm').style.display = 'none';
             });
 
+            // Enviar formulario
             document.getElementById('orderForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 if (validatePayment()) {
@@ -1434,6 +1109,7 @@
                 }
             });
 
+            // Cerrar modal de confirmación
             document.getElementById('closeModalBtn').addEventListener('click', function() {
                 document.getElementById('confirmationModal').classList.remove('active');
             });
@@ -1442,290 +1118,406 @@
             document.getElementById('closeProductModal').addEventListener('click', function() {
                 document.getElementById('productModal').classList.remove('active');
             });
-
             document.getElementById('productModal').addEventListener('click', function(e) {
                 if (e.target === this) this.classList.remove('active');
             });
 
+            // Controles de cantidad en modal
             document.getElementById('modalDecreaseBtn').addEventListener('click', function() {
-                if (currentModalProduct && modalQuantity > currentModalProduct.minQty) {
+                if (modalQuantity > 1) {
                     modalQuantity--;
-                    updateModalDisplay();
+                    updateModalQuantity();
+                    calculateModalTotal();
                 }
             });
-
             document.getElementById('modalIncreaseBtn').addEventListener('click', function() {
                 modalQuantity++;
-                updateModalDisplay();
+                updateModalQuantity();
+                calculateModalTotal();
             });
 
+            // Añadir al carrito desde modal
             document.getElementById('modalAddToCartBtn').addEventListener('click', function() {
                 if (currentModalProduct) addToCartFromModal();
             });
         });
 
         // ============================================
-        // PRODUCTOS
+        // RENDERIZAR PRODUCTOS
         // ============================================
         function renderProducts() {
-            const grid = document.getElementById('productsGrid');
-            grid.innerHTML = '';
+            const productsGrid = document.getElementById('productsGrid');
+            productsGrid.innerHTML = '';
 
-            const filtered = currentCategory === 'all'
+            const filteredProducts = currentCategory === 'all'
                 ? products
                 : products.filter(p => p.category === currentCategory);
 
-            if (filtered.length === 0) {
-                grid.innerHTML = '<p style="grid-column:1/-1; text-align:center; color:#999; padding:40px;">No hay productos en esta categoría.</p>';
+            if (filteredProducts.length === 0) {
+                productsGrid.innerHTML = '<p style="grid-column:1/-1; text-align:center; color:#7f8c8d; padding:40px;">No hay productos en esta categoría.</p>';
                 return;
             }
 
-            filtered.forEach(product => {
-                const cartItem = cart.find(item => item.id === product.id);
-                const quantity = cartItem ? cartItem.quantity : 0;
-                const colors = categoryColors[product.category] || { bg: 'linear-gradient(135deg, #666, #999)', emoji: '📦' };
-                const isConsultar = product.consultarPrecio;
+            filteredProducts.forEach(product => {
+                // Verificar si tiene presentaciones con precio variable
+                const hasVariablePricing = product.modifiers && product.modifiers.selection &&
+                    product.modifiers.selection.some(s => s.price > 0);
 
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                card.dataset.productId = product.id;
-
-                card.innerHTML = `
-                    <div class="product-img-container" style="background:${colors.bg}">
-                        <span class="product-emoji">${product.emoji}</span>
-                        ${isConsultar ? '<span class="product-badge consultar">Consultar precio</span>' : ''}
-                    </div>
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.dataset.productId = product.id;
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="product-img">
                     <div class="product-info">
                         <h3 class="product-title">${product.name}</h3>
                         <p class="product-desc">${product.description}</p>
                         <div class="product-footer">
-                            ${isConsultar
-                                ? '<div class="product-price consultar-price"><i class="fas fa-tag"></i> Consultar</div>'
-                                : `<div class="product-price">$${product.price.toFixed(2)}</div>`
-                            }
-                            <div class="product-quantity-controls">
-                                ${quantity > 0 ? `
-                                    <button class="quantity-btn" onclick="event.stopPropagation(); adjustQuantity(${product.id}, -1)">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                    <div class="quantity-display">${quantity}</div>
-                                    <button class="quantity-btn" onclick="event.stopPropagation(); adjustQuantity(${product.id}, 1)">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-                                ` : ''}
-                                ${isConsultar
-                                    ? `<button class="add-to-cart" onclick="event.stopPropagation(); openProductModal(${product.id})">
-                                        <i class="fas fa-eye"></i> Ver
-                                       </button>`
-                                    : `<button class="add-to-cart ${quantity > 0 ? 'in-cart' : ''}" onclick="event.stopPropagation(); addToCart(${product.id})">
-                                        <i class="fas fa-${quantity > 0 ? 'check' : 'cart-plus'}"></i>
-                                        ${quantity > 0 ? '' : 'Añadir'}
-                                       </button>`
-                                }
+                            <div class="product-price">
+                                ${hasVariablePricing ? '<span class="desde-label">Desde </span>' : ''}$${product.price.toFixed(2)}
                             </div>
+                            <button class="add-to-cart" onclick="event.stopPropagation(); handleAddToCart(${product.id})">
+                                <i class="fas fa-cart-plus"></i> Añadir
+                            </button>
                         </div>
                     </div>
                 `;
 
-                card.addEventListener('click', function(e) {
-                    if (!e.target.closest('.quantity-btn') && !e.target.closest('.add-to-cart')) {
+                productCard.addEventListener('click', function(e) {
+                    if (!e.target.closest('.add-to-cart')) {
                         openProductModal(product.id);
                     }
                 });
 
-                grid.appendChild(card);
+                productsGrid.appendChild(productCard);
             });
         }
 
+        // ============================================
+        // MANEJO DE "AÑADIR AL CARRITO"
+        // ============================================
+        function handleAddToCart(productId) {
+            const product = products.find(p => p.id === productId);
+
+            // Si tiene presentaciones, abrir modal para seleccionar
+            if (product.modifiers.selection.length > 0) {
+                openProductModal(productId);
+                return;
+            }
+
+            // Si NO tiene presentaciones, añadir directo al carrito
+            addDirectToCart(product);
+        }
+
+        function addDirectToCart(product) {
+            const existingIndex = cart.findIndex(item =>
+                item.id === product.id && !item.selection && (!item.extras || item.extras.length === 0)
+            );
+
+            if (existingIndex >= 0) {
+                cart[existingIndex].quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    basePrice: product.price,
+                    price: product.price,
+                    quantity: 1,
+                    selection: null,
+                    extras: [],
+                    image: product.image,
+                    uniqueId: `${product.id}-none-`
+                });
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+            showNotification(`${product.name} agregado al carrito`);
+        }
+
+        // ============================================
+        // MODAL DE PRODUCTO
+        // ============================================
         function openProductModal(productId) {
             const product = products.find(p => p.id === productId);
             if (!product) return;
 
             currentModalProduct = product;
-            modalQuantity = product.minQty || 1;
+            modalQuantity = 1;
+            selectedSelection = null;
+            selectedExtras = [];
 
-            const colors = categoryColors[product.category] || { bg: 'linear-gradient(135deg, #666, #999)' };
-            const container = document.getElementById('modalProductImageContainer');
-            container.style.background = colors.bg;
-
-            document.getElementById('modalProductEmoji').textContent = product.emoji;
+            document.getElementById('modalProductImage').src = product.image;
+            document.getElementById('modalProductImage').alt = product.name;
             document.getElementById('modalProductTitle').textContent = product.name;
             document.getElementById('modalProductDesc').textContent = product.description;
 
-            if (product.consultarPrecio) {
-                document.getElementById('modalProductPrice').innerHTML = '<span style="color:#e74c3c; font-size:1.2rem;"><i class="fas fa-tag"></i> Precio a consultar por WhatsApp</span>';
-                document.getElementById('modalQuantitySection').style.display = 'none';
-                document.getElementById('modalAddToCartBtn').innerHTML = '<i class="fab fa-whatsapp"></i> Consultar precio por WhatsApp';
-                document.getElementById('modalAddToCartBtn').style.background = '#25D366';
-                document.getElementById('modalAddToCartBtn').disabled = false;
-                document.getElementById('modalTotalPrice').textContent = 'A consultar';
-            } else {
-                document.getElementById('modalProductPrice').textContent = `$${product.price.toFixed(2)}`;
-                document.getElementById('modalQuantitySection').style.display = 'flex';
-                document.getElementById('modalAddToCartBtn').innerHTML = '<i class="fas fa-cart-plus"></i> Añadir al carrito';
-                document.getElementById('modalAddToCartBtn').style.background = '';
-                document.getElementById('modalAddToCartBtn').disabled = false;
-            }
+            // Mostrar precio (con "Desde" si tiene presentaciones variables)
+            const hasVariablePricing = product.modifiers.selection.some(s => s.price > 0);
+            const pricePrefix = hasVariablePricing ? 'Desde ' : '';
+            document.getElementById('modalProductPrice').textContent = `${pricePrefix}$${product.price.toFixed(2)}`;
 
-            const detailsDiv = document.getElementById('modalProductDetails');
-            if (product.details) {
-                detailsDiv.style.display = 'block';
-                detailsDiv.innerHTML = `<p><i class="fas fa-info-circle" style="color:var(--primary); margin-right:5px;"></i> ${product.details}</p>`;
-            } else {
-                detailsDiv.style.display = 'none';
-            }
+            updateModalQuantity();
+            loadModifiers(product.modifiers);
+            calculateModalTotal();
 
-            updateModalDisplay();
+            // Mostrar/ocultar sección de modificadores
+            const modifiersSection = document.getElementById('modifiersSection');
+            const hasSelection = product.modifiers.selection && product.modifiers.selection.length > 0;
+            const hasExtras = product.modifiers.extras && product.modifiers.extras.length > 0;
+            modifiersSection.style.display = (hasSelection || hasExtras) ? 'block' : 'none';
+
             document.getElementById('productModal').classList.add('active');
         }
 
-        function updateModalDisplay() {
-            if (!currentModalProduct) return;
-            document.getElementById('modalQuantityDisplay').textContent = modalQuantity;
-            document.getElementById('modalDecreaseBtn').disabled = modalQuantity <= (currentModalProduct.minQty || 1);
+        function loadModifiers(modifiers) {
+            const modifiersList = document.getElementById('modifiersList');
+            modifiersList.innerHTML = '';
 
-            if (!currentModalProduct.consultarPrecio) {
-                const total = currentModalProduct.price * modalQuantity;
-                document.getElementById('modalTotalPrice').textContent = `$${total.toFixed(2)}`;
+            const hasSelection = modifiers.selection && modifiers.selection.length > 0;
+            const hasExtras = modifiers.extras && modifiers.extras.length > 0;
+
+            if (!hasSelection && !hasExtras) {
+                modifiersList.innerHTML = '<p style="color:var(--text-light); text-align:center; padding:10px;">Sin opciones de personalización</p>';
+                return;
             }
+
+            // Modificadores de selección única (presentaciones)
+            if (hasSelection) {
+                const selectionGroup = document.createElement('div');
+                selectionGroup.className = 'modifier-group';
+
+                // Usar el título personalizado del producto o uno genérico
+                const title = currentModalProduct.selectionTitle || 'Selecciona una opción:';
+                selectionGroup.innerHTML = `<div class="modifiers-title" style="margin-top:15px;">${title}</div>`;
+
+                modifiers.selection.forEach(modifier => {
+                    // Calcular el precio TOTAL de esta opción (base + diferencia)
+                    const optionTotalPrice = currentModalProduct.price + modifier.price;
+
+                    const modifierOption = document.createElement('div');
+                    modifierOption.className = 'modifier-option';
+                    modifierOption.innerHTML = `
+                        <input type="radio" id="modifier-${modifier.id}" name="selectionModifier" value="${modifier.id}">
+                        <label for="modifier-${modifier.id}">
+                            <div class="modifier-option-text">
+                                <div class="modifier-name">${modifier.name}</div>
+                                ${modifier.description ? `<div class="modifier-desc">${modifier.description}</div>` : ''}
+                            </div>
+                            <div class="option-price">$${optionTotalPrice.toFixed(2)}</div>
+                        </label>
+                    `;
+
+                    const radioInput = modifierOption.querySelector('input[type="radio"]');
+                    radioInput.addEventListener('change', function() {
+                        if (this.checked) {
+                            selectedSelection = modifier;
+                            calculateModalTotal();
+                        }
+                    });
+
+                    selectionGroup.appendChild(modifierOption);
+                });
+
+                modifiersList.appendChild(selectionGroup);
+            }
+
+            // Modificadores extras (toggle/checkbox)
+            if (hasExtras) {
+                const extrasGroup = document.createElement('div');
+                extrasGroup.className = 'modifier-group';
+                extrasGroup.innerHTML = '<div class="modifiers-title" style="margin-top:15px;">Extras adicionales:</div>';
+
+                modifiers.extras.forEach(modifier => {
+                    const modifierItem = document.createElement('div');
+                    modifierItem.className = 'modifier-item';
+                    modifierItem.innerHTML = `
+                        <div class="modifier-info">
+                            <div class="modifier-name">${modifier.name}</div>
+                            ${modifier.description ? `<div class="modifier-desc">${modifier.description}</div>` : ''}
+                        </div>
+                        <div style="display:flex; align-items:center; gap:15px;">
+                            <div class="modifier-price">${modifier.price > 0 ? `+$${modifier.price.toFixed(2)}` : 'Gratis'}</div>
+                            <div class="modifier-toggle"></div>
+                        </div>
+                    `;
+
+                    const toggle = modifierItem.querySelector('.modifier-toggle');
+                    toggle.addEventListener('click', function() {
+                        this.classList.toggle('active');
+                        if (this.classList.contains('active')) {
+                            selectedExtras.push(modifier);
+                        } else {
+                            selectedExtras = selectedExtras.filter(m => m.id !== modifier.id);
+                        }
+                        calculateModalTotal();
+                    });
+
+                    extrasGroup.appendChild(modifierItem);
+                });
+
+                modifiersList.appendChild(extrasGroup);
+            }
+        }
+
+        function updateModalQuantity() {
+            document.getElementById('modalQuantityDisplay').textContent = modalQuantity;
+            document.getElementById('modalDecreaseBtn').disabled = modalQuantity <= 1;
+        }
+
+        function calculateModalTotal() {
+            if (!currentModalProduct) return;
+
+            let unitPrice = currentModalProduct.price;
+
+            if (selectedSelection) {
+                unitPrice += selectedSelection.price;
+            }
+
+            selectedExtras.forEach(modifier => {
+                unitPrice += modifier.price;
+            });
+
+            const total = unitPrice * modalQuantity;
+            document.getElementById('modalTotalPrice').textContent = `$${total.toFixed(2)}`;
         }
 
         function addToCartFromModal() {
             if (!currentModalProduct) return;
 
-            // If product requires price consultation, open WhatsApp
-            if (currentModalProduct.consultarPrecio) {
-                const msg = `Hola, me interesa consultar el precio de: *${currentModalProduct.name}*. ¿Podrían darme información?`;
-                const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`;
-                window.open(url, '_blank');
-                document.getElementById('productModal').classList.remove('active');
+            // Validar que se haya seleccionado una presentación si el producto las tiene
+            if (currentModalProduct.modifiers.selection.length > 0 && !selectedSelection) {
+                showNotification('Por favor selecciona una presentación');
                 return;
             }
 
-            const existingItem = cart.find(item => item.id === currentModalProduct.id);
+            // Calcular precio unitario con modificadores
+            let totalPrice = currentModalProduct.price;
+            if (selectedSelection) {
+                totalPrice += selectedSelection.price;
+            }
+            selectedExtras.forEach(modifier => {
+                totalPrice += modifier.price;
+            });
 
-            if (existingItem) {
-                existingItem.quantity += modalQuantity;
-            } else {
-                cart.push({
-                    id: currentModalProduct.id,
-                    name: currentModalProduct.name,
-                    price: currentModalProduct.price,
-                    quantity: modalQuantity,
-                    emoji: currentModalProduct.emoji
-                });
+            // Crear identificador único
+            const selectionId = selectedSelection ? selectedSelection.id : 'none';
+            const extrasIds = selectedExtras.map(m => m.id).sort().join(',');
+            const uniqueId = `${currentModalProduct.id}-${selectionId}-${extrasIds}`;
+
+            // Construir nombre descriptivo
+            let displayName = currentModalProduct.name;
+            if (selectedSelection) {
+                displayName += ` (${selectedSelection.name})`;
             }
 
-            localStorage.setItem('cartGranMitla', JSON.stringify(cart));
+            const cartItem = {
+                id: currentModalProduct.id,
+                name: displayName,
+                baseName: currentModalProduct.name,
+                basePrice: currentModalProduct.price,
+                price: totalPrice,
+                quantity: modalQuantity,
+                selection: selectedSelection ? {...selectedSelection} : null,
+                extras: [...selectedExtras],
+                image: currentModalProduct.image,
+                uniqueId: uniqueId
+            };
+
+            // Buscar si ya existe el mismo producto con los mismos modificadores
+            const existingIndex = cart.findIndex(item => item.uniqueId === uniqueId);
+
+            if (existingIndex >= 0) {
+                cart[existingIndex].quantity += modalQuantity;
+            } else {
+                cart.push(cartItem);
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
             updateCartDisplay();
-            renderProducts();
+
             document.getElementById('productModal').classList.remove('active');
-            showNotification(`${currentModalProduct.name} agregado al carrito`);
+            showNotification(`${displayName} agregado al carrito`);
         }
 
-        function addToCart(productId) {
-            const product = products.find(p => p.id === productId);
-            if (!product || product.consultarPrecio) {
-                openProductModal(productId);
+        // ============================================
+        // CARRITO
+        // ============================================
+        function removeFromCart(cartIndex) {
+            cart.splice(cartIndex, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+            showNotification('Producto eliminado del carrito');
+        }
+
+        function updateQuantityByIndex(cartIndex, newQuantity) {
+            const quantity = parseInt(newQuantity);
+            if (quantity < 1) {
+                removeFromCart(cartIndex);
                 return;
             }
-
-            const existingItem = cart.find(item => item.id === productId);
-
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({
-                    id: product.id,
-                    name: product.name,
-                    price: product.price,
-                    quantity: 1,
-                    emoji: product.emoji
-                });
-            }
-
-            localStorage.setItem('cartGranMitla', JSON.stringify(cart));
+            cart[cartIndex].quantity = quantity;
+            localStorage.setItem('cart', JSON.stringify(cart));
             updateCartDisplay();
-            renderProducts();
-            showNotification(`${product.name} agregado al carrito`);
-        }
-
-        function adjustQuantity(productId, change) {
-            const item = cart.find(item => item.id === productId);
-            if (item) {
-                item.quantity += change;
-                if (item.quantity <= 0) {
-                    cart = cart.filter(i => i.id !== productId);
-                }
-                localStorage.setItem('cartGranMitla', JSON.stringify(cart));
-                updateCartDisplay();
-                renderProducts();
-            }
-        }
-
-        function removeFromCart(productId) {
-            cart = cart.filter(item => item.id !== productId);
-            localStorage.setItem('cartGranMitla', JSON.stringify(cart));
-            updateCartDisplay();
-            renderProducts();
-            showNotification('Producto eliminado');
-        }
-
-        function updateQuantity(productId, newQty) {
-            const qty = parseInt(newQty);
-            if (qty < 1) { removeFromCart(productId); return; }
-            const item = cart.find(i => i.id === productId);
-            if (item) {
-                item.quantity = qty;
-                localStorage.setItem('cartGranMitla', JSON.stringify(cart));
-                updateCartDisplay();
-                renderProducts();
-            }
         }
 
         function updateCartDisplay() {
-            const container = document.getElementById('cartItems');
-            const floatingCount = document.getElementById('floatingCartCount');
+            const cartItemsContainer = document.getElementById('cartItems');
+            const floatingCartCount = document.getElementById('floatingCartCount');
+            const subtotalElement = document.getElementById('subtotal');
+            const shippingCostElement = document.getElementById('shippingCost');
+            const totalElement = document.getElementById('total');
 
-            const totalItems = cart.reduce((sum, i) => sum + i.quantity, 0);
-            floatingCount.textContent = totalItems;
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            floatingCartCount.textContent = totalItems;
 
-            const subtotal = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const total = subtotal + currentShippingCost;
 
-            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
-            document.getElementById('total').textContent = `$${subtotal.toFixed(2)}`;
+            subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+            shippingCostElement.textContent = currentShippingCost > 0 ? `$${currentShippingCost.toFixed(2)}` : 'Por definir';
+            totalElement.textContent = `$${total.toFixed(2)}`;
 
-            if (paymentMethod === 'cash' && cashAmount > 0) calculateChange();
+            if (paymentMethod === 'cash' && cashAmount > 0) {
+                calculateChange();
+            }
 
             if (cart.length === 0) {
-                container.innerHTML = '<p style="text-align:center; color:#999; margin-top:20px;">Tu carrito está vacío</p>';
+                cartItemsContainer.innerHTML = `<p style="text-align:center; color:#999; margin-top:20px;">Tu canasta está vacía</p>`;
             } else {
-                container.innerHTML = '';
-                cart.forEach(item => {
-                    const el = document.createElement('div');
-                    el.className = 'cart-item';
-                    el.innerHTML = `
+                cartItemsContainer.innerHTML = '';
+                cart.forEach((item, index) => {
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+
+                    let modifiersText = '';
+                    if (item.extras && item.extras.length > 0) {
+                        modifiersText += `<small style="color:var(--accent); font-size:0.8rem;">${item.extras.map(m => m.name).join(', ')}</small><br>`;
+                    }
+
+                    cartItem.innerHTML = `
                         <div>
-                            <h4>${item.emoji} ${item.name}</h4>
+                            <h4>${item.name}</h4>
+                            ${modifiersText}
                             <small>$${item.price.toFixed(2)} c/u</small>
                         </div>
                         <div class="cart-item-controls">
-                            <input type="number" min="1" value="${item.quantity}" class="cart-item-qty" onchange="updateQuantity(${item.id}, this.value)">
-                            <button class="remove-item" onclick="removeFromCart(${item.id})">
+                            <input type="number" min="1" value="${item.quantity}" class="cart-item-qty" onchange="updateQuantityByIndex(${index}, this.value)">
+                            <button class="remove-item" onclick="removeFromCart(${index})">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>
                     `;
-                    container.appendChild(el);
+                    cartItemsContainer.appendChild(cartItem);
                 });
             }
         }
 
         // ============================================
-        // PAGO
+        // MÉTODOS DE PAGO
         // ============================================
         function selectPaymentMethod(method) {
             paymentMethod = method;
+
             document.getElementById('cashMethod').classList.remove('selected');
             document.getElementById('transferMethod').classList.remove('selected');
             document.getElementById('cardMethod').classList.remove('selected');
@@ -1734,8 +1526,8 @@
 
             if (method === 'cash') {
                 document.getElementById('cashMethod').classList.add('selected');
-                document.getElementById('cash').checked = true;
                 document.getElementById('cashDetails').classList.add('active');
+                document.getElementById('cash').checked = true;
                 calculateChange();
             } else if (method === 'transfer') {
                 document.getElementById('transferMethod').classList.add('selected');
@@ -1747,11 +1539,13 @@
         }
 
         function calculateChange() {
-            const subtotal = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const total = subtotal + currentShippingCost;
+
             cashAmount = parseFloat(document.getElementById('cashAmount').value) || 0;
 
-            if (cashAmount > 0 && cashAmount >= subtotal) {
-                changeAmount = cashAmount - subtotal;
+            if (cashAmount > 0 && cashAmount >= total) {
+                changeAmount = cashAmount - total;
                 document.getElementById('changeAmount').textContent = `$${changeAmount.toFixed(2)}`;
                 document.getElementById('changeInfo').classList.add('active');
             } else {
@@ -1760,16 +1554,17 @@
         }
 
         function validatePayment() {
-            const subtotal = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const total = subtotal + currentShippingCost;
 
             if (paymentMethod === 'cash') {
                 cashAmount = parseFloat(document.getElementById('cashAmount').value) || 0;
                 if (cashAmount === 0) {
-                    showNotification('Ingresa el monto con el que pagarás');
+                    showNotification('Por favor ingresa el monto con el que pagarás en efectivo');
                     return false;
                 }
-                if (cashAmount < subtotal) {
-                    showNotification(`El monto debe ser mayor o igual a $${subtotal.toFixed(2)}`);
+                if (cashAmount < total) {
+                    showNotification(`El monto debe ser mayor o igual al total de $${total.toFixed(2)}`);
                     return false;
                 }
             }
@@ -1777,91 +1572,102 @@
         }
 
         // ============================================
-        // WHATSAPP
+        // ENVÍO POR WHATSAPP
         // ============================================
         function sendOrderToWhatsApp() {
-            const name = document.getElementById('customerName').value;
-            const phone = document.getElementById('customerPhone').value;
-            const deliveryType = document.querySelector('input[name="deliveryType"]:checked').value;
-            const notes = document.getElementById('customerNotes').value;
-            let address = '';
+            const customerName = document.getElementById('customerName').value;
+            const customerPhone = document.getElementById('customerPhone').value;
+            const deliveryType = document.getElementById('deliveryTypeFinal').value;
+            const customerNotes = document.getElementById('customerNotes').value;
 
+            let customerAddress = '';
             if (deliveryType === 'delivery') {
-                address = document.getElementById('customerAddress').value || document.getElementById('deliveryAddress').value;
-                if (!address) {
+                customerAddress = document.getElementById('customerAddress').value;
+                if (!customerAddress) {
                     showNotification('Por favor ingresa una dirección para envío');
                     return;
                 }
             }
 
-            const subtotal = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const total = subtotal + currentShippingCost;
 
-            const paymentLabels = { cash: 'Efectivo', transfer: 'Transferencia', card: 'Tarjeta' };
-            const paymentText = paymentLabels[paymentMethod] || 'No especificado';
+            const paymentLabels = {
+                'cash': 'Efectivo',
+                'transfer': 'Transferencia bancaria',
+                'card': 'Tarjeta'
+            };
+            const paymentMethodText = paymentLabels[paymentMethod] || paymentMethod;
 
-            let msg = `*NUEVO PEDIDO — Gran Mitla*%0A%0A`;
-            msg += `*Cliente:* ${name}%0A`;
-            msg += `*Teléfono:* ${phone}%0A`;
-
-            if (deliveryType === 'delivery') {
-                msg += `*Entrega:* Envío a domicilio%0A`;
-                msg += `*Dirección:* ${address}%0A`;
-            } else {
-                msg += `*Entrega:* Recoger / Punto de entrega%0A`;
-            }
-
-            msg += `*Pago:* ${paymentText}%0A`;
-
+            let paymentDetails = '';
             if (paymentMethod === 'cash') {
                 cashAmount = parseFloat(document.getElementById('cashAmount').value) || 0;
-                changeAmount = cashAmount - subtotal;
-                msg += `*Paga con:* $${cashAmount.toFixed(2)}%0A`;
-                msg += `*Cambio:* $${changeAmount.toFixed(2)}%0A`;
+                changeAmount = cashAmount - total;
+                paymentDetails = `*Monto con el que paga:* $${cashAmount.toFixed(2)}%0A*Cambio a dar:* $${changeAmount.toFixed(2)}%0A`;
             }
 
-            if (notes) msg += `*Notas:* ${notes}%0A`;
-
-            msg += `%0A*DETALLE DEL PEDIDO:*%0A`;
-
-            cart.forEach(item => {
-                msg += `${item.emoji} ${item.name} x${item.quantity}: $${(item.price * item.quantity).toFixed(2)}%0A`;
-            });
-
-            msg += `%0A*SUBTOTAL:* $${subtotal.toFixed(2)}%0A`;
+            // Construir mensaje
+            let message = `*NUEVO PEDIDO - ${businessName}*%0A%0A`;
+            message += `*Cliente:* ${customerName}%0A`;
+            message += `*Teléfono:* ${customerPhone}%0A`;
 
             if (deliveryType === 'delivery') {
-                msg += `*(Costo de envío por confirmar)*%0A`;
+                message += `*Tipo de entrega:* Envío a domicilio%0A`;
+                message += `*Dirección:* ${customerAddress}%0A`;
+            } else {
+                message += `*Tipo de entrega:* Recoger / Acordar entrega%0A`;
             }
 
-            msg += `%0A*Fecha:* ${new Date().toLocaleString('es-MX')}`;
+            message += `*Método de pago:* ${paymentMethodText}%0A`;
+            if (paymentMethod === 'cash') message += paymentDetails;
+            if (customerNotes) message += `*Notas:* ${customerNotes}%0A`;
 
-            window.open(`https://wa.me/${whatsappNumber}?text=${msg}`, '_blank');
+            message += `%0A*DETALLE DEL PEDIDO:*%0A`;
 
+            cart.forEach(item => {
+                message += `- ${item.name} x${item.quantity}: $${(item.price * item.quantity).toFixed(2)}`;
+                if (item.extras && item.extras.length > 0) {
+                    message += `%0A  (${item.extras.map(m => m.name).join(', ')})`;
+                }
+                message += `%0A`;
+            });
+
+            message += `%0A*SUBTOTAL:* $${subtotal.toFixed(2)}%0A`;
+            if (deliveryType === 'delivery') {
+                message += `*ENVÍO:* Por definir%0A`;
+            }
+            message += `*TOTAL:* $${total.toFixed(2)}%0A%0A`;
+            message += `*Fecha y hora:* ${new Date().toLocaleString('es-MX')}`;
+
+            // Abrir WhatsApp
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+
+            // Mostrar confirmación
             document.getElementById('confirmationModal').classList.add('active');
 
-            // Reset
+            // Limpiar carrito
             cart = [];
-            localStorage.removeItem('cartGranMitla');
+            localStorage.removeItem('cart');
             document.getElementById('orderForm').reset();
             document.getElementById('checkoutForm').style.display = 'none';
-            document.getElementById('deliveryAddress').value = '';
+            document.getElementById('deliveryAddress') && (document.getElementById('deliveryAddress').value = '');
+            currentShippingCost = 0;
             cashAmount = 0;
             changeAmount = 0;
             selectPaymentMethod('transfer');
             updateCartDisplay();
-            renderProducts();
         }
 
         // ============================================
         // UTILIDADES
         // ============================================
         function showNotification(text) {
-            const n = document.getElementById('notification');
-            n.textContent = text;
-            n.style.display = 'block';
-            setTimeout(() => { n.style.display = 'none'; }, 3000);
+            const notification = document.getElementById('notification');
+            notification.textContent = text;
+            notification.style.display = 'block';
+            setTimeout(() => { notification.style.display = 'none'; }, 3000);
         }
     </script>
 </body>
 </html>
-

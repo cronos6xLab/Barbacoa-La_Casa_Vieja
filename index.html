@@ -3,33 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Barbacoa de la Casa Vieja - Menú</title>
+    <title>Gran Mitla - Sales Artesanales y Productos Gourmet</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Playfair+Display:wght@600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --primary: #8B4513;
-            --primary-dark: #5D2E0C;
-            --accent: #E67E22;
-            --bg-body: #FAFAF8;
+            --primary: #1B4332;
+            --primary-dark: #0B2B1D;
+            --accent: #D4A72C;
+            --accent-dark: #B8901F;
+            --bg-body: #FAF9F6;
             --bg-card: #FFFFFF;
-            --text-main: #2D2420;
-            --text-light: #7D7D7D;
+            --text-main: #1A1A1A;
+            --text-light: #6B6B6B;
             --border-radius: 16px;
             --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
-            --shadow-md: 0 8px 24px rgba(0,0,0,0.06);
-            --shadow-lg: 0 12px 48px rgba(139, 69, 19, 0.15);
+            --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
+            --shadow-lg: 0 12px 48px rgba(27,67,50,0.15);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background-color: var(--bg-body);
@@ -40,29 +36,19 @@
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-        }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 700; }
 
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
 
         /* HEADER */
         header {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.ibb.co/mVb7xS8L/Photoroom-20251218-183639.jpg');
-            background-size: cover;
-            background-position: center;
+            background: linear-gradient(135deg, #1B4332 0%, #2D6A4F 50%, #1B4332 100%);
             color: white;
             padding: 30px 0;
             position: sticky;
             top: 0;
             z-index: 100;
-            backdrop-filter: blur(5px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 3px solid var(--accent);
         }
 
         .header-content {
@@ -77,33 +63,50 @@
             gap: 20px;
         }
 
-        .logo-img {
-            height: 80px;
-            width: auto;
+        .logo-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--accent);
             border-radius: 50%;
-            border: 3px solid rgba(255,255,255,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: var(--primary-dark);
+            font-weight: 800;
+            border: 3px solid rgba(255,255,255,0.3);
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            background: white;
+            font-family: 'Playfair Display', serif;
         }
 
         .logo-text {
             font-size: 2rem;
             letter-spacing: -0.5px;
             color: #fff;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
-        /* INFO RESTAURANTE */
+        .logo-subtitle {
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* INFO */
         .restaurant-info {
             background: white;
             border-radius: var(--border-radius);
             padding: 30px;
-            margin: -30px auto 40px;
+            margin: -25px auto 40px;
             box-shadow: var(--shadow-md);
             position: relative;
             z-index: 101;
             text-align: center;
             max-width: 1000px;
+            border-top: 4px solid var(--accent);
         }
 
         .restaurant-info h3 {
@@ -112,7 +115,7 @@
             margin-bottom: 10px;
         }
 
-        /* LAYOUT PRINCIPAL */
+        /* LAYOUT */
         .main-content {
             display: grid;
             grid-template-columns: 1fr 380px;
@@ -157,9 +160,9 @@
         }
 
         .category-btn {
-            padding: 8px 20px;
+            padding: 8px 18px;
             background-color: transparent;
-            border: 2px solid #E0E0E0;
+            border: 2px solid #ddd;
             border-radius: 50px;
             cursor: pointer;
             font-weight: 600;
@@ -167,6 +170,7 @@
             font-family: 'DM Sans', sans-serif;
             transition: all 0.2s ease;
             white-space: nowrap;
+            font-size: 0.9rem;
         }
 
         .category-btn:hover, .category-btn.active {
@@ -187,8 +191,8 @@
             border-radius: var(--border-radius);
             overflow: hidden;
             box-shadow: var(--shadow-sm);
-            transition: transform 0.2s ease;
-            border: 1px solid rgba(0,0,0,0.02);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid rgba(0,0,0,0.04);
             display: flex;
             flex-direction: column;
             height: 100%;
@@ -196,14 +200,42 @@
         }
 
         .product-card:hover {
-            transform: translateY(-3px);
+            transform: translateY(-4px);
             box-shadow: var(--shadow-md);
         }
 
-        .product-img {
+        .product-img-container {
             height: 180px;
             width: 100%;
-            object-fit: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-img-container .product-emoji {
+            font-size: 3.5rem;
+            z-index: 2;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--accent);
+            color: var(--primary-dark);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            z-index: 3;
+            text-transform: uppercase;
+        }
+
+        .product-badge.consultar {
+            background: #e74c3c;
+            color: white;
         }
 
         .product-info {
@@ -214,14 +246,15 @@
         }
 
         .product-title {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             margin-bottom: 5px;
             color: var(--text-main);
+            line-height: 1.3;
         }
 
         .product-desc {
             color: var(--text-light);
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             margin-bottom: 15px;
             flex-grow: 1;
             line-height: 1.4;
@@ -235,21 +268,26 @@
         }
 
         .product-price {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: 700;
             color: var(--primary);
         }
 
-        /* CONTROLES DE CANTIDAD EN PRODUCTO */
+        .product-price.consultar-price {
+            font-size: 0.85rem;
+            color: #e74c3c;
+            font-weight: 600;
+        }
+
         .product-quantity-controls {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .quantity-btn {
-            width: 32px;
-            height: 32px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             background-color: #f5f5f5;
             border: 1px solid #ddd;
@@ -258,22 +296,18 @@
             justify-content: center;
             cursor: pointer;
             font-weight: bold;
+            font-size: 0.8rem;
             transition: all 0.2s;
         }
 
-        .quantity-btn:hover {
-            background-color: #e0e0e0;
-        }
-
-        .quantity-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
+        .quantity-btn:hover { background-color: #e0e0e0; }
+        .quantity-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
         .quantity-display {
-            min-width: 30px;
+            min-width: 28px;
             text-align: center;
             font-weight: 600;
+            font-size: 0.9rem;
         }
 
         .add-to-cart {
@@ -281,34 +315,29 @@
             color: white;
             border: none;
             border-radius: 10px;
-            padding: 6px 14px;
+            padding: 6px 12px;
             cursor: pointer;
             font-weight: 700;
             transition: all 0.2s;
             display: flex;
             align-items: center;
-            gap: 6px;
-            flex: 1;
-            justify-content: center;
+            gap: 5px;
+            font-size: 0.85rem;
         }
 
-        .add-to-cart:hover {
-            background-color: var(--primary-dark);
-        }
+        .add-to-cart:hover { background-color: var(--primary-dark); }
+        .add-to-cart.in-cart { background-color: #27ae60; }
+        .add-to-cart:disabled { background: #ccc; cursor: not-allowed; }
 
-        .add-to-cart.in-cart {
-            background-color: #27ae60;
-        }
-
-        /* CARRITO LATERAL */
+        /* CARRITO */
         .cart-section {
             position: sticky;
-            top: 110px;
+            top: 120px;
             height: fit-content;
         }
 
         .cart-items {
-            max-height: 300px;
+            max-height: 350px;
             overflow-y: auto;
             margin-bottom: 15px;
         }
@@ -321,26 +350,23 @@
             border-bottom: 1px solid #eee;
         }
 
-        .cart-item h4 { 
-            font-size: 0.9rem; 
-            margin-bottom: 4px;
-        }
-        
+        .cart-item h4 { font-size: 0.85rem; margin-bottom: 3px; }
+
         .cart-item-controls {
             display: flex;
             align-items: center;
             gap: 8px;
         }
-        
-        .cart-item-qty { 
-            width: 40px; 
-            text-align: center; 
-            padding: 4px; 
-            border: 1px solid #ddd; 
-            border-radius: 4px; 
+
+        .cart-item-qty {
+            width: 40px;
+            text-align: center;
+            padding: 4px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
             font-size: 0.9rem;
         }
-        
+
         .remove-item {
             background: #ffebee;
             color: #d32f2f;
@@ -352,58 +378,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        /* MAPA Y FORMULARIOS */
-        .mapbox-container {
-            margin-top: 20px;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
-            height: 300px;
-            position: relative;
-            display: none;
-        }
-
-        .mapbox-container.active { 
-            display: block; 
-        }
-
-        #map {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        .map-address-search {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            right: 10px;
-            z-index: 10;
-            display: flex;
-            gap: 5px;
-        }
-
-        #mapSearch {
-            flex: 1;
-            padding: 10px;
-            border-radius: 8px;
-            border: none;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            font-size: 0.9rem;
-        }
-
-        #mapSearchBtn {
-            padding: 0 15px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
         }
 
         /* BOTONES */
@@ -426,42 +400,10 @@
             gap: 8px;
         }
 
-        .checkout-btn { 
-            background-color: var(--accent); 
-        }
-        
-        .checkout-btn:hover { 
-            background-color: #d35400; 
-        }
-        
-        .submit-order-btn { 
-            background-color: #25D366; 
-        }
-        
-        .submit-order-btn:hover { 
-            background-color: #1da851; 
-        }
-
-        .calculate-shipping-btn {
-            width: 100%;
-            padding: 12px;
-            background: #3498db;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            margin-top: 10px;
-            cursor: pointer;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: background 0.2s;
-        }
-
-        .calculate-shipping-btn:hover {
-            background: #2980b9;
-        }
+        .checkout-btn { background-color: var(--accent); color: var(--primary-dark); }
+        .checkout-btn:hover { background-color: var(--accent-dark); }
+        .submit-order-btn { background-color: #25D366; }
+        .submit-order-btn:hover { background-color: #1da851; }
 
         .form-control {
             width: 100%;
@@ -470,11 +412,10 @@
             border: 1px solid #ddd;
             margin-top: 5px;
             font-size: 1rem;
+            font-family: 'DM Sans', sans-serif;
         }
 
-        .form-group { 
-            margin-bottom: 15px; 
-        }
+        .form-group { margin-bottom: 15px; }
 
         /* FLOATING ICON */
         .floating-cart-icon {
@@ -497,10 +438,11 @@
 
         .cart-count {
             position: absolute;
-            top: -5px; 
+            top: -5px;
             right: -5px;
             background: var(--accent);
-            width: 24px; 
+            color: var(--primary-dark);
+            width: 24px;
             height: 24px;
             border-radius: 50%;
             font-size: 0.8rem;
@@ -511,13 +453,13 @@
             font-weight: bold;
         }
 
-        /* NOTIFICACIÓN TOAST */
+        /* TOAST */
         .notification {
             position: fixed;
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-            background: #333;
+            background: var(--primary);
             color: white;
             padding: 12px 24px;
             border-radius: 50px;
@@ -535,123 +477,7 @@
             10%, 90% { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
 
-        /* FOOTER */
-        footer {
-            background-color: #2D2420;
-            color: rgba(255,255,255,0.7);
-            padding: 40px 0 20px;
-            margin-top: 50px;
-            text-align: center;
-        }
-        
-        .footer-logo { 
-            height: 60px; 
-            width: auto; 
-            border-radius: 50%; 
-            margin-bottom: 15px; 
-            border: 2px solid rgba(255,255,255,0.2);
-        }
-
-        /* CASH DETAILS */
-        .cash-details {
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 10px;
-            display: none;
-        }
-
-        .cash-details.active {
-            display: block;
-        }
-
-        .change-info {
-            background: #e8f5e8;
-            padding: 10px;
-            border-radius: 6px;
-            margin-top: 10px;
-            text-align: center;
-            font-weight: 600;
-            color: #2d572c;
-            display: none;
-        }
-
-        .change-info.active {
-            display: block;
-        }
-
-        /* DELIVERY INFO */
-        .distance-details {
-            background: #e8f4fc;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 10px;
-            display: none;
-            border-left: 4px solid #3498db;
-        }
-
-        .distance-details.active {
-            display: block;
-        }
-
-        .distance-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-        }
-
-        .distance-row.total {
-            font-weight: bold;
-            border-top: 1px solid #3498db;
-            padding-top: 8px;
-            margin-top: 8px;
-            font-size: 1rem;
-        }
-
-        .delivery-limit-warning {
-            background: #ffeaea;
-            color: #c0392b;
-            padding: 10px;
-            border-radius: 8px;
-            margin-top: 10px;
-            border-left: 4px solid #c0392b;
-            display: none;
-            font-size: 0.9rem;
-        }
-
-        .delivery-limit-warning.active {
-            display: block;
-        }
-
-        /* AUTO CALCULATING STATUS */
-        .auto-calculating-status {
-            background: #fff9e6;
-            color: #8a6d3b;
-            padding: 12px;
-            border-radius: 8px;
-            margin-top: 10px;
-            border-left: 4px solid #f0ad4e;
-            display: none;
-            font-size: 0.9rem;
-            text-align: center;
-        }
-
-        .auto-calculating-status.active {
-            display: block;
-        }
-
-        .auto-calculating-status i {
-            margin-right: 8px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* MODAL DE PRODUCTO */
+        /* PRODUCT MODAL */
         .product-modal {
             display: none;
             position: fixed;
@@ -666,9 +492,7 @@
             padding: 20px;
         }
 
-        .product-modal.active {
-            display: flex;
-        }
+        .product-modal.active { display: flex; }
 
         .product-modal-content {
             background: white;
@@ -700,16 +524,22 @@
             box-shadow: var(--shadow-sm);
         }
 
-        .product-modal-img {
+        .product-modal-img-container {
             width: 100%;
-            height: 200px;
-            object-fit: cover;
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             border-radius: var(--border-radius) var(--border-radius) 0 0;
+            overflow: hidden;
         }
 
-        .product-modal-info {
-            padding: 25px;
+        .product-modal-img-container .modal-emoji {
+            font-size: 5rem;
+            z-index: 2;
         }
+
+        .product-modal-info { padding: 25px; }
 
         .product-modal-title {
             font-size: 1.5rem;
@@ -719,130 +549,31 @@
 
         .product-modal-desc {
             color: var(--text-light);
-            margin-bottom: 20px;
-            line-height: 1.5;
+            margin-bottom: 15px;
+            line-height: 1.6;
         }
 
         .product-modal-price {
             font-size: 1.8rem;
             font-weight: 800;
             color: var(--primary);
-            margin-bottom: 25px;
-        }
-
-        /* MODIFICADORES */
-        .modifiers-section {
-            margin-bottom: 25px;
-        }
-
-        .modifiers-title {
-            font-size: 1rem;
-            font-weight: 600;
             margin-bottom: 15px;
+        }
+
+        .product-modal-details {
+            background: #f0f7f4;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .product-modal-details p {
+            font-size: 0.9rem;
             color: var(--text-main);
-            border-bottom: 1px solid #eee;
-            padding-bottom: 8px;
+            margin-bottom: 5px;
         }
 
-        .modifier-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #f5f5f5;
-        }
-
-        .modifier-info {
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-        }
-
-        .modifier-name {
-            font-weight: 500;
-        }
-
-        .modifier-desc {
-            font-size: 0.85rem;
-            color: var(--text-light);
-        }
-
-        .modifier-price {
-            font-weight: 600;
-            color: var(--primary);
-            white-space: nowrap;
-        }
-
-        .modifier-toggle {
-            width: 40px;
-            height: 24px;
-            border-radius: 12px;
-            background: #ddd;
-            position: relative;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .modifier-toggle.active {
-            background: var(--primary);
-        }
-
-        .modifier-toggle::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: white;
-            top: 2px;
-            left: 2px;
-            transition: all 0.3s;
-        }
-
-        .modifier-toggle.active::after {
-            left: 18px;
-        }
-
-        /* SELECTORES DE OPCIÓN ÚNICA (RADIO BUTTONS) */
-        .modifier-option {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #f5f5f5;
-            cursor: pointer;
-        }
-
-        .modifier-option:last-child {
-            border-bottom: none;
-        }
-
-        .modifier-option input[type="radio"] {
-            margin-right: 10px;
-        }
-
-        .modifier-option label {
-            flex: 1;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modifier-option-text {
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-        }
-
-        .option-price {
-            font-weight: 600;
-            color: var(--primary);
-            white-space: nowrap;
-            margin-left: 15px;
-        }
-
-        /* CONTROLES DE CANTIDAD EN MODAL */
         .modal-quantity-controls {
             display: flex;
             align-items: center;
@@ -866,20 +597,30 @@
             transition: all 0.2s;
         }
 
-        .modal-quantity-btn:hover {
-            background-color: #e0e0e0;
-        }
-
-        .modal-quantity-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
+        .modal-quantity-btn:hover { background-color: #e0e0e0; }
+        .modal-quantity-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
         .modal-quantity-display {
             min-width: 50px;
             text-align: center;
             font-weight: 700;
             font-size: 1.5rem;
+        }
+
+        .modal-total {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .modal-total-price {
+            color: var(--primary);
+            font-size: 1.4rem;
+            font-weight: 800;
         }
 
         .modal-add-to-cart {
@@ -899,32 +640,10 @@
             transition: all 0.2s;
         }
 
-        .modal-add-to-cart:hover {
-            background-color: var(--primary-dark);
-        }
+        .modal-add-to-cart:hover { background-color: var(--primary-dark); }
+        .modal-add-to-cart:disabled { background: #ccc; cursor: not-allowed; }
 
-        .modal-add-to-cart.in-cart {
-            background-color: #27ae60;
-        }
-
-        /* TOTAL EN MODAL */
-        .modal-total {
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            text-align: center;
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .modal-total-price {
-            color: var(--primary);
-            font-size: 1.4rem;
-            font-weight: 800;
-        }
-
-        /* MODAL DE CONFIRMACIÓN */
+        /* CONFIRMATION MODAL */
         .confirmation-modal {
             display: none;
             position: fixed;
@@ -939,9 +658,7 @@
             padding: 20px;
         }
 
-        .confirmation-modal.active {
-            display: flex;
-        }
+        .confirmation-modal.active { display: flex; }
 
         .confirmation-modal-content {
             background: white;
@@ -953,15 +670,23 @@
             box-shadow: var(--shadow-lg);
         }
 
-        .confirmation-modal-logo {
+        .confirmation-logo-icon {
+            width: 80px;
             height: 80px;
-            width: auto;
+            background: var(--accent);
             border-radius: 50%;
-            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary-dark);
+            font-weight: 800;
+            margin: 0 auto 20px;
             border: 3px solid var(--primary);
+            font-family: 'Playfair Display', serif;
         }
 
-        /* PAYMENT METHODS */
+        /* PAYMENT */
         .payment-methods {
             display: flex;
             gap: 10px;
@@ -979,117 +704,154 @@
             background: white;
         }
 
-        .payment-method:hover {
-            border-color: var(--primary);
-        }
+        .payment-method:hover { border-color: var(--primary); }
+        .payment-method.selected { border-color: var(--primary); background-color: #f0f7f4; }
+        .payment-method input { display: none; }
 
-        .payment-method.selected {
-            border-color: var(--primary);
-            background-color: #fff9f0;
-        }
-
-        .payment-method input {
+        .cash-details {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
             display: none;
         }
 
-        /* LOADING */
-        .loading {
-            text-align: center;
+        .cash-details.active { display: block; }
+
+        .change-info {
+            background: #e8f5e8;
             padding: 10px;
-            color: #3498db;
+            border-radius: 6px;
+            margin-top: 10px;
+            text-align: center;
+            font-weight: 600;
+            color: #2d572c;
             display: none;
         }
 
-        .loading.active {
-            display: block;
+        .change-info.active { display: block; }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--primary-dark);
+            color: rgba(255,255,255,0.7);
+            padding: 40px 0 20px;
+            margin-top: 50px;
+            text-align: center;
         }
 
-        .fa-spinner {
-            animation: spin 1s linear infinite;
+        .footer-logo-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            font-weight: 800;
+            margin: 0 auto 15px;
+            border: 2px solid rgba(255,255,255,0.2);
+            font-family: 'Playfair Display', serif;
         }
 
-        /* =========================================
-           RESPONSIVIDAD
-           ========================================= */
-        
+        /* DELIVERY SECTION */
+        .delivery-option-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            background: white;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .delivery-option-label:hover { border-color: var(--primary); }
+
+        .delivery-address-section {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .delivery-address-section.active { display: block; }
+
+        .shipping-note {
+            background: #fff9e6;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            font-size: 0.85rem;
+            margin-top: 10px;
+            color: #7a6520;
+        }
+
+        /* RESPONSIVE */
         @media (max-width: 992px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .cart-section {
-                order: 2;
-            }
+            .main-content { grid-template-columns: 1fr; }
+            .cart-section { order: 2; }
         }
 
         @media (max-width: 768px) {
             .container { padding: 0 16px; }
-
             header { padding: 20px 0; }
             .header-content { flex-direction: column; text-align: center; }
             .logo-container { flex-direction: column; gap: 10px; }
-            .logo-img { height: 60px; width: 60px; }
+            .logo-icon { width: 55px; height: 55px; font-size: 1.4rem; }
             .logo-text { font-size: 1.6rem; }
+            .restaurant-info { padding: 20px; margin-top: -15px; }
+            .restaurant-info h3 { font-size: 1.3rem; }
 
-            .restaurant-info { padding: 20px; margin-top: -20px; }
-            .restaurant-info h3 { font-size: 1.4rem; }
-            
             .products-grid {
-                grid-template-columns: repeat(2, 1fr); 
+                grid-template-columns: repeat(2, 1fr);
                 gap: 12px;
             }
-            
+
             .product-card { border-radius: 12px; }
-            .product-img { height: 130px; }
+            .product-img-container { height: 130px; }
+            .product-img-container .product-emoji { font-size: 2.5rem; }
             .product-info { padding: 12px; }
-            .product-title { font-size: 0.95rem; line-height: 1.2; }
+            .product-title { font-size: 0.9rem; line-height: 1.2; }
             .product-desc { display: none; }
-            .product-price { font-size: 1rem; }
-            .add-to-cart { padding: 5px 10px; font-size: 0.9rem; }
+            .product-price { font-size: 0.95rem; }
+            .add-to-cart { padding: 5px 8px; font-size: 0.8rem; }
 
             .floating-cart-icon { display: flex; }
-            
-            .product-modal-content {
-                max-height: 95vh;
-            }
-            
-            .confirmation-modal-content { 
-                width: 90%; 
-                padding: 20px; 
-            }
+
+            .product-modal-content { max-height: 95vh; }
+            .confirmation-modal-content { width: 90%; padding: 20px; }
+
+            .menu-categories { gap: 8px; }
+            .category-btn { padding: 6px 12px; font-size: 0.82rem; }
         }
 
         @media (max-width: 480px) {
-            .products-grid {
-                grid-template-columns: 1fr 1fr;
-            }
+            .products-grid { grid-template-columns: 1fr 1fr; }
             .section-title { font-size: 1.3rem; }
-            
-            .category-btn { padding: 6px 14px; font-size: 0.9rem; }
-            
-            .payment-methods {
-                flex-direction: column;
-            }
-            
-            .product-modal-info {
-                padding: 20px;
-            }
+            .payment-methods { flex-direction: column; }
+            .product-modal-info { padding: 20px; }
         }
     </style>
 </head>
 <body>
 
     <div class="floating-cart-icon" id="floatingCartIcon">
-        <i class="fas fa-shopping-bag"></i> 
+        <i class="fas fa-shopping-bag"></i>
         <div class="cart-count" id="floatingCartCount">0</div>
     </div>
-    
+
     <header>
         <div class="container">
             <div class="header-content">
                 <div class="logo-container">
-                    <img src="https://i.ibb.co/jkWp21kD/IMG-4398.jpg" alt="Logo Barbacoa" class="logo-img">
-                    <h1 class="logo-text">Barbacoa de la Casa Vieja</h1>
+                    <div class="logo-icon">GM</div>
+                    <div>
+                        <h1 class="logo-text">Gran Mitla</h1>
+                        <div class="logo-subtitle">Sales Artesanales & Gourmet</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1097,48 +859,42 @@
 
     <div class="container">
         <div class="restaurant-info">
-            <h3><i class="fas fa-fire-burner"></i> Tradición desde 1989</h3>
-            <p style="font-size: 0.9rem; color: #666;">Sábados y Domingos 8:00 AM - 2:00 PM</p>
-            <p style="font-size: 0.9rem;"><i class="fas fa-map-pin" style="color:var(--accent)"></i> Claveria, Azcapotzalco</p>
-            <p style="font-size: 0.9rem; margin-top: 10px; background: #fff5e6; padding: 8px; border-radius: 8px; border-left: 4px solid var(--accent);">
-                <strong>Envío:</strong> $10 por km (hasta 15 km) • Pedido mínimo: $100
+            <h3><i class="fas fa-mortar-pestle"></i> Tradición Oaxaqueña</h3>
+            <p style="font-size:0.95rem; color:#666; margin-bottom:8px;">Sales artesanales, productos gourmet y accesorios para mezcal</p>
+            <p style="font-size:0.9rem; margin-top:10px; background:#f0f7f4; padding:10px; border-radius:8px; border-left:4px solid var(--primary);">
+                <strong><i class="fab fa-whatsapp" style="color:#25D366"></i> Pedidos por WhatsApp</strong> — Envíos a toda la República
             </p>
         </div>
-        
+
         <div class="main-content">
             <section class="menu-section">
-                <h2 class="section-title">Menú</h2>
-                
+                <h2 class="section-title">Catálogo de Productos</h2>
+
                 <div class="menu-categories">
-                    <button class="category-btn active" data-category="all">Todo el Menú</button>
-                    <button class="category-btn" data-category="barbacoa">Barbacoa por Kg</button>
-                    <button class="category-btn" data-category="pancita">Pancita</button>
-                    <button class="category-btn" data-category="consome">Consomé</button>
-                    <button class="category-btn" data-category="flautas">Flautas</button>
-                    <button class="category-btn" data-category="postres">Postres</button>
+                    <button class="category-btn active" data-category="all">Todo</button>
+                    <button class="category-btn" data-category="kits">Kits</button>
+                    <button class="category-btn" data-category="sal-gusano">Sal de Gusano</button>
+                    <button class="category-btn" data-category="sal-chapulin">Sal de Chapulín</button>
+                    <button class="category-btn" data-category="sales-especiales">Sales Especiales</button>
+                    <button class="category-btn" data-category="chilito">Chilito Botanero</button>
+                    <button class="category-btn" data-category="sal-mar">Sal de Mar</button>
                     <button class="category-btn" data-category="bebidas">Bebidas</button>
                 </div>
 
-                <div class="products-grid" id="productsGrid">
-                    <!-- Los productos se cargarán aquí con JavaScript -->
-                </div>
+                <div class="products-grid" id="productsGrid"></div>
             </section>
 
             <section class="cart-section" id="cartSection">
                 <h2 class="section-title">Tu Pedido</h2>
-                
+
                 <div class="cart-items" id="cartItems">
-                    <p style="text-align:center; color:#999; margin-top:20px;">Tu canasta está vacía</p>
+                    <p style="text-align:center; color:#999; margin-top:20px;">Tu carrito está vacío</p>
                 </div>
 
                 <div style="background:#f4f4f4; padding:15px; border-radius:8px; margin-bottom:15px;">
                     <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
                         <span>Subtotal:</span>
                         <span id="subtotal" style="font-weight:bold;">$0.00</span>
-                    </div>
-                    <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
-                        <span>Envío:</span>
-                        <span id="shippingCost">$0.00</span>
                     </div>
                     <div style="display:flex; justify-content:space-between; font-size:1.2rem; color:var(--primary); border-top:1px dashed #ccc; padding-top:10px; margin-top:5px;">
                         <span>Total:</span>
@@ -1147,70 +903,24 @@
                 </div>
 
                 <div style="margin-bottom:15px;">
-                    <label style="display:flex; align-items:center; gap:10px; margin-bottom:10px; cursor:pointer; background:white; padding:10px; border:1px solid #eee; border-radius:8px;">
+                    <label class="delivery-option-label">
                         <input type="radio" name="deliveryType" value="pickup" checked>
-                        <span><i class="fas fa-store"></i> Pasar a recoger</span>
+                        <span><i class="fas fa-store"></i> Recoger / Punto de entrega</span>
                     </label>
-                    <label style="display:flex; align-items:center; gap:10px; cursor:pointer; background:white; padding:10px; border:1px solid #eee; border-radius=8px;">
+                    <label class="delivery-option-label">
                         <input type="radio" name="deliveryType" value="delivery">
-                        <span><i class="fas fa-motorcycle"></i> Envío a domicilio</span>
+                        <span><i class="fas fa-truck"></i> Envío a domicilio</span>
                     </label>
                 </div>
 
-                <div id="deliveryAddressSection" style="display: none;">
-                    <button id="useCurrentLocationBtn" style="width:100%; padding:10px; background:#e3f2fd; color:#1565c0; border:none; border-radius=8px; font-weight:600; cursor:pointer; margin-bottom:10px;">
-                        <i class="fas fa-location-arrow"></i> Usar mi ubicación
-                    </button>
-
-                    <div class="mapbox-container" id="mapboxContainer">
-                        <div class="map-address-search">
-                            <input type="text" id="mapSearch" placeholder="Buscar dirección...">
-                            <button id="mapSearchBtn"><i class="fas fa-search"></i></button>
-                        </div>
-                        <div id="map"></div>
+                <div class="delivery-address-section" id="deliveryAddressSection">
+                    <div class="form-group">
+                        <label for="deliveryAddress" style="font-weight:600; font-size:0.9rem;">Dirección de envío:</label>
+                        <input type="text" id="deliveryAddress" class="form-control" placeholder="Calle, número, colonia, CP, ciudad, estado">
                     </div>
-                    
-                    <div style="margin-top: 10px;">
-                        <label for="deliveryAddress" style="display: block; margin-bottom: 5px; font-weight: 600; color: var(--text-main);">Dirección seleccionada:</label>
-                        <input type="text" id="deliveryAddress" class="form-control" placeholder="Haz clic en el mapa o busca una dirección" readonly style="background-color: #f9f9f9; cursor: pointer;">
-                        <small style="display: block; margin-top: 5px; color: var(--text-light); font-size: 0.85rem;">
-                            <i class="fas fa-info-circle"></i> Haz clic en cualquier punto del mapa para seleccionar la dirección
-                        </small>
+                    <div class="shipping-note">
+                        <i class="fas fa-info-circle"></i> El costo de envío se calculará según tu ubicación y se te confirmará por WhatsApp antes de procesar el pedido.
                     </div>
-                    
-                    <div class="loading" id="shippingLoading">
-                        <i class="fas fa-spinner"></i> Calculando distancia...
-                    </div>
-                    
-                    <!-- Estado de cálculo automático -->
-                    <div class="auto-calculating-status" id="autoCalculatingStatus">
-                        <i class="fas fa-sync-alt"></i> Calculando costo de envío...
-                    </div>
-                    
-                    <div class="distance-details" id="distanceDetails">
-                        <div class="distance-row">
-                            <span>Distancia:</span>
-                            <span id="distanceText">-- km</span>
-                        </div>
-                        <div class="distance-row">
-                            <span>Tiempo estimado:</span>
-                            <span id="timeText">-- min</span>
-                        </div>
-                        <div class="distance-row">
-                            <span>Tarifa por km:</span>
-                            <span>$10.00</span>
-                        </div>
-                        <div class="distance-row total">
-                            <span>Costo de envío:</span>
-                            <span id="calculatedShippingCost" style="color: var(--primary);">$0.00</span>
-                        </div>
-                    </div>
-                    
-                    <div class="delivery-limit-warning" id="deliveryLimitWarning">
-                        <i class="fas fa-exclamation-triangle"></i> No entregamos a más de 15 km de distancia.
-                    </div>
-                    
-                    <!-- Botón de calcular envío eliminado - ahora es automático -->
                 </div>
 
                 <button class="checkout-btn" id="checkoutBtn">
@@ -1219,7 +929,7 @@
             </section>
         </div>
 
-        <section class="checkout-form" id="checkoutForm" style="display: none; max-width: 600px; margin: 0 auto;">
+        <section class="checkout-form" id="checkoutForm" style="display:none; max-width:600px; margin:0 auto;">
             <h2 class="section-title">Finalizar Pedido</h2>
             <form id="orderForm">
                 <div class="form-group">
@@ -1230,20 +940,12 @@
                     <label>Teléfono *</label>
                     <input type="tel" id="customerPhone" class="form-control" required>
                 </div>
-                
-                <div class="form-group">
-                    <label>Tipo de Entrega</label>
-                    <select id="deliveryTypeFinal" class="form-control" required>
-                        <option value="pickup">Recoger en local</option>
-                        <option value="delivery">Envío a domicilio</option>
-                    </select>
+
+                <div class="form-group" id="finalAddressSection" style="display:none;">
+                    <label>Dirección completa para envío *</label>
+                    <input type="text" id="customerAddress" class="form-control" placeholder="Calle, número, colonia, CP, ciudad, estado">
                 </div>
-                
-                <div class="form-group" id="finalAddressSection" style="display: none;">
-                    <label>Dirección para envío *</label>
-                    <input type="text" id="customerAddress" class="form-control" placeholder="Calle, número, colonia">
-                </div>
-                
+
                 <div class="form-group">
                     <label>Método de Pago *</label>
                     <div class="payment-methods">
@@ -1251,15 +953,19 @@
                             <input type="radio" id="cash" name="paymentMethod" value="cash">
                             <i class="fas fa-money-bill-wave"></i> Efectivo
                         </div>
-                        <div class="payment-method selected" id="cardMethod">
-                            <input type="radio" id="card" name="paymentMethod" value="card" checked>
+                        <div class="payment-method selected" id="transferMethod">
+                            <input type="radio" id="transfer" name="paymentMethod" value="transfer" checked>
+                            <i class="fas fa-university"></i> Transferencia
+                        </div>
+                        <div class="payment-method" id="cardMethod">
+                            <input type="radio" id="card" name="paymentMethod" value="card">
                             <i class="fas fa-credit-card"></i> Tarjeta
                         </div>
                     </div>
-                    
+
                     <div class="cash-details" id="cashDetails">
                         <label>¿Con cuánto pagarás? *</label>
-                        <input type="number" id="cashAmount" class="form-control" placeholder="Ej. 500.00" min="0" step="0.01">
+                        <input type="number" id="cashAmount" class="form-control" placeholder="Ej. 1500.00" min="0" step="0.01">
                         <div class="change-info" id="changeInfo">
                             Cambio: <span id="changeAmount">$0.00</span>
                         </div>
@@ -1268,7 +974,7 @@
 
                 <div class="form-group">
                     <label>Notas adicionales</label>
-                    <textarea id="customerNotes" class="form-control" rows="2" placeholder="Ej: Sin cebolla, más consome, etc."></textarea>
+                    <textarea id="customerNotes" class="form-control" rows="2" placeholder="Ej: Facturación, horario de entrega, etc."></textarea>
                 </div>
 
                 <button type="submit" class="submit-order-btn">
@@ -1287,25 +993,20 @@
             <button class="product-modal-close" id="closeProductModal">
                 <i class="fas fa-times"></i>
             </button>
-            <img id="modalProductImage" src="" alt="" class="product-modal-img">
+            <div id="modalProductImageContainer" class="product-modal-img-container">
+                <span id="modalProductEmoji" class="modal-emoji"></span>
+            </div>
             <div class="product-modal-info">
                 <h3 id="modalProductTitle" class="product-modal-title"></h3>
                 <p id="modalProductDesc" class="product-modal-desc"></p>
                 <div id="modalProductPrice" class="product-modal-price"></div>
-                
-                <!-- SECCIÓN DE MODIFICADORES -->
-                <div class="modifiers-section" id="modifiersSection">
-                    <h4 class="modifiers-title">Personaliza tu pedido</h4>
-                    <div id="modifiersList">
-                        <!-- Los modificadores se cargarán aquí dinámicamente -->
-                    </div>
-                </div>
-                
+                <div id="modalProductDetails" class="product-modal-details" style="display:none;"></div>
+
                 <div class="modal-total">
                     Total: <span id="modalTotalPrice" class="modal-total-price">$0.00</span>
                 </div>
-                
-                <div class="modal-quantity-controls">
+
+                <div class="modal-quantity-controls" id="modalQuantitySection">
                     <button class="modal-quantity-btn" id="modalDecreaseBtn">
                         <i class="fas fa-minus"></i>
                     </button>
@@ -1314,7 +1015,7 @@
                         <i class="fas fa-plus"></i>
                     </button>
                 </div>
-                
+
                 <button class="modal-add-to-cart" id="modalAddToCartBtn">
                     <i class="fas fa-cart-plus"></i> Añadir al carrito
                 </button>
@@ -1325,369 +1026,335 @@
     <!-- Modal de confirmación -->
     <div class="confirmation-modal" id="confirmationModal">
         <div class="confirmation-modal-content">
-            <img src="https://i.ibb.co/jkWp21kD/IMG-4398.jpg" alt="Logo" class="confirmation-modal-logo">
-            <h3 style="color: var(--primary); margin-bottom: 15px;">¡Pedido Enviado!</h3>
-            <p style="margin-bottom: 20px; color: var(--text-light);">Tu pedido ha sido enviado por WhatsApp. Te contactaremos pronto para confirmar.</p>
-            <p style="margin-bottom: 20px; font-weight: 600;">WhatsApp: +52 55 7867 7774</p>
-            <button class="checkout-btn" id="closeModalBtn" style="background: var(--primary);">
+            <div class="confirmation-logo-icon">GM</div>
+            <h3 style="color:var(--primary); margin-bottom:15px;">¡Pedido Enviado!</h3>
+            <p style="margin-bottom:20px; color:var(--text-light);">Tu pedido ha sido enviado por WhatsApp. Te contactaremos pronto para confirmar disponibilidad y costo de envío.</p>
+            <p style="margin-bottom:20px; font-weight:600;"><i class="fab fa-whatsapp" style="color:#25D366"></i> WhatsApp: +52 55 1234 5678</p>
+            <button class="checkout-btn" id="closeModalBtn" style="background:var(--primary); color:white;">
                 <i class="fas fa-check"></i> Cerrar
             </button>
         </div>
     </div>
 
-    <div class="notification" id="notification">Mensaje aquí</div>
+    <div class="notification" id="notification">Mensaje</div>
 
     <footer>
         <div class="container">
-            <img src="https://i.ibb.co/jkWp21kD/IMG-4398.jpg" alt="Logo Footer" class="footer-logo">
-            <p>&copy; 2025 Barbacoa de la Casa Vieja</p>
-            <p style="margin-top: 10px; font-size: 0.9rem;">
-                <i class="fab fa-whatsapp" style="color: #25D366;"></i> WhatsApp: +52 55 7867 7774
+            <div class="footer-logo-icon">GM</div>
+            <p style="color:rgba(255,255,255,0.9); font-weight:600;">&copy; 2025 Gran Mitla</p>
+            <p style="margin-top:5px; font-size:0.85rem;">Sales Artesanales & Productos Gourmet</p>
+            <p style="margin-top:10px; font-size:0.9rem;">
+                <i class="fab fa-whatsapp" style="color:#25D366;"></i> WhatsApp: +52 55 1234 5678
             </p>
         </div>
     </footer>
 
-    <script src="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js"></script>
     <script>
         // ============================================
         // CONFIGURACIÓN
         // ============================================
-        const whatsappNumber = "+525578677774";
-        const restaurantAddress = "Alejandría 35, Claveria, Azcapotzalco, 02080 Ciudad de México, CDMX";
-        const restaurantCoords = [-99.1853, 19.4646];
-        
-        // Tarifas de envío
-        const shippingRates = {
-            perKmRate: 10.00, // $10 por km
-            maxDistance: 15, // Límite de 15 km
-            minOrderForDelivery: 100.00 // Pedido mínimo para envío
+        const whatsappNumber = "+525512345678"; // CAMBIAR al número real
+
+        const categoryColors = {
+            'kits': { bg: 'linear-gradient(135deg, #D4A72C 0%, #B8901F 100%)', emoji: '🎁' },
+            'sal-gusano': { bg: 'linear-gradient(135deg, #8B4513 0%, #A0522D 100%)', emoji: '🐛' },
+            'sal-chapulin': { bg: 'linear-gradient(135deg, #556B2F 0%, #6B8E23 100%)', emoji: '🦗' },
+            'sales-especiales': { bg: 'linear-gradient(135deg, #C0392B 0%, #E74C3C 100%)', emoji: '🌶️' },
+            'chilito': { bg: 'linear-gradient(135deg, #E74C3C 0%, #FF6347 100%)', emoji: '🌶️' },
+            'sal-mar': { bg: 'linear-gradient(135deg, #2980B9 0%, #3498DB 100%)', emoji: '🌊' },
+            'bebidas': { bg: 'linear-gradient(135deg, #E67E22 0%, #F39C12 100%)', emoji: '🍹' }
         };
 
-        const mapboxToken = 'TU_TOKEN_DE_MAPBOX_AQUI';
-        mapboxgl.accessToken = mapboxToken;
-
-        // Productos actualizados según tus especificaciones
         const products = [
-            // BARBACOA POR KG CON MODIFICADORES ESPECÍFICOS (CON SELECCIÓN DE CORTE)
+            // === KITS ===
             {
                 id: 1,
-                name: "Kilogramo de barbacoa",
-                category: "barbacoa",
-                description: "Deliciosa barbacoa de borrego cocida a fuego lento por horas. Incluye tortillas, cebolla, cilantro, salsa y limón.",
-                price: 780.00,
-                image: "https://i.ibb.co/8nq6VhpF/IMG-4420.jpg",
-                modifiers: {
-                    // Modificadores de selección única (solo se puede elegir uno) - SOLO PARA BARBACOA
-                    selection: [
-                        { id: 100, name: "Masiza o pierna", description: "Selección de corte", price: 0.00 },
-                        { id: 101, name: "Espaldilla", description: "Selección de corte", price: 0.00 },
-                        { id: 102, name: "Costilla", description: "Selección de corte", price: 0.00 },
-                        { id: 103, name: "Cuello", description: "Selección de corte", price: 0.00 }
-                    ],
-                    // Modificadores adicionales (se pueden seleccionar múltiples)
-                    extras: [
-                        { id: 104, name: "Extra tortillas 1/4", description: "Paquete adicional de tortillas", price: 15.00 },
-                        { id: 105, name: "Extra de salsa", description: "Salsa adicional", price: 10.00 },
-                        { id: 106, name: "Extra limón", description: "Limón adicional", price: 10.00 }
-                    ]
-                }
+                name: "Kit Mi Despensa",
+                category: "kits",
+                description: "Kit completo para tener los mejores productos Gran Mitla en tu hogar.",
+                price: 1194.00,
+                emoji: "🎁",
+                details: "Incluye una selección de nuestros mejores productos artesanales.",
+                consultarPrecio: false,
+                minQty: 1
             },
             {
                 id: 2,
-                name: "1/2 Kilogramo de barbacoa",
-                category: "barbacoa",
-                description: "Media porción de nuestra deliciosa barbacoa de borrego. Incluye tortillas, cebolla, cilantro, salsa y limón.",
-                price: 390.00,
-                image: "https://i.ibb.co/fYGGQmbQ/IMG-4423.jpg",
-                modifiers: {
-                    selection: [
-                        { id: 100, name: "Masiza o pierna", description: "Selección de corte", price: 0.00 },
-                        { id: 101, name: "Espaldilla", description: "Selección de corte", price: 0.00 },
-                        { id: 102, name: "Costilla", description: "Selección de corte", price: 0.00 },
-                        { id: 103, name: "Cuello", description: "Selección de corte", price: 0.00 }
-                    ],
-                    extras: [
-                        { id: 104, name: "Extra tortillas 1/4", description: "Paquete adicional de tortillas", price: 15.00 },
-                        { id: 105, name: "Extra de salsa", description: "Salsa adicional", price: 10.00 },
-                        { id: 106, name: "Extra limón", description: "Limón adicional", price: 10.00 }
-                    ]
-                }
+                name: "Kit Fiesta Gran Mitla",
+                category: "kits",
+                description: "Todo lo que necesitas para una fiesta inolvidable con sabor oaxaqueño.",
+                price: 1015.00,
+                emoji: "🎉",
+                details: "Kit ideal para reuniones y celebraciones.",
+                consultarPrecio: false,
+                minQty: 1
             },
             {
                 id: 3,
-                name: "1/4 Kilogramo de barbacoa",
-                category: "barbacoa",
-                description: "Cuarto de kilogramo de barbacoa de borrego. Incluye tortillas, cebolla, cilantro, salsa y limón.",
-                price: 195.00,
-                image: "https://i.ibb.co/21HD2W3h/IMG-4428.png",
-                modifiers: {
-                    selection: [
-                        { id: 100, name: "Masiza o pierna", description: "Selección de corte", price: 0.00 },
-                        { id: 101, name: "Espaldilla", description: "Selección de corte", price: 0.00 },
-                        { id: 102, name: "Costilla", description: "Selección de corte", price: 0.00 },
-                        { id: 103, name: "Cuello", description: "Selección de corte", price: 0.00 }
-                    ],
-                    extras: [
-                        { id: 104, name: "Extra tortillas 1/4", description: "Paquete adicional de tortillas", price: 15.00 },
-                        { id: 105, name: "Extra de salsa", description: "Salsa adicional", price: 10.00 },
-                        { id: 106, name: "Extra limón", description: "Limón adicional", price: 10.00 }
-                    ]
-                }
+                name: "Kit Básico Reunión",
+                category: "kits",
+                description: "Kit esencial para acompañar tus mezcales y destilados en reunión.",
+                price: 836.00,
+                emoji: "🥂",
+                details: "Selección básica de productos Gran Mitla para reuniones.",
+                consultarPrecio: false,
+                minQty: 1
             },
-            
-            // PRODUCTOS DE PANCITA SIN MODIFICADORES DE SELECCIÓN DE CORTE (SOLO EXTRAS)
             {
                 id: 4,
-                name: "Kilogramo de pancita",
-                category: "pancita",
-                description: "Menudo de pancita de res, cocido a la perfección con nuestro sazón especial.",
-                price: 780.00,
-                image: "https://i.ibb.co/v4fr6mGB/Photoroom-20260103-133225.jpg",
-                modifiers: {
-                    // SIN MODIFICADORES DE SELECCIÓN (vacío) - SOLO EXTRAS
-                    selection: [],
-                    // Modificadores adicionales (se pueden seleccionar múltiples)
-                    extras: [
-                        { id: 104, name: "Extra tortillas 1/4", description: "Paquete adicional de tortillas", price: 15.00 },
-                        { id: 105, name: "Extra de salsa", description: "Salsa adicional", price: 10.00 },
-                        { id: 106, name: "Extra limón", description: "Limón adicional", price: 10.00 }
-                    ]
-                }
+                name: "Set de Maridaje para Destilados",
+                category: "kits",
+                description: "Set completo de maridaje diseñado para acompañar tus destilados favoritos.",
+                price: 1004.00,
+                emoji: "🥃",
+                details: "Perfecto para acompañar mezcal, tequila y otros destilados.",
+                consultarPrecio: false,
+                minQty: 1
             },
             {
                 id: 5,
-                name: "1/2 Kilogramo de pancita",
-                category: "pancita",
-                description: "Media porción de nuestra deliciosa pancita de res.",
-                price: 390.00,
-                image: "https://i.ibb.co/4gMSF82Y/Photoroom-20260103-132344.jpg",
-                modifiers: {
-                    selection: [], // VACÍO - sin selección de corte
-                    extras: [
-                        { id: 104, name: "Extra tortillas 1/4", description: "Paquete adicional de tortillas", price: 15.00 },
-                        { id: 105, name: "Extra de salsa", description: "Salsa adicional", price: 10.00 },
-                        { id: 106, name: "Extra limón", description: "Limón adicional", price: 10.00 }
-                    ]
-                }
+                name: "Kit de Salecitas Gran Mitla",
+                category: "kits",
+                description: "Variedad de nuestras sales artesanales en un kit práctico y elegante.",
+                price: 659.00,
+                emoji: "🧂",
+                details: "Una selección de nuestras sales más populares.",
+                consultarPrecio: false,
+                minQty: 1
             },
             {
                 id: 6,
-                name: "1/4 Kilogramo de pancita",
-                category: "pancita",
-                description: "Cuarto de kilogramo de pancita de res.",
-                price: 195.00,
-                image: "https://i.ibb.co/4gMSF82Y/Photoroom-20260103-132344.jpg",
-                modifiers: {
-                    selection: [], // VACÍO - sin selección de corte
-                    extras: [
-                        { id: 104, name: "Extra tortillas 1/4", description: "Paquete adicional de tortillas", price: 15.00 },
-                        { id: 105, name: "Extra de salsa", description: "Salsa adicional", price: 10.00 },
-                        { id: 106, name: "Extra limón", description: "Limón adicional", price: 10.00 }
-                    ]
-                }
+                name: "Kit Mezcalero Gran Mitla",
+                category: "kits",
+                description: "Kit completo para el amante del mezcal con sales y accesorios.",
+                price: 841.00,
+                emoji: "🌵",
+                details: "Todo lo necesario para disfrutar el mezcal como se merece.",
+                consultarPrecio: false,
+                minQty: 1
             },
-            
-            // PRODUCTOS DE CONSUMÉ SOLO CON MODIFICADOR "SIN GARBANZO"
-            {
-                id: 7,
-                name: "Litro de consomé",
-                category: "consome",
-                description: "Un litro de nuestro delicioso consomé de borrego.",
-                price: 180.00,
-                image: "https://i.ibb.co/sdFbnRs0/IMG-4490.jpg",
-                modifiers: {
-                    selection: [],
-                    extras: [
-                        { id: 107, name: "Sin garbanzo", description: "Preparado sin garbanzo", price: 0.00 }
-                    ]
-                }
-            },
-            {
-                id: 8,
-                name: "1/2 Litro de consomé",
-                category: "consome",
-                description: "Medio litro de consomé de borrego.",
-                price: 90.00,
-                image: "https://i.ibb.co/sdTLHhTW/IMG-4491.jpg",
-                modifiers: {
-                    selection: [],
-                    extras: [
-                        { id: 107, name: "Sin garbanzo", description: "Preparado sin garbanzo", price: 0.00 }
-                    ]
-                }
-            },
-            
-            // PRODUCTOS DE FLAUTAS CON NOMBRES CORREGIDOS Y MODIFICADORES ESPECÍFICOS
-            {
-                id: 9,
-                name: "Flautas doradas de barbacoa, orden de tres",
-                category: "flautas",
-                description: "Tres flautas doradas rellenas de barbacoa, bañadas en crema, queso y lechuga.",
-                price: 145.00,
-                image: "https://i.ibb.co/PknjzJZ/Photoroom-20260124-142420.jpg?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                modifiers: {
-                    selection: [],
-                    extras: [
-                        { id: 108, name: "Extra crema", description: "Crema adicional", price: 5.00 },
-                        { id: 109, name: "Extra queso", description: "Queso rallado adicional", price: 5.00 }
-                    ]
-                }
-            },
+
+            // === SAL DE GUSANO ===
             {
                 id: 10,
-                name: "Flautas doradas de barbacoa, orden de seis",
-                category: "flautas",
-                description: "Seis flautas doradas rellenas de barbacoa, bañadas en crema, queso y lechuga.",
-                price: 280.00,
-                image: "https://i.ibb.co/PknjzJZ/Photoroom-20260124-142420.jpg?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                modifiers: {
-                    selection: [],
-                    extras: [
-                        { id: 108, name: "Extra crema", description: "Crema adicional", price: 5.00 },
-                        { id: 109, name: "Extra queso", description: "Queso rallado adicional", price: 5.00 }
-                    ]
-                }
+                name: "Sal de Gusano Gran Mitla — Frasco 1 kg",
+                category: "sal-gusano",
+                description: "Sal de gusano artesanal oaxaqueña. Presentación en frasco de un kilogramo.",
+                price: 918.00,
+                emoji: "🐛",
+                details: "Presentación: Frasco de 1 kilogramo. Elaborada artesanalmente en Oaxaca.",
+                consultarPrecio: false,
+                minQty: 1
             },
             {
                 id: 11,
-                name: "Flautas doradas de barbacoa, orden de nueve",
-                category: "flautas",
-                description: "Nueve flautas doradas rellenas de barbacoa, bañadas en crema, queso y lechuga.",
-                price: 420.00,
-                image: "https://i.ibb.co/PknjzJZ/Photoroom-20260124-142420.jpg?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                modifiers: {
-                    selection: [],
-                    extras: [
-                        { id: 108, name: "Extra crema", description: "Crema adicional", price: 5.00 },
-                        { id: 109, name: "Extra queso", description: "Queso rallado adicional", price: 5.00 }
-                    ]
-                }
+                name: "Sal de Gusano Gran Mitla — Frasco 100 g",
+                category: "sal-gusano",
+                description: "Sal de gusano artesanal oaxaqueña. Presentación en frasco de 100 gramos.",
+                price: 284.00,
+                emoji: "🐛",
+                details: "Presentación: Frasco de 100 gramos.",
+                consultarPrecio: false,
+                minQty: 1
             },
-            
-            // PRODUCTOS DE POSTRES (SIN MODIFICADORES)
             {
                 id: 12,
-                name: "Flan de cajeta",
-                category: "postres",
-                description: "Tradicional flan casero de cajeta.",
-                price: 35.00,
-                image: "https://i.ibb.co/Kx9J9yQD/IMG-4615.png",
-                modifiers: {
-                    selection: [],
-                    extras: []
-                }
+                name: "Sal de Gusano Gran Mitla — Frasco 50 g",
+                category: "sal-gusano",
+                description: "Sal de gusano artesanal oaxaqueña. Presentación en frasco de 50 gramos.",
+                price: 232.00,
+                emoji: "🐛",
+                details: "Presentación: Frasco de 50 gramos. Perfecta para regalo o uso personal.",
+                consultarPrecio: false,
+                minQty: 1
             },
             {
                 id: 13,
-                name: "Flan de queso",
-                category: "postres",
-                description: "Flan con un toque especial de queso crema.",
-                price: 35.00,
-                image: "https://i.ibb.co/WNvTLTpF/IMG-4617.png",
-                modifiers: {
-                    selection: [],
-                    extras: []
-                }
+                name: "Sal de Gusano Gran Mitla — Sobre 5 g (Caja 25 sobres)",
+                category: "sal-gusano",
+                description: "Sobres individuales de 5 g. Compra mínima: caja con 25 sobres.",
+                price: 430.00,
+                emoji: "🐛",
+                details: "Presentación: Caja con 25 sobres de 5 g cada uno. Mínimo de compra: 1 caja (25 sobres). Ideal para restaurantes, bares y eventos.",
+                consultarPrecio: false,
+                minQty: 1
+            },
+
+            // === SAL DE CHAPULÍN ===
+            {
+                id: 20,
+                name: "Sal de Chapulín Gran Mitla — Frasco 1 kg",
+                category: "sal-chapulin",
+                description: "Sal de chapulín artesanal oaxaqueña. Presentación en frasco de un kilogramo.",
+                price: 918.00,
+                emoji: "🦗",
+                details: "Presentación: Frasco de 1 kilogramo. Elaborada artesanalmente en Oaxaca.",
+                consultarPrecio: false,
+                minQty: 1
             },
             {
-                id: 14,
-                name: "Flan de mazapán",
-                category: "postres",
-                description: "Flan con sabor a mazapán.",
-                price: 35.00,
-                image: "https://i.ibb.co/jPtZQnCr/IMG-4616.png",
-                modifiers: {
-                    selection: [],
-                    extras: []
-                }
+                id: 21,
+                name: "Sal de Chapulín Gran Mitla — Frasco 100 g",
+                category: "sal-chapulin",
+                description: "Sal de chapulín artesanal oaxaqueña. Presentación en frasco de 100 gramos.",
+                price: 284.00,
+                emoji: "🦗",
+                details: "Presentación: Frasco de 100 gramos.",
+                consultarPrecio: false,
+                minQty: 1
             },
-            
-            // AGUA DEL DÍA CON SUS TAMAÑOS Y MODIFICADORES
             {
-                id: 15,
-                name: "Agua del día 1 litro",
+                id: 22,
+                name: "Sal de Chapulín Gran Mitla — Frasco 50 g",
+                category: "sal-chapulin",
+                description: "Sal de chapulín artesanal oaxaqueña. Presentación en frasco de 50 gramos.",
+                price: 232.00,
+                emoji: "🦗",
+                details: "Presentación: Frasco de 50 gramos. Perfecta para regalo o uso personal.",
+                consultarPrecio: false,
+                minQty: 1
+            },
+            {
+                id: 23,
+                name: "Sal de Chapulín Gran Mitla — Sobre 5 g (Caja 25 sobres)",
+                category: "sal-chapulin",
+                description: "Sobres individuales de 5 g. Compra mínima: caja con 25 sobres.",
+                price: 430.00,
+                emoji: "🦗",
+                details: "Presentación: Caja con 25 sobres de 5 g cada uno. Mínimo de compra: 1 caja (25 sobres). Ideal para restaurantes, bares y eventos.",
+                consultarPrecio: false,
+                minQty: 1
+            },
+
+            // === SALES ESPECIALES ===
+            {
+                id: 30,
+                name: "Sal de Habanero — Frasco 50 g",
+                category: "sales-especiales",
+                description: "Sal artesanal con habanero. Presentación en frasco de 50 gramos.",
+                price: 195.00,
+                emoji: "🌶️",
+                details: "Presentación: Frasco de 50 gramos. Sabor intenso y picante.",
+                consultarPrecio: false,
+                minQty: 1
+            },
+            {
+                id: 31,
+                name: "Sal de Habanero — Frasco 1 kg",
+                category: "sales-especiales",
+                description: "Sal artesanal con habanero. Presentación en frasco de un kilogramo.",
+                price: 674.00,
+                emoji: "🌶️",
+                details: "Presentación: Frasco de 1 kilogramo.",
+                consultarPrecio: false,
+                minQty: 1
+            },
+            {
+                id: 32,
+                name: "Sal de Flor de Jamaica — Frasco 50 g",
+                category: "sales-especiales",
+                description: "Sal artesanal con flor de jamaica. Presentación en frasco de 50 gramos.",
+                price: 195.00,
+                emoji: "🌺",
+                details: "Presentación: Frasco de 50 gramos. Sabor floral y único.",
+                consultarPrecio: false,
+                minQty: 1
+            },
+            {
+                id: 33,
+                name: "Sal de Flor de Jamaica — Frasco 1 kg",
+                category: "sales-especiales",
+                description: "Sal artesanal con flor de jamaica. Presentación en frasco de un kilogramo.",
+                price: 674.00,
+                emoji: "🌺",
+                details: "Presentación: Frasco de 1 kilogramo.",
+                consultarPrecio: false,
+                minQty: 1
+            },
+
+            // === CHILITO BOTANERO ===
+            {
+                id: 40,
+                name: "Chilito Botanero Gran Mitla — 100 g",
+                category: "chilito",
+                description: "Chilito botanero artesanal. Presentación de 100 gramos.",
+                price: 195.00,
+                emoji: "🌶️",
+                details: "Presentación: 100 gramos. Perfecto para botanear.",
+                consultarPrecio: false,
+                minQty: 1
+            },
+            {
+                id: 41,
+                name: "Chilito Botanero Gran Mitla — 1 kg",
+                category: "chilito",
+                description: "Chilito botanero artesanal. Presentación de un kilogramo.",
+                price: 593.00,
+                emoji: "🌶️",
+                details: "Presentación: 1 kilogramo. Ideal para negocios y eventos.",
+                consultarPrecio: false,
+                minQty: 1
+            },
+
+            // === SAL DE ESPUMA DE MAR ===
+            {
+                id: 50,
+                name: "Sal de Espuma de Mar — 250 g",
+                category: "sal-mar",
+                description: "Sal de espuma de mar artesanal. Presentación de 250 gramos.",
+                price: 0,
+                emoji: "🌊",
+                details: "Presentación: 250 gramos. Textura única y sabor delicado.",
+                consultarPrecio: true,
+                minQty: 1
+            },
+            {
+                id: 51,
+                name: "Sal de Espuma de Mar — 500 g",
+                category: "sal-mar",
+                description: "Sal de espuma de mar artesanal. Presentación de 500 gramos.",
+                price: 0,
+                emoji: "🌊",
+                details: "Presentación: 500 gramos.",
+                consultarPrecio: true,
+                minQty: 1
+            },
+            {
+                id: 52,
+                name: "Sal de Espuma de Mar — 1 kg",
+                category: "sal-mar",
+                description: "Sal de espuma de mar artesanal. Presentación de un kilogramo.",
+                price: 0,
+                emoji: "🌊",
+                details: "Presentación: 1 kilogramo.",
+                consultarPrecio: true,
+                minQty: 1
+            },
+
+            // === BEBIDAS ===
+            {
+                id: 60,
+                name: "Sangrita Corazón Real — 750 ml",
                 category: "bebidas",
-                description: "Agua fresca del día 1 litro. Elige tu sabor favorito.",
-                price: 80.00,
-                image: "https://i.ibb.co/jPYcqcj3/Photoroom-20260124-141051.jpg?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                modifiers: {
-                    selection: [
-                        { id: 110, name: "Pepino con limón y Chía", description: "Sabor refrescante de pepino con limón y chía", price: 0.00 },
-                        { id: 111, name: "Guayaba con Chía", description: "Sabor dulce de guayaba con chía", price: 0.00 },
-                        { id: 112, name: "Tamarindo", description: "Sabor agridulce de tamarindo", price: 0.00 },
-                        { id: 113, name: "Jamaica", description: "Sabor floral de jamaica", price: 0.00 }
-                    ],
-                    extras: []
-                }
-            },
-            {
-                id: 16,
-                name: "Agua del día 1/2 litro",
-                category: "bebidas",
-                description: "Agua fresca del día 1/2 litro. Elige tu sabor favorito.",
-                price: 40.00,
-                image: "https://i.ibb.co/jPYcqcj3/Photoroom-20260124-141051.jpg?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                modifiers: {
-                    selection: [
-                        { id: 110, name: "Pepino con limón y Chía", description: "Sabor refrescante de pepino con limón y chía", price: 0.00 },
-                        { id: 111, name: "Guayaba con Chía", description: "Sabor dulce de guayaba con chía", price: 0.00 },
-                        { id: 112, name: "Tamarindo", description: "Sabor agridulce de tamarindo", price: 0.00 },
-                        { id: 113, name: "Jamaica", description: "Sabor floral de jamaica", price: 0.00 }
-                    ],
-                    extras: []
-                }
-            },
-            
-            // OTROS PRODUCTOS
-            {
-                id: 17,
-                name: "Café de olla",
-                category: "bebidas",
-                description: "Café tradicional mexicano preparado con canela y piloncillo.",
-                price: 38.00,
-                image: "https://i.ibb.co/Kcm8QRb1/IMG-4614.png",
-                modifiers: {
-                    selection: [],
-                    extras: []
-                }
-            },
-            {
-                id: 18,
-                name: "Coca-Cola regular (300 ml)",
-                category: "bebidas",
-                description: "Refresco de cola regular.",
-                price: 35.00,
-                image: "https://i.ibb.co/tpkfLmfw/Photoroom-20260113-234527.jpg",
-                modifiers: {
-                    selection: [],
-                    extras: []
-                }
+                description: "Sangrita artesanal para acompañar tus mezcales y tequilas. Botella de 750 ml.",
+                price: 0,
+                emoji: "🍹",
+                details: "Presentación: Botella de 750 ml. Perfecta para acompañar destilados.",
+                consultarPrecio: true,
+                minQty: 1
             }
         ];
 
         // ============================================
         // VARIABLES GLOBALES
         // ============================================
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let cart = JSON.parse(localStorage.getItem('cartGranMitla')) || [];
         let currentCategory = 'all';
-        let currentShippingCost = 0;
-        let deliveryDistance = 0;
-        let deliveryTime = 0;
-        let paymentMethod = 'card';
+        let paymentMethod = 'transfer';
         let cashAmount = 0;
         let changeAmount = 0;
-        let map = null;
-        let restaurantMarker = null;
-        let deliveryMarker = null;
-        let routeLayer = null;
-        let userLocation = null;
-        let deliveryZone = "";
-        
-        // Variables para el modal de producto
         let currentModalProduct = null;
         let modalQuantity = 1;
-        let selectedSelection = null; // Para modificadores de selección única
-        let selectedExtras = []; // Para modificadores múltiples
 
         // ============================================
         // INICIALIZACIÓN
@@ -1695,7 +1362,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             renderProducts();
             updateCartDisplay();
-            
+
             // Categorías
             document.querySelectorAll('.category-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -1705,476 +1372,279 @@
                     renderProducts();
                 });
             });
-            
-            // Icono flotante del carrito
+
+            // Icono flotante
             document.getElementById('floatingCartIcon').addEventListener('click', function() {
                 document.getElementById('cartSection').scrollIntoView({ behavior: 'smooth' });
             });
-            
-            // Cambio en tipo de entrega
+
+            // Tipo de entrega
             document.querySelectorAll('input[name="deliveryType"]').forEach(radio => {
                 radio.addEventListener('change', function() {
-                    const deliveryType = this.value;
-                    const addressSection = document.getElementById('deliveryAddressSection');
-                    const finalAddressSection = document.getElementById('finalAddressSection');
-                    
-                    if (deliveryType === 'delivery') {
-                        addressSection.style.display = 'block';
-                        document.getElementById('mapboxContainer').classList.add('active');
-                        initMap();
+                    const section = document.getElementById('deliveryAddressSection');
+                    if (this.value === 'delivery') {
+                        section.classList.add('active');
                     } else {
-                        addressSection.style.display = 'none';
-                        currentShippingCost = 0;
-                        updateCartDisplay();
-                        document.getElementById('mapboxContainer').classList.remove('active');
-                        document.getElementById('distanceDetails').classList.remove('active');
-                        document.getElementById('deliveryLimitWarning').classList.remove('active');
-                        document.getElementById('autoCalculatingStatus').classList.remove('active');
+                        section.classList.remove('active');
                     }
                 });
             });
-            
-            // Usar ubicación actual
-            document.getElementById('useCurrentLocationBtn').addEventListener('click', getCurrentLocation);
-            
-            // Buscar dirección
-            document.getElementById('mapSearchBtn').addEventListener('click', searchAddressOnMap);
-            document.getElementById('mapSearch').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    searchAddressOnMap();
-                }
-            });
-            
+
             // Métodos de pago
-            document.getElementById('cashMethod').addEventListener('click', function() {
-                selectPaymentMethod('cash');
-            });
-            
-            document.getElementById('cardMethod').addEventListener('click', function() {
-                selectPaymentMethod('card');
-            });
-            
-            // Calcular cambio
+            document.getElementById('cashMethod').addEventListener('click', () => selectPaymentMethod('cash'));
+            document.getElementById('transferMethod').addEventListener('click', () => selectPaymentMethod('transfer'));
+            document.getElementById('cardMethod').addEventListener('click', () => selectPaymentMethod('card'));
+
             document.getElementById('cashAmount').addEventListener('input', calculateChange);
-            
+
             // Checkout
             document.getElementById('checkoutBtn').addEventListener('click', function() {
                 if (cart.length === 0) {
                     showNotification('Tu carrito está vacío');
                     return;
                 }
-                
+
                 const deliveryType = document.querySelector('input[name="deliveryType"]:checked').value;
-                const deliveryTypeFinal = document.getElementById('deliveryTypeFinal');
                 const finalAddressSection = document.getElementById('finalAddressSection');
-                
+
                 if (deliveryType === 'delivery') {
-                    deliveryTypeFinal.value = 'delivery';
                     finalAddressSection.style.display = 'block';
-                    
-                    if (currentShippingCost === 0) {
-                        showNotification('Por favor selecciona una ubicación valida en el mapa primero');
-                        return;
-                    }
-                    
-                    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-                    if (subtotal < shippingRates.minOrderForDelivery) {
-                        showNotification(`El pedido mínimo para envío a domicilio es de $${shippingRates.minOrderForDelivery}.00`);
-                        return;
-                    }
-                    
-                    document.getElementById('customerAddress').value = document.getElementById('deliveryAddress').value;
+                    const addr = document.getElementById('deliveryAddress').value;
+                    document.getElementById('customerAddress').value = addr;
                 } else {
-                    deliveryTypeFinal.value = 'pickup';
                     finalAddressSection.style.display = 'none';
                 }
-                
-                selectPaymentMethod('card');
-                
+
+                selectPaymentMethod('transfer');
                 document.getElementById('checkoutForm').style.display = 'block';
                 window.scrollTo({
                     top: document.getElementById('checkoutForm').offsetTop - 20,
                     behavior: 'smooth'
                 });
             });
-            
-            // Cancelar checkout
+
             document.getElementById('cancelCheckout').addEventListener('click', function() {
                 document.getElementById('checkoutForm').style.display = 'none';
             });
-            
-            // Enviar formulario
+
             document.getElementById('orderForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 if (validatePayment()) {
                     sendOrderToWhatsApp();
                 }
             });
-            
-            // Cerrar modal de confirmación
+
             document.getElementById('closeModalBtn').addEventListener('click', function() {
                 document.getElementById('confirmationModal').classList.remove('active');
             });
-            
+
             // Modal de producto
             document.getElementById('closeProductModal').addEventListener('click', function() {
                 document.getElementById('productModal').classList.remove('active');
             });
-            
-            // Cerrar modal al hacer clic fuera
+
             document.getElementById('productModal').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    this.classList.remove('active');
-                }
+                if (e.target === this) this.classList.remove('active');
             });
-            
-            // Controles de cantidad en modal
+
             document.getElementById('modalDecreaseBtn').addEventListener('click', function() {
-                if (modalQuantity > 1) {
+                if (currentModalProduct && modalQuantity > currentModalProduct.minQty) {
                     modalQuantity--;
-                    updateModalQuantity();
-                    calculateModalTotal();
+                    updateModalDisplay();
                 }
             });
-            
+
             document.getElementById('modalIncreaseBtn').addEventListener('click', function() {
                 modalQuantity++;
-                updateModalQuantity();
-                calculateModalTotal();
+                updateModalDisplay();
             });
-            
-            // Añadir al carrito desde modal
+
             document.getElementById('modalAddToCartBtn').addEventListener('click', function() {
-                if (currentModalProduct) {
-                    addToCartFromModal();
-                }
+                if (currentModalProduct) addToCartFromModal();
             });
         });
 
         // ============================================
-        // FUNCIONES DE PRODUCTOS Y CARRITO
+        // PRODUCTOS
         // ============================================
         function renderProducts() {
-            const productsGrid = document.getElementById('productsGrid');
-            productsGrid.innerHTML = '';
-            
-            const filteredProducts = currentCategory === 'all' 
-                ? products 
-                : products.filter(product => product.category === currentCategory);
-            
-            if (filteredProducts.length === 0) {
-                productsGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #7f8c8d; padding: 40px;">No hay productos en esta categoría.</p>';
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+
+            const filtered = currentCategory === 'all'
+                ? products
+                : products.filter(p => p.category === currentCategory);
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '<p style="grid-column:1/-1; text-align:center; color:#999; padding:40px;">No hay productos en esta categoría.</p>';
                 return;
             }
-            
-            filteredProducts.forEach(product => {
+
+            filtered.forEach(product => {
                 const cartItem = cart.find(item => item.id === product.id);
                 const quantity = cartItem ? cartItem.quantity : 0;
-                
-                const productCard = document.createElement('div');
-                productCard.className = 'product-card';
-                productCard.dataset.productId = product.id;
-                productCard.innerHTML = `
-                    <img src="${product.image}" alt="${product.name}" class="product-img">
+                const colors = categoryColors[product.category] || { bg: 'linear-gradient(135deg, #666, #999)', emoji: '📦' };
+                const isConsultar = product.consultarPrecio;
+
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.dataset.productId = product.id;
+
+                card.innerHTML = `
+                    <div class="product-img-container" style="background:${colors.bg}">
+                        <span class="product-emoji">${product.emoji}</span>
+                        ${isConsultar ? '<span class="product-badge consultar">Consultar precio</span>' : ''}
+                    </div>
                     <div class="product-info">
                         <h3 class="product-title">${product.name}</h3>
                         <p class="product-desc">${product.description}</p>
                         <div class="product-footer">
-                            <div class="product-price">$${product.price.toFixed(2)}</div>
+                            ${isConsultar
+                                ? '<div class="product-price consultar-price"><i class="fas fa-tag"></i> Consultar</div>'
+                                : `<div class="product-price">$${product.price.toFixed(2)}</div>`
+                            }
                             <div class="product-quantity-controls">
                                 ${quantity > 0 ? `
-                                    <button class="quantity-btn" onclick="adjustQuantity(${product.id}, -1)" ${quantity <= 1 ? 'disabled' : ''}>
+                                    <button class="quantity-btn" onclick="event.stopPropagation(); adjustQuantity(${product.id}, -1)">
                                         <i class="fas fa-minus"></i>
                                     </button>
                                     <div class="quantity-display">${quantity}</div>
-                                    <button class="quantity-btn" onclick="adjustQuantity(${product.id}, 1)">
+                                    <button class="quantity-btn" onclick="event.stopPropagation(); adjustQuantity(${product.id}, 1)">
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 ` : ''}
-                                <button class="add-to-cart ${quantity > 0 ? 'in-cart' : ''}" onclick="event.stopPropagation(); addToCart(${product.id})">
-                                    <i class="fas fa-${quantity > 0 ? 'check' : 'cart-plus'}"></i>
-                                    ${quantity > 0 ? 'En carrito' : 'Añadir'}
-                                </button>
+                                ${isConsultar
+                                    ? `<button class="add-to-cart" onclick="event.stopPropagation(); openProductModal(${product.id})">
+                                        <i class="fas fa-eye"></i> Ver
+                                       </button>`
+                                    : `<button class="add-to-cart ${quantity > 0 ? 'in-cart' : ''}" onclick="event.stopPropagation(); addToCart(${product.id})">
+                                        <i class="fas fa-${quantity > 0 ? 'check' : 'cart-plus'}"></i>
+                                        ${quantity > 0 ? '' : 'Añadir'}
+                                       </button>`
+                                }
                             </div>
                         </div>
                     </div>
                 `;
-                
-                // Abrir modal al hacer clic en el producto (excepto en los botones)
-                productCard.addEventListener('click', function(e) {
+
+                card.addEventListener('click', function(e) {
                     if (!e.target.closest('.quantity-btn') && !e.target.closest('.add-to-cart')) {
                         openProductModal(product.id);
                     }
                 });
-                
-                productsGrid.appendChild(productCard);
+
+                grid.appendChild(card);
             });
         }
 
         function openProductModal(productId) {
             const product = products.find(p => p.id === productId);
             if (!product) return;
-            
+
             currentModalProduct = product;
-            modalQuantity = 1;
-            selectedSelection = null;
-            selectedExtras = [];
-            
-            // Actualizar contenido del modal
-            document.getElementById('modalProductImage').src = product.image;
-            document.getElementById('modalProductImage').alt = product.name;
+            modalQuantity = product.minQty || 1;
+
+            const colors = categoryColors[product.category] || { bg: 'linear-gradient(135deg, #666, #999)' };
+            const container = document.getElementById('modalProductImageContainer');
+            container.style.background = colors.bg;
+
+            document.getElementById('modalProductEmoji').textContent = product.emoji;
             document.getElementById('modalProductTitle').textContent = product.name;
             document.getElementById('modalProductDesc').textContent = product.description;
-            document.getElementById('modalProductPrice').textContent = `$${product.price.toFixed(2)}`;
-            
-            // Actualizar controles de cantidad
-            updateModalQuantity();
-            
-            // Cargar modificadores
-            loadModifiers(product.modifiers);
-            
-            // Calcular total inicial
-            calculateModalTotal();
-            
-            // Mostrar/ocultar sección de modificadores
-            const modifiersSection = document.getElementById('modifiersSection');
-            const hasSelectionModifiers = product.modifiers.selection && product.modifiers.selection.length > 0;
-            const hasExtrasModifiers = product.modifiers.extras && product.modifiers.extras.length > 0;
-            
-            if (hasSelectionModifiers || hasExtrasModifiers) {
-                modifiersSection.style.display = 'block';
+
+            if (product.consultarPrecio) {
+                document.getElementById('modalProductPrice').innerHTML = '<span style="color:#e74c3c; font-size:1.2rem;"><i class="fas fa-tag"></i> Precio a consultar por WhatsApp</span>';
+                document.getElementById('modalQuantitySection').style.display = 'none';
+                document.getElementById('modalAddToCartBtn').innerHTML = '<i class="fab fa-whatsapp"></i> Consultar precio por WhatsApp';
+                document.getElementById('modalAddToCartBtn').style.background = '#25D366';
+                document.getElementById('modalAddToCartBtn').disabled = false;
+                document.getElementById('modalTotalPrice').textContent = 'A consultar';
             } else {
-                modifiersSection.style.display = 'none';
+                document.getElementById('modalProductPrice').textContent = `$${product.price.toFixed(2)}`;
+                document.getElementById('modalQuantitySection').style.display = 'flex';
+                document.getElementById('modalAddToCartBtn').innerHTML = '<i class="fas fa-cart-plus"></i> Añadir al carrito';
+                document.getElementById('modalAddToCartBtn').style.background = '';
+                document.getElementById('modalAddToCartBtn').disabled = false;
             }
-            
-            // Mostrar modal
+
+            const detailsDiv = document.getElementById('modalProductDetails');
+            if (product.details) {
+                detailsDiv.style.display = 'block';
+                detailsDiv.innerHTML = `<p><i class="fas fa-info-circle" style="color:var(--primary); margin-right:5px;"></i> ${product.details}</p>`;
+            } else {
+                detailsDiv.style.display = 'none';
+            }
+
+            updateModalDisplay();
             document.getElementById('productModal').classList.add('active');
         }
 
-        function loadModifiers(modifiers) {
-            const modifiersList = document.getElementById('modifiersList');
-            modifiersList.innerHTML = '';
-            
-            const hasSelection = modifiers.selection && modifiers.selection.length > 0;
-            const hasExtras = modifiers.extras && modifiers.extras.length > 0;
-            
-            if (!hasSelection && !hasExtras) {
-                modifiersList.innerHTML = '<p style="color: var(--text-light); text-align: center; padding: 10px;">Sin opciones de personalización</p>';
-                return;
-            }
-            
-            // Mostrar modificadores de selección única (radio buttons) - SOLO PARA BARBACOA Y AGUA DEL DÍA
-            if (hasSelection) {
-                const selectionGroup = document.createElement('div');
-                selectionGroup.className = 'modifier-group';
-                
-                // Mostrar título diferente según el producto
-                if (currentModalProduct.category === 'barbacoa') {
-                    selectionGroup.innerHTML = '<div class="modifiers-title" style="margin-top: 15px;">Selecciona el corte:</div>';
-                } else if (currentModalProduct.category === 'bebidas' && (currentModalProduct.id === 15 || currentModalProduct.id === 16)) {
-                    selectionGroup.innerHTML = '<div class="modifiers-title" style="margin-top: 15px;">Selecciona el sabor:</div>';
-                }
-                
-                modifiers.selection.forEach(modifier => {
-                    const modifierOption = document.createElement('div');
-                    modifierOption.className = 'modifier-option';
-                    
-                    modifierOption.innerHTML = `
-                        <input type="radio" id="modifier-${modifier.id}" name="selectionModifier" value="${modifier.id}">
-                        <label for="modifier-${modifier.id}">
-                            <div class="modifier-option-text">
-                                <div class="modifier-name">${modifier.name}</div>
-                                ${modifier.description ? `<div class="modifier-desc">${modifier.description}</div>` : ''}
-                            </div>
-                            <div class="option-price">
-                                ${modifier.price > 0 ? `+$${modifier.price.toFixed(2)}` : 'Gratis'}
-                            </div>
-                        </label>
-                    `;
-                    
-                    // Configurar el radio button
-                    const radioInput = modifierOption.querySelector('input[type="radio"]');
-                    radioInput.addEventListener('change', function() {
-                        if (this.checked) {
-                            selectedSelection = modifier;
-                            calculateModalTotal();
-                        }
-                    });
-                    
-                    selectionGroup.appendChild(modifierOption);
-                });
-                
-                modifiersList.appendChild(selectionGroup);
-            }
-            
-            // Mostrar modificadores extras (checkboxes)
-            if (hasExtras) {
-                const extrasGroup = document.createElement('div');
-                extrasGroup.className = 'modifier-group';
-                extrasGroup.innerHTML = '<div class="modifiers-title" style="margin-top: 15px;">Extras adicionales:</div>';
-                
-                modifiers.extras.forEach(modifier => {
-                    const modifierItem = document.createElement('div');
-                    modifierItem.className = 'modifier-item';
-                    modifierItem.dataset.modifierId = modifier.id;
-                    
-                    modifierItem.innerHTML = `
-                        <div class="modifier-info">
-                            <div class="modifier-name">${modifier.name}</div>
-                            ${modifier.description ? `<div class="modifier-desc">${modifier.description}</div>` : ''}
-                        </div>
-                        <div style="display: flex; align-items: center; gap: 15px;">
-                            <div class="modifier-price">
-                                ${modifier.price > 0 ? `+$${modifier.price.toFixed(2)}` : 'Gratis'}
-                            </div>
-                            <div class="modifier-toggle"></div>
-                        </div>
-                    `;
-                    
-                    // Configurar el toggle
-                    const toggle = modifierItem.querySelector('.modifier-toggle');
-                    toggle.addEventListener('click', function() {
-                        this.classList.toggle('active');
-                        
-                        if (this.classList.contains('active')) {
-                            selectedExtras.push(modifier);
-                        } else {
-                            selectedExtras = selectedExtras.filter(m => m.id !== modifier.id);
-                        }
-                        
-                        calculateModalTotal();
-                    });
-                    
-                    extrasGroup.appendChild(modifierItem);
-                });
-                
-                modifiersList.appendChild(extrasGroup);
-            }
-        }
-
-        function updateModalQuantity() {
-            document.getElementById('modalQuantityDisplay').textContent = modalQuantity;
-            document.getElementById('modalDecreaseBtn').disabled = modalQuantity <= 1;
-        }
-
-        function calculateModalTotal() {
+        function updateModalDisplay() {
             if (!currentModalProduct) return;
-            
-            let total = currentModalProduct.price;
-            
-            // Sumar precio de selección única
-            if (selectedSelection) {
-                total += selectedSelection.price;
+            document.getElementById('modalQuantityDisplay').textContent = modalQuantity;
+            document.getElementById('modalDecreaseBtn').disabled = modalQuantity <= (currentModalProduct.minQty || 1);
+
+            if (!currentModalProduct.consultarPrecio) {
+                const total = currentModalProduct.price * modalQuantity;
+                document.getElementById('modalTotalPrice').textContent = `$${total.toFixed(2)}`;
             }
-            
-            // Sumar precios de extras seleccionados
-            selectedExtras.forEach(modifier => {
-                total += modifier.price;
-            });
-            
-            // Multiplicar por cantidad
-            total *= modalQuantity;
-            
-            document.getElementById('modalTotalPrice').textContent = `$${total.toFixed(2)}`;
         }
 
         function addToCartFromModal() {
             if (!currentModalProduct) return;
-            
-            // Para productos de barbacoa, validar que se haya seleccionado un corte
-            if (currentModalProduct.category === 'barbacoa' && !selectedSelection) {
-                showNotification('Por favor selecciona un corte para la barbacoa');
+
+            // If product requires price consultation, open WhatsApp
+            if (currentModalProduct.consultarPrecio) {
+                const msg = `Hola, me interesa consultar el precio de: *${currentModalProduct.name}*. ¿Podrían darme información?`;
+                const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`;
+                window.open(url, '_blank');
+                document.getElementById('productModal').classList.remove('active');
                 return;
             }
-            
-            // Para agua del día, validar que se haya seleccionado un sabor
-            if ((currentModalProduct.id === 15 || currentModalProduct.id === 16) && !selectedSelection) {
-                showNotification('Por favor selecciona un sabor para el agua del día');
-                return;
-            }
-            
-            // Para pancita, flautas, postres, café, refrescos NO se requiere selección
-            
-            const cartItem = {
-                id: currentModalProduct.id,
-                name: currentModalProduct.name,
-                basePrice: currentModalProduct.price,
-                price: currentModalProduct.price,
-                quantity: modalQuantity,
-                selection: selectedSelection ? {...selectedSelection} : null,
-                extras: [...selectedExtras],
-                image: currentModalProduct.image
-            };
-            
-            // Calcular precio total incluyendo modificadores
-            let totalPrice = currentModalProduct.price;
-            if (selectedSelection) {
-                totalPrice += selectedSelection.price;
-            }
-            selectedExtras.forEach(modifier => {
-                totalPrice += modifier.price;
-            });
-            cartItem.price = totalPrice;
-            
-            // Crear un identificador único para este producto con sus modificadores
-            const selectionId = selectedSelection ? selectedSelection.id : 'none';
-            const extrasIds = selectedExtras.map(m => m.id).sort().join(',');
-            cartItem.uniqueId = `${cartItem.id}-${selectionId}-${extrasIds}`;
-            
-            // Buscar si ya existe el mismo producto con los mismos modificadores
-            const existingIndex = cart.findIndex(item => {
-                return item.uniqueId === cartItem.uniqueId;
-            });
-            
-            if (existingIndex >= 0) {
-                // Actualizar cantidad si es el mismo producto con los mismos modificadores
-                cart[existingIndex].quantity += modalQuantity;
+
+            const existingItem = cart.find(item => item.id === currentModalProduct.id);
+
+            if (existingItem) {
+                existingItem.quantity += modalQuantity;
             } else {
-                // Añadir nuevo item
-                cart.push(cartItem);
+                cart.push({
+                    id: currentModalProduct.id,
+                    name: currentModalProduct.name,
+                    price: currentModalProduct.price,
+                    quantity: modalQuantity,
+                    emoji: currentModalProduct.emoji
+                });
             }
-            
-            localStorage.setItem('cart', JSON.stringify(cart));
+
+            localStorage.setItem('cartGranMitla', JSON.stringify(cart));
             updateCartDisplay();
             renderProducts();
-            
-            // Cerrar modal
             document.getElementById('productModal').classList.remove('active');
-            
-            // Mostrar notificación
             showNotification(`${currentModalProduct.name} agregado al carrito`);
         }
 
         function addToCart(productId) {
             const product = products.find(p => p.id === productId);
-            
-            // Para productos con modificadores obligatorios, abrir el modal
-            if ((product.category === 'barbacoa' && product.modifiers.selection.length > 0) ||
-                (product.id === 15 || product.id === 16)) {
+            if (!product || product.consultarPrecio) {
                 openProductModal(productId);
                 return;
             }
-            
-            // Para productos sin modificadores obligatorios, añadir directamente
-            const existingItem = cart.find(item => item.id === productId && !item.selection && (!item.extras || item.extras.length === 0));
-            
+
+            const existingItem = cart.find(item => item.id === productId);
+
             if (existingItem) {
                 existingItem.quantity += 1;
             } else {
                 cart.push({
                     id: product.id,
                     name: product.name,
-                    basePrice: product.price,
                     price: product.price,
                     quantity: 1,
-                    selection: null,
-                    extras: [],
-                    image: product.image,
-                    uniqueId: `${product.id}-none-`
+                    emoji: product.emoji
                 });
             }
-            
-            localStorage.setItem('cart', JSON.stringify(cart));
+
+            localStorage.setItem('cartGranMitla', JSON.stringify(cart));
             updateCartDisplay();
             renderProducts();
             showNotification(`${product.name} agregado al carrito`);
@@ -2182,15 +1652,12 @@
 
         function adjustQuantity(productId, change) {
             const item = cart.find(item => item.id === productId);
-            
             if (item) {
                 item.quantity += change;
-                
                 if (item.quantity <= 0) {
-                    cart = cart.filter(item => item.id !== productId);
+                    cart = cart.filter(i => i.id !== productId);
                 }
-                
-                localStorage.setItem('cart', JSON.stringify(cart));
+                localStorage.setItem('cartGranMitla', JSON.stringify(cart));
                 updateCartDisplay();
                 renderProducts();
             }
@@ -2198,55 +1665,48 @@
 
         function removeFromCart(productId) {
             cart = cart.filter(item => item.id !== productId);
-            localStorage.setItem('cart', JSON.stringify(cart));
+            localStorage.setItem('cartGranMitla', JSON.stringify(cart));
             updateCartDisplay();
             renderProducts();
-            showNotification('Producto eliminado del carrito');
+            showNotification('Producto eliminado');
+        }
+
+        function updateQuantity(productId, newQty) {
+            const qty = parseInt(newQty);
+            if (qty < 1) { removeFromCart(productId); return; }
+            const item = cart.find(i => i.id === productId);
+            if (item) {
+                item.quantity = qty;
+                localStorage.setItem('cartGranMitla', JSON.stringify(cart));
+                updateCartDisplay();
+                renderProducts();
+            }
         }
 
         function updateCartDisplay() {
-            const cartItemsContainer = document.getElementById('cartItems');
-            const floatingCartCount = document.getElementById('floatingCartCount');
-            const subtotalElement = document.getElementById('subtotal');
-            const shippingCostElement = document.getElementById('shippingCost');
-            const totalElement = document.getElementById('total');
-            
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            floatingCartCount.textContent = totalItems;
-            
-            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const total = subtotal + currentShippingCost;
-            
-            subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
-            shippingCostElement.textContent = `$${currentShippingCost.toFixed(2)}`;
-            totalElement.textContent = `$${total.toFixed(2)}`;
-            
-            if (paymentMethod === 'cash' && cashAmount > 0) {
-                calculateChange();
-            }
-            
+            const container = document.getElementById('cartItems');
+            const floatingCount = document.getElementById('floatingCartCount');
+
+            const totalItems = cart.reduce((sum, i) => sum + i.quantity, 0);
+            floatingCount.textContent = totalItems;
+
+            const subtotal = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+
+            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('total').textContent = `$${subtotal.toFixed(2)}`;
+
+            if (paymentMethod === 'cash' && cashAmount > 0) calculateChange();
+
             if (cart.length === 0) {
-                cartItemsContainer.innerHTML = `
-                    <p style="text-align:center; color:#999; margin-top:20px;">Tu canasta está vacía</p>
-                `;
+                container.innerHTML = '<p style="text-align:center; color:#999; margin-top:20px;">Tu carrito está vacío</p>';
             } else {
-                cartItemsContainer.innerHTML = '';
+                container.innerHTML = '';
                 cart.forEach(item => {
-                    const cartItem = document.createElement('div');
-                    cartItem.className = 'cart-item';
-                    
-                    let modifiersText = '';
-                    if (item.selection) {
-                        modifiersText += `<small style="color: var(--accent); font-size: 0.8rem;">${item.selection.name}</small><br>`;
-                    }
-                    if (item.extras && item.extras.length > 0) {
-                        modifiersText += `<small style="color: var(--accent); font-size: 0.8rem;">${item.extras.map(m => m.name).join(', ')}</small><br>`;
-                    }
-                    
-                    cartItem.innerHTML = `
+                    const el = document.createElement('div');
+                    el.className = 'cart-item';
+                    el.innerHTML = `
                         <div>
-                            <h4>${item.name}</h4>
-                            ${modifiersText}
+                            <h4>${item.emoji} ${item.name}</h4>
                             <small>$${item.price.toFixed(2)} c/u</small>
                         </div>
                         <div class="cart-item-controls">
@@ -2256,371 +1716,30 @@
                             </button>
                         </div>
                     `;
-                    cartItemsContainer.appendChild(cartItem);
+                    container.appendChild(el);
                 });
-            }
-        }
-
-        function updateQuantity(productId, newQuantity) {
-            const quantity = parseInt(newQuantity);
-            
-            if (quantity < 1) {
-                removeFromCart(productId);
-                return;
-            }
-            
-            const item = cart.find(item => item.id === productId);
-            if (item) {
-                item.quantity = quantity;
-                localStorage.setItem('cart', JSON.stringify(cart));
-                updateCartDisplay();
-                renderProducts();
             }
         }
 
         // ============================================
-        // FUNCIONES DE MAPA Y ENVÍO
-        // ============================================
-        function initMap() {
-            if (map) return;
-            
-            if (!mapboxgl.accessToken) {
-                console.error('Token de Mapbox no configurado');
-                return;
-            }
-            
-            map = new mapboxgl.Map({
-                container: 'map',
-                style: 'mapbox://styles/mapbox/streets-v12',
-                center: restaurantCoords,
-                zoom: 13
-            });
-            
-            restaurantMarker = new mapboxgl.Marker({ color: '#8B4513' })
-                .setLngLat(restaurantCoords)
-                .setPopup(new mapboxgl.Popup().setHTML(`
-                    <div style="padding: 10px;">
-                        <h4 style="margin: 0 0 5px; color: #8B4513;">Barbacoa de la Casa Vieja</h4>
-                        <p style="margin: 0; font-size: 0.9rem;">${restaurantAddress}</p>
-                    </div>
-                `))
-                .addTo(map);
-            
-            // Al hacer clic en el mapa, obtener la dirección del lugar
-            map.on('click', function(e) {
-                placeDeliveryMarker(e.lngLat);
-                getAddressFromCoordinates(e.lngLat);
-            });
-        }
-
-        function getCurrentLocation() {
-            if (!navigator.geolocation) {
-                showNotification('Tu navegador no soporta geolocalización');
-                return;
-            }
-            
-            // Mostrar estado de cálculo
-            document.getElementById('autoCalculatingStatus').classList.add('active');
-            
-            navigator.geolocation.getCurrentPosition(
-                function(position) {
-                    const userCoords = [position.coords.longitude, position.coords.latitude];
-                    userLocation = userCoords;
-                    
-                    placeDeliveryMarker({lng: userCoords[0], lat: userCoords[1]});
-                    getAddressFromCoordinates({lng: userCoords[0], lat: userCoords[1]});
-                },
-                function(error) {
-                    console.error('Error al obtener ubicación:', error);
-                    showNotification('No se pudo obtener tu ubicación. Por favor ingresa tu dirección manualmente.');
-                    document.getElementById('autoCalculatingStatus').classList.remove('active');
-                },
-                { 
-                    enableHighAccuracy: true, 
-                    timeout: 10000, 
-                    maximumAge: 0 
-                }
-            );
-        }
-
-        function getAddressFromCoordinates(coords) {
-            const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${coords.lng},${coords.lat}.json?access_token=${mapboxgl.accessToken}&language=es&country=mx&limit=1`;
-            
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.features && data.features.length > 0) {
-                        const address = data.features[0].place_name;
-                        document.getElementById('deliveryAddress').value = address;
-                        document.getElementById('mapSearch').value = address;
-                        
-                        // Calcular envío automáticamente
-                        setTimeout(() => calculateShippingWithMapbox(), 500);
-                    } else {
-                        const fallbackUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${coords.lng},${coords.lat}.json?access_token=${mapboxgl.accessToken}&language=es&limit=1`;
-                        
-                        return fetch(fallbackUrl)
-                            .then(response => response.json())
-                            .then(fallbackData => {
-                                if (fallbackData.features && fallbackData.features.length > 0) {
-                                    const fallbackAddress = fallbackData.features[0].place_name;
-                                    document.getElementById('deliveryAddress').value = fallbackAddress;
-                                    document.getElementById('mapSearch').value = fallbackAddress;
-                                    
-                                    setTimeout(() => calculateShippingWithMapbox(), 500);
-                                } else {
-                                    document.getElementById('deliveryAddress').value = `Coordenadas: ${coords.lat.toFixed(6)}, ${coords.lng.toFixed(6)}`;
-                                    setTimeout(() => calculateShippingWithMapbox(), 500);
-                                }
-                            });
-                    }
-                })
-                .catch(error => {
-                    console.error('Error al obtener dirección:', error);
-                    showNotification('Error al obtener la dirección');
-                    document.getElementById('deliveryAddress').value = `Coordenadas: ${coords.lat.toFixed(6)}, ${coords.lng.toFixed(6)}`;
-                    setTimeout(() => calculateShippingWithMapbox(), 500);
-                });
-        }
-
-        function placeDeliveryMarker(coords) {
-            if (deliveryMarker) {
-                deliveryMarker.remove();
-            }
-            
-            if (routeLayer && map.getLayer('route')) {
-                map.removeLayer('route');
-                map.removeSource('route');
-            }
-            
-            deliveryMarker = new mapboxgl.Marker({ color: '#3498db' })
-                .setLngLat(coords)
-                .setPopup(new mapboxgl.Popup().setHTML(`
-                    <div style="padding: 10px;">
-                        <h4 style="margin: 0 0 5px; color: #3498db;">Dirección de entrega</h4>
-                        <p style="margin: 0; font-size: 0.9rem;">Ubicación seleccionada para entrega</p>
-                    </div>
-                `))
-                .addTo(map);
-            
-            if (restaurantMarker && deliveryMarker) {
-                const bounds = new mapboxgl.LngLatBounds();
-                bounds.extend(restaurantMarker.getLngLat());
-                bounds.extend(deliveryMarker.getLngLat());
-                map.fitBounds(bounds, { padding: 50 });
-            }
-        }
-
-        function searchAddressOnMap() {
-            const searchInput = document.getElementById('mapSearch').value;
-            if (!searchInput.trim()) return;
-            
-            document.getElementById('autoCalculatingStatus').classList.add('active');
-            
-            const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(searchInput)}.json?access_token=${mapboxgl.accessToken}&limit=1&language=es&country=mx&proximity=${restaurantCoords[0]},${restaurantCoords[1]}`;
-            
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.features && data.features.length > 0) {
-                        const coords = data.features[0].center;
-                        const placeName = data.features[0].place_name;
-                        
-                        document.getElementById('deliveryAddress').value = placeName;
-                        placeDeliveryMarker({lng: coords[0], lat: coords[1]});
-                        
-                        setTimeout(() => calculateShippingWithMapbox(), 500);
-                    } else {
-                        showNotification('Dirección no encontrada en México. Intenta con más detalles.');
-                        document.getElementById('autoCalculatingStatus').classList.remove('active');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error en búsqueda de dirección:', error);
-                    showNotification('Error al buscar la dirección. Intenta nuevamente.');
-                    document.getElementById('autoCalculatingStatus').classList.remove('active');
-                });
-        }
-
-        function calculateShippingWithMapbox() {
-            if (!deliveryMarker) {
-                showNotification('Por favor selecciona una ubicación en el mapa primero');
-                document.getElementById('autoCalculatingStatus').classList.remove('active');
-                return;
-            }
-            
-            const deliveryCoords = deliveryMarker.getLngLat();
-            const address = document.getElementById('deliveryAddress').value.trim();
-            
-            if (!address) {
-                showNotification('Por favor ingresa una dirección');
-                document.getElementById('autoCalculatingStatus').classList.remove('active');
-                return;
-            }
-            
-            document.getElementById('autoCalculatingStatus').classList.add('active');
-            document.getElementById('distanceDetails').classList.remove('active');
-            document.getElementById('deliveryLimitWarning').classList.remove('active');
-            
-            const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${restaurantCoords[0]},${restaurantCoords[1]};${deliveryCoords.lng},${deliveryCoords.lat}?access_token=${mapboxgl.accessToken}&overview=full&geometries=geojson&steps=true&language=es`;
-            
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.routes && data.routes.length > 0) {
-                        const route = data.routes[0];
-                        
-                        deliveryDistance = route.distance / 1000;
-                        deliveryTime = Math.round(route.duration / 60);
-                        
-                        calculateShippingCost();
-                        updateShippingUI();
-                        
-                        drawRouteOnMap(route.geometry);
-                        
-                        showNotification('Costo de envío calculado automáticamente');
-                    } else {
-                        throw new Error('No se pudo calcular la ruta');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error al calcular ruta:', error);
-                    
-                    calculateStraightLineDistance(deliveryCoords);
-                    calculateShippingCost();
-                    updateShippingUI();
-                    
-                    showNotification('Costo de envío calculado (distancia aproximada)');
-                })
-                .finally(() => {
-                    document.getElementById('autoCalculatingStatus').classList.remove('active');
-                });
-        }
-
-        function calculateStraightLineDistance(deliveryCoords) {
-            const R = 6371;
-            const lat1 = restaurantCoords[1] * Math.PI / 180;
-            const lat2 = deliveryCoords.lat * Math.PI / 180;
-            const deltaLat = (deliveryCoords.lat - restaurantCoords[1]) * Math.PI / 180;
-            const deltaLon = (deliveryCoords.lng - restaurantCoords[0]) * Math.PI / 180;
-            
-            const a = Math.sin(deltaLat/2) * Math.sin(deltaLat/2) +
-                     Math.cos(lat1) * Math.cos(lat2) *
-                     Math.sin(deltaLon/2) * Math.sin(deltaLon/2);
-            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-            
-            deliveryDistance = R * c;
-            deliveryTime = Math.round(deliveryDistance * 1.5);
-        }
-
-        function drawRouteOnMap(routeGeometry) {
-            if (routeLayer && map.getLayer('route')) {
-                map.removeLayer('route');
-                map.removeSource('route');
-            }
-            
-            map.addSource('route', {
-                type: 'geojson',
-                data: {
-                    type: 'Feature',
-                    properties: {},
-                    geometry: routeGeometry
-                }
-            });
-            
-            map.addLayer({
-                id: 'route',
-                type: 'line',
-                source: 'route',
-                layout: {
-                    'line-join': 'round',
-                    'line-cap': 'round'
-                },
-                paint: {
-                    'line-color': '#3498db',
-                    'line-width': 4,
-                    'line-opacity': 0.7
-                }
-            });
-            
-            routeLayer = 'route';
-        }
-
-        function calculateShippingCost() {
-            let zoneName = "Fuera de zona";
-            let zoneClass = "zone-out";
-            
-            if (deliveryDistance <= 5) {
-                zoneName = "Zona Cercana";
-                zoneClass = "zone-close";
-            } else if (deliveryDistance <= 10) {
-                zoneName = "Zona Media";
-                zoneClass = "zone-medium";
-            } else if (deliveryDistance <= 15) {
-                zoneName = "Zona Lejana";
-                zoneClass = "zone-far";
-            } else {
-                zoneName = "Fuera de zona";
-                zoneClass = "zone-out";
-            }
-            
-            deliveryZone = zoneName;
-            
-            let calculatedCost = 0;
-            
-            if (deliveryDistance <= shippingRates.maxDistance && deliveryDistance > 0) {
-                calculatedCost = deliveryDistance * shippingRates.perKmRate;
-                calculatedCost = Math.round(calculatedCost * 100) / 100;
-            } else if (deliveryDistance > shippingRates.maxDistance) {
-                document.getElementById('deliveryLimitWarning').classList.add('active');
-                calculatedCost = 0;
-            } else {
-                document.getElementById('deliveryLimitWarning').classList.remove('active');
-            }
-            
-            currentShippingCost = calculatedCost;
-            
-            updateCartDisplay();
-            
-            return {
-                cost: calculatedCost,
-                zone: zoneName,
-                zoneClass: zoneClass
-            };
-        }
-
-        function updateShippingUI() {
-            const shippingInfo = calculateShippingCost();
-            
-            if (deliveryDistance > 0 && deliveryDistance <= shippingRates.maxDistance) {
-                document.getElementById('distanceText').textContent = `${deliveryDistance.toFixed(1)} km`;
-                document.getElementById('timeText').textContent = `${deliveryTime} min`;
-                document.getElementById('calculatedShippingCost').innerHTML = `$${currentShippingCost.toFixed(2)}`;
-                
-                document.getElementById('distanceDetails').classList.add('active');
-                document.getElementById('deliveryLimitWarning').classList.remove('active');
-            } else if (deliveryDistance > shippingRates.maxDistance) {
-                document.getElementById('distanceDetails').classList.remove('active');
-                document.getElementById('deliveryLimitWarning').classList.add('active');
-            }
-        }
-
-        // ============================================
-        // FUNCIONES DE PAGO
+        // PAGO
         // ============================================
         function selectPaymentMethod(method) {
             paymentMethod = method;
-            
             document.getElementById('cashMethod').classList.remove('selected');
+            document.getElementById('transferMethod').classList.remove('selected');
             document.getElementById('cardMethod').classList.remove('selected');
             document.getElementById('cashDetails').classList.remove('active');
             document.getElementById('changeInfo').classList.remove('active');
-            
+
             if (method === 'cash') {
                 document.getElementById('cashMethod').classList.add('selected');
-                document.getElementById('cashDetails').classList.add('active');
                 document.getElementById('cash').checked = true;
+                document.getElementById('cashDetails').classList.add('active');
                 calculateChange();
+            } else if (method === 'transfer') {
+                document.getElementById('transferMethod').classList.add('selected');
+                document.getElementById('transfer').checked = true;
             } else {
                 document.getElementById('cardMethod').classList.add('selected');
                 document.getElementById('card').checked = true;
@@ -2628,40 +1747,32 @@
         }
 
         function calculateChange() {
-            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const total = subtotal + currentShippingCost;
-            
+            const subtotal = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
             cashAmount = parseFloat(document.getElementById('cashAmount').value) || 0;
-            
-            if (cashAmount > 0 && cashAmount >= total) {
-                changeAmount = cashAmount - total;
+
+            if (cashAmount > 0 && cashAmount >= subtotal) {
+                changeAmount = cashAmount - subtotal;
                 document.getElementById('changeAmount').textContent = `$${changeAmount.toFixed(2)}`;
                 document.getElementById('changeInfo').classList.add('active');
-            } else if (cashAmount > 0 && cashAmount < total) {
-                document.getElementById('changeInfo').classList.remove('active');
             } else {
                 document.getElementById('changeInfo').classList.remove('active');
             }
         }
 
         function validatePayment() {
-            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const total = subtotal + currentShippingCost;
-            
+            const subtotal = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+
             if (paymentMethod === 'cash') {
                 cashAmount = parseFloat(document.getElementById('cashAmount').value) || 0;
-                
                 if (cashAmount === 0) {
-                    showNotification('Por favor ingresa el monto con el que pagarás en efectivo');
+                    showNotification('Ingresa el monto con el que pagarás');
                     return false;
                 }
-                
-                if (cashAmount < total) {
-                    showNotification(`El monto en efectivo debe ser mayor o igual al total de $${total.toFixed(2)}`);
+                if (cashAmount < subtotal) {
+                    showNotification(`El monto debe ser mayor o igual a $${subtotal.toFixed(2)}`);
                     return false;
                 }
             }
-            
             return true;
         }
 
@@ -2669,116 +1780,74 @@
         // WHATSAPP
         // ============================================
         function sendOrderToWhatsApp() {
-            const customerName = document.getElementById('customerName').value;
-            const customerPhone = document.getElementById('customerPhone').value;
-            const deliveryType = document.getElementById('deliveryTypeFinal').value;
-            const customerNotes = document.getElementById('customerNotes').value;
-            
-            let customerAddress = '';
+            const name = document.getElementById('customerName').value;
+            const phone = document.getElementById('customerPhone').value;
+            const deliveryType = document.querySelector('input[name="deliveryType"]:checked').value;
+            const notes = document.getElementById('customerNotes').value;
+            let address = '';
+
             if (deliveryType === 'delivery') {
-                customerAddress = document.getElementById('customerAddress').value;
-                if (!customerAddress) {
+                address = document.getElementById('customerAddress').value || document.getElementById('deliveryAddress').value;
+                if (!address) {
                     showNotification('Por favor ingresa una dirección para envío');
                     return;
                 }
             }
-            
-            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const total = subtotal + currentShippingCost;
-            
-            const paymentMethodText = paymentMethod === 'cash' ? 'Efectivo' : 'Tarjeta (Terminal)';
-            let paymentDetails = '';
-            
+
+            const subtotal = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+
+            const paymentLabels = { cash: 'Efectivo', transfer: 'Transferencia', card: 'Tarjeta' };
+            const paymentText = paymentLabels[paymentMethod] || 'No especificado';
+
+            let msg = `*NUEVO PEDIDO — Gran Mitla*%0A%0A`;
+            msg += `*Cliente:* ${name}%0A`;
+            msg += `*Teléfono:* ${phone}%0A`;
+
+            if (deliveryType === 'delivery') {
+                msg += `*Entrega:* Envío a domicilio%0A`;
+                msg += `*Dirección:* ${address}%0A`;
+            } else {
+                msg += `*Entrega:* Recoger / Punto de entrega%0A`;
+            }
+
+            msg += `*Pago:* ${paymentText}%0A`;
+
             if (paymentMethod === 'cash') {
                 cashAmount = parseFloat(document.getElementById('cashAmount').value) || 0;
-                changeAmount = cashAmount - total;
-                paymentDetails = `*Monto con el que paga:* $${cashAmount.toFixed(2)}%0A*Cambio a dar:* $${changeAmount.toFixed(2)}%0A`;
+                changeAmount = cashAmount - subtotal;
+                msg += `*Paga con:* $${cashAmount.toFixed(2)}%0A`;
+                msg += `*Cambio:* $${changeAmount.toFixed(2)}%0A`;
             }
-            
-            let message = `*NUEVO PEDIDO - Barbacoa de la Casa Vieja*%0A%0A`;
-            message += `*Cliente:* ${customerName}%0A`;
-            message += `*Teléfono:* ${customerPhone}%0A`;
-            
-            if (deliveryType === 'delivery') {
-                message += `*Tipo de entrega:* Envío a domicilio%0A`;
-                message += `*Dirección:* ${customerAddress}%0A`;
-                message += `*Distancia:* ${deliveryDistance.toFixed(1)} km%0A`;
-                message += `*Zona de entrega:* ${deliveryZone}%0A`;
-                message += `*Costo de envío:* $${currentShippingCost.toFixed(2)}%0A`;
-            } else {
-                message += `*Tipo de entrega:* Recoger en local%0A`;
-            }
-            
-            message += `*Método de pago:* ${paymentMethodText}%0A`;
-            
-            if (paymentMethod === 'cash') {
-                message += paymentDetails;
-            }
-            
-            if (customerNotes) {
-                message += `*Instrucciones:* ${customerNotes}%0A`;
-            }
-            
-            message += `%0A*DETALLE DEL PEDIDO:*%0A`;
-            
+
+            if (notes) msg += `*Notas:* ${notes}%0A`;
+
+            msg += `%0A*DETALLE DEL PEDIDO:*%0A`;
+
             cart.forEach(item => {
-                message += `- ${item.name} x${item.quantity}: $${(item.price * item.quantity).toFixed(2)}`;
-                
-                // Agregar información de modificadores
-                let modifiersInfo = [];
-                if (item.selection) {
-                    modifiersInfo.push(item.selection.name);
-                }
-                if (item.extras && item.extras.length > 0) {
-                    modifiersInfo = modifiersInfo.concat(item.extras.map(m => m.name));
-                }
-                
-                if (modifiersInfo.length > 0) {
-                    message += `%0A  (${modifiersInfo.join(', ')})`;
-                }
-                message += `%0A`;
+                msg += `${item.emoji} ${item.name} x${item.quantity}: $${(item.price * item.quantity).toFixed(2)}%0A`;
             });
-            
-            message += `%0A*SUBTOTAL:* $${subtotal.toFixed(2)}%0A`;
-            
+
+            msg += `%0A*SUBTOTAL:* $${subtotal.toFixed(2)}%0A`;
+
             if (deliveryType === 'delivery') {
-                message += `*ENVÍO:* $${currentShippingCost.toFixed(2)}%0A`;
+                msg += `*(Costo de envío por confirmar)*%0A`;
             }
-            
-            message += `*TOTAL:* $${total.toFixed(2)}%0A%0A`;
-            message += `*Fecha y hora:* ${new Date().toLocaleString('es-MX')}`;
-            
-            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
-            window.open(whatsappUrl, '_blank');
-            
+
+            msg += `%0A*Fecha:* ${new Date().toLocaleString('es-MX')}`;
+
+            window.open(`https://wa.me/${whatsappNumber}?text=${msg}`, '_blank');
+
             document.getElementById('confirmationModal').classList.add('active');
-            
+
+            // Reset
             cart = [];
-            localStorage.removeItem('cart');
+            localStorage.removeItem('cartGranMitla');
             document.getElementById('orderForm').reset();
             document.getElementById('checkoutForm').style.display = 'none';
             document.getElementById('deliveryAddress').value = '';
-            document.getElementById('mapSearch').value = '';
-            document.getElementById('distanceDetails').classList.remove('active');
-            document.getElementById('deliveryLimitWarning').classList.remove('active');
-            document.getElementById('autoCalculatingStatus').classList.remove('active');
-            
-            if (deliveryMarker) {
-                deliveryMarker.remove();
-                deliveryMarker = null;
-            }
-            
-            if (routeLayer && map.getLayer('route')) {
-                map.removeLayer('route');
-                map.removeSource('route');
-                routeLayer = null;
-            }
-            
-            currentShippingCost = 0;
             cashAmount = 0;
             changeAmount = 0;
-            
-            selectPaymentMethod('card');
+            selectPaymentMethod('transfer');
             updateCartDisplay();
             renderProducts();
         }
@@ -2787,14 +1856,12 @@
         // UTILIDADES
         // ============================================
         function showNotification(text) {
-            const notification = document.getElementById('notification');
-            notification.textContent = text;
-            notification.style.display = 'block';
-            
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 3000);
+            const n = document.getElementById('notification');
+            n.textContent = text;
+            n.style.display = 'block';
+            setTimeout(() => { n.style.display = 'none'; }, 3000);
         }
     </script>
 </body>
 </html>
+

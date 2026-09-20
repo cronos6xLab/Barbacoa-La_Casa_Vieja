@@ -56,12 +56,86 @@
 
         .restaurant-info {
             background: white; border-radius: var(--border-radius);
-            padding: 30px; margin: -30px auto 40px;
+            padding: 30px; margin: -30px auto 20px;
             box-shadow: var(--shadow-md); position: relative;
             z-index: 101; text-align: center; max-width: 1000px;
         }
         .restaurant-info h3 { color: var(--primary); font-size: 1.8rem; margin-bottom: 10px; }
 
+        /* ================================
+           BANNER DE HORARIO
+           ================================ */
+        .schedule-banner {
+            max-width: 1000px;
+            margin: 0 auto 24px;
+            padding: 14px 18px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 0.95rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            animation: fadeIn 0.3s ease;
+        }
+        .schedule-banner .banner-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .schedule-banner .banner-text { flex: 1; min-width: 0; }
+        .schedule-banner .banner-text strong {
+            display: block;
+            font-size: 1rem;
+            margin-bottom: 2px;
+        }
+        .schedule-banner .banner-text small {
+            display: block;
+            font-size: 0.85rem;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        .schedule-banner.open {
+            background: #e8f5e9;
+            border-left: 5px solid #27ae60;
+            color: #1e7e34;
+        }
+        .schedule-banner.open .banner-icon {
+            background: #c8e6c9;
+            color: #1e7e34;
+        }
+
+        .schedule-banner.limited {
+            background: #fff8e1;
+            border-left: 5px solid #f0ad4e;
+            color: #8a6d3b;
+        }
+        .schedule-banner.limited .banner-icon {
+            background: #ffe082;
+            color: #8a6d3b;
+        }
+
+        .schedule-banner.closed {
+            background: #ffebee;
+            border-left: 5px solid #c0392b;
+            color: #a02a1f;
+        }
+        .schedule-banner.closed .banner-icon {
+            background: #ffcdd2;
+            color: #c0392b;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ================================
+           LAYOUT
+           ================================ */
         .main-content { display: grid; grid-template-columns: 1fr 380px; gap: 30px; margin-bottom: 60px; }
         .menu-section, .cart-section, .checkout-form {
             background-color: var(--bg-card);
@@ -129,6 +203,19 @@
             display: flex; align-items: center; gap: 4px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
+        .availability-badge {
+            position: absolute; top: 10px; left: 10px;
+            background: #f0ad4e; color: white;
+            font-size: 0.68rem; font-weight: 700;
+            padding: 4px 8px; border-radius: 20px;
+            display: flex; align-items: center; gap: 4px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            animation: pulseSoft 2s ease-in-out infinite;
+        }
+        @keyframes pulseSoft {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.75; }
+        }
 
         .product-quantity-controls { display: flex; align-items: center; gap: 8px; flex: 1; justify-content: flex-end; }
         .quantity-btn {
@@ -180,6 +267,22 @@
             border-top: 1px dashed #ccc; padding-top: 10px; margin-top: 8px;
         }
         .cart-summary-row.total span:last-child { font-weight: 800; }
+
+        /* AVISO DE DISPONIBILIDAD EN CARRITO */
+        .cart-availability-warning {
+            background: #fff3cd;
+            border-left: 4px solid #f0ad4e;
+            color: #8a6d3b;
+            padding: 10px 12px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 0.82rem;
+            display: none;
+            line-height: 1.45;
+        }
+        .cart-availability-warning.active { display: block; animation: fadeIn 0.3s ease; }
+        .cart-availability-warning i { color: #f0ad4e; margin-right: 6px; }
+        .cart-availability-warning strong { color: #6d4f1f; }
 
         .checkout-btn, .submit-order-btn {
             width: 100%; border: none; border-radius: 12px;
@@ -243,6 +346,7 @@
         .notification.show { display: block; animation: slideUp 0.3s ease; }
         .notification.success { background: #27ae60; }
         .notification.error { background: #c0392b; }
+        .notification.warning { background: #f0ad4e; color: #3d2f00; }
         @keyframes slideUp {
             from { opacity: 0; transform: translateX(-50%) translateY(20px); }
             to { opacity: 1; transform: translateX(-50%) translateY(0); }
@@ -291,7 +395,6 @@
         .auto-calculating-status i { margin-right: 8px; animation: spin 1s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* NUEVOS BLOQUES DE DIRECCIÓN */
         .address-block {
             background: #f9f9f9; padding: 15px;
             border-radius: 12px; margin-bottom: 12px;
@@ -331,7 +434,6 @@
         .selected-address.active { display: block; }
         .selected-address strong { color: #1e7e34; }
 
-        /* Bloque "¿Para quién es?" */
         .for-whom-block {
             background: #fff;
             border: 2px solid #f0f0f0;
@@ -363,9 +465,7 @@
             color: var(--primary);
             font-weight: 700;
         }
-        .for-whom-option input[type="radio"] {
-            accent-color: var(--primary);
-        }
+        .for-whom-option input[type="radio"] { accent-color: var(--primary); }
         .for-whom-option i { color: var(--primary); }
 
         .other-person-hint {
@@ -381,22 +481,16 @@
         }
         .other-person-hint.active { display: block; }
         .other-person-hint i { margin-right: 6px; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* Detalles de ubicación */
         #locationDetailsBlock {
             background: #fff8e1;
             border: 1px solid #ffe082;
             border-left: 4px solid var(--accent);
         }
-        #locationDetailsBlock label {
-            color: var(--primary);
-        }
+        #locationDetailsBlock label { color: var(--primary); }
         .details-hint {
-            color: #666;
-            font-size: 0.78rem;
-            display: block;
-            margin-top: 6px;
+            color: #666; font-size: 0.78rem;
+            display: block; margin-top: 6px;
         }
         .details-hint i { color: var(--accent); }
 
@@ -481,6 +575,51 @@
             white-space: nowrap; margin-left: 15px; font-size: 0.9rem;
         }
 
+        /* AVISO DE DISPONIBILIDAD EN MODAL */
+        .availability-warning {
+            background: #fff3cd;
+            border: 1px solid #ffe082;
+            border-left: 4px solid #f0ad4e;
+            border-radius: 10px;
+            padding: 14px;
+            margin-top: 20px;
+            display: none;
+        }
+        .availability-warning.active { display: block; animation: fadeIn 0.3s ease; }
+        .availability-warning .warn-head {
+            display: flex; gap: 10px; align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        .availability-warning .warn-head > i {
+            color: #f0ad4e; font-size: 1.3rem;
+            margin-top: 2px; flex-shrink: 0;
+        }
+        .availability-warning .warn-head strong {
+            color: #8a6d3b; display: block; margin-bottom: 3px; font-size: 0.95rem;
+        }
+        .availability-warning .warn-head p {
+            color: #8a6d3b; font-size: 0.85rem; margin: 0; line-height: 1.45;
+        }
+        .availability-warning .warn-head p strong { display: inline; font-size: inherit; }
+        .availability-checkbox {
+            display: flex; align-items: flex-start; gap: 8px;
+            background: rgba(255,255,255,0.7);
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #6d4f1f;
+            line-height: 1.4;
+            user-select: none;
+        }
+        .availability-checkbox input[type="checkbox"] {
+            margin-top: 3px;
+            accent-color: var(--primary);
+            flex-shrink: 0;
+            width: 16px; height: 16px;
+            cursor: pointer;
+        }
+
         .modal-quantity-controls {
             display: flex; align-items: center; justify-content: center;
             gap: 20px; margin: 25px 0;
@@ -555,8 +694,16 @@
             .logo-container { flex-direction: column; gap: 10px; }
             .logo-img { height: 60px; width: 60px; }
             .logo-text { font-size: 1.6rem; }
-            .restaurant-info { padding: 20px; margin-top: -20px; }
+            .restaurant-info { padding: 20px; margin-top: -20px; margin-bottom: 16px; }
             .restaurant-info h3 { font-size: 1.4rem; }
+            .schedule-banner {
+                padding: 12px 14px;
+                gap: 10px;
+                margin-bottom: 18px;
+            }
+            .schedule-banner .banner-icon { width: 38px; height: 38px; font-size: 1.2rem; }
+            .schedule-banner .banner-text strong { font-size: 0.92rem; }
+            .schedule-banner .banner-text small { font-size: 0.78rem; }
             .products-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .product-card { border-radius: 12px; }
             .product-img { height: 130px; }
@@ -609,6 +756,17 @@
             </p>
         </div>
 
+        <!-- BANNER DE HORARIO -->
+        <div class="schedule-banner" id="scheduleBanner">
+            <div class="banner-icon" id="scheduleBannerIcon">
+                <i class="fas fa-clock" id="scheduleBannerIconInner"></i>
+            </div>
+            <div class="banner-text">
+                <strong id="scheduleTitle">Verificando horario…</strong>
+                <small id="scheduleSubtitle">Sábados y Domingos 8:00 AM a 2:00 PM</small>
+            </div>
+        </div>
+
         <div class="main-content" id="mainContent">
             <section class="menu-section">
                 <h2 class="section-title">Menú</h2>
@@ -635,6 +793,8 @@
                 </h2>
 
                 <div class="cart-items" id="cartItems"></div>
+
+                <div class="cart-availability-warning" id="cartAvailabilityWarning"></div>
 
                 <div class="cart-summary">
                     <div class="cart-summary-row">
@@ -666,7 +826,6 @@
 
                 <div id="deliveryAddressSection" style="display: none;">
 
-                    <!-- ¿PARA QUIÉN ES EL PEDIDO? -->
                     <div class="for-whom-block">
                         <label><i class="fas fa-user-check"></i> ¿Para quién es el pedido?</label>
                         <div class="for-whom-options">
@@ -707,7 +866,6 @@
                         <div id="deliveryAddressText" style="margin-top: 4px; word-break: break-word;"></div>
                     </div>
 
-                    <!-- DETALLES DE UBICACIÓN -->
                     <div class="address-block" id="locationDetailsBlock" style="display: none;">
                         <label><i class="fas fa-info-circle" style="color: var(--primary);"></i> Detalles de la ubicación *</label>
                         <textarea id="locationDetails" class="form-control" rows="3"
@@ -836,13 +994,40 @@
                 <h3 id="modalProductTitle" class="product-modal-title"></h3>
                 <p id="modalProductDesc" class="product-modal-desc"></p>
                 <div id="modalProductPrice" class="product-modal-price"></div>
-                <div class="modifiers-section" id="modifiersSection"><div id="modifiersList"></div></div>
-                <div class="modal-total">Total: <span id="modalTotalPrice" class="modal-total-price">$0.00</span></div>
-                <div class="modal-quantity-controls">
-                    <button type="button" class="modal-quantity-btn" id="modalDecreaseBtn"><i class="fas fa-minus"></i></button>
-                    <div id="modalQuantityDisplay" class="modal-quantity-display">1</div>
-                    <button type="button" class="modal-quantity-btn" id="modalIncreaseBtn"><i class="fas fa-plus"></i></button>
+
+                <div class="modifiers-section" id="modifiersSection">
+                    <div id="modifiersList"></div>
                 </div>
+
+                <!-- AVISO DE DISPONIBILIDAD -->
+                <div class="availability-warning" id="modalAvailabilityWarning">
+                    <div class="warn-head">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <div>
+                            <strong id="modalAvailabilityTitle">Aviso de disponibilidad</strong>
+                            <p id="modalAvailabilityText"></p>
+                        </div>
+                    </div>
+                    <label class="availability-checkbox">
+                        <input type="checkbox" id="availabilityConfirm">
+                        <span>Confirmo que aún tienen disponibilidad. Entiendo que si se agotó, el negocio me contactará para ofrecer alternativas.</span>
+                    </label>
+                </div>
+
+                <div class="modal-total">
+                    Total: <span id="modalTotalPrice" class="modal-total-price">$0.00</span>
+                </div>
+
+                <div class="modal-quantity-controls">
+                    <button type="button" class="modal-quantity-btn" id="modalDecreaseBtn">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <div id="modalQuantityDisplay" class="modal-quantity-display">1</div>
+                    <button type="button" class="modal-quantity-btn" id="modalIncreaseBtn">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+
                 <button type="button" class="modal-add-to-cart" id="modalAddToCartBtn">
                     <i class="fas fa-cart-plus"></i> Añadir al carrito
                 </button>
@@ -882,12 +1067,22 @@
         const whatsappNumber = "+525578677774";
         const restaurantAddress = "Alejandría 35, Claveria, Azcapotzalco, 02080 Ciudad de México, CDMX";
         const restaurantCoords = { lat: 19.4646, lng: -99.1853 };
+        const TIMEZONE = 'America/Mexico_City';
 
         const shippingRates = {
             baseRate: 10.00,
             perKmRate: 10.00,
             maxDistance: 15,
             minOrderForDelivery: 100.00
+        };
+
+        // Horario de atención
+        const SCHEDULE = {
+            openDays: ['Sat', 'Sun'],           // Sábados y domingos
+            openMinute: 8 * 60,                 // 8:00
+            closeMinute: 14 * 60,               // 14:00 (2 PM)
+            meatWarnMinute: 12 * 60,            // 12:00 → carne puede agotarse
+            pancitaWarnMinute: 13 * 60          // 13:00 → pancita puede agotarse
         };
 
         // ============================================
@@ -953,14 +1148,14 @@
               ] } },
             { id: 10, name: "Flautas doradas de barbacoa, orden de seis", category: "flautas",
               description: "Seis flautas doradas rellenas de barbacoa, bañadas en crema, queso y lechuga.",
-              price: 290.00, image: "https://i.ibb.co/PknjzJZ/Photoroom-20260124-142420.jpg",
+              price: 280.00, image: "https://i.ibb.co/PknjzJZ/Photoroom-20260124-142420.jpg",
               modifiers: { selection: [], extras: [
                 { id: 108, name: "Extra crema", description: "Crema adicional", price: 5.00 },
                 { id: 109, name: "Extra queso", description: "Queso rallado adicional", price: 5.00 }
               ] } },
             { id: 11, name: "Flautas doradas de barbacoa, orden de nueve", category: "flautas",
               description: "Nueve flautas doradas rellenas de barbacoa, bañadas en crema, queso y lechuga.",
-              price: 435.00, image: "https://i.ibb.co/PknjzJZ/Photoroom-20260124-142420.jpg",
+              price: 420.00, image: "https://i.ibb.co/PknjzJZ/Photoroom-20260124-142420.jpg",
               modifiers: { selection: [], extras: [
                 { id: 108, name: "Extra crema", description: "Crema adicional", price: 5.00 },
                 { id: 109, name: "Extra queso", description: "Queso rallado adicional", price: 5.00 }
@@ -1019,12 +1214,14 @@
         let deliveryCoords = null;
         let deliveryZone = "";
         let paymentMethod = 'card';
-        let deliveryFor = 'me'; // 'me' | 'other'
+        let deliveryFor = 'me';
 
         let currentModalProduct = null;
         let modalQuantity = 1;
         let selectedSelection = null;
         let selectedExtras = [];
+
+        let scheduleState = { isOpen: false, isOpenDay: false, meatLow: false, pancitaLow: false };
 
         // ============================================
         // HELPERS
@@ -1041,7 +1238,7 @@
             return cart.filter(item => item.id === productId).reduce((s, i) => s + i.quantity, 0);
         }
         function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); }
-        function refreshAll() { saveCart(); updateCartDisplay(); renderProducts(); }
+        function refreshAll() { saveCart(); updateCartDisplay(); renderProducts(); updateCartAvailabilityWarning(); }
         function roundPeso(n) { return Math.round(n); }
 
         function resetDeliveryLocation() {
@@ -1061,11 +1258,119 @@
         }
 
         // ============================================
+        // ⏰ HORARIO (Sáb y Dom 8 AM a 2 PM)
+        // ============================================
+        function getMexicanTime() {
+            const parts = new Intl.DateTimeFormat('en-US', {
+                timeZone: TIMEZONE,
+                weekday: 'short',
+                hour: 'numeric',
+                minute: 'numeric',
+                hour12: false
+            }).formatToParts(new Date());
+            const get = t => parts.find(p => p.type === t)?.value;
+            let hour = parseInt(get('hour'));
+            if (hour === 24) hour = 0;
+            const minute = parseInt(get('minute'));
+            return {
+                weekday: get('weekday'), // 'Mon', 'Tue', ..., 'Sun'
+                hour, minute,
+                timeInMinutes: hour * 60 + minute
+            };
+        }
+
+        function getOrderingStatus() {
+            const t = getMexicanTime();
+            const isOpenDay = SCHEDULE.openDays.includes(t.weekday);
+            const isOpenTime = t.timeInMinutes >= SCHEDULE.openMinute && t.timeInMinutes < SCHEDULE.closeMinute;
+            const isOpen = isOpenDay && isOpenTime;
+
+            return {
+                ...t,
+                isOpen,
+                isOpenDay,
+                isOpenTime,
+                meatLow: isOpen && t.timeInMinutes >= SCHEDULE.meatWarnMinute,
+                pancitaLow: isOpen && t.timeInMinutes >= SCHEDULE.pancitaWarnMinute
+            };
+        }
+
+        function formatHour(minutes) {
+            const h = Math.floor(minutes / 60);
+            const m = minutes % 60;
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            const h12 = h % 12 === 0 ? 12 : h % 12;
+            return `${h12}:${String(m).padStart(2,'0')} ${ampm}`;
+        }
+
+        function applyScheduleState() {
+            scheduleState = getOrderingStatus();
+            const banner = document.getElementById('scheduleBanner');
+            const iconInner = document.getElementById('scheduleBannerIconInner');
+            const title = document.getElementById('scheduleTitle');
+            const subtitle = document.getElementById('scheduleSubtitle');
+
+            banner.classList.remove('open', 'closed', 'limited');
+
+            if (!scheduleState.isOpen) {
+                banner.classList.add('closed');
+                iconInner.className = 'fas fa-lock';
+                if (!scheduleState.isOpenDay) {
+                    const dayNames = { Mon:'lunes', Tue:'martes', Wed:'miércoles', Thu:'jueves', Fri:'viernes', Sat:'sábado', Sun:'domingo' };
+                    title.textContent = `Cerrado — Hoy ${dayNames[scheduleState.weekday] || ''}`;
+                    subtitle.textContent = 'Abrimos sábados y domingos de 8:00 AM a 2:00 PM. Puedes ver el menú, pero no recibimos pedidos ahora.';
+                } else if (scheduleState.timeInMinutes < SCHEDULE.openMinute) {
+                    title.textContent = `Aún cerrado — Abrimos a las ${formatHour(SCHEDULE.openMinute)}`;
+                    subtitle.textContent = `Son las ${formatHour(scheduleState.timeInMinutes)}. Puedes preparar tu pedido, pero solo se enviará a partir de las 8:00 AM.`;
+                } else {
+                    title.textContent = 'Cerrado por hoy — Nos vemos el próximo sábado';
+                    subtitle.textContent = `Atendemos sábados y domingos de 8:00 AM a 2:00 PM. Son las ${formatHour(scheduleState.timeInMinutes)}.`;
+                }
+            } else if (scheduleState.pancitaLow) {
+                banner.classList.add('limited');
+                iconInner.className = 'fas fa-exclamation-triangle';
+                title.textContent = '⚠️ Disponibilidad limitada de barbacoa y pancita';
+                subtitle.textContent = 'Después de las 12 PM la carne y después de la 1 PM la pancita pueden agotarse. Te pediremos confirmar antes de agregar.';
+            } else if (scheduleState.meatLow) {
+                banner.classList.add('limited');
+                iconInner.className = 'fas fa-exclamation-triangle';
+                title.textContent = '⚠️ Disponibilidad limitada de barbacoa';
+                subtitle.textContent = 'Después de las 12 PM la carne puede agotarse. Te pediremos confirmar antes de agregar.';
+            } else {
+                banner.classList.add('open');
+                iconInner.className = 'fas fa-check-circle';
+                title.textContent = '✅ Estamos abiertos';
+                subtitle.textContent = `Son las ${formatHour(scheduleState.timeInMinutes)}. Horario: sábados y domingos 8:00 AM a 2:00 PM.`;
+            }
+
+            // Refrescar UI dependiente
+            updateCheckoutButtonState();
+            updateCartAvailabilityWarning();
+            if (currentModalProduct && document.getElementById('productModal').classList.contains('active')) {
+                updateModalAvailabilityWarning();
+            }
+            // Refrescar tarjetas para actualizar badges de disponibilidad
+            renderProducts();
+        }
+
+        function productAvailabilityKind(product) {
+            // Devuelve 'carne' | 'pancita' | null según corresponda y el horario actual
+            if (!scheduleState.isOpen) return null;
+            if (product.category === 'barbacoa' && scheduleState.meatLow) return 'carne';
+            if (product.category === 'pancita' && scheduleState.pancitaLow) return 'pancita';
+            return null;
+        }
+
+        // ============================================
         // INICIALIZACIÓN
         // ============================================
         document.addEventListener('DOMContentLoaded', function() {
+            scheduleState = getOrderingStatus();
             renderProducts();
             updateCartDisplay();
+            applyScheduleState();
+            // Actualizar cada 30 segundos
+            setInterval(applyScheduleState, 30000);
 
             document.querySelectorAll('.category-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -1089,13 +1394,11 @@
                 }
             });
 
-            // Tipo de entrega
             document.querySelectorAll('input[name="deliveryType"]').forEach(radio => {
                 radio.addEventListener('change', function() {
                     const dt = this.value;
                     document.getElementById('pickupOption').classList.toggle('selected', dt === 'pickup');
                     document.getElementById('deliveryOption').classList.toggle('selected', dt === 'delivery');
-
                     if (dt === 'delivery') {
                         document.getElementById('deliveryAddressSection').style.display = 'block';
                     } else {
@@ -1105,27 +1408,28 @@
                 });
             });
 
-            // ¿Para quién es?
             document.querySelectorAll('input[name="deliveryFor"]').forEach(radio => {
-                radio.addEventListener('change', function() {
-                    setDeliveryFor(this.value);
-                });
+                radio.addEventListener('change', function() { setDeliveryFor(this.value); });
             });
 
-            // Ubicación actual
             document.getElementById('useCurrentLocationBtn').addEventListener('click', useCurrentLocation);
-            // Buscar dirección
             document.getElementById('searchAddressBtn').addEventListener('click', searchAddress);
             document.getElementById('addressInput').addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') { e.preventDefault(); searchAddress(); }
             });
 
-            // Pago
             document.getElementById('cashMethod').addEventListener('click', () => selectPaymentMethod('cash'));
             document.getElementById('cardMethod').addEventListener('click', () => selectPaymentMethod('card'));
             document.getElementById('cashAmount').addEventListener('input', calculateChange);
 
-            document.getElementById('checkoutBtn').addEventListener('click', handleCheckout);
+            document.getElementById('checkoutBtn').addEventListener('click', function() {
+                if (!scheduleState.isOpen) {
+                    showNotification('Solo tomamos pedidos sábados y domingos de 8:00 AM a 2:00 PM', 'error');
+                    return;
+                }
+                handleCheckout();
+            });
+
             document.getElementById('cancelCheckout').addEventListener('click', function() {
                 document.getElementById('checkoutForm').style.display = 'none';
                 document.getElementById('mainContent').style.display = 'grid';
@@ -1134,6 +1438,10 @@
 
             document.getElementById('orderForm').addEventListener('submit', function(e) {
                 e.preventDefault();
+                if (!scheduleState.isOpen) {
+                    showNotification('Solo tomamos pedidos sábados y domingos de 8:00 AM a 2:00 PM', 'error');
+                    return;
+                }
                 if (validateOrderForm() && validatePayment()) {
                     sendOrderToWhatsApp();
                 }
@@ -1143,7 +1451,6 @@
                 document.getElementById('confirmationModal').classList.remove('active');
             });
 
-            // Modal producto
             document.getElementById('closeProductModal').addEventListener('click', closeProductModal);
             document.getElementById('productModal').addEventListener('click', function(e) {
                 if (e.target === this) closeProductModal();
@@ -1165,12 +1472,11 @@
         });
 
         // ============================================
-        // ¿PARA QUIÉN ES?
+        // ¿PARA QUIÉN?
         // ============================================
         function setDeliveryFor(value) {
             if (deliveryFor === value) return;
             deliveryFor = value;
-
             const forMeOption = document.getElementById('forMeOption');
             const forOtherOption = document.getElementById('forOtherOption');
             const otherHint = document.getElementById('otherPersonHint');
@@ -1181,8 +1487,6 @@
 
             forMeOption.classList.toggle('selected', value === 'me');
             forOtherOption.classList.toggle('selected', value === 'other');
-
-            // Reset ubicación actual para evitar confusión
             resetDeliveryLocation();
 
             if (value === 'other') {
@@ -1216,6 +1520,7 @@
             filtered.forEach(product => {
                 const totalQty = getProductTotalQuantity(product.id);
                 const hasMods = productHasModifiers(product);
+                const availKind = productAvailabilityKind(product);
 
                 let controlsHTML = '';
                 if (hasMods) {
@@ -1241,9 +1546,14 @@
                     }
                 }
 
+                const availBadge = availKind
+                    ? `<div class="availability-badge"><i class="fas fa-exclamation-triangle"></i> ${availKind === 'carne' ? 'Poca carne' : 'Poca pancita'}</div>`
+                    : '';
+
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.innerHTML = `
+                    ${availBadge}
                     ${hasMods ? '<div class="customizable-badge"><i class="fas fa-sliders-h"></i> Opciones</div>' : ''}
                     <img src="${product.image}" alt="${product.name}" class="product-img" loading="lazy" onerror="this.src='https://via.placeholder.com/400x300?text=Imagen'">
                     <div class="product-info">
@@ -1281,7 +1591,6 @@
         function adjustSimpleProductQuantity(productId, change) {
             const product = products.find(p => p.id === productId);
             if (!product) return;
-
             const existing = cart.find(item => item.id === productId && !item.selection && (!item.extras || item.extras.length === 0));
             if (existing) {
                 existing.quantity += change;
@@ -1319,6 +1628,7 @@
             calculateModalTotal();
 
             document.getElementById('modifiersSection').style.display = productHasModifiers(product) ? 'block' : 'none';
+            updateModalAvailabilityWarning();
             document.getElementById('productModal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -1326,6 +1636,33 @@
         function closeProductModal() {
             document.getElementById('productModal').classList.remove('active');
             document.body.style.overflow = '';
+        }
+
+        function updateModalAvailabilityWarning() {
+            const warning = document.getElementById('modalAvailabilityWarning');
+            const title = document.getElementById('modalAvailabilityTitle');
+            const text = document.getElementById('modalAvailabilityText');
+            const checkbox = document.getElementById('availabilityConfirm');
+
+            if (!currentModalProduct) {
+                warning.classList.remove('active');
+                return;
+            }
+            const kind = productAvailabilityKind(currentModalProduct);
+            if (!kind) {
+                warning.classList.remove('active');
+                checkbox.checked = false;
+                return;
+            }
+            if (kind === 'carne') {
+                title.textContent = 'Aviso: la barbacoa puede estar agotándose';
+                text.innerHTML = 'Después de las <strong>12:00 PM</strong> la barbacoa puede agotarse. <strong>Antes de agregar, confirma que aún tienen disponible.</strong>';
+            } else {
+                title.textContent = 'Aviso: la pancita puede estar agotándose';
+                text.innerHTML = 'Después de la <strong>1:00 PM</strong> la pancita puede agotarse. <strong>Antes de agregar, confirma que aún tienen disponible.</strong>';
+            }
+            checkbox.checked = false;
+            warning.classList.add('active');
         }
 
         function loadModifiers(modifiers) {
@@ -1421,6 +1758,16 @@
                 return;
             }
 
+            // Verificar confirmación de disponibilidad si aplica
+            const availKind = productAvailabilityKind(currentModalProduct);
+            if (availKind) {
+                const checkbox = document.getElementById('availabilityConfirm');
+                if (!checkbox.checked) {
+                    showNotification('Confirma la disponibilidad antes de continuar', 'error');
+                    return;
+                }
+            }
+
             let unitPrice = currentModalProduct.price;
             if (selectedSelection) unitPrice += selectedSelection.price;
             selectedExtras.forEach(m => unitPrice += m.price);
@@ -1433,7 +1780,9 @@
                 basePrice: currentModalProduct.price, price: unitPrice,
                 quantity: modalQuantity,
                 selection: selectedSelection ? {...selectedSelection} : null,
-                extras: [...selectedExtras], image: currentModalProduct.image, uniqueId
+                extras: [...selectedExtras], image: currentModalProduct.image, uniqueId,
+                availabilityAcknowledged: !!availKind,
+                availabilityKind: availKind || null
             });
 
             refreshAll();
@@ -1472,11 +1821,7 @@
             const deliverySelected = document.querySelector('input[name="deliveryType"]:checked')?.value === 'delivery';
             shippingRow.style.display = (deliverySelected && currentShippingCost > 0) ? 'flex' : 'none';
 
-            const checkoutBtn = document.getElementById('checkoutBtn');
-            checkoutBtn.disabled = cart.length === 0;
-            checkoutBtn.innerHTML = cart.length === 0
-                ? '<i class="fas fa-shopping-bag"></i> Carrito vacío'
-                : `<i class="fas fa-shopping-bag"></i> Proceder al Pedido ($${total.toFixed(2)})`;
+            updateCheckoutButtonState();
 
             if (cart.length === 0) {
                 cartItemsContainer.innerHTML = `
@@ -1522,6 +1867,53 @@
             updateFinalSummary();
         }
 
+        function updateCheckoutButtonState() {
+            const btn = document.getElementById('checkoutBtn');
+            if (!btn) return;
+            const subtotal = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+            const total = subtotal + currentShippingCost;
+
+            if (cart.length === 0) {
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-shopping-bag"></i> Carrito vacío';
+                btn.classList.remove('disabled-by-schedule');
+            } else if (!scheduleState.isOpen) {
+                btn.disabled = true;
+                btn.classList.add('disabled-by-schedule');
+                btn.innerHTML = '<i class="fas fa-clock"></i> Fuera de horario';
+            } else {
+                btn.disabled = false;
+                btn.classList.remove('disabled-by-schedule');
+                btn.innerHTML = `<i class="fas fa-shopping-bag"></i> Proceder al Pedido ($${total.toFixed(2)})`;
+            }
+        }
+
+        function updateCartAvailabilityWarning() {
+            const el = document.getElementById('cartAvailabilityWarning');
+            if (!el) return;
+            if (!scheduleState.isOpen) { el.classList.remove('active'); el.innerHTML=''; return; }
+
+            const hasBarbacoa = cart.some(i => products.find(p => p.id === i.id)?.category === 'barbacoa');
+            const hasPancita = cart.some(i => products.find(p => p.id === i.id)?.category === 'pancita');
+
+            let msg = '';
+            if (scheduleState.pancitaLow && hasPancita && hasBarbacoa) {
+                msg = '<i class="fas fa-exclamation-triangle"></i><strong>Disponibilidad limitada:</strong> después de las 12 PM la carne y después de la 1 PM la pancita pueden agotarse. Confirmaremos disponibilidad al recibir tu pedido.';
+            } else if (scheduleState.pancitaLow && hasPancita) {
+                msg = '<i class="fas fa-exclamation-triangle"></i><strong>Pancita:</strong> después de la 1 PM puede agotarse. Confirmaremos disponibilidad al recibir tu pedido.';
+            } else if (scheduleState.meatLow && hasBarbacoa) {
+                msg = '<i class="fas fa-exclamation-triangle"></i><strong>Barbacoa:</strong> después de las 12 PM puede agotarse. Confirmaremos disponibilidad al recibir tu pedido.';
+            }
+
+            if (msg) {
+                el.innerHTML = msg;
+                el.classList.add('active');
+            } else {
+                el.innerHTML = '';
+                el.classList.remove('active');
+            }
+        }
+
         function updateCartItemQuantity(uniqueId, newQty) {
             const qty = parseInt(newQty);
             if (isNaN(qty) || qty < 1) { removeCartItem(uniqueId); return; }
@@ -1553,17 +1945,14 @@
                     const lat = position.coords.latitude;
                     const lng = position.coords.longitude;
                     deliveryCoords = { lat, lng };
-
                     try {
                         const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&zoom=18&addressdetails=1&accept-language=es`;
                         const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
                         const data = await res.json();
                         deliveryAddress = data.display_name || `Lat: ${lat.toFixed(5)}, Lng: ${lng.toFixed(5)}`;
                     } catch (err) {
-                        console.warn('Reverse geocoding falló:', err);
                         deliveryAddress = `Lat: ${lat.toFixed(5)}, Lng: ${lng.toFixed(5)}`;
                     }
-
                     showSelectedAddress(deliveryAddress);
                     await calculateDistanceAndCost();
                     btn.disabled = false;
@@ -1603,15 +1992,12 @@
                     document.getElementById('autoCalculatingStatus').classList.remove('active');
                     return;
                 }
-
                 const place = data[0];
                 deliveryCoords = { lat: parseFloat(place.lat), lng: parseFloat(place.lon) };
                 deliveryAddress = place.display_name;
-
                 showSelectedAddress(deliveryAddress);
                 await calculateDistanceAndCost();
             } catch (err) {
-                console.error('Error búsqueda:', err);
                 showNotification('Error al buscar la dirección. Intenta de nuevo.', 'error');
                 document.getElementById('autoCalculatingStatus').classList.remove('active');
             } finally {
@@ -1623,7 +2009,6 @@
         function showSelectedAddress(address) {
             document.getElementById('deliveryAddressText').textContent = address;
             document.getElementById('selectedAddressBox').classList.add('active');
-            // Mostrar campo de detalles obligatorio
             document.getElementById('locationDetailsBlock').style.display = 'block';
         }
 
@@ -1633,21 +2018,16 @@
             document.getElementById('distanceDetails').classList.remove('active');
             document.getElementById('deliveryLimitWarning').classList.remove('active');
 
-            let distanceKm = 0;
-            let durationMin = 0;
-
+            let distanceKm = 0, durationMin = 0;
             try {
                 const url = `https://router.project-osrm.org/route/v1/driving/${restaurantCoords.lng},${restaurantCoords.lat};${deliveryCoords.lng},${deliveryCoords.lat}?overview=false&steps=false`;
                 const res = await fetch(url);
                 const data = await res.json();
-                if (data.code === 'Ok' && data.routes && data.routes.length > 0) {
+                if (data.code === 'Ok' && data.routes?.length > 0) {
                     distanceKm = data.routes[0].distance / 1000;
                     durationMin = Math.round(data.routes[0].duration / 60);
-                } else {
-                    throw new Error('OSRM sin ruta');
-                }
+                } else throw new Error('OSRM sin ruta');
             } catch (err) {
-                console.warn('OSRM falló, usando línea recta:', err);
                 distanceKm = haversineKm(restaurantCoords, deliveryCoords);
                 durationMin = Math.round(distanceKm * 2);
             }
@@ -1735,6 +2115,11 @@
         }
 
         function validateOrderForm() {
+            if (!scheduleState.isOpen) {
+                showNotification('Solo tomamos pedidos sábados y domingos de 8 AM a 2 PM', 'error');
+                return false;
+            }
+
             const name = document.getElementById('customerName').value.trim();
             const phone = document.getElementById('customerPhone').value.trim();
             const deliveryType = document.getElementById('deliveryTypeFinal').value;
@@ -1770,6 +2155,10 @@
         // ============================================
         function handleCheckout() {
             if (cart.length === 0) { showNotification('Tu carrito está vacío', 'error'); return; }
+            if (!scheduleState.isOpen) {
+                showNotification('Solo tomamos pedidos sábados y domingos de 8 AM a 2 PM', 'error');
+                return;
+            }
 
             const deliveryType = document.querySelector('input[name="deliveryType"]:checked').value;
             const deliveryTypeFinal = document.getElementById('deliveryTypeFinal');
@@ -1791,13 +2180,11 @@
                     document.getElementById('locationDetails').focus();
                     return;
                 }
-
                 const subtotal = cart.reduce((s, i) => s + i.price * i.quantity, 0);
                 if (subtotal < shippingRates.minOrderForDelivery) {
                     showNotification(`El pedido mínimo para envío es $${shippingRates.minOrderForDelivery}`, 'error');
                     return;
                 }
-
                 deliveryTypeFinal.value = 'delivery';
                 finalAddressSection.style.display = 'block';
                 finalDetailsSection.style.display = 'block';
@@ -1844,6 +2231,11 @@
         // WHATSAPP
         // ============================================
         function sendOrderToWhatsApp() {
+            if (!scheduleState.isOpen) {
+                showNotification('Solo tomamos pedidos sábados y domingos de 8 AM a 2 PM', 'error');
+                return;
+            }
+
             const customerName = document.getElementById('customerName').value.trim();
             const customerPhone = document.getElementById('customerPhone').value.trim();
             const deliveryType = document.getElementById('deliveryTypeFinal').value;
@@ -1865,6 +2257,9 @@
                 const cash = parseFloat(document.getElementById('cashAmount').value) || 0;
                 paymentDetails = `*Paga con:* $${cash.toFixed(2)}%0A*Cambio:* $${(cash - total).toFixed(2)}%0A`;
             }
+
+            // Detectar si hay avisos de disponibilidad
+            const hasAvailAck = cart.some(i => i.availabilityAcknowledged);
 
             let msg = `*NUEVO PEDIDO - Barbacoa de la Casa Vieja*%0A%0A`;
             msg += `*Cliente:* ${customerName}%0A`;
@@ -1889,6 +2284,14 @@
             if (paymentDetails) msg += paymentDetails;
             if (customerNotes) msg += `*Notas:* ${customerNotes}%0A`;
 
+            // Avisos de disponibilidad (horario)
+            if (scheduleState.pancitaLow || scheduleState.meatLow || hasAvailAck) {
+                msg += `%0A*⚠️ NOTA DE DISPONIBILIDAD:*%0A`;
+                if (scheduleState.meatLow) msg += `- Barbacoa: pedido después de 12 PM, confirmar disponibilidad.%0A`;
+                if (scheduleState.pancitaLow) msg += `- Pancita: pedido después de 1 PM, confirmar disponibilidad.%0A`;
+                msg += `_El cliente confirmó disponibilidad al agregar._%0A`;
+            }
+
             msg += `%0A*DETALLE DEL PEDIDO:*%0A`;
             cart.forEach(item => {
                 msg += `• ${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`;
@@ -1896,13 +2299,14 @@
                 if (item.selection) mods.push(item.selection.name);
                 if (item.extras?.length) mods = mods.concat(item.extras.map(m => m.name));
                 if (mods.length) msg += `%0A   _${mods.join(', ')}_`;
+                if (item.availabilityAcknowledged) msg += `%0A   ✓ Disponibilidad confirmada por el cliente`;
                 msg += `%0A`;
             });
 
             msg += `%0A*SUBTOTAL:* $${subtotal.toFixed(2)}%0A`;
             if (deliveryType === 'delivery') msg += `*ENVÍO:* $${currentShippingCost.toFixed(2)}%0A`;
             msg += `*TOTAL:* $${total.toFixed(2)}%0A%0A`;
-            msg += `_Enviado desde el menú digital - ${new Date().toLocaleString('es-MX')}_`;
+            msg += `_Enviado: ${new Date().toLocaleString('es-MX')}_`;
 
             const url = `https://wa.me/${whatsappNumber.replace(/\D/g, '')}?text=${msg}`;
             window.open(url, '_blank');
@@ -1954,9 +2358,9 @@
         function showNotification(text, type = 'info') {
             const notif = document.getElementById('notification');
             notif.textContent = text;
-            notif.className = 'notification show ' + (type === 'error' ? 'error' : type === 'success' ? 'success' : '');
+            notif.className = 'notification show ' + (type === 'error' ? 'error' : type === 'success' ? 'success' : type === 'warning' ? 'warning' : '');
             clearTimeout(notifTimeout);
-            notifTimeout = setTimeout(() => notif.classList.remove('show'), 3200);
+            notifTimeout = setTimeout(() => notif.classList.remove('show'), 3400);
         }
     </script>
 </body>

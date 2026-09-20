@@ -38,16 +38,10 @@
         h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 700; }
         .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
 
-        /* HEADER */
         header {
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.ibb.co/mVb7xS8L/Photoroom-20251218-183639.jpg');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 30px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            background-size: cover; background-position: center; color: white;
+            padding: 30px 0; position: sticky; top: 0; z-index: 100;
             backdrop-filter: blur(5px);
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
@@ -56,12 +50,10 @@
         .logo-img {
             height: 80px; width: auto; border-radius: 50%;
             border: 3px solid rgba(255,255,255,0.8);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            background: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); background: white;
         }
         .logo-text { font-size: 2rem; letter-spacing: -0.5px; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
 
-        /* INFO RESTAURANTE */
         .restaurant-info {
             background: white; border-radius: var(--border-radius);
             padding: 30px; margin: -30px auto 40px;
@@ -70,7 +62,6 @@
         }
         .restaurant-info h3 { color: var(--primary); font-size: 1.8rem; margin-bottom: 10px; }
 
-        /* LAYOUT */
         .main-content { display: grid; grid-template-columns: 1fr 380px; gap: 30px; margin-bottom: 60px; }
         .menu-section, .cart-section, .checkout-form {
             background-color: var(--bg-card);
@@ -93,11 +84,9 @@
             background: #ffebee; color: #c0392b; border: none;
             padding: 6px 12px; border-radius: 20px; cursor: pointer;
             font-weight: 600; display: flex; align-items: center; gap: 5px;
-            transition: all 0.2s;
         }
         .section-title .clear-cart-btn:hover { background: #ffcdd2; }
 
-        /* CATEGORÍAS */
         .menu-categories {
             display: flex; flex-wrap: wrap; gap: 10px;
             margin-bottom: 30px; overflow-x: auto; padding-bottom: 10px;
@@ -106,14 +95,12 @@
             padding: 8px 20px; background-color: transparent;
             border: 2px solid #E0E0E0; border-radius: 50px;
             cursor: pointer; font-weight: 600; color: var(--text-light);
-            font-family: 'DM Sans', sans-serif; transition: all 0.2s ease;
-            white-space: nowrap;
+            font-family: 'DM Sans', sans-serif; transition: all 0.2s ease; white-space: nowrap;
         }
         .category-btn:hover, .category-btn.active {
             border-color: var(--primary); background-color: var(--primary); color: white;
         }
 
-        /* PRODUCTOS */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -143,14 +130,12 @@
             box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
 
-        /* CONTROLES DE CANTIDAD */
         .product-quantity-controls { display: flex; align-items: center; gap: 8px; flex: 1; justify-content: flex-end; }
         .quantity-btn {
             width: 32px; height: 32px; border-radius: 50%;
             background-color: #f5f5f5; border: 1px solid #ddd;
             display: flex; align-items: center; justify-content: center;
-            cursor: pointer; font-weight: bold; transition: all 0.2s;
-            color: var(--text-main);
+            cursor: pointer; font-weight: bold; transition: all 0.2s; color: var(--text-main);
         }
         .quantity-btn:hover:not(:disabled) { background-color: #e0e0e0; }
         .quantity-btn:disabled { opacity: 0.5; cursor: not-allowed; }
@@ -165,7 +150,6 @@
         .add-to-cart:hover { background-color: var(--primary-dark); }
         .add-to-cart.in-cart { background-color: #27ae60; }
 
-        /* CARRITO */
         .cart-section { position: sticky; top: 110px; height: fit-content; }
         .cart-items { max-height: 300px; overflow-y: auto; margin-bottom: 15px; }
         .cart-item {
@@ -181,9 +165,8 @@
             font-family: 'DM Sans', sans-serif;
         }
         .remove-item {
-            background: #ffebee; color: #d32f2f;
-            width: 30px; height: 30px; border-radius: 6px;
-            border: none; cursor: pointer;
+            background: #ffebee; color: #d32f2f; width: 30px; height: 30px;
+            border-radius: 6px; border: none; cursor: pointer;
             display: flex; align-items: center; justify-content: center;
         }
         .remove-item:hover { background: #ffcdd2; }
@@ -198,7 +181,6 @@
         }
         .cart-summary-row.total span:last-child { font-weight: 800; }
 
-        /* BOTONES */
         .checkout-btn, .submit-order-btn {
             width: 100%; border: none; border-radius: 12px;
             padding: 15px; font-size: 1rem; font-weight: 700;
@@ -219,6 +201,7 @@
             font-family: 'DM Sans', sans-serif;
         }
         .form-control:focus { outline: 2px solid var(--accent); border-color: transparent; }
+        textarea.form-control { resize: vertical; min-height: 70px; }
         .form-group { margin-bottom: 15px; }
 
         .delivery-option {
@@ -232,7 +215,6 @@
         .delivery-option.selected { border-color: var(--primary); background: #fff9f0; }
         .delivery-option input[type="radio"] { accent-color: var(--primary); }
 
-        /* FLOATING ICON */
         .floating-cart-icon {
             position: fixed; bottom: 25px; right: 25px;
             background-color: var(--primary); color: white;
@@ -251,14 +233,12 @@
         }
         .cart-count.hidden { display: none; }
 
-        /* NOTIFICACIÓN */
         .notification {
             position: fixed; bottom: 30px; left: 50%;
             transform: translateX(-50%); background: #333; color: white;
             padding: 12px 24px; border-radius: 50px; z-index: 3000;
             display: none; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            width: max-content; max-width: 90%; text-align: center;
-            font-size: 0.9rem;
+            width: max-content; max-width: 90%; text-align: center; font-size: 0.9rem;
         }
         .notification.show { display: block; animation: slideUp 0.3s ease; }
         .notification.success { background: #27ae60; }
@@ -268,7 +248,6 @@
             to { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
 
-        /* FOOTER */
         footer {
             background-color: #2D2420; color: rgba(255,255,255,0.7);
             padding: 40px 0 20px; margin-top: 50px; text-align: center;
@@ -278,7 +257,6 @@
             margin-bottom: 15px; border: 2px solid rgba(255,255,255,0.2);
         }
 
-        /* CASH */
         .cash-details { background: #f9f9f9; padding: 15px; border-radius: 8px; margin-top: 10px; display: none; }
         .cash-details.active { display: block; }
         .change-info {
@@ -288,7 +266,6 @@
         }
         .change-info.active { display: block; }
 
-        /* DELIVERY INFO */
         .distance-details {
             background: #e8f4fc; padding: 15px; border-radius: 8px;
             margin-top: 10px; display: none; border-left: 4px solid #3498db;
@@ -314,71 +291,114 @@
         .auto-calculating-status i { margin-right: 8px; animation: spin 1s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* NUEVA SECCIÓN DE DIRECCIÓN (sin mapa) */
+        /* NUEVOS BLOQUES DE DIRECCIÓN */
         .address-block {
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 12px;
+            background: #f9f9f9; padding: 15px;
+            border-radius: 12px; margin-bottom: 12px;
             border: 1px solid #eee;
         }
         .address-block label {
-            font-weight: 600;
-            font-size: 0.9rem;
-            display: block;
-            margin-bottom: 6px;
-            color: var(--text-main);
+            font-weight: 600; font-size: 0.9rem;
+            display: block; margin-bottom: 6px; color: var(--text-main);
         }
-        .address-row {
-            display: flex;
-            gap: 6px;
-        }
+        .address-row { display: flex; gap: 6px; }
         .address-row input { flex: 1; margin-top: 0; }
         .address-row button {
-            padding: 0 16px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background 0.2s;
+            padding: 0 16px; background: var(--primary); color: white;
+            border: none; border-radius: 8px; cursor: pointer;
+            font-weight: 600; transition: background 0.2s;
         }
         .address-row button:hover { background: var(--primary-dark); }
         .address-row button:disabled { opacity: 0.6; cursor: wait; }
 
         .location-btn {
-            width: 100%;
-            padding: 12px;
+            width: 100%; padding: 12px;
             background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-            color: #1565c0;
-            border: none;
-            border-radius: 10px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.95rem;
+            color: #1565c0; border: none; border-radius: 10px;
+            font-weight: 700; cursor: pointer; margin-bottom: 12px;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
             transition: all 0.2s;
         }
         .location-btn:hover { background: linear-gradient(135deg, #bbdefb, #90caf9); }
         .location-btn:disabled { opacity: 0.6; cursor: wait; }
 
         .selected-address {
-            background: #e8f5e9;
-            border-left: 4px solid #27ae60;
-            padding: 12px;
-            border-radius: 8px;
-            margin-top: 12px;
-            font-size: 0.9rem;
-            display: none;
+            background: #e8f5e9; border-left: 4px solid #27ae60;
+            padding: 12px; border-radius: 8px;
+            margin-top: 12px; font-size: 0.9rem; display: none;
         }
         .selected-address.active { display: block; }
         .selected-address strong { color: #1e7e34; }
+
+        /* Bloque "¿Para quién es?" */
+        .for-whom-block {
+            background: #fff;
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 12px;
+        }
+        .for-whom-block > label {
+            font-weight: 700; font-size: 0.95rem;
+            display: block; margin-bottom: 10px; color: var(--primary);
+        }
+        .for-whom-options { display: flex; gap: 8px; flex-wrap: wrap; }
+        .for-whom-option {
+            flex: 1; min-width: 140px;
+            display: flex; align-items: center; gap: 8px;
+            padding: 12px;
+            background: #f9f9f9;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.88rem;
+            font-weight: 500;
+        }
+        .for-whom-option:hover { border-color: #ccc; }
+        .for-whom-option.selected {
+            border-color: var(--primary);
+            background: #fff9f0;
+            color: var(--primary);
+            font-weight: 700;
+        }
+        .for-whom-option input[type="radio"] {
+            accent-color: var(--primary);
+        }
+        .for-whom-option i { color: var(--primary); }
+
+        .other-person-hint {
+            background: #e3f2fd;
+            color: #1565c0;
+            padding: 12px;
+            border-radius: 10px;
+            border-left: 4px solid #1565c0;
+            display: none;
+            font-size: 0.88rem;
+            margin-bottom: 12px;
+            animation: fadeIn 0.3s ease;
+        }
+        .other-person-hint.active { display: block; }
+        .other-person-hint i { margin-right: 6px; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Detalles de ubicación */
+        #locationDetailsBlock {
+            background: #fff8e1;
+            border: 1px solid #ffe082;
+            border-left: 4px solid var(--accent);
+        }
+        #locationDetailsBlock label {
+            color: var(--primary);
+        }
+        .details-hint {
+            color: #666;
+            font-size: 0.78rem;
+            display: block;
+            margin-top: 6px;
+        }
+        .details-hint i { color: var(--accent); }
 
         /* MODAL DE PRODUCTO */
         .product-modal {
@@ -428,8 +448,7 @@
         .modifier-toggle.active { background: var(--primary); }
         .modifier-toggle::after {
             content: ''; position: absolute; width: 20px; height: 20px;
-            border-radius: 50%; background: white; top: 2px; left: 2px;
-            transition: all 0.3s;
+            border-radius: 50%; background: white; top: 2px; left: 2px; transition: all 0.3s;
         }
         .modifier-toggle.active::after { left: 18px; }
 
@@ -492,7 +511,6 @@
         }
         .modal-total-price { color: var(--primary); font-size: 1.4rem; font-weight: 800; }
 
-        /* CONFIRMACIÓN */
         .confirmation-modal {
             display: none; position: fixed; top: 0; left: 0;
             width: 100%; height: 100%; background-color: rgba(0,0,0,0.5);
@@ -514,7 +532,6 @@
             margin-bottom: 20px; border: 3px solid var(--primary);
         }
 
-        /* PAYMENT */
         .payment-methods { display: flex; gap: 10px; margin-top: 10px; }
         .payment-method {
             flex: 1; padding: 12px; border: 2px solid #ddd;
@@ -527,7 +544,6 @@
         .payment-method.selected { border-color: var(--primary); background-color: #fff9f0; color: var(--primary); }
         .payment-method input { display: none; }
 
-        /* RESPONSIVIDAD */
         @media (max-width: 992px) {
             .main-content { grid-template-columns: 1fr; }
             .cart-section { order: 2; position: relative; top: 0; }
@@ -554,6 +570,8 @@
             .floating-cart-icon { display: flex; }
             .product-modal-content { max-height: 95vh; }
             .confirmation-modal-content { width: 90%; padding: 20px; }
+            .for-whom-options { flex-direction: column; }
+            .for-whom-option { min-width: auto; }
         }
         @media (max-width: 480px) {
             .section-title { font-size: 1.3rem; }
@@ -647,12 +665,35 @@
                 </div>
 
                 <div id="deliveryAddressSection" style="display: none;">
+
+                    <!-- ¿PARA QUIÉN ES EL PEDIDO? -->
+                    <div class="for-whom-block">
+                        <label><i class="fas fa-user-check"></i> ¿Para quién es el pedido?</label>
+                        <div class="for-whom-options">
+                            <label class="for-whom-option selected" id="forMeOption">
+                                <input type="radio" name="deliveryFor" value="me" checked>
+                                <i class="fas fa-user"></i>
+                                <span>Para mí</span>
+                            </label>
+                            <label class="for-whom-option" id="forOtherOption">
+                                <input type="radio" name="deliveryFor" value="other">
+                                <i class="fas fa-user-friends"></i>
+                                <span>Para otra persona</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="other-person-hint" id="otherPersonHint">
+                        <i class="fas fa-info-circle"></i>
+                        <strong>Ingresa la dirección de quien recibirá el pedido.</strong> Verifica que sea la ubicación correcta.
+                    </div>
+
                     <button id="useCurrentLocationBtn" type="button" class="location-btn">
                         <i class="fas fa-location-arrow"></i> Usar mi ubicación actual
                     </button>
 
                     <div class="address-block">
-                        <label><i class="fas fa-search" style="color: var(--primary);"></i> O ingresa tu dirección:</label>
+                        <label id="addressInputLabel"><i class="fas fa-search" style="color: var(--primary);"></i> O ingresa la dirección de entrega:</label>
                         <div class="address-row">
                             <input type="text" id="addressInput" class="form-control" placeholder="Calle, número, colonia">
                             <button type="button" id="searchAddressBtn" title="Buscar">
@@ -662,8 +703,18 @@
                     </div>
 
                     <div class="selected-address" id="selectedAddressBox">
-                        <strong><i class="fas fa-map-marker-alt"></i> Dirección seleccionada:</strong>
+                        <strong><i class="fas fa-map-marker-alt"></i> <span id="selectedAddressLabel">Dirección seleccionada:</span></strong>
                         <div id="deliveryAddressText" style="margin-top: 4px; word-break: break-word;"></div>
+                    </div>
+
+                    <!-- DETALLES DE UBICACIÓN -->
+                    <div class="address-block" id="locationDetailsBlock" style="display: none;">
+                        <label><i class="fas fa-info-circle" style="color: var(--primary);"></i> Detalles de la ubicación *</label>
+                        <textarea id="locationDetails" class="form-control" rows="3"
+                            placeholder="Ej: Edificio B, interior 302, timbre 2, fachada azul, portón negro, junto a la farmacia..."></textarea>
+                        <small class="details-hint">
+                            <i class="fas fa-lightbulb"></i> Ayuda al repartidor: número de depto/interior, color de fachada, entre calles, referencias, etc.
+                        </small>
                     </div>
 
                     <div class="auto-calculating-status" id="autoCalculatingStatus">
@@ -725,8 +776,14 @@
                 </div>
 
                 <div class="form-group" id="finalAddressSection" style="display: none;">
-                    <label>Dirección para envío *</label>
+                    <label>Dirección de entrega *</label>
                     <input type="text" id="customerAddress" class="form-control" placeholder="Calle, número, colonia">
+                </div>
+
+                <div class="form-group" id="finalDetailsSection" style="display: none;">
+                    <label>Detalles de la ubicación *</label>
+                    <textarea id="customerDetails" class="form-control" rows="3"
+                        placeholder="Ej: Edificio B, interior 302, timbre 2, fachada azul..."></textarea>
                 </div>
 
                 <div class="form-group">
@@ -779,25 +836,13 @@
                 <h3 id="modalProductTitle" class="product-modal-title"></h3>
                 <p id="modalProductDesc" class="product-modal-desc"></p>
                 <div id="modalProductPrice" class="product-modal-price"></div>
-
-                <div class="modifiers-section" id="modifiersSection">
-                    <div id="modifiersList"></div>
-                </div>
-
-                <div class="modal-total">
-                    Total: <span id="modalTotalPrice" class="modal-total-price">$0.00</span>
-                </div>
-
+                <div class="modifiers-section" id="modifiersSection"><div id="modifiersList"></div></div>
+                <div class="modal-total">Total: <span id="modalTotalPrice" class="modal-total-price">$0.00</span></div>
                 <div class="modal-quantity-controls">
-                    <button type="button" class="modal-quantity-btn" id="modalDecreaseBtn">
-                        <i class="fas fa-minus"></i>
-                    </button>
+                    <button type="button" class="modal-quantity-btn" id="modalDecreaseBtn"><i class="fas fa-minus"></i></button>
                     <div id="modalQuantityDisplay" class="modal-quantity-display">1</div>
-                    <button type="button" class="modal-quantity-btn" id="modalIncreaseBtn">
-                        <i class="fas fa-plus"></i>
-                    </button>
+                    <button type="button" class="modal-quantity-btn" id="modalIncreaseBtn"><i class="fas fa-plus"></i></button>
                 </div>
-
                 <button type="button" class="modal-add-to-cart" id="modalAddToCartBtn">
                     <i class="fas fa-cart-plus"></i> Añadir al carrito
                 </button>
@@ -839,9 +884,9 @@
         const restaurantCoords = { lat: 19.4646, lng: -99.1853 };
 
         const shippingRates = {
-            baseRate: 10.00,           // 🆕 Tarifa base
-            perKmRate: 10.00,          // $10 por km
-            maxDistance: 15,           // Límite km
+            baseRate: 10.00,
+            perKmRate: 10.00,
+            maxDistance: 15,
             minOrderForDelivery: 100.00
         };
 
@@ -971,9 +1016,10 @@
         let deliveryDistance = 0;
         let deliveryTime = 0;
         let deliveryAddress = '';
-        let deliveryCoords = null;   // { lat, lng }
+        let deliveryCoords = null;
         let deliveryZone = "";
         let paymentMethod = 'card';
+        let deliveryFor = 'me'; // 'me' | 'other'
 
         let currentModalProduct = null;
         let modalQuantity = 1;
@@ -988,27 +1034,31 @@
             const extIds = (extras || []).map(m => m.id).sort().join(',');
             return `${productId}-${selId}-${extIds}`;
         }
-
         function productHasModifiers(product) {
             return (product.modifiers?.selection?.length > 0) || (product.modifiers?.extras?.length > 0);
         }
-
         function getProductTotalQuantity(productId) {
-            return cart
-                .filter(item => item.id === productId)
-                .reduce((sum, item) => sum + item.quantity, 0);
+            return cart.filter(item => item.id === productId).reduce((s, i) => s + i.quantity, 0);
         }
-
         function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); }
-
-        function refreshAll() {
-            saveCart();
-            updateCartDisplay();
-            renderProducts();
-        }
-
-        // Redondeo a peso entero (sin centavos)
+        function refreshAll() { saveCart(); updateCartDisplay(); renderProducts(); }
         function roundPeso(n) { return Math.round(n); }
+
+        function resetDeliveryLocation() {
+            deliveryCoords = null;
+            deliveryAddress = '';
+            deliveryDistance = 0;
+            deliveryTime = 0;
+            currentShippingCost = 0;
+            deliveryZone = '';
+            document.getElementById('selectedAddressBox').classList.remove('active');
+            document.getElementById('addressInput').value = '';
+            document.getElementById('locationDetailsBlock').style.display = 'none';
+            document.getElementById('locationDetails').value = '';
+            document.getElementById('distanceDetails').classList.remove('active');
+            document.getElementById('deliveryLimitWarning').classList.remove('active');
+            updateCartDisplay();
+        }
 
         // ============================================
         // INICIALIZACIÓN
@@ -1042,30 +1092,28 @@
             // Tipo de entrega
             document.querySelectorAll('input[name="deliveryType"]').forEach(radio => {
                 radio.addEventListener('change', function() {
-                    const deliveryType = this.value;
-                    const addressSection = document.getElementById('deliveryAddressSection');
-                    const pickupOpt = document.getElementById('pickupOption');
-                    const deliveryOpt = document.getElementById('deliveryOption');
+                    const dt = this.value;
+                    document.getElementById('pickupOption').classList.toggle('selected', dt === 'pickup');
+                    document.getElementById('deliveryOption').classList.toggle('selected', dt === 'delivery');
 
-                    pickupOpt.classList.toggle('selected', deliveryType === 'pickup');
-                    deliveryOpt.classList.toggle('selected', deliveryType === 'delivery');
-
-                    if (deliveryType === 'delivery') {
-                        addressSection.style.display = 'block';
+                    if (dt === 'delivery') {
+                        document.getElementById('deliveryAddressSection').style.display = 'block';
                     } else {
-                        addressSection.style.display = 'none';
-                        currentShippingCost = 0;
-                        document.getElementById('distanceDetails').classList.remove('active');
-                        document.getElementById('deliveryLimitWarning').classList.remove('active');
-                        document.getElementById('autoCalculatingStatus').classList.remove('active');
-                        updateCartDisplay();
+                        document.getElementById('deliveryAddressSection').style.display = 'none';
+                        resetDeliveryLocation();
                     }
+                });
+            });
+
+            // ¿Para quién es?
+            document.querySelectorAll('input[name="deliveryFor"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    setDeliveryFor(this.value);
                 });
             });
 
             // Ubicación actual
             document.getElementById('useCurrentLocationBtn').addEventListener('click', useCurrentLocation);
-
             // Buscar dirección
             document.getElementById('searchAddressBtn').addEventListener('click', searchAddress);
             document.getElementById('addressInput').addEventListener('keypress', function(e) {
@@ -1101,16 +1149,10 @@
                 if (e.target === this) closeProductModal();
             });
             document.getElementById('modalDecreaseBtn').addEventListener('click', function() {
-                if (modalQuantity > 1) {
-                    modalQuantity--;
-                    updateModalQuantity();
-                    calculateModalTotal();
-                }
+                if (modalQuantity > 1) { modalQuantity--; updateModalQuantity(); calculateModalTotal(); }
             });
             document.getElementById('modalIncreaseBtn').addEventListener('click', function() {
-                modalQuantity++;
-                updateModalQuantity();
-                calculateModalTotal();
+                modalQuantity++; updateModalQuantity(); calculateModalTotal();
             });
             document.getElementById('modalAddToCartBtn').addEventListener('click', addToCartFromModal);
 
@@ -1123,16 +1165,49 @@
         });
 
         // ============================================
-        // PRODUCTOS / RENDER
+        // ¿PARA QUIÉN ES?
+        // ============================================
+        function setDeliveryFor(value) {
+            if (deliveryFor === value) return;
+            deliveryFor = value;
+
+            const forMeOption = document.getElementById('forMeOption');
+            const forOtherOption = document.getElementById('forOtherOption');
+            const otherHint = document.getElementById('otherPersonHint');
+            const useLocationBtn = document.getElementById('useCurrentLocationBtn');
+            const addressLabel = document.getElementById('addressInputLabel');
+            const addressInput = document.getElementById('addressInput');
+            const selectedLabel = document.getElementById('selectedAddressLabel');
+
+            forMeOption.classList.toggle('selected', value === 'me');
+            forOtherOption.classList.toggle('selected', value === 'other');
+
+            // Reset ubicación actual para evitar confusión
+            resetDeliveryLocation();
+
+            if (value === 'other') {
+                otherHint.classList.add('active');
+                useLocationBtn.innerHTML = '<i class="fas fa-location-arrow"></i> Ubicación actual de quien recibe (si estás con ellos)';
+                addressLabel.innerHTML = '<i class="fas fa-search" style="color: var(--primary);"></i> Dirección de quien recibirá el pedido:';
+                addressInput.placeholder = 'Calle, número, colonia de quien recibe';
+                selectedLabel.textContent = 'Dirección de entrega a la otra persona:';
+            } else {
+                otherHint.classList.remove('active');
+                useLocationBtn.innerHTML = '<i class="fas fa-location-arrow"></i> Usar mi ubicación actual';
+                addressLabel.innerHTML = '<i class="fas fa-search" style="color: var(--primary);"></i> O ingresa la dirección de entrega:';
+                addressInput.placeholder = 'Calle, número, colonia';
+                selectedLabel.textContent = 'Dirección seleccionada:';
+            }
+        }
+
+        // ============================================
+        // RENDER PRODUCTOS
         // ============================================
         function renderProducts() {
             const grid = document.getElementById('productsGrid');
             grid.innerHTML = '';
 
-            const filtered = currentCategory === 'all'
-                ? products
-                : products.filter(p => p.category === currentCategory);
-
+            const filtered = currentCategory === 'all' ? products : products.filter(p => p.category === currentCategory);
             if (filtered.length === 0) {
                 grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #7f8c8d; padding: 40px;">No hay productos en esta categoría.</p>';
                 return;
@@ -1207,11 +1282,7 @@
             const product = products.find(p => p.id === productId);
             if (!product) return;
 
-            const existing = cart.find(item =>
-                item.id === productId && !item.selection &&
-                (!item.extras || item.extras.length === 0)
-            );
-
+            const existing = cart.find(item => item.id === productId && !item.selection && (!item.extras || item.extras.length === 0));
             if (existing) {
                 existing.quantity += change;
                 if (existing.quantity <= 0) cart = cart.filter(item => item !== existing);
@@ -1273,7 +1344,6 @@
                 let title = 'Selecciona una opción:';
                 if (currentModalProduct.category === 'barbacoa') title = 'Selecciona el corte:';
                 else if (currentModalProduct.id === 15 || currentModalProduct.id === 16) title = 'Selecciona el sabor:';
-
                 group.innerHTML = `<div class="modifiers-title">${title}</div>`;
 
                 modifiers.selection.forEach(mod => {
@@ -1303,7 +1373,6 @@
             if (hasExtras) {
                 const group = document.createElement('div');
                 group.innerHTML = '<div class="modifiers-title" style="margin-top: 15px;">Extras adicionales:</div>';
-
                 modifiers.extras.forEach(mod => {
                     const item = document.createElement('div');
                     item.className = 'modifier-item';
@@ -1346,7 +1415,6 @@
 
         function addToCartFromModal() {
             if (!currentModalProduct) return;
-
             const needsSelection = currentModalProduct.modifiers.selection && currentModalProduct.modifiers.selection.length > 0;
             if (needsSelection && !selectedSelection) {
                 showNotification('Por favor selecciona una opción', 'error');
@@ -1359,7 +1427,6 @@
 
             const uniqueId = makeUniqueId(currentModalProduct.id, selectedSelection, selectedExtras);
             const existing = cart.find(item => item.uniqueId === uniqueId);
-
             if (existing) existing.quantity += modalQuantity;
             else cart.push({
                 id: currentModalProduct.id, name: currentModalProduct.name,
@@ -1387,7 +1454,6 @@
             const clearCartBtn = document.getElementById('clearCartBtn');
 
             const totalItems = cart.reduce((s, i) => s + i.quantity, 0);
-
             if (totalItems > 0) {
                 floatingCartCount.classList.remove('hidden');
                 floatingCartCount.textContent = totalItems;
@@ -1399,7 +1465,6 @@
 
             const subtotal = cart.reduce((s, i) => s + i.price * i.quantity, 0);
             const total = subtotal + currentShippingCost;
-
             subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
             shippingCostElement.textContent = `$${currentShippingCost.toFixed(2)}`;
             totalElement.textContent = `$${total.toFixed(2)}`;
@@ -1426,7 +1491,6 @@
                 cart.forEach(item => {
                     const el = document.createElement('div');
                     el.className = 'cart-item';
-
                     let modsText = '';
                     if (item.selection) modsText += `<small style="color: var(--accent); font-size: 0.75rem; display:block;">Corte: ${item.selection.name}</small>`;
                     if (item.extras?.length) modsText += `<small style="color: var(--accent); font-size: 0.75rem; display:block;">Extras: ${item.extras.map(m => m.name).join(', ')}</small>`;
@@ -1446,7 +1510,6 @@
                     `;
                     cartItemsContainer.appendChild(el);
                 });
-
                 cartItemsContainer.querySelectorAll('.cart-item-qty').forEach(input => {
                     input.addEventListener('change', function() { updateCartItemQuantity(this.dataset.uid, this.value); });
                 });
@@ -1465,7 +1528,6 @@
             const item = cart.find(i => i.uniqueId === uniqueId);
             if (item) { item.quantity = qty; refreshAll(); }
         }
-
         function removeCartItem(uniqueId) {
             cart = cart.filter(i => i.uniqueId !== uniqueId);
             refreshAll();
@@ -1473,16 +1535,16 @@
         }
 
         // ============================================
-        // 📍 UBICACIÓN Y ENVÍO (SIN MAPBOX)
+        // UBICACIÓN Y ENVÍO
         // ============================================
         async function useCurrentLocation() {
             if (!navigator.geolocation) {
                 showNotification('Tu navegador no soporta geolocalización', 'error');
                 return;
             }
-
             const btn = document.getElementById('useCurrentLocationBtn');
             btn.disabled = true;
+            const originalText = btn.innerHTML;
             btn.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> Obteniendo ubicación...';
             document.getElementById('autoCalculatingStatus').classList.add('active');
 
@@ -1492,7 +1554,6 @@
                     const lng = position.coords.longitude;
                     deliveryCoords = { lat, lng };
 
-                    // Reverse geocoding con Nominatim (OpenStreetMap)
                     try {
                         const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&zoom=18&addressdetails=1&accept-language=es`;
                         const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
@@ -1506,7 +1567,7 @@
                     showSelectedAddress(deliveryAddress);
                     await calculateDistanceAndCost();
                     btn.disabled = false;
-                    btn.innerHTML = '<i class="fas fa-location-arrow"></i> Usar mi ubicación actual';
+                    btn.innerHTML = originalText;
                 },
                 function(error) {
                     let msg = 'No se pudo obtener tu ubicación';
@@ -1516,7 +1577,7 @@
                     showNotification(msg + '. Ingresa tu dirección manualmente.', 'error');
                     document.getElementById('autoCalculatingStatus').classList.remove('active');
                     btn.disabled = false;
-                    btn.innerHTML = '<i class="fas fa-location-arrow"></i> Usar mi ubicación actual';
+                    btn.innerHTML = originalText;
                 },
                 { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 }
             );
@@ -1525,10 +1586,7 @@
         async function searchAddress() {
             const input = document.getElementById('addressInput');
             const address = input.value.trim();
-            if (!address) {
-                showNotification('Ingresa una dirección', 'error');
-                return;
-            }
+            if (!address) { showNotification('Ingresa una dirección', 'error'); return; }
 
             const btn = document.getElementById('searchAddressBtn');
             btn.disabled = true;
@@ -1536,7 +1594,6 @@
             document.getElementById('autoCalculatingStatus').classList.add('active');
 
             try {
-                // Geocoding con Nominatim (OpenStreetMap)
                 const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json&limit=1&countrycodes=mx&addressdetails=1&accept-language=es`;
                 const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
                 const data = await res.json();
@@ -1566,16 +1623,16 @@
         function showSelectedAddress(address) {
             document.getElementById('deliveryAddressText').textContent = address;
             document.getElementById('selectedAddressBox').classList.add('active');
+            // Mostrar campo de detalles obligatorio
+            document.getElementById('locationDetailsBlock').style.display = 'block';
         }
 
         async function calculateDistanceAndCost() {
             if (!deliveryCoords) return;
-
             document.getElementById('autoCalculatingStatus').classList.add('active');
             document.getElementById('distanceDetails').classList.remove('active');
             document.getElementById('deliveryLimitWarning').classList.remove('active');
 
-            // Intentar OSRM (distancia real por carretera) con fallback a Haversine
             let distanceKm = 0;
             let durationMin = 0;
 
@@ -1583,7 +1640,6 @@
                 const url = `https://router.project-osrm.org/route/v1/driving/${restaurantCoords.lng},${restaurantCoords.lat};${deliveryCoords.lng},${deliveryCoords.lat}?overview=false&steps=false`;
                 const res = await fetch(url);
                 const data = await res.json();
-
                 if (data.code === 'Ok' && data.routes && data.routes.length > 0) {
                     distanceKm = data.routes[0].distance / 1000;
                     durationMin = Math.round(data.routes[0].duration / 60);
@@ -1591,9 +1647,9 @@
                     throw new Error('OSRM sin ruta');
                 }
             } catch (err) {
-                console.warn('OSRM falló, usando distancia en línea recta:', err);
+                console.warn('OSRM falló, usando línea recta:', err);
                 distanceKm = haversineKm(restaurantCoords, deliveryCoords);
-                durationMin = Math.round(distanceKm * 2); // estimación aproximada
+                durationMin = Math.round(distanceKm * 2);
             }
 
             deliveryDistance = distanceKm;
@@ -1615,23 +1671,19 @@
         }
 
         function calculateShippingCost() {
-            // Zona por distancia
             if (deliveryDistance <= 5) deliveryZone = "Zona Cercana";
             else if (deliveryDistance <= 10) deliveryZone = "Zona Media";
             else if (deliveryDistance <= 15) deliveryZone = "Zona Lejana";
             else deliveryZone = "Fuera de zona";
 
             let cost = 0;
-
             if (deliveryDistance > 0 && deliveryDistance <= shippingRates.maxDistance) {
-                // 🆕 Fórmula: base $10 + (km × $10/km), redondeado a peso entero
                 const rawCost = shippingRates.baseRate + (deliveryDistance * shippingRates.perKmRate);
                 cost = roundPeso(rawCost);
                 document.getElementById('deliveryLimitWarning').classList.remove('active');
             } else if (deliveryDistance > shippingRates.maxDistance) {
                 document.getElementById('deliveryLimitWarning').classList.add('active');
             }
-
             currentShippingCost = cost;
             updateCartDisplay();
         }
@@ -1668,9 +1720,7 @@
             if (cash > 0 && cash >= total) {
                 document.getElementById('changeAmount').textContent = `$${(cash - total).toFixed(2)}`;
                 changeInfo.classList.add('active');
-            } else {
-                changeInfo.classList.remove('active');
-            }
+            } else changeInfo.classList.remove('active');
         }
 
         function validatePayment() {
@@ -1694,10 +1744,17 @@
 
             if (deliveryType === 'delivery') {
                 const addr = document.getElementById('customerAddress').value.trim();
+                const details = document.getElementById('customerDetails').value.trim();
+
                 if (!addr) { showNotification('Falta la dirección de envío', 'error'); return false; }
                 if (!deliveryCoords) { showNotification('Selecciona una ubicación válida', 'error'); return false; }
                 if (currentShippingCost === 0) { showNotification('Calcula el envío primero', 'error'); return false; }
                 if (deliveryDistance > shippingRates.maxDistance) { showNotification('La dirección excede 15 km', 'error'); return false; }
+                if (!details || details.length < 5) {
+                    showNotification('Agrega detalles de la ubicación (edificio, interior, referencias...)', 'error');
+                    document.getElementById('customerDetails').focus();
+                    return false;
+                }
 
                 const subtotal = cart.reduce((s, i) => s + i.price * i.quantity, 0);
                 if (subtotal < shippingRates.minOrderForDelivery) {
@@ -1717,6 +1774,7 @@
             const deliveryType = document.querySelector('input[name="deliveryType"]:checked').value;
             const deliveryTypeFinal = document.getElementById('deliveryTypeFinal');
             const finalAddressSection = document.getElementById('finalAddressSection');
+            const finalDetailsSection = document.getElementById('finalDetailsSection');
 
             if (deliveryType === 'delivery') {
                 if (!deliveryCoords || currentShippingCost === 0) {
@@ -1727,17 +1785,28 @@
                     showNotification('La dirección excede el límite de 15 km', 'error');
                     return;
                 }
+                const details = document.getElementById('locationDetails').value.trim();
+                if (!details || details.length < 5) {
+                    showNotification('Agrega detalles de la ubicación (edificio, interior, referencias...)', 'error');
+                    document.getElementById('locationDetails').focus();
+                    return;
+                }
+
                 const subtotal = cart.reduce((s, i) => s + i.price * i.quantity, 0);
                 if (subtotal < shippingRates.minOrderForDelivery) {
                     showNotification(`El pedido mínimo para envío es $${shippingRates.minOrderForDelivery}`, 'error');
                     return;
                 }
+
                 deliveryTypeFinal.value = 'delivery';
                 finalAddressSection.style.display = 'block';
+                finalDetailsSection.style.display = 'block';
                 document.getElementById('customerAddress').value = deliveryAddress;
+                document.getElementById('customerDetails').value = details;
             } else {
                 deliveryTypeFinal.value = 'pickup';
                 finalAddressSection.style.display = 'none';
+                finalDetailsSection.style.display = 'none';
             }
 
             selectPaymentMethod('card');
@@ -1781,8 +1850,10 @@
             const customerNotes = document.getElementById('customerNotes').value.trim();
 
             let customerAddress = '';
+            let customerDetails = '';
             if (deliveryType === 'delivery') {
                 customerAddress = document.getElementById('customerAddress').value.trim();
+                customerDetails = document.getElementById('customerDetails').value.trim();
             }
 
             const subtotal = cart.reduce((s, i) => s + i.price * i.quantity, 0);
@@ -1801,11 +1872,13 @@
             msg += `*Tipo de entrega:* ${deliveryType === 'delivery' ? 'Envío a domicilio' : 'Recoger en local'}%0A`;
 
             if (deliveryType === 'delivery') {
+                msg += `*Pedido para:* ${deliveryFor === 'other' ? 'OTRA PERSONA' : 'El cliente'}%0A`;
                 msg += `*Dirección:* ${customerAddress}%0A`;
+                msg += `*📌 Detalles de ubicación:* ${customerDetails}%0A`;
+
                 if (deliveryCoords) {
-                    // 🆕 Ubicación GPS con enlace a Google Maps
                     const gmapsLink = `https://www.google.com/maps?q=${deliveryCoords.lat},${deliveryCoords.lng}`;
-                    msg += `*Ubicación GPS:* ${deliveryCoords.lat.toFixed(6)}, ${deliveryCoords.lng.toFixed(6)}%0A`;
+                    msg += `*Coordenadas GPS:* ${deliveryCoords.lat.toFixed(6)}, ${deliveryCoords.lng.toFixed(6)}%0A`;
                     msg += `*Ver en mapa:* ${gmapsLink}%0A`;
                 }
                 msg += `*Distancia:* ${deliveryDistance.toFixed(1)} km (${deliveryZone})%0A`;
@@ -1842,7 +1915,9 @@
             document.getElementById('checkoutForm').style.display = 'none';
             document.getElementById('mainContent').style.display = 'grid';
             document.getElementById('addressInput').value = '';
+            document.getElementById('locationDetails').value = '';
             document.getElementById('selectedAddressBox').classList.remove('active');
+            document.getElementById('locationDetailsBlock').style.display = 'none';
             document.getElementById('distanceDetails').classList.remove('active');
             document.getElementById('deliveryLimitWarning').classList.remove('active');
             document.getElementById('autoCalculatingStatus').classList.remove('active');
@@ -1850,6 +1925,16 @@
             document.querySelector('input[name="deliveryType"][value="pickup"]').checked = true;
             document.getElementById('pickupOption').classList.add('selected');
             document.getElementById('deliveryOption').classList.remove('selected');
+
+            deliveryFor = 'me';
+            document.querySelector('input[name="deliveryFor"][value="me"]').checked = true;
+            document.getElementById('forMeOption').classList.add('selected');
+            document.getElementById('forOtherOption').classList.remove('selected');
+            document.getElementById('otherPersonHint').classList.remove('active');
+            document.getElementById('useCurrentLocationBtn').innerHTML = '<i class="fas fa-location-arrow"></i> Usar mi ubicación actual';
+            document.getElementById('addressInputLabel').innerHTML = '<i class="fas fa-search" style="color: var(--primary);"></i> O ingresa la dirección de entrega:';
+            document.getElementById('addressInput').placeholder = 'Calle, número, colonia';
+            document.getElementById('selectedAddressLabel').textContent = 'Dirección seleccionada:';
 
             deliveryCoords = null;
             deliveryAddress = '';
@@ -1871,7 +1956,7 @@
             notif.textContent = text;
             notif.className = 'notification show ' + (type === 'error' ? 'error' : type === 'success' ? 'success' : '');
             clearTimeout(notifTimeout);
-            notifTimeout = setTimeout(() => notif.classList.remove('show'), 2800);
+            notifTimeout = setTimeout(() => notif.classList.remove('show'), 3200);
         }
     </script>
 </body>

@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Barbacoa de la Casa Vieja - Menú</title>
 
-    <!-- Aplicar tema ANTES de pintar (evita flash) -->
     <script>
         (function(){
             try {
@@ -794,7 +793,7 @@
         const restaurantCoords = { lat: 19.4646, lng: -99.1853 };
         const TIMEZONE = 'America/Mexico_City';
 
-        // ⚠️ WEBHOOK DE MAKE.COM — Reemplaza con tu URL completa (regenera el webhook antes de producción)
+        // ⚠️ WEBHOOK DE MAKE.COM — Regenera el webhook antes de producción
         const MAKE_WEBHOOK_URL = "https://hook.us2.make.com/j4h65lfkp1y0uut1xe9r24c9skpaj7pd";
 
         const SCHEDULE_LEAD_MINUTES   = 45;
@@ -1242,6 +1241,7 @@
 
         // ============================================
         // MAKE.COM — ENVÍO DE DATOS (HISTORIAL)
+        // Usa URLSearchParams para que Make reciba campos individuales
         // ============================================
         function sendDataToMake(orderData) {
             if (!MAKE_WEBHOOK_URL || MAKE_WEBHOOK_URL.indexOf('tu_url') !== -1) {
@@ -1249,45 +1249,58 @@
                 return;
             }
 
-            const formData = new FormData();
+            // URLSearchParams → Content-Type application/x-www-form-urlencoded
+            // Make lo parsea como campos independientes listos para mapear
+            const params = new URLSearchParams();
 
-            formData.append('pedido_id', orderData.pedido_id);
-            formData.append('fecha_envio', orderData.fecha_envio);
-            formData.append('es_programado', orderData.es_programado ? 'Sí' : 'No');
-            formData.append('fecha_programada', orderData.fecha_programada || '');
-            formData.append('hora_programada', orderData.hora_programada || '');
+            // --- Test / origen ---
+            params.append('origen', 'barbacoa-casa-vieja');
+            params.append('test', 'ok');
 
-            formData.append('cliente_nombre', orderData.cliente_nombre);
-            formData.append('cliente_telefono', orderData.cliente_telefono);
-            formData.append('notas', orderData.notas || '');
+            // --- Identificación ---
+            params.append('pedido_id', orderData.pedido_id);
+            params.append('fecha_envio', orderData.fecha_envio);
+            params.append('es_programado', orderData.es_programado ? 'Sí' : 'No');
+            params.append('fecha_programada', orderData.fecha_programada || '');
+            params.append('hora_programada', orderData.hora_programada || '');
 
-            formData.append('tipo_entrega', orderData.tipo_entrega);
-            formData.append('pedido_para', orderData.pedido_para);
-            formData.append('direccion', orderData.direccion || '');
-            formData.append('detalles_ubicacion', orderData.detalles_ubicacion || '');
-            formData.append('coordenadas', orderData.coordenadas || '');
-            formData.append('link_mapa', orderData.link_mapa || '');
-            formData.append('distancia_km', orderData.distancia_km || '');
-            formData.append('zona', orderData.zona || '');
+            // --- Cliente ---
+            params.append('cliente_nombre', orderData.cliente_nombre);
+            params.append('cliente_telefono', orderData.cliente_telefono);
+            params.append('notas', orderData.notas || '');
 
-            formData.append('metodo_pago', orderData.metodo_pago);
-            formData.append('paga_con', orderData.paga_con || '');
-            formData.append('cambio', orderData.cambio || '');
+            // --- Entrega ---
+            params.append('tipo_entrega', orderData.tipo_entrega);
+            params.append('pedido_para', orderData.pedido_para);
+            params.append('direccion', orderData.direccion || '');
+            params.append('detalles_ubicacion', orderData.detalles_ubicacion || '');
+            params.append('coordenadas', orderData.coordenadas || '');
+            params.append('link_mapa', orderData.link_mapa || '');
+            params.append('distancia_km', orderData.distancia_km || '');
+            params.append('zona', orderData.zona || '');
 
-            formData.append('subtotal', orderData.subtotal);
-            formData.append('costo_envio', orderData.costo_envio);
-            formData.append('total', orderData.total);
+            // --- Pago ---
+            params.append('metodo_pago', orderData.metodo_pago);
+            params.append('paga_con', orderData.paga_con || '');
+            params.append('cambio', orderData.cambio || '');
 
-            formData.append('pedido_detalle', orderData.pedido_detalle);
-            formData.append('pedido_json', JSON.stringify(orderData.cart_raw));
+            // --- Totales ---
+            params.append('subtotal', orderData.subtotal);
+            params.append('costo_envio', orderData.costo_envio);
+            params.append('total', orderData.total);
 
-            formData.append('aviso_disponibilidad', orderData.aviso_disponibilidad || 'Ninguno');
+            // --- Detalle ---
+            params.append('pedido_detalle', orderData.pedido_detalle);
+            params.append('pedido_json', JSON.stringify(orderData.cart_raw));
 
+            // --- Avisos ---
+            params.append('aviso_disponibilidad', orderData.aviso_disponibilidad || 'Ninguno');
+
+            // POST como "simple request" — sin preflight CORS, Make lo parsea bien
             fetch(MAKE_WEBHOOK_URL, {
                 method: 'POST',
-                body: formData,
-                keepalive: true,
-                mode: 'no-cors'
+                body: params,
+                keepalive: true
             })
             .then(() => {
                 console.log('✅ Pedido enviado a Make.com (historial)');

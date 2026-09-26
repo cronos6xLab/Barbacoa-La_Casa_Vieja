@@ -793,8 +793,14 @@
         const restaurantCoords = { lat: 19.4646, lng: -99.1853 };
         const TIMEZONE = 'America/Mexico_City';
 
-        // ⚠️ WEBHOOK DE MAKE.COM — Regenera el webhook antes de producción
-        const MAKE_WEBHOOK_URL = "https://hook.us2.make.com/j4h65lfkp1y0uut1xe9r24c9skpaj7pd";
+        // ============================================
+        // 👇 REEMPLAZA ESTA URL CON LA DE TU NUEVO CUSTOM WEBHOOK
+        // ============================================
+        // 1. En Make: elimina el Mailhook y añade "Webhooks → Custom webhook"
+        // 2. Copia la URL que empieza con https://hook.us2.make.com/
+        // 3. Pégala aquí abajo
+        const MAKE_WEBHOOK_URL = "https://hook.us2.make.com/dflhy5kveofxbpe2ebsysc2g3c938s2e";
+        // ============================================
 
         const SCHEDULE_LEAD_MINUTES   = 45;
         const SCHEDULE_SLOT_START     = 8 * 60 + 45;
@@ -1249,8 +1255,6 @@
                 return;
             }
 
-            // URLSearchParams → Content-Type application/x-www-form-urlencoded
-            // Make lo parsea como campos independientes listos para mapear
             const params = new URLSearchParams();
 
             // --- Test / origen ---
@@ -1296,7 +1300,6 @@
             // --- Avisos ---
             params.append('aviso_disponibilidad', orderData.aviso_disponibilidad || 'Ninguno');
 
-            // POST como "simple request" — sin preflight CORS, Make lo parsea bien
             fetch(MAKE_WEBHOOK_URL, {
                 method: 'POST',
                 body: params,
@@ -2334,9 +2337,7 @@
             msg += `*TOTAL:* $${total.toFixed(2)}%0A%0A`;
             msg += `_Enviado: ${new Date().toLocaleString('es-MX')}_`;
 
-            // ============================================
-            // ENVIAR A MAKE.COM (historial) — ANTES de abrir WhatsApp
-            // ============================================
+            // Enviar a Make
             try {
                 const pedidoDetalle = cart.map(item => {
                     let mods = [];
@@ -2402,9 +2403,7 @@
                 console.warn('Error preparando datos para Make:', err);
             }
 
-            // ============================================
-            // ABRIR WHATSAPP
-            // ============================================
+            // Abrir WhatsApp
             const url = `https://wa.me/${whatsappNumber.replace(/\D/g, '')}?text=${msg}`;
             window.open(url, '_blank');
 

@@ -38,7 +38,7 @@
         h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 700; }
         .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
 
-        /* ✅ HEADER YA NO ES STICKY */
+        /* HEADER (no sticky) */
         header {
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.ibb.co/mVb7xS8L/Photoroom-20251218-183639.jpg');
             background-size: cover; background-position: center; color: white;
@@ -220,7 +220,6 @@
         .add-to-cart:hover { background-color: var(--primary-dark); }
         .add-to-cart.in-cart { background-color: #27ae60; }
 
-        /* ✅ CARRITO CON top: 20px (antes 110px) */
         .cart-section { position: sticky; top: 20px; height: fit-content; }
         .cart-items { max-height: 300px; overflow-y: auto; margin-bottom: 15px; }
         .cart-item {
@@ -570,7 +569,6 @@
         .availability-warning.active { display: block; animation: fadeIn 0.3s ease; }
         .availability-warning .warn-head {
             display: flex; gap: 10px; align-items: flex-start;
-            margin-bottom: 10px;
         }
         .availability-warning .warn-head > i {
             color: #f0ad4e; font-size: 1.3rem;
@@ -583,24 +581,6 @@
             color: #8a6d3b; font-size: 0.85rem; margin: 0; line-height: 1.45;
         }
         .availability-warning .warn-head p strong { display: inline; font-size: inherit; }
-        .availability-checkbox {
-            display: flex; align-items: flex-start; gap: 8px;
-            background: rgba(255,255,255,0.7);
-            padding: 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            color: #6d4f1f;
-            line-height: 1.4;
-            user-select: none;
-        }
-        .availability-checkbox input[type="checkbox"] {
-            margin-top: 3px;
-            accent-color: var(--primary);
-            flex-shrink: 0;
-            width: 16px; height: 16px;
-            cursor: pointer;
-        }
 
         .modal-quantity-controls {
             display: flex; align-items: center; justify-content: center;
@@ -738,7 +718,6 @@
             </p>
         </div>
 
-        <!-- BANNER DE HORARIO -->
         <div class="schedule-banner" id="scheduleBanner">
             <div class="banner-icon" id="scheduleBannerIcon">
                 <i class="fas fa-clock" id="scheduleBannerIconInner"></i>
@@ -989,10 +968,6 @@
                             <p id="modalAvailabilityText"></p>
                         </div>
                     </div>
-                    <label class="availability-checkbox">
-                        <input type="checkbox" id="availabilityConfirm">
-                        <span>Confirmo que aún tienen disponibilidad. Entiendo que si se agotó, el negocio me contactará para ofrecer alternativas.</span>
-                    </label>
                 </div>
 
                 <div class="modal-total">
@@ -1128,14 +1103,14 @@
               ] } },
             { id: 10, name: "Flautas doradas de barbacoa, orden de seis", category: "flautas",
               description: "Seis flautas doradas rellenas de barbacoa, bañadas en crema, queso y lechuga.",
-              price: 280.00, image: "https://i.ibb.co/PknjzJZ/Photoroom-20260124-142420.jpg",
+              price: 290.00, image: "https://i.ibb.co/PknjzJZ/Photoroom-20260124-142420.jpg",
               modifiers: { selection: [], extras: [
                 { id: 108, name: "Extra crema", description: "Crema adicional", price: 5.00 },
                 { id: 109, name: "Extra queso", description: "Queso rallado adicional", price: 5.00 }
               ] } },
             { id: 11, name: "Flautas doradas de barbacoa, orden de nueve", category: "flautas",
               description: "Nueve flautas doradas rellenas de barbacoa, bañadas en crema, queso y lechuga.",
-              price: 420.00, image: "https://i.ibb.co/PknjzJZ/Photoroom-20260124-142420.jpg",
+              price: 435.00, image: "https://i.ibb.co/PknjzJZ/Photoroom-20260124-142420.jpg",
               modifiers: { selection: [], extras: [
                 { id: 108, name: "Extra crema", description: "Crema adicional", price: 5.00 },
                 { id: 109, name: "Extra queso", description: "Queso rallado adicional", price: 5.00 }
@@ -1238,7 +1213,7 @@
         }
 
         // ============================================
-        // HORARIO (Sáb y Dom 8 AM a 2 PM)
+        // HORARIO
         // ============================================
         function getMexicanTime() {
             const parts = new Intl.DateTimeFormat('en-US', {
@@ -1310,12 +1285,12 @@
                 banner.classList.add('limited');
                 iconInner.className = 'fas fa-exclamation-triangle';
                 title.textContent = '⚠️ Disponibilidad limitada de barbacoa y pancita';
-                subtitle.textContent = 'Después de las 12 PM la carne y después de la 1 PM la pancita pueden agotarse. Te pediremos confirmar antes de agregar.';
+                subtitle.textContent = 'Después de las 12 PM la carne y después de la 1 PM la pancita pueden agotarse. Nosotros te confirmaremos por WhatsApp.';
             } else if (scheduleState.meatLow) {
                 banner.classList.add('limited');
                 iconInner.className = 'fas fa-exclamation-triangle';
                 title.textContent = '⚠️ Disponibilidad limitada de barbacoa';
-                subtitle.textContent = 'Después de las 12 PM la carne puede agotarse. Te pediremos confirmar antes de agregar.';
+                subtitle.textContent = 'Después de las 12 PM la carne puede agotarse. Nosotros te confirmaremos por WhatsApp.';
             } else {
                 banner.classList.add('open');
                 iconInner.className = 'fas fa-check-circle';
@@ -1618,7 +1593,6 @@
             const warning = document.getElementById('modalAvailabilityWarning');
             const title = document.getElementById('modalAvailabilityTitle');
             const text = document.getElementById('modalAvailabilityText');
-            const checkbox = document.getElementById('availabilityConfirm');
 
             if (!currentModalProduct) {
                 warning.classList.remove('active');
@@ -1627,17 +1601,15 @@
             const kind = productAvailabilityKind(currentModalProduct);
             if (!kind) {
                 warning.classList.remove('active');
-                checkbox.checked = false;
                 return;
             }
             if (kind === 'carne') {
                 title.textContent = 'Aviso: la barbacoa puede estar agotándose';
-                text.innerHTML = 'Después de las <strong>12:00 PM</strong> la barbacoa puede agotarse. <strong>Antes de agregar, confirma que aún tienen disponible.</strong>';
+                text.innerHTML = 'Después de las <strong>12:00 PM</strong> la barbacoa puede agotarse. Puedes enviar tu pedido, pero <strong>nosotros te confirmaremos la disponibilidad</strong> por WhatsApp antes de prepararlo.';
             } else {
                 title.textContent = 'Aviso: la pancita puede estar agotándose';
-                text.innerHTML = 'Después de la <strong>1:00 PM</strong> la pancita puede agotarse. <strong>Antes de agregar, confirma que aún tienen disponible.</strong>';
+                text.innerHTML = 'Después de la <strong>1:00 PM</strong> la pancita puede agotarse. Puedes enviar tu pedido, pero <strong>nosotros te confirmaremos la disponibilidad</strong> por WhatsApp antes de prepararlo.';
             }
-            checkbox.checked = false;
             warning.classList.add('active');
         }
 
@@ -1735,13 +1707,6 @@
             }
 
             const availKind = productAvailabilityKind(currentModalProduct);
-            if (availKind) {
-                const checkbox = document.getElementById('availabilityConfirm');
-                if (!checkbox.checked) {
-                    showNotification('Confirma la disponibilidad antes de continuar', 'error');
-                    return;
-                }
-            }
 
             let unitPrice = currentModalProduct.price;
             if (selectedSelection) unitPrice += selectedSelection.price;
@@ -1756,7 +1721,6 @@
                 quantity: modalQuantity,
                 selection: selectedSelection ? {...selectedSelection} : null,
                 extras: [...selectedExtras], image: currentModalProduct.image, uniqueId,
-                availabilityAcknowledged: !!availKind,
                 availabilityKind: availKind || null
             });
 
@@ -1873,11 +1837,11 @@
 
             let msg = '';
             if (scheduleState.pancitaLow && hasPancita && hasBarbacoa) {
-                msg = '<i class="fas fa-exclamation-triangle"></i><strong>Disponibilidad limitada:</strong> después de las 12 PM la carne y después de la 1 PM la pancita pueden agotarse. Confirmaremos disponibilidad al recibir tu pedido.';
+                msg = '<i class="fas fa-exclamation-triangle"></i><strong>Disponibilidad limitada:</strong> después de las 12 PM la carne y después de la 1 PM la pancita pueden agotarse. Nosotros te confirmaremos por WhatsApp.';
             } else if (scheduleState.pancitaLow && hasPancita) {
-                msg = '<i class="fas fa-exclamation-triangle"></i><strong>Pancita:</strong> después de la 1 PM puede agotarse. Confirmaremos disponibilidad al recibir tu pedido.';
+                msg = '<i class="fas fa-exclamation-triangle"></i><strong>Pancita:</strong> después de la 1 PM puede agotarse. Nosotros te confirmaremos por WhatsApp.';
             } else if (scheduleState.meatLow && hasBarbacoa) {
-                msg = '<i class="fas fa-exclamation-triangle"></i><strong>Barbacoa:</strong> después de las 12 PM puede agotarse. Confirmaremos disponibilidad al recibir tu pedido.';
+                msg = '<i class="fas fa-exclamation-triangle"></i><strong>Barbacoa:</strong> después de las 12 PM puede agotarse. Nosotros te confirmaremos por WhatsApp.';
             }
 
             if (msg) {
@@ -2233,8 +2197,6 @@
                 paymentDetails = `*Paga con:* $${cash.toFixed(2)}%0A*Cambio:* $${(cash - total).toFixed(2)}%0A`;
             }
 
-            const hasAvailAck = cart.some(i => i.availabilityAcknowledged);
-
             let msg = `*NUEVO PEDIDO - Barbacoa de la Casa Vieja*%0A%0A`;
             msg += `*Cliente:* ${customerName}%0A`;
             msg += `*Teléfono:* ${customerPhone}%0A`;
@@ -2258,11 +2220,12 @@
             if (paymentDetails) msg += paymentDetails;
             if (customerNotes) msg += `*Notas:* ${customerNotes}%0A`;
 
-            if (scheduleState.pancitaLow || scheduleState.meatLow || hasAvailAck) {
-                msg += `%0A*⚠️ NOTA DE DISPONIBILIDAD:*%0A`;
-                if (scheduleState.meatLow) msg += `- Barbacoa: pedido después de 12 PM, confirmar disponibilidad.%0A`;
-                if (scheduleState.pancitaLow) msg += `- Pancita: pedido después de 1 PM, confirmar disponibilidad.%0A`;
-                msg += `_El cliente confirmó disponibilidad al agregar._%0A`;
+            // Aviso de disponibilidad — acción para el NEGOCIO
+            if (scheduleState.meatLow || scheduleState.pancitaLow) {
+                msg += `%0A*⚠️ CONFIRMAR DISPONIBILIDAD AL CLIENTE:*%0A`;
+                if (scheduleState.meatLow) msg += `- Barbacoa: pedido después de 12 PM — CONFIRMAR con el cliente que aún hay.%0A`;
+                if (scheduleState.pancitaLow) msg += `- Pancita: pedido después de 1 PM — CONFIRMAR con el cliente que aún hay.%0A`;
+                msg += `_Favor de responder al cliente por WhatsApp para confirmar antes de preparar._%0A`;
             }
 
             msg += `%0A*DETALLE DEL PEDIDO:*%0A`;
@@ -2272,7 +2235,6 @@
                 if (item.selection) mods.push(item.selection.name);
                 if (item.extras?.length) mods = mods.concat(item.extras.map(m => m.name));
                 if (mods.length) msg += `%0A   _${mods.join(', ')}_`;
-                if (item.availabilityAcknowledged) msg += `%0A   ✓ Disponibilidad confirmada por el cliente`;
                 msg += `%0A`;
             });
 

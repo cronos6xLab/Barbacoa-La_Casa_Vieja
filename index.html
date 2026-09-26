@@ -232,9 +232,6 @@
         .details-hint { color: var(--color-ash); font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.02em; line-height: 1.5; display: block; margin-top: 8px; }
         .details-hint i { color: var(--color-ember-orange); }
 
-        /* ============================================================
-           NUEVA SECCIÓN: PROGRAMAR PEDIDO
-           ============================================================ */
         .schedule-section {
             background: rgba(255,77,0,0.05);
             border: 1px solid rgba(255,77,0,0.35);
@@ -252,66 +249,18 @@
             padding-bottom: 14px;
             border-bottom: 1px solid rgba(255,77,0,0.2);
         }
-        .schedule-header > i {
-            color: var(--color-ember-orange);
-            font-size: 1.1rem;
-            margin-top: 2px;
-            flex-shrink: 0;
-        }
-        .schedule-header strong {
-            display: block;
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--color-ember-orange);
-            margin-bottom: 5px;
-        }
-        .schedule-header small {
-            display: block;
-            font-family: var(--font-mono);
-            font-size: 0.62rem;
-            line-height: 1.55;
-            color: var(--color-ember-orange);
-            opacity: 0.82;
-            letter-spacing: 0.02em;
-        }
+        .schedule-header > i { color: var(--color-ember-orange); font-size: 1.1rem; margin-top: 2px; flex-shrink: 0; }
+        .schedule-header strong { display: block; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-ember-orange); margin-bottom: 5px; }
+        .schedule-header small { display: block; font-family: var(--font-mono); font-size: 0.62rem; line-height: 1.55; color: var(--color-ember-orange); opacity: 0.82; letter-spacing: 0.02em; }
         .schedule-section .form-group:last-of-type { margin-bottom: 0; }
-        .schedule-section .form-group > label {
-            color: var(--color-ember-orange);
-            opacity: 0.85;
-        }
-        .schedule-preview {
-            margin-top: 14px;
-            background: var(--color-foundry-black);
-            border: 1px dashed rgba(255,77,0,0.45);
-            border-radius: var(--radius-sm);
-            padding: 12px;
-            font-family: var(--font-mono);
-            font-size: 0.65rem;
-            letter-spacing: 0.03em;
-            color: var(--color-bone-white);
-            display: none;
-            line-height: 1.6;
-        }
+        .schedule-section .form-group > label { color: var(--color-ember-orange); opacity: 0.85; }
+        .schedule-preview { margin-top: 14px; background: var(--color-foundry-black); border: 1px dashed rgba(255,77,0,0.45); border-radius: var(--radius-sm); padding: 12px; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.03em; color: var(--color-bone-white); display: none; line-height: 1.6; }
         .schedule-preview.active { display: block; animation: fadeIn 0.25s ease; }
         .schedule-preview strong { color: var(--color-ember-orange); font-weight: 700; }
         .schedule-preview-line { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
         .schedule-preview-line:last-child { margin-bottom: 0; }
         .schedule-preview-line i { color: var(--color-ember-orange); width: 14px; text-align: center; }
-        .schedule-preview-warn {
-            margin-top: 8px;
-            padding-top: 8px;
-            border-top: 1px dashed rgba(255,77,0,0.3);
-            color: var(--color-ember-orange);
-            font-size: 0.6rem;
-            line-height: 1.55;
-            letter-spacing: 0.02em;
-            display: flex;
-            gap: 6px;
-            align-items: flex-start;
-        }
+        .schedule-preview-warn { margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(255,77,0,0.3); color: var(--color-ember-orange); font-size: 0.6rem; line-height: 1.55; letter-spacing: 0.02em; display: flex; gap: 6px; align-items: flex-start; }
         .schedule-preview-warn i { margin-top: 2px; flex-shrink: 0; }
 
         .product-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
@@ -428,10 +377,12 @@
     <div class="ticker" aria-hidden="true">
         <div class="ticker-track">
             <span>Pedidos sábados y domingos 8:00 AM – 2:00 PM</span><i class="fas fa-caret-right"></i>
+            <span>Programación de pedidos: 8:45 AM – 1:20 PM</span><i class="fas fa-caret-right"></i>
             <span>Envío $10 base + $10 por km · hasta 15 km</span><i class="fas fa-caret-right"></i>
             <span>Pedido mínimo para envío $100</span><i class="fas fa-caret-right"></i>
             <span>Claveria, Azcapotzalco · Tradición desde 1989</span><i class="fas fa-caret-right"></i>
             <span>Pedidos sábados y domingos 8:00 AM – 2:00 PM</span><i class="fas fa-caret-right"></i>
+            <span>Programación de pedidos: 8:45 AM – 1:20 PM</span><i class="fas fa-caret-right"></i>
             <span>Envío $10 base + $10 por km · hasta 15 km</span><i class="fas fa-caret-right"></i>
             <span>Pedido mínimo para envío $100</span><i class="fas fa-caret-right"></i>
             <span>Claveria, Azcapotzalco · Tradición desde 1989</span><i class="fas fa-caret-right"></i>
@@ -461,6 +412,9 @@
             <p><i class="fas fa-map-pin" style="color:var(--color-ember-orange)"></i> Claveria, Azcapotzalco</p>
             <p style="margin-top: 12px; background: rgba(255,77,0,0.06); padding: 10px 12px; border-radius: var(--radius-sm); border-left: 3px solid var(--color-ember-orange); color: var(--color-bone-white);">
                 <strong>Envío:</strong> $10 base + $10 por km (hasta 15 km) • Pedido mínimo: $100
+            </p>
+            <p style="margin-top: 8px; color: var(--color-ash); font-size: 0.7rem;">
+                <i class="fas fa-calendar-check" style="color: var(--color-ember-orange);"></i> Horarios programables: 8:45 AM – 1:20 PM
             </p>
         </div>
 
@@ -622,15 +576,12 @@
             <h2 class="section-title" id="checkoutFormTitle">Finalizar Pedido</h2>
             <form id="orderForm" novalidate>
 
-                <!-- ============================================
-                     SECCIÓN NUEVA: PROGRAMAR PEDIDO
-                     ============================================ -->
                 <div class="schedule-section" id="scheduleSection" style="display: none;">
                     <div class="schedule-header">
                         <i class="fas fa-calendar-check"></i>
                         <div>
                             <strong>Programar pedido</strong>
-                            <small>El restaurante está cerrado. Elige la fecha y hora en que quieres recibir o recoger tu pedido. Abrimos sábados y domingos de 8:00 AM a 2:00 PM.</small>
+                            <small>El restaurante está cerrado. Elige cuándo quieres recibir o recoger tu pedido.<br>Horarios programables: <strong>8:45 AM a 1:20 PM</strong> (sábados y domingos).</small>
                         </div>
                     </div>
 
@@ -714,7 +665,6 @@
         </section>
     </div>
 
-    <!-- Modal de producto -->
     <div class="product-modal" id="productModal">
         <div class="product-modal-content">
             <button class="product-modal-close" id="closeProductModal" type="button">
@@ -761,7 +711,6 @@
         </div>
     </div>
 
-    <!-- Modal de confirmación -->
     <div class="confirmation-modal" id="confirmationModal">
         <div class="confirmation-modal-content">
             <img src="https://i.ibb.co/jkWp21kD/IMG-4398.jpg" alt="Logo" class="confirmation-modal-logo">
@@ -794,9 +743,19 @@
         const whatsappNumber = "+525578677774";
         const restaurantCoords = { lat: 19.4646, lng: -99.1853 };
         const TIMEZONE = 'America/Mexico_City';
-        const SCHEDULE_LEAD_MINUTES = 45; // Tiempo mínimo de anticipación al programar
-        const MAX_SCHEDULE_DATES = 8;
-        const SCHEDULE_SCAN_DAYS = 28;
+
+        // ============================================
+        // PROGRAMACIÓN — VENTANA DE HORARIOS
+        // ============================================
+        // Primer horario programable: 8:45 AM (apertura 8:00 + 45 min de preparación y camino)
+        // Último horario programable: 1:20 PM (cierre 2:00 PM - buffer)
+        // Slots cada 30 min → 8:45, 9:15, 9:45, 10:15, 10:45, 11:15, 11:45, 12:15, 12:45, 13:15
+        const SCHEDULE_LEAD_MINUTES   = 45;          // Anticipación mínima desde "ahora"
+        const SCHEDULE_SLOT_START     = 8 * 60 + 45; // 8:45 AM = 525
+        const SCHEDULE_SLOT_END       = 13 * 60 + 20;// 1:20 PM = 800
+        const SCHEDULE_SLOT_INTERVAL  = 30;          // Cada 30 min
+        const MAX_SCHEDULE_DATES      = 8;
+        const SCHEDULE_SCAN_DAYS      = 28;
 
         const shippingRates = {
             baseRate: 10.00,
@@ -886,7 +845,6 @@
         let selectedSelection = null;
         let selectedExtras = [];
 
-        // Estado de programación
         let isScheduledOrder = false;
         let lastScheduleStateIsOpen = null;
 
@@ -980,7 +938,7 @@
                 if (!scheduleState.isOpenDay) {
                     const dayNames = { Mon:'lunes', Tue:'martes', Wed:'miércoles', Thu:'jueves', Fri:'viernes', Sat:'sábado', Sun:'domingo' };
                     title.textContent = `Cerrado — Hoy ${dayNames[scheduleState.weekday] || ''}`;
-                    subtitle.textContent = 'Abrimos sábados y domingos de 8:00 AM a 2:00 PM. Puedes programar tu pedido para la próxima fecha disponible.';
+                    subtitle.textContent = 'Abrimos sábados y domingos de 8:00 AM a 2:00 PM. Puedes programar tu pedido (horarios: 8:45 AM a 1:20 PM).';
                 } else if (scheduleState.timeInMinutes < SCHEDULE.openMinute) {
                     title.textContent = `Aún cerrado — Abrimos a las ${formatHour(SCHEDULE.openMinute)}`;
                     subtitle.textContent = `Son las ${formatHour(scheduleState.timeInMinutes)}. Puedes programar tu pedido para hoy o para otra fecha.`;
@@ -1005,7 +963,6 @@
                 subtitle.textContent = `Son las ${formatHour(scheduleState.timeInMinutes)}. Horario: sábados y domingos 8:00 AM a 2:00 PM.`;
             }
 
-            // Si estamos en modo programación y el estado cambió a abierto, avisar al cliente
             if (lastScheduleStateIsOpen !== null && !lastScheduleStateIsOpen && scheduleState.isOpen && isScheduledOrder) {
                 showNotification('El restaurante ya está abierto. Puedes enviar tu pedido ahora o conservar tu programación.', 'info');
             }
@@ -1018,7 +975,6 @@
             }
             renderProducts();
 
-            // Refrescar los selectores si estamos programando (por si expiró algún slot)
             if (isScheduledOrder && document.getElementById('checkoutForm').style.display !== 'none') {
                 refreshScheduleSelectorsPreservingSelection();
             }
@@ -1032,7 +988,7 @@
         }
 
         // ============================================
-        // PROGRAMACIÓN DE PEDIDOS
+        // PROGRAMACIÓN DE PEDIDOS — VENTANA 8:45 AM a 1:20 PM
         // ============================================
         function formatScheduleDateLabel(dateObj, offset) {
             const dayNames = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
@@ -1045,11 +1001,24 @@
             return `${dayName.charAt(0).toUpperCase() + dayName.slice(1)} ${dayNum} de ${monthName}`;
         }
 
-        function getValidScheduleDates() {
+        // Genera los slots horarios válidos dentro de la ventana 8:45 AM – 1:20 PM.
+        // Para hoy, además aplica el lead time de 45 min desde "ahora".
+        function getValidTimeSlots(offset) {
             const scheduleT = getOrderingStatus();
+            const slots = [];
+            for (let m = SCHEDULE_SLOT_START; m <= SCHEDULE_SLOT_END; m += SCHEDULE_SLOT_INTERVAL) {
+                if (offset === 0) {
+                    if (m < scheduleT.timeInMinutes + SCHEDULE_LEAD_MINUTES) continue;
+                }
+                slots.push(m);
+            }
+            return slots;
+        }
+
+        // Devuelve las próximas fechas válidas (sáb/dom) que tengan al menos un slot disponible.
+        function getValidScheduleDates() {
             const now = new Date();
             const validDates = [];
-            const lastSlotMin = SCHEDULE.closeMinute - 30; // último slot: 13:30
 
             for (let offset = 0; offset < SCHEDULE_SCAN_DAYS && validDates.length < MAX_SCHEDULE_DATES; offset++) {
                 const d = new Date(now);
@@ -1059,9 +1028,10 @@
                 // Solo sábados (6) y domingos (0)
                 if (dow !== 0 && dow !== 6) continue;
 
-                // Para hoy: verificar que aún exista al menos un slot con margen suficiente
+                // Para hoy: verificar que aún exista al menos un slot válido
                 if (offset === 0) {
-                    if (scheduleT.timeInMinutes + SCHEDULE_LEAD_MINUTES > lastSlotMin) continue;
+                    const slotsToday = getValidTimeSlots(0);
+                    if (slotsToday.length === 0) continue;
                 }
 
                 validDates.push({
@@ -1072,18 +1042,6 @@
                 });
             }
             return validDates;
-        }
-
-        function getValidTimeSlots(offset) {
-            const scheduleT = getOrderingStatus();
-            const slots = [];
-            for (let m = SCHEDULE.openMinute; m <= SCHEDULE.closeMinute - 30; m += 30) {
-                if (offset === 0) {
-                    if (m < scheduleT.timeInMinutes + SCHEDULE_LEAD_MINUTES) continue;
-                }
-                slots.push(m);
-            }
-            return slots;
         }
 
         function populateScheduleSelectors() {
@@ -1110,7 +1068,6 @@
                 dateSelect.appendChild(opt);
             });
 
-            // Restaurar selección previa si sigue siendo válida
             if (prevDate && validDates.some(d => String(d.offset) === String(prevDate))) {
                 dateSelect.value = prevDate;
             } else {
@@ -1197,7 +1154,6 @@
             html += `<div class="schedule-preview-line"><i class="fas fa-calendar-check"></i> Programado para <strong>${dateLabel}</strong></div>`;
             html += `<div class="schedule-preview-line"><i class="fas fa-clock"></i> Hora: <strong>${timeLabel}</strong></div>`;
 
-            // Avisos según hora programada
             const hasBarbacoa = cart.some(i => products.find(p => p.id === i.id)?.category === 'barbacoa');
             const hasPancita = cart.some(i => products.find(p => p.id === i.id)?.category === 'pancita');
             const warns = [];
@@ -1309,7 +1265,6 @@
             });
             document.getElementById('modalAddToCartBtn').addEventListener('click', addToCartFromModal);
 
-            // Listeners de programación
             document.getElementById('scheduleDate').addEventListener('change', function() {
                 populateTimeSlots();
             });
@@ -1720,7 +1675,6 @@
                 btn.innerHTML = '<i class="fas fa-shopping-bag"></i> Carrito vacío';
                 btn.classList.remove('disabled-by-schedule');
             } else if (!scheduleState.isOpen) {
-                // MODO PROGRAMACIÓN: permitir programar
                 const dates = getValidScheduleDates();
                 if (dates.length === 0) {
                     btn.disabled = true;
@@ -1741,7 +1695,6 @@
             const el = document.getElementById('cartAvailabilityWarning');
             if (!el) return;
 
-            // En modo programación, el aviso se maneja dentro del preview de programación
             if (!scheduleState.isOpen) {
                 el.classList.remove('active');
                 el.innerHTML = '';
@@ -1977,7 +1930,6 @@
             if (!name) { showNotification('Ingresa tu nombre', 'error'); return false; }
             if (!phone || phone.replace(/\D/g,'').length < 10) { showNotification('Ingresa un teléfono válido (10 dígitos)', 'error'); return false; }
 
-            // Validación de programación
             if (isScheduledOrder) {
                 const dateSelect = document.getElementById('scheduleDate');
                 const timeSelect = document.getElementById('scheduleTime');
@@ -1991,7 +1943,6 @@
                 const offset = parseInt(dateSelect.value);
                 const timeMin = parseInt(timeSelect.value);
 
-                // Re-validar que la fecha sigue siendo válida
                 const validDates = getValidScheduleDates();
                 if (!validDates.some(d => d.offset === offset)) {
                     showNotification('La fecha seleccionada ya no está disponible. Elige otra.', 'error');
@@ -2000,7 +1951,6 @@
                     return false;
                 }
 
-                // Re-validar que la hora sigue siendo válida
                 const validSlots = getValidTimeSlots(offset);
                 if (!validSlots.includes(timeMin)) {
                     showNotification('La hora seleccionada ya no está disponible. Elige otra.', 'error');
@@ -2042,7 +1992,6 @@
         function handleCheckout() {
             if (cart.length === 0) { showNotification('Tu carrito está vacío', 'error'); return; }
 
-            // Determinar modo: programado si está cerrado
             isScheduledOrder = !scheduleState.isOpen;
 
             const deliveryType = document.querySelector('input[name="deliveryType"]:checked').value;
@@ -2085,7 +2034,6 @@
             }
 
             if (isScheduledOrder) {
-                // Mostrar sección de programación
                 scheduleSection.style.display = 'block';
                 checkoutFormTitle.textContent = 'Programar Pedido';
                 submitBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Programar por WhatsApp';
@@ -2113,7 +2061,6 @@
 
             let html = '';
 
-            // Bloque de programación en el resumen
             if (isScheduledOrder) {
                 const dateSelect = document.getElementById('scheduleDate');
                 const timeSelect = document.getElementById('scheduleTime');
@@ -2148,7 +2095,6 @@
         // WHATSAPP
         // ============================================
         function sendOrderToWhatsApp() {
-            // Última validación de programación (por si expiró algún slot)
             if (isScheduledOrder) {
                 const dateSelect = document.getElementById('scheduleDate');
                 const timeSelect = document.getElementById('scheduleTime');
@@ -2185,7 +2131,6 @@
                 paymentDetails = `*Paga con:* $${cash.toFixed(2)}%0A*Cambio:* $${(cash - total).toFixed(2)}%0A`;
             }
 
-            // Encabezado del mensaje
             let msg = '';
             let scheduledDateLabel = '';
             let scheduledTimeLabel = '';
@@ -2229,7 +2174,6 @@
             if (paymentDetails) msg += paymentDetails;
             if (customerNotes) msg += `*Notas:* ${customerNotes}%0A`;
 
-            // Aviso de disponibilidad según hora programada o estado actual
             let showMeatWarn = false;
             let showPancitaWarn = false;
             if (isScheduledOrder && scheduledTimeMin !== null) {
@@ -2264,7 +2208,6 @@
             const url = `https://wa.me/${whatsappNumber.replace(/\D/g, '')}?text=${msg}`;
             window.open(url, '_blank');
 
-            // Configurar modal de confirmación
             const confirmTitle = document.getElementById('confirmationTitle');
             const confirmScheduleInfo = document.getElementById('confirmationScheduleInfo');
 
@@ -2278,7 +2221,6 @@
             }
             document.getElementById('confirmationModal').classList.add('active');
 
-            // Limpieza
             cart = [];
             isScheduledOrder = false;
             saveCart();

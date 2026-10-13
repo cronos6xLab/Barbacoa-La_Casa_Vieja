@@ -2861,25 +2861,14 @@
         // ============================================
         // CHECKOUT
         // ============================================
-        function setCheckoutFieldsReadOnly(isReadOnly) {
-            const fields = ['customerName', 'customerPhone', 'customerAddress', 'customerDetails', 'customerNotes', 'cashAmount'];
-            fields.forEach(id => {
-                const el = document.getElementById(id);
-                if (el) el.readOnly = isReadOnly;
-            });
-            const select = document.getElementById('deliveryTypeFinal');
-            if (select) select.disabled = isReadOnly;
-
-            const cashMethod = document.getElementById('cashMethod');
-            const cardMethod = document.getElementById('cardMethod');
-            if (cashMethod) {
-                cashMethod.style.pointerEvents = isReadOnly ? 'none' : 'auto';
-                cashMethod.style.opacity = isReadOnly ? '0.6' : '1';
-            }
-            if (cardMethod) {
-                cardMethod.style.pointerEvents = isReadOnly ? 'none' : 'auto';
-                cardMethod.style.opacity = isReadOnly ? '0.6' : '1';
-            }
+        function setDeliveryFieldsReadOnly(isReadOnly) {
+            const deliveryTypeFinal = document.getElementById('deliveryTypeFinal');
+            const customerAddress = document.getElementById('customerAddress');
+            const customerDetails = document.getElementById('customerDetails');
+            
+            if (deliveryTypeFinal) deliveryTypeFinal.disabled = isReadOnly;
+            if (customerAddress) customerAddress.readOnly = isReadOnly;
+            if (customerDetails) customerDetails.readOnly = isReadOnly;
         }
 
         function handleCheckout() {
@@ -2931,12 +2920,12 @@
                 checkoutFormTitle.textContent = 'Programar Pedido';
                 submitBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Programar por WhatsApp';
                 populateScheduleSelectors();
-                setCheckoutFieldsReadOnly(true);
+                setDeliveryFieldsReadOnly(true);
             } else {
                 scheduleSection.style.display = 'none';
                 checkoutFormTitle.textContent = 'Finalizar Pedido';
                 submitBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Enviar Pedido por WhatsApp';
-                setCheckoutFieldsReadOnly(false);
+                setDeliveryFieldsReadOnly(false);
             }
 
             selectPaymentMethod('card');
@@ -3224,7 +3213,7 @@
             saveCart();
             document.getElementById('orderForm').reset();
             // Desbloquear campos para la próxima vez
-            setCheckoutFieldsReadOnly(false);
+            setDeliveryFieldsReadOnly(false);
             // Re-cargar los datos del cliente después del reset del formulario
             loadClientDataSilently();
             document.getElementById('addressInput').value = '';

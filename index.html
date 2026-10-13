@@ -97,7 +97,6 @@
         .container-medium { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
         .container-narrow { max-width: 640px; margin: 0 auto; padding: 0 20px; }
 
-        /* TICKER */
         .ticker { overflow: hidden; background: var(--color-foundry-black); border-bottom: 1px solid var(--color-chalk-white); }
         .ticker-track { display: flex; align-items: center; gap: 22px; width: max-content; white-space: nowrap; padding: 9px 0; animation: tickerScroll 38s linear infinite; }
         .ticker-track span { font-family: var(--font-mono); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--color-ash); }
@@ -105,7 +104,6 @@
         @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
         @media (prefers-reduced-motion: reduce) { .ticker-track { animation: none; } }
 
-        /* HEADER */
         header {
             background:
                 linear-gradient(var(--header-overlay-top), var(--header-overlay-bottom)),
@@ -169,7 +167,6 @@
         .theme-toggle:hover { background: var(--ghost-hover-bg); }
         .theme-toggle i { color: var(--color-ember-orange); font-size: 0.72rem; }
 
-        /* SCREENS */
         .screens-wrap { padding-bottom: 100px; min-height: 60vh; }
         .screen { display: none; }
         .screen.active { display: block; animation: screenFade 0.28s ease; }
@@ -178,7 +175,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* BOTTOM NAV */
         .bottom-nav {
             position: fixed;
             bottom: 0; left: 0; right: 0;
@@ -192,7 +188,7 @@
         .bottom-nav.visible { display: flex; }
         .bottom-nav-item {
             flex: 1;
-            padding: 10px 8px 12px;
+            padding: 10px 4px 12px;
             background: transparent;
             border: none;
             display: flex;
@@ -201,20 +197,20 @@
             gap: 4px;
             color: var(--color-ash);
             font-family: var(--font-mono);
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.06em;
             cursor: pointer;
             position: relative;
             transition: color 0.2s ease;
         }
-        .bottom-nav-item i { font-size: 1.15rem; transition: transform 0.2s ease; }
+        .bottom-nav-item i { font-size: 1.1rem; transition: transform 0.2s ease; }
         .bottom-nav-item.active { color: var(--color-ember-orange); }
         .bottom-nav-item.active i { transform: translateY(-2px); }
         .bottom-nav-badge {
             position: absolute;
-            top: 6px;
-            right: calc(50% - 24px);
+            top: 4px;
+            right: calc(50% - 22px);
             background: var(--color-ember-orange);
             color: #fff;
             min-width: 18px; height: 18px;
@@ -227,7 +223,6 @@
         }
         .bottom-nav-badge.hidden { display: none; }
 
-        /* INFO / BANNER */
         .restaurant-info { background: transparent; border: 1px solid var(--color-soot); border-radius: var(--radius-lg); padding: 22px 24px; margin: 24px auto 20px; }
         .restaurant-info h3 { color: var(--color-bone-white); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; }
         .restaurant-info h3 i { color: var(--color-ember-orange); margin-right: 8px; }
@@ -242,7 +237,6 @@
         .schedule-banner.limited { border-left-color: var(--color-ember-orange); border-color: rgba(255,77,0,0.35); color: var(--color-ember-orange); }
         .schedule-banner.closed { border-left-color: var(--color-soot); color: var(--color-ash); }
 
-        /* MENU */
         .menu-section { background-color: transparent; border-radius: var(--radius-lg); padding: 4px 0 24px; }
         .section-title { color: var(--color-bone-white); font-family: var(--font-mono); font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 22px; padding-bottom: 12px; border-bottom: 1px solid var(--color-soot); position: relative; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
         .section-title::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 48px; height: 1px; background-color: var(--color-ember-orange); }
@@ -277,7 +271,6 @@
         .add-to-cart:hover { background-color: rgba(255,77,0,0.1); }
         .add-to-cart.in-cart { border-color: var(--color-chalk-white); color: var(--color-bone-white); }
 
-        /* CART */
         .cart-section { background-color: transparent; border-radius: var(--radius-lg); padding: 20px 0; }
         .cart-items { max-height: none; overflow-y: visible; margin-bottom: 18px; }
         .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--color-soot); gap: 10px; }
@@ -300,7 +293,6 @@
         .cart-availability-warning { background: rgba(255,77,0,0.06); border: 1px solid rgba(255,77,0,0.35); border-left: 3px solid var(--color-ember-orange); color: var(--color-ember-orange); padding: 10px 12px; border-radius: var(--radius-sm); margin: 10px 0; font-family: var(--font-mono); font-size: 0.65rem; line-height: 1.55; display: none; }
         .cart-availability-warning.active { display: block; }
 
-        /* BUTTONS */
         .checkout-btn, .submit-order-btn { width: 100%; border-radius: var(--radius-sm); padding: 16px; font-size: 0.72rem; cursor: pointer; text-transform: uppercase; letter-spacing: 0.12em; margin-top: 15px; transition: background 0.2s ease; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--font-mono); }
         .checkout-btn { background-color: transparent; border: 1px solid var(--color-ember-orange); color: var(--color-ember-orange); }
         .checkout-btn:hover:not(:disabled) { background-color: rgba(255,77,0,0.12); }
@@ -308,10 +300,9 @@
         .submit-order-btn:hover:not(:disabled) { background-color: var(--btn-invert-hover); }
         .checkout-btn:disabled, .submit-order-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
-        .ghost-btn { background: transparent; border: 1px solid var(--color-soot); color: var(--color-ash); padding: 12px 16px; border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; width: 100%; margin-top: 10px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+        .ghost-btn { background: transparent; border: 1px solid var(--color-soot); color: var(--color-ash); padding: 12px 16px; border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; width: 100%; margin-top: 10px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; }
         .ghost-btn:hover { color: var(--color-bone-white); border-color: var(--color-chalk-white); }
 
-        /* FORM */
         .checkout-form { background-color: transparent; border-radius: var(--radius-lg); padding: 20px 0; }
         .form-control { width: 100%; padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--color-soot); margin-top: 6px; font-size: 0.78rem; font-family: var(--font-mono); background: transparent; color: var(--color-bone-white); }
         .form-control::placeholder { color: var(--color-ash); opacity: 0.7; }
@@ -399,7 +390,6 @@
         .change-info { background: rgba(255,77,0,0.08); border: 1px solid var(--color-ember-orange); padding: 10px; border-radius: var(--radius-sm); margin-top: 10px; text-align: center; font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; color: var(--color-ember-orange); display: none; }
         .change-info.active { display: block; }
 
-        /* CONFIRMATION */
         .confirmation-screen { text-align: center; padding: 30px 0 20px; }
         .confirmation-screen .confirmation-logo { height: 84px; width: 84px; object-fit: cover; border-radius: var(--radius-sm); margin: 0 auto 22px; border: 1px solid var(--color-chalk-white); display: block; }
         .confirmation-screen h3 { font-family: var(--font-mono); font-size: 1rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-ember-orange); margin-bottom: 18px; }
@@ -407,224 +397,43 @@
         .confirmation-screen .confirmation-schedule.active { display: block; }
         .confirmation-screen p { font-family: var(--font-mono); font-size: 0.72rem; line-height: 1.6; color: var(--color-ash); margin-bottom: 14px; }
         .confirmation-screen p strong { color: var(--color-bone-white); }
-        .calendar-actions { margin-top: 24px; display: flex; flex-direction: column; gap: 10px; }
-        .calendar-actions .hint-text {
-            font-family: var(--font-mono);
-            font-size: 0.62rem;
-            color: var(--color-ash);
-            text-align: center;
-            margin-top: 8px;
-            line-height: 1.7;
-            padding: 12px;
-            border: 1px dashed var(--color-soot);
-            border-radius: var(--radius-sm);
-        }
-        .calendar-actions .hint-text strong { color: var(--color-ember-orange); }
 
-        /* HISTORY */
         .history-section { background-color: transparent; border-radius: var(--radius-lg); padding: 20px 0; }
-        .history-card {
-            background: transparent;
-            border: 1px solid var(--color-soot);
-            border-radius: var(--radius-lg);
-            margin-bottom: 14px;
-            overflow: hidden;
-            transition: border-color 0.2s ease;
-        }
+        .history-card { background: transparent; border: 1px solid var(--color-soot); border-radius: var(--radius-lg); margin-bottom: 14px; overflow: hidden; transition: border-color 0.2s ease; }
         .history-card:hover { border-color: var(--color-chalk-white); }
-        .history-card-header {
-            padding: 14px 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 12px;
-            border-bottom: 1px solid var(--color-soot);
-        }
-        .history-order-id {
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
-            font-weight: 700;
-            color: var(--color-bone-white);
-            letter-spacing: 0.04em;
-            margin-bottom: 4px;
-        }
-        .history-date {
-            font-family: var(--font-mono);
-            font-size: 0.62rem;
-            color: var(--color-ash);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        .history-status-badge {
-            font-family: var(--font-mono);
-            font-size: 0.58rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            padding: 5px 9px;
-            border-radius: var(--radius-sm);
-            white-space: nowrap;
-            flex-shrink: 0;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .history-status-badge.sent {
-            border: 1px solid var(--color-chalk-white);
-            color: var(--color-bone-white);
-            background: transparent;
-        }
-        .history-status-badge.scheduled {
-            border: 1px solid var(--color-ember-orange);
-            color: var(--color-ember-orange);
-            background: rgba(255,77,0,0.06);
-        }
+        .history-card-header { padding: 14px 16px; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; border-bottom: 1px solid var(--color-soot); }
+        .history-order-id { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: var(--color-bone-white); letter-spacing: 0.04em; margin-bottom: 4px; }
+        .history-date { font-family: var(--font-mono); font-size: 0.62rem; color: var(--color-ash); text-transform: uppercase; letter-spacing: 0.05em; }
+        .history-status-badge { font-family: var(--font-mono); font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 5px 9px; border-radius: var(--radius-sm); white-space: nowrap; flex-shrink: 0; display: inline-flex; align-items: center; gap: 5px; }
+        .history-status-badge.sent { border: 1px solid var(--color-chalk-white); color: var(--color-bone-white); background: transparent; }
+        .history-status-badge.scheduled { border: 1px solid var(--color-ember-orange); color: var(--color-ember-orange); background: rgba(255,77,0,0.06); }
         .history-body { padding: 14px 16px; }
-        .history-items-list {
-            font-family: var(--font-sans);
-            font-size: 0.72rem;
-            color: var(--color-ash);
-            line-height: 1.7;
-            margin-bottom: 10px;
-        }
-        .history-items-list .history-item-line {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            padding: 2px 0;
-        }
-        .history-items-list .history-item-line .qty {
-            color: var(--color-ember-orange);
-            font-family: var(--font-mono);
-            font-weight: 700;
-            margin-right: 4px;
-        }
-        .history-meta {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-            font-family: var(--font-mono);
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--color-ash);
-            margin-bottom: 12px;
-            padding-top: 10px;
-            border-top: 1px dashed var(--color-soot);
-        }
+        .history-items-list { font-family: var(--font-sans); font-size: 0.72rem; color: var(--color-ash); line-height: 1.7; margin-bottom: 10px; }
+        .history-items-list .history-item-line { display: flex; justify-content: space-between; gap: 10px; padding: 2px 0; }
+        .history-items-list .history-item-line .qty { color: var(--color-ember-orange); font-family: var(--font-mono); font-weight: 700; margin-right: 4px; }
+        .history-meta { display: flex; gap: 14px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-ash); margin-bottom: 12px; padding-top: 10px; border-top: 1px dashed var(--color-soot); }
         .history-meta span i { color: var(--color-ember-orange); margin-right: 4px; }
-        .history-total-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 16px;
-            background: rgba(255,77,0,0.04);
-            border-top: 1px solid var(--color-soot);
-            font-family: var(--font-mono);
-            font-size: 0.82rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
+        .history-total-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: rgba(255,77,0,0.04); border-top: 1px solid var(--color-soot); font-family: var(--font-mono); font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
         .history-total-row span:last-child { color: var(--color-ember-orange); }
-        .history-actions {
-            display: flex;
-            gap: 8px;
-            padding: 12px 16px;
-            border-top: 1px solid var(--color-soot);
-            flex-wrap: wrap;
-        }
-        .history-btn {
-            flex: 1;
-            min-width: 110px;
-            padding: 10px 12px;
-            border-radius: var(--radius-sm);
-            font-family: var(--font-mono);
-            font-size: 0.62rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            background: transparent;
-            transition: all 0.2s ease;
-        }
-        .history-btn-reorder {
-            border: 1px solid var(--color-ember-orange);
-            color: var(--color-ember-orange);
-        }
+        .history-actions { display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--color-soot); flex-wrap: wrap; }
+        .history-btn { flex: 1; min-width: 110px; padding: 10px 12px; border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; background: transparent; transition: all 0.2s ease; }
+        .history-btn-reorder { border: 1px solid var(--color-ember-orange); color: var(--color-ember-orange); }
         .history-btn-reorder:hover { background: rgba(255,77,0,0.12); }
-        .history-btn-detail {
-            border: 1px solid var(--color-soot);
-            color: var(--color-bone-white);
-        }
+        .history-btn-detail { border: 1px solid var(--color-soot); color: var(--color-bone-white); }
         .history-btn-detail:hover { border-color: var(--color-chalk-white); }
-        .history-btn-delete {
-            border: 1px solid var(--color-soot);
-            color: var(--color-ash);
-            flex: 0 0 auto;
-            min-width: auto;
-        }
+        .history-btn-delete { border: 1px solid var(--color-soot); color: var(--color-ash); flex: 0 0 auto; min-width: auto; }
         .history-btn-delete:hover { border-color: var(--color-ember-orange); color: var(--color-ember-orange); }
-
-        .history-empty {
-            text-align: center;
-            padding: 60px 15px;
-            color: var(--color-ash);
-        }
-        .history-empty i {
-            font-size: 3rem;
-            color: var(--color-soot);
-            margin-bottom: 18px;
-            display: block;
-        }
-        .history-empty p {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 8px;
-        }
-        .history-empty small {
-            font-family: var(--font-mono);
-            font-size: 0.62rem;
-            color: var(--color-soot);
-        }
-
-        .history-detail-expanded {
-            display: none;
-            padding: 14px 16px;
-            background: rgba(255,77,0,0.03);
-            border-top: 1px dashed var(--color-soot);
-            font-family: var(--font-mono);
-            font-size: 0.65rem;
-            line-height: 1.7;
-            color: var(--color-ash);
-        }
+        .history-empty { text-align: center; padding: 60px 15px; color: var(--color-ash); }
+        .history-empty i { font-size: 3rem; color: var(--color-soot); margin-bottom: 18px; display: block; }
+        .history-empty p { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+        .history-empty small { font-family: var(--font-mono); font-size: 0.62rem; color: var(--color-soot); }
+        .history-detail-expanded { display: none; padding: 14px 16px; background: rgba(255,77,0,0.03); border-top: 1px dashed var(--color-soot); font-family: var(--font-mono); font-size: 0.65rem; line-height: 1.7; color: var(--color-ash); }
         .history-detail-expanded.active { display: block; }
-        .history-detail-expanded .detail-row {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            padding: 3px 0;
-        }
-        .history-detail-expanded .detail-row strong {
-            color: var(--color-bone-white);
-            font-weight: 700;
-        }
-        .history-detail-expanded .detail-label {
-            color: var(--color-ember-orange);
-            text-transform: uppercase;
-            font-size: 0.58rem;
-            letter-spacing: 0.06em;
-            margin-top: 10px;
-            margin-bottom: 4px;
-            display: block;
-        }
+        .history-detail-expanded .detail-row { display: flex; justify-content: space-between; gap: 10px; padding: 3px 0; }
+        .history-detail-expanded .detail-row strong { color: var(--color-bone-white); font-weight: 700; }
+        .history-detail-expanded .detail-label { color: var(--color-ember-orange); text-transform: uppercase; font-size: 0.58rem; letter-spacing: 0.06em; margin-top: 10px; margin-bottom: 4px; display: block; }
         .history-detail-expanded .detail-label:first-child { margin-top: 0; }
 
-        /* PRODUCT MODAL */
         .product-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
         .product-modal.active { display: flex; }
         .product-modal-content { background: var(--color-foundry-black); border: 1px solid var(--color-chalk-white); border-radius: var(--radius-lg); max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; }
@@ -635,7 +444,6 @@
         .product-modal-title { font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; line-height: 1.35; color: var(--color-bone-white); margin-bottom: 12px; }
         .product-modal-desc { font-family: var(--font-sans); color: var(--color-ash); font-size: 0.78rem; line-height: 1.6; margin-bottom: 20px; }
         .product-modal-price { font-size: 1.35rem; font-weight: 700; color: var(--color-ember-orange); margin-bottom: 25px; }
-
         .modifiers-section { margin-bottom: 25px; }
         .modifiers-title { font-family: var(--font-mono); font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-ash); border-bottom: 1px solid var(--color-soot); padding-bottom: 8px; margin-bottom: 12px; }
         .modifier-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--color-soot); gap: 12px; }
@@ -677,19 +485,41 @@
         .modal-total { background: transparent; border: 1px solid var(--color-soot); padding: 15px; border-radius: var(--radius-sm); margin: 20px 0; text-align: center; font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; color: var(--color-ash); }
         .modal-total-price { color: var(--color-ember-orange); font-size: 1.1rem; font-weight: 700; margin-left: 6px; }
 
-        /* NOTIFICATION */
         .notification { position: fixed; bottom: 96px; left: 50%; transform: translateX(-50%); background: var(--color-foundry-black); color: var(--color-bone-white); border: 1px solid var(--color-chalk-white); padding: 12px 20px; border-radius: var(--radius-sm); z-index: 3000; display: none; font-family: var(--font-mono); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.08em; width: max-content; max-width: 90%; text-align: center; }
         .notification.show { display: block; animation: slideUp 0.25s ease; }
         .notification.success { border-color: var(--color-bone-white); }
         .notification.error, .notification.warning { border-color: var(--color-ember-orange); color: var(--color-ember-orange); }
         @keyframes slideUp { from { opacity: 0; transform: translateX(-50%) translateY(16px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
 
-        /* FOOTER */
         footer { background-color: var(--color-foundry-black); color: var(--color-ash); padding: 40px 0 24px; margin-top: 50px; text-align: center; border-top: 1px solid var(--color-chalk-white); font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; }
         .footer-logo { height: 56px; width: 56px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 16px; border: 1px solid var(--color-soot); }
         footer p { margin-bottom: 6px; }
 
-        /* RESPONSIVE */
+        /* INFO SCREEN */
+        .info-section { padding: 20px 0; }
+        .info-header { text-align: center; margin-bottom: 28px; }
+        .info-logo { height: 100px; width: 100px; object-fit: cover; border-radius: var(--radius-sm); border: 1px solid var(--color-chalk-white); margin-bottom: 16px; }
+        .info-name { font-family: var(--font-mono); font-size: 1.05rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-ember-orange); margin-bottom: 6px; }
+        .info-tagline { font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-ash); }
+
+        .info-card { background: transparent; border: 1px solid var(--color-soot); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 14px; }
+        .info-card-title { font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-bone-white); margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--color-soot); display: flex; align-items: center; }
+        .info-card-title i { color: var(--color-ember-orange); margin-right: 8px; }
+        .info-card p { font-family: var(--font-mono); font-size: 0.75rem; line-height: 1.7; color: var(--color-ash); margin-bottom: 4px; }
+        .info-card p strong { color: var(--color-bone-white); }
+        .info-card p i { color: var(--color-ember-orange); margin-right: 6px; }
+        .info-card-note { font-size: 0.65rem; color: var(--color-ash); opacity: 0.8; margin-top: 6px; }
+        .info-map { margin-top: 14px; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--color-soot); }
+        .info-map iframe { display: block; width: 100%; height: 280px; border: 0; filter: grayscale(0.2); }
+
+        .social-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-top: 10px; }
+        .social-btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 10px; border: 1px solid var(--color-soot); border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-ash); text-decoration: none; transition: all 0.2s ease; background: transparent; }
+        .social-btn:hover { border-color: var(--color-ember-orange); color: var(--color-ember-orange); background: rgba(255,77,0,0.04); }
+        .social-btn i { font-size: 0.95rem; }
+
+        .rating-stars { display: flex; gap: 6px; margin-top: 12px; justify-content: center; font-size: 1.4rem; color: var(--color-soot); }
+        .rating-stars i.active { color: var(--color-ember-orange); }
+
         @media (max-width: 768px) {
             .container, .container-medium { padding: 0 16px; }
             .container-narrow { padding: 0 16px; }
@@ -722,17 +552,20 @@
             .for-whom-option { min-width: auto; }
             .history-actions { padding: 10px 12px; }
             .history-btn { min-width: 90px; font-size: 0.58rem; }
+            .info-map iframe { height: 220px; }
+            .bottom-nav-item { font-size: 0.52rem; }
+            .bottom-nav-item i { font-size: 1rem; }
         }
         @media (max-width: 480px) {
             .section-title { font-size: 0.8rem; }
             .category-btn { padding: 7px 12px; font-size: 0.6rem; }
             .payment-methods { flex-direction: column; }
+            .social-grid { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <!-- TICKER -->
     <div class="ticker" aria-hidden="true">
         <div class="ticker-track">
             <span>Pedidos sábados y domingos 8:00 AM – 2:00 PM</span><i class="fas fa-caret-right"></i>
@@ -748,7 +581,6 @@
         </div>
     </div>
 
-    <!-- HEADER -->
     <header id="appHeader">
         <div class="container">
             <div class="header-content">
@@ -771,7 +603,6 @@
         </div>
     </header>
 
-    <!-- SCREENS -->
     <main class="screens-wrap">
 
         <!-- HOME -->
@@ -988,11 +819,11 @@
 
                         <div class="form-group">
                             <label>Nombre Completo *</label>
-                            <input type="text" id="customerName" class="form-control" required placeholder="Tu nombre">
+                            <input type="text" id="customerName" class="form-control" required placeholder="Tu nombre" autocomplete="name">
                         </div>
                         <div class="form-group">
                             <label>Teléfono *</label>
-                            <input type="tel" id="customerPhone" class="form-control" required placeholder="10 dígitos" inputmode="tel">
+                            <input type="tel" id="customerPhone" class="form-control" required placeholder="10 dígitos" inputmode="tel" autocomplete="tel">
                         </div>
 
                         <div class="form-group">
@@ -1005,7 +836,7 @@
 
                         <div class="form-group" id="finalAddressSection" style="display: none;">
                             <label>Dirección de entrega *</label>
-                            <input type="text" id="customerAddress" class="form-control" placeholder="Calle, número, colonia">
+                            <input type="text" id="customerAddress" class="form-control" placeholder="Calle, número, colonia" autocomplete="street-address">
                         </div>
 
                         <div class="form-group" id="finalDetailsSection" style="display: none;">
@@ -1064,16 +895,6 @@
                     <p>Tu pedido ha sido enviado por WhatsApp.<br>Te contactaremos pronto para confirmar.</p>
                     <p><strong>WhatsApp: +52 55 7867 7774</strong></p>
 
-                    <div class="calendar-actions" id="calendarActions" style="display: none;">
-                        <button type="button" class="checkout-btn" id="copyReplyBtn">
-                            <i class="fas fa-copy"></i> Copiar respuesta para el cliente
-                        </button>
-                        <div class="hint-text">
-                            Pega el mensaje en el chat del cliente.<br>
-                            Él podrá hacer <strong>long-press → "Evento"</strong> para agendarlo.
-                        </div>
-                    </div>
-
                     <button type="button" class="submit-order-btn" id="closeModalBtn" style="margin-top: 20px;">
                         <i class="fas fa-check"></i> Volver al Menú
                     </button>
@@ -1097,6 +918,110 @@
             </div>
         </section>
 
+        <!-- INFO -->
+        <section class="screen" id="screen-info">
+            <div class="container-medium">
+                <section class="info-section">
+                    <div class="info-header">
+                        <img src="https://i.ibb.co/jkWp21kD/IMG-4398.jpg" alt="Logo" class="info-logo">
+                        <h2 class="info-name">Barbacoa de la Casa Vieja</h2>
+                        <p class="info-tagline">Tradición desde 1989 · Claveria, Azcapotzalco</p>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-card-title"><i class="fas fa-clock"></i> Horarios</div>
+                        <p><strong>Sábados y Domingos</strong></p>
+                        <p>8:00 AM – 2:00 PM</p>
+                        <p class="info-card-note">Programación de pedidos: 8:45 AM – 1:20 PM</p>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-card-title"><i class="fas fa-map-marker-alt"></i> Ubicación</div>
+                        <p><i class="fas fa-map-pin"></i> <strong>Claveria, Azcapotzalco</strong></p>
+                        <p>Ciudad de México</p>
+                        <div class="info-map">
+                            <iframe src="https://www.google.com/maps?q=19.4646,-99.1853&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa del restaurante"></iframe>
+                        </div>
+                        <a href="https://www.google.com/maps?q=19.4646,-99.1853" target="_blank" rel="noopener" class="ghost-btn" style="margin-top: 12px;">
+                            <i class="fas fa-directions"></i> Cómo llegar
+                        </a>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-card-title"><i class="fas fa-motorcycle"></i> Envíos a domicilio</div>
+                        <p><i class="fas fa-flag"></i> Tarifa base: <strong>$10.00</strong></p>
+                        <p><i class="fas fa-route"></i> Costo por km: <strong>$10.00</strong></p>
+                        <p><i class="fas fa-ruler-horizontal"></i> Distancia máxima: <strong>15 km</strong></p>
+                        <p><i class="fas fa-shopping-basket"></i> Pedido mínimo: <strong>$100</strong></p>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-card-title"><i class="fas fa-palette"></i> Apariencia</div>
+                        <p>Cambia entre modo claro y oscuro.</p>
+                        <button type="button" class="ghost-btn" id="infoThemeToggle" style="margin-top: 12px;">
+                            <i class="fas fa-moon" id="infoThemeToggleIcon"></i> <span id="infoThemeToggleLabel">Modo oscuro</span>
+                        </button>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-card-title"><i class="fas fa-share-alt"></i> Redes sociales</div>
+                        <div class="social-grid">
+                            <!-- ▼ REEMPLAZAR ENLACES AQUÍ ▼ -->
+                            <a href="https://facebook.com/" target="_blank" rel="noopener" class="social-btn">
+                                <i class="fab fa-facebook-f"></i> Facebook
+                            </a>
+                            <a href="https://instagram.com/" target="_blank" rel="noopener" class="social-btn">
+                                <i class="fab fa-instagram"></i> Instagram
+                            </a>
+                            <a href="https://tiktok.com/" target="_blank" rel="noopener" class="social-btn">
+                                <i class="fab fa-tiktok"></i> TikTok
+                            </a>
+                            <a href="https://wa.me/525578677774" target="_blank" rel="noopener" class="social-btn">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </a>
+                            <!-- ▲ REEMPLAZAR ENLACES AQUÍ ▲ -->
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-card-title"><i class="fas fa-star"></i> Califícanos</div>
+                        <p>Tu opinión nos importa. ¿Cómo fue tu experiencia?</p>
+                        <div class="rating-stars" id="ratingStars">
+                            <i class="fas fa-star" data-val="1"></i>
+                            <i class="fas fa-star" data-val="2"></i>
+                            <i class="fas fa-star" data-val="3"></i>
+                            <i class="fas fa-star" data-val="4"></i>
+                            <i class="fas fa-star" data-val="5"></i>
+                        </div>
+                        <!-- ▼ REEMPLAZAR ENLACE DE RESEÑAS AQUÍ ▼ -->
+                        <a href="https://g.page/r/REEMPLAZAR_ID_GOOGLE/review" target="_blank" rel="noopener" class="ghost-btn" style="margin-top: 14px;">
+                            <i class="fab fa-google"></i> Dejar reseña en Google
+                        </a>
+                        <!-- ▲ REEMPLAZAR ENLACE DE RESEÑAS AQUÍ ▲ -->
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-card-title"><i class="fas fa-phone"></i> Contacto</div>
+                        <p><i class="fab fa-whatsapp"></i> <strong>+52 55 7867 7774</strong></p>
+                        <p><i class="fas fa-envelope"></i> contacto@casavieja.mx</p>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-card-title"><i class="fas fa-info-circle"></i> Sobre nosotros</div>
+                        <p style="line-height: 1.7;">Barbacoa de borrego cocida a fuego lento por horas, siguiendo la receta tradicional de la Casa Vieja desde 1989. Servimos los fines de semana en Claveria, Azcapotzalco.</p>
+                    </div>
+
+                    <footer style="margin-top: 30px;">
+                        <img src="https://i.ibb.co/jkWp21kD/IMG-4398.jpg" alt="Logo Footer" class="footer-logo">
+                        <p>&copy; 2025 Barbacoa de la Casa Vieja</p>
+                        <p style="margin-top: 10px;">
+                            <i class="fab fa-whatsapp" style="color: var(--color-ember-orange);"></i> +52 55 7867 7774
+                        </p>
+                    </footer>
+                </section>
+            </div>
+        </section>
+
     </main>
 
     <!-- BOTTOM NAV -->
@@ -1114,6 +1039,10 @@
             <i class="fas fa-history"></i>
             <span>Historial</span>
             <span class="bottom-nav-badge hidden" id="bottomNavHistoryBadge">0</span>
+        </button>
+        <button class="bottom-nav-item" data-screen="info" type="button">
+            <i class="fas fa-info-circle"></i>
+            <span>Info</span>
         </button>
     </nav>
 
@@ -1185,6 +1114,10 @@
 
         const HISTORY_KEY = 'orderHistory';
         const HISTORY_MAX = 40;
+
+        // Claves para guardar datos del cliente silenciosamente
+        const CLIENT_DATA_KEY = 'clientProfileData';
+        const DELIVERY_DATA_KEY = 'lastDeliveryProfile';
 
         const shippingRates = {
             baseRate: 10.00,
@@ -1284,7 +1217,6 @@
         let lastScheduleStateIsOpen = null;
 
         let scheduleState = { isOpen: false, isOpenDay: false, meatLow: false, pancitaLow: false };
-        let lastScheduledEvent = null;
 
         // ============================================
         // NAVEGACIÓN
@@ -1294,16 +1226,18 @@
             cart: 'Tu Pedido',
             checkout: 'Finalizar Pedido',
             confirmation: 'Confirmación',
-            history: 'Historial'
+            history: 'Historial',
+            info: 'Información'
         };
         const BACK_TARGETS = {
             home: null,
             cart: 'home',
             checkout: 'cart',
             confirmation: 'home',
-            history: 'home'
+            history: 'home',
+            info: 'home'
         };
-        const NAV_VISIBLE_SCREENS = ['home', 'cart', 'history'];
+        const NAV_VISIBLE_SCREENS = ['home', 'cart', 'history', 'info'];
 
         let currentScreen = 'home';
 
@@ -1358,6 +1292,18 @@
                     btn.setAttribute('title', 'Cambiar a modo oscuro');
                 }
             }
+            // Sincronizar botón del info screen
+            const infoIcon = document.getElementById('infoThemeToggleIcon');
+            const infoLabel = document.getElementById('infoThemeToggleLabel');
+            if (infoIcon && infoLabel) {
+                if (theme === 'dark') {
+                    infoIcon.className = 'fas fa-sun';
+                    infoLabel.textContent = 'Modo claro';
+                } else {
+                    infoIcon.className = 'fas fa-moon';
+                    infoLabel.textContent = 'Modo oscuro';
+                }
+            }
         }
 
         function toggleTheme() {
@@ -1365,6 +1311,67 @@
             const next = current === 'dark' ? 'light' : 'dark';
             try { localStorage.setItem('theme', next); } catch(e) {}
             applyTheme(next);
+        }
+
+        // ============================================
+        // GUARDADO SILencioso DE DATOS DEL CLIENTE
+        // ============================================
+        function saveClientDataSilently() {
+            try {
+                const name = document.getElementById('customerName')?.value.trim() || '';
+                const phone = document.getElementById('customerPhone')?.value.trim() || '';
+                const notes = document.getElementById('customerNotes')?.value.trim() || '';
+                if (!name && !phone) return;
+                const data = JSON.parse(localStorage.getItem(CLIENT_DATA_KEY) || '{}');
+                if (name) data.name = name;
+                if (phone) data.phone = phone;
+                data.notes = notes;
+                localStorage.setItem(CLIENT_DATA_KEY, JSON.stringify(data));
+            } catch(e) {}
+        }
+
+        function loadClientDataSilently() {
+            try {
+                const data = JSON.parse(localStorage.getItem(CLIENT_DATA_KEY) || '{}');
+                if (!data || Object.keys(data).length === 0) return;
+                const nameEl = document.getElementById('customerName');
+                const phoneEl = document.getElementById('customerPhone');
+                const notesEl = document.getElementById('customerNotes');
+                if (nameEl && data.name && !nameEl.value) nameEl.value = data.name;
+                if (phoneEl && data.phone && !phoneEl.value) phoneEl.value = data.phone;
+                if (notesEl && data.notes && !notesEl.value) notesEl.value = data.notes;
+            } catch(e) {}
+        }
+
+        function saveDeliveryDataSilently() {
+            try {
+                if (!deliveryAddress || !deliveryCoords) return;
+                const data = {
+                    address: deliveryAddress,
+                    coords: deliveryCoords,
+                    details: document.getElementById('locationDetails')?.value.trim() || '',
+                    deliveryFor: deliveryFor,
+                    zone: deliveryZone
+                };
+                localStorage.setItem(DELIVERY_DATA_KEY, JSON.stringify(data));
+            } catch(e) {}
+        }
+
+        async function loadDeliveryDataSilently() {
+            try {
+                const data = JSON.parse(localStorage.getItem(DELIVERY_DATA_KEY) || '{}');
+                if (!data || !data.address || !data.coords) return false;
+                // No sobrescribir si ya hay una dirección seleccionada
+                if (deliveryAddress && deliveryCoords) return false;
+                deliveryAddress = data.address;
+                deliveryCoords = data.coords;
+                if (data.details) {
+                    document.getElementById('locationDetails').value = data.details;
+                }
+                showSelectedAddress(deliveryAddress);
+                await calculateDistanceAndCost();
+                return true;
+            } catch(e) { return false; }
         }
 
         // ============================================
@@ -1789,7 +1796,6 @@
             return `${dayName.charAt(0).toUpperCase() + dayName.slice(1)} ${dayNum} de ${monthName}`;
         }
 
-        // Fecha natural que WhatsApp parsea mejor: "sábado 18 de octubre de 2025"
         function buildNaturalDateString(dateObj) {
             const dayNames = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
             const monthNames = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
@@ -1956,7 +1962,7 @@
         }
 
         // ============================================
-        // MAKE.COM
+        // MAKE.COM  (la respuesta para copiar se envía aquí, no se muestra al cliente)
         // ============================================
         function sendDataToMake(orderData) {
             if (!MAKE_WEBHOOK_URL || MAKE_WEBHOOK_URL.indexOf('tu_url') !== -1) return;
@@ -1988,13 +1994,15 @@
             params.append('pedido_detalle', orderData.pedido_detalle);
             params.append('pedido_json', JSON.stringify(orderData.cart_raw));
             params.append('aviso_disponibilidad', orderData.aviso_disponibilidad || 'Ninguno');
+            // Texto de respuesta para el cliente (copiar desde Google Sheets)
+            params.append('respuesta_cliente', orderData.respuesta_cliente || '');
 
             fetch(MAKE_WEBHOOK_URL, {
                 method: 'POST',
                 body: params,
                 keepalive: true
             })
-            .then(() => console.log('✅ Pedido enviado a Make.com'))
+            .then(() => console.log('✅ Pedido enviado a Make.com (con respuesta para Google Sheets)'))
             .catch(err => console.warn('⚠️ No se pudo enviar a Make:', err));
         }
 
@@ -2004,6 +2012,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
             document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+            document.getElementById('infoThemeToggle').addEventListener('click', toggleTheme);
             document.getElementById('headerBack').addEventListener('click', goBack);
 
             document.querySelectorAll('.bottom-nav-item').forEach(btn => {
@@ -2012,6 +2021,10 @@
 
             scheduleState = getOrderingStatus();
             lastScheduleStateIsOpen = scheduleState.isOpen;
+
+            // Cargar silenciosamente los datos del cliente
+            loadClientDataSilently();
+
             renderProducts();
             updateCartDisplay();
             updateHistoryBadge();
@@ -2041,12 +2054,16 @@
             document.getElementById('clearHistoryBtn').addEventListener('click', clearOrderHistory);
 
             document.querySelectorAll('input[name="deliveryType"]').forEach(radio => {
-                radio.addEventListener('change', function() {
+                radio.addEventListener('change', async function() {
                     const dt = this.value;
                     document.getElementById('pickupOption').classList.toggle('selected', dt === 'pickup');
                     document.getElementById('deliveryOption').classList.toggle('selected', dt === 'delivery');
                     if (dt === 'delivery') {
                         document.getElementById('deliveryAddressSection').style.display = 'block';
+                        // Cargar dirección guardada silenciosamente si no hay una seleccionada
+                        if (!deliveryAddress && !deliveryCoords) {
+                            await loadDeliveryDataSilently();
+                        }
                     } else {
                         document.getElementById('deliveryAddressSection').style.display = 'none';
                         resetDeliveryLocation();
@@ -2062,6 +2079,17 @@
             document.getElementById('searchAddressBtn').addEventListener('click', searchAddress);
             document.getElementById('addressInput').addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') { e.preventDefault(); searchAddress(); }
+            });
+
+            // Guardado silencioso en blur de los campos del cliente
+            ['customerName', 'customerPhone', 'customerNotes', 'locationDetails', 'customerDetails'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.addEventListener('blur', function() {
+                        saveClientDataSilently();
+                        if (id === 'locationDetails') saveDeliveryDataSilently();
+                    });
+                }
             });
 
             document.getElementById('cashMethod').addEventListener('click', () => selectPaymentMethod('cash'));
@@ -2080,45 +2108,7 @@
             });
 
             document.getElementById('closeModalBtn').addEventListener('click', function() {
-                lastScheduledEvent = null;
-                document.getElementById('calendarActions').style.display = 'none';
                 navigateTo('home');
-            });
-
-            document.getElementById('copyReplyBtn').addEventListener('click', async function() {
-                if (!lastScheduledEvent) return;
-                const e = lastScheduledEvent;
-
-                const replyMsg =
-                    `¡Hola ${e.customerName}! 🍖\n\n` +
-                    `Tu pedido en *Barbacoa de la Casa Vieja* quedó agendado.\n\n` +
-                    `📅 Programado para el ${e.dateNatural} a las ${e.timeLabel}\n\n` +
-                    (e.deliveryType === 'delivery'
-                        ? `📍 Lo llevamos a: ${e.address}\n\n`
-                        : `📍 Pasas a recogerlo a Claveria, Azcapotzalco\n\n`) +
-                    `💰 Total: $${e.total.toFixed(2)}\n\n` +
-                    `_Mantén presionado este mensaje → "Evento"_ 👆\n` +
-                    `_para guardarlo en tu calendario._\n\n` +
-                    `¡Gracias por tu pedido! 🙌`;
-
-                try {
-                    await navigator.clipboard.writeText(replyMsg);
-                    showNotification('Respuesta copiada. Pégala en el chat del cliente.', 'success');
-                } catch(err) {
-                    const ta = document.createElement('textarea');
-                    ta.value = replyMsg;
-                    ta.style.position = 'fixed';
-                    ta.style.top = '-9999px';
-                    document.body.appendChild(ta);
-                    ta.select();
-                    try {
-                        document.execCommand('copy');
-                        showNotification('Respuesta copiada.', 'success');
-                    } catch(e2) {
-                        showNotification('No se pudo copiar. Selecciona manualmente.', 'error');
-                    }
-                    document.body.removeChild(ta);
-                }
             });
 
             document.getElementById('closeProductModal').addEventListener('click', closeProductModal);
@@ -2135,6 +2125,23 @@
 
             document.getElementById('scheduleDate').addEventListener('change', function() { populateTimeSlots(); });
             document.getElementById('scheduleTime').addEventListener('change', function() { updateSchedulePreview(); });
+
+            // Estrellas de calificación en Info
+            const ratingStars = document.querySelectorAll('#ratingStars i');
+            let currentRating = 0;
+            ratingStars.forEach(star => {
+                star.addEventListener('mouseenter', function() {
+                    const val = parseInt(this.dataset.val);
+                    ratingStars.forEach(s => s.classList.toggle('active', parseInt(s.dataset.val) <= val));
+                });
+                star.addEventListener('click', function() {
+                    currentRating = parseInt(this.dataset.val);
+                    showNotification(`¡Gracias por calificar con ${currentRating} estrella(s)! 🌟`, 'success');
+                });
+            });
+            document.getElementById('ratingStars').addEventListener('mouseleave', function() {
+                ratingStars.forEach(s => s.classList.toggle('active', parseInt(s.dataset.val) <= currentRating));
+            });
 
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
@@ -2174,6 +2181,10 @@
                 addressLabel.innerHTML = '<i class="fas fa-search" style="color: var(--color-ember-orange);"></i> O ingresa la dirección de entrega:';
                 addressInput.placeholder = 'Calle, número, colonia';
                 selectedLabel.textContent = 'Dirección seleccionada:';
+                // Si vuelve a "Para mí", cargar la dirección guardada
+                if (!deliveryAddress && !deliveryCoords) {
+                    loadDeliveryDataSilently();
+                }
             }
         }
 
@@ -2617,6 +2628,7 @@
                     }
                     showSelectedAddress(deliveryAddress);
                     await calculateDistanceAndCost();
+                    saveDeliveryDataSilently();
                     btn.disabled = false;
                     btn.innerHTML = originalText;
                 },
@@ -2659,6 +2671,7 @@
                 deliveryAddress = place.display_name;
                 showSelectedAddress(deliveryAddress);
                 await calculateDistanceAndCost();
+                saveDeliveryDataSilently();
             } catch (err) {
                 showNotification('Error al buscar la dirección. Intenta de nuevo.', 'error');
                 document.getElementById('autoCalculatingStatus').classList.remove('active');
@@ -2993,14 +3006,38 @@
                 paymentDetails = `*Paga con:* $${cashAmountVal.toFixed(2)}%0A*Cambio:* $${cambioVal.toFixed(2)}%0A`;
             }
 
+            // ============ GUARDAR DATOS DEL CLIENTE (silencioso) ============
+            try {
+                localStorage.setItem(CLIENT_DATA_KEY, JSON.stringify({
+                    name: customerName,
+                    phone: customerPhone,
+                    notes: customerNotes
+                }));
+            } catch(e) {}
+            if (deliveryType === 'delivery') saveDeliveryDataSilently();
+
+            // ============ TEXTO DE RESPUESTA (se envía a Make/Google Sheets, no se muestra al cliente) ============
+            let respuestaCliente = '';
+            if (isScheduledOrder) {
+                respuestaCliente =
+                    `¡Hola ${customerName}! 🍖\n\n` +
+                    `Tu pedido en *Barbacoa de la Casa Vieja* quedó agendado.\n\n` +
+                    `📅 Programado para el ${scheduledDateNatural} a las ${scheduledTimeLabel}\n\n` +
+                    (deliveryType === 'delivery'
+                        ? `📍 Lo llevamos a: ${customerAddress}\n\n`
+                        : `📍 Pasas a recogerlo a Claveria, Azcapotzalco\n\n`) +
+                    `💰 Total: $${total.toFixed(2)}\n\n` +
+                    `_Mantén presionado este mensaje → "Evento"_ 👆\n` +
+                    `_para guardarlo en tu calendario._\n\n` +
+                    `¡Gracias por tu pedido! 🙌`;
+            }
+
             // ============ MENSAJE WHATSAPP ============
-            // Formato optimizado: fecha + hora en UNA SOLA frase natural para el parser de WhatsApp
             let msg = '';
             msg += `🍖 *Barbacoa de la Casa Vieja*%0A`;
             msg += `━━━━━━━━━━━━━━━━━━━━%0A%0A`;
 
             if (isScheduledOrder) {
-                // Fecha + hora en una sola línea natural (WhatsApp las combina al long-press → Evento)
                 msg += `📅 Programado para el ${scheduledDateNatural} a las ${scheduledTimeLabel}%0A%0A`;
                 msg += `_(Mantén presionado este mensaje → "Evento" para agendarlo en tu calendario)_%0A%0A`;
                 msg += `━━━━━━━━━━━━━━━━━━━━%0A%0A`;
@@ -3091,7 +3128,7 @@
             };
             saveOrderToHistory(historyOrder);
 
-            // ============ MAKE.COM ============
+            // ============ MAKE.COM (incluye respuesta_cliente para Google Sheets) ============
             try {
                 const pedidoDetalle = cart.map(item => {
                     let mods = [];
@@ -3126,7 +3163,8 @@
                     total: total.toFixed(2),
                     pedido_detalle: pedidoDetalle,
                     cart_raw: historyOrder.items,
-                    aviso_disponibilidad: historyOrder.availabilityWarning
+                    aviso_disponibilidad: historyOrder.availabilityWarning,
+                    respuesta_cliente: respuestaCliente
                 });
             } catch (err) {
                 console.warn('Error preparando datos para Make:', err);
@@ -3136,30 +3174,17 @@
             const waLink = `https://wa.me/${whatsappNumber.replace(/\D/g, '')}?text=${msg}`;
             window.open(waLink, '_blank');
 
-            // ============ GUARDAR DATOS PARA EL BOTÓN "COPIAR RESPUESTA" ============
-            lastScheduledEvent = isScheduledOrder ? {
-                dateNatural: scheduledDateNatural,
-                timeLabel: scheduledTimeLabel,
-                customerName,
-                deliveryType,
-                address: customerAddress,
-                total
-            } : null;
-
             // ============ PANTALLA DE CONFIRMACIÓN ============
             const confirmTitle = document.getElementById('confirmationTitle');
             const confirmScheduleInfo = document.getElementById('confirmationScheduleInfo');
-            const calendarActions = document.getElementById('calendarActions');
 
             if (isScheduledOrder) {
                 confirmTitle.textContent = '¡Pedido Programado!';
                 confirmScheduleInfo.innerHTML = `<i class="fas fa-calendar-check"></i> ${scheduledDateNatural}<br><i class="fas fa-clock"></i> ${scheduledTimeLabel}`;
                 confirmScheduleInfo.classList.add('active');
-                calendarActions.style.display = 'flex';
             } else {
                 confirmTitle.textContent = '¡Pedido Enviado!';
                 confirmScheduleInfo.classList.remove('active');
-                calendarActions.style.display = 'none';
             }
 
             // ============ RESET ============
@@ -3167,6 +3192,8 @@
             isScheduledOrder = false;
             saveCart();
             document.getElementById('orderForm').reset();
+            // Re-cargar los datos del cliente después del reset del formulario
+            loadClientDataSilently();
             document.getElementById('addressInput').value = '';
             document.getElementById('locationDetails').value = '';
             document.getElementById('selectedAddressBox').classList.remove('active');

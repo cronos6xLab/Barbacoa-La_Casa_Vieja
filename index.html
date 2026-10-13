@@ -2092,14 +2092,13 @@
                 const replyMsg =
                     `¡Hola ${e.customerName}! 🍖\n\n` +
                     `Tu pedido en *Barbacoa de la Casa Vieja* quedó agendado.\n\n` +
-                    `📅 ${e.dateNatural}\n` +
-                    `🕐 ${e.timeLabel}\n\n` +
+                    `📅 Programado para el ${e.dateNatural} a las ${e.timeLabel}\n\n` +
                     (e.deliveryType === 'delivery'
                         ? `📍 Lo llevamos a: ${e.address}\n\n`
                         : `📍 Pasas a recogerlo a Claveria, Azcapotzalco\n\n`) +
                     `💰 Total: $${e.total.toFixed(2)}\n\n` +
-                    `_Guarda este mensaje en tu calendario:_\n` +
-                    `_Mantén presionado este mensaje → "Evento"_\n\n` +
+                    `_Mantén presionado este mensaje → "Evento"_ 👆\n` +
+                    `_para guardarlo en tu calendario._\n\n` +
                     `¡Gracias por tu pedido! 🙌`;
 
                 try {
@@ -2995,15 +2994,15 @@
             }
 
             // ============ MENSAJE WHATSAPP ============
-            // Formato optimizado para que WhatsApp detecte fecha/hora al long-press → Evento
+            // Formato optimizado: fecha + hora en UNA SOLA frase natural para el parser de WhatsApp
             let msg = '';
             msg += `🍖 *Barbacoa de la Casa Vieja*%0A`;
             msg += `━━━━━━━━━━━━━━━━━━━━%0A%0A`;
 
             if (isScheduledOrder) {
-                msg += `📅 *${scheduledDateNatural}*%0A`;
-                msg += `🕐 *${scheduledTimeLabel}*%0A%0A`;
-                msg += `_(Mantén presionado este mensaje → "Evento" para agendarlo)_%0A%0A`;
+                // Fecha + hora en una sola línea natural (WhatsApp las combina al long-press → Evento)
+                msg += `📅 Programado para el ${scheduledDateNatural} a las ${scheduledTimeLabel}%0A%0A`;
+                msg += `_(Mantén presionado este mensaje → "Evento" para agendarlo en tu calendario)_%0A%0A`;
                 msg += `━━━━━━━━━━━━━━━━━━━━%0A%0A`;
             }
 

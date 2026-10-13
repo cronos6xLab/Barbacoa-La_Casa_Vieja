@@ -3148,7 +3148,7 @@
             };
             saveOrderToHistory(historyOrder);
 
-            // ============ MAKE.COM (incluye respuesta_cliente para Google Sheets) ============
+            // ============ MAKE.COM (Enviar ANTES de abrir WhatsApp para evitar que el navegador cancele la petición) ============
             try {
                 const pedidoDetalle = cart.map(item => {
                     let mods = [];

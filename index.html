@@ -684,19 +684,19 @@
                     </div>
 
                     <div style="margin-bottom:15px;">
-                        <label class="delivery-option selected" id="pickupOption">
-                            <input type="radio" name="deliveryType" value="pickup" checked>
+                        <label class="delivery-option" id="pickupOption">
+                            <input type="radio" name="deliveryType" value="pickup">
                             <i class="fas fa-store" style="color: var(--color-ember-orange);"></i>
                             <span>Pasar a recoger</span>
                         </label>
-                        <label class="delivery-option" id="deliveryOption">
-                            <input type="radio" name="deliveryType" value="delivery">
+                        <label class="delivery-option selected" id="deliveryOption">
+                            <input type="radio" name="deliveryType" value="delivery" checked>
                             <i class="fas fa-motorcycle" style="color: var(--color-ember-orange);"></i>
                             <span>Envío a domicilio</span>
                         </label>
                     </div>
 
-                    <div id="deliveryAddressSection" style="display: none;">
+                    <div id="deliveryAddressSection" style="display: block;">
                         <div class="for-whom-block">
                             <label><i class="fas fa-user-check"></i> ¿Para quién es el pedido?</label>
                             <div class="for-whom-options">
@@ -966,20 +966,18 @@
                     <div class="info-card">
                         <div class="info-card-title"><i class="fas fa-share-alt"></i> Redes sociales</div>
                         <div class="social-grid">
-                            <!-- ▼ REEMPLAZAR ENLACES AQUÍ ▼ -->
-                            <a href="https://facebook.com/" target="_blank" rel="noopener" class="social-btn">
+                            <a href="https://www.facebook.com/share/1GZaiDCmkA/?mibextid=wwXIfr" target="_blank" rel="noopener" class="social-btn">
                                 <i class="fab fa-facebook-f"></i> Facebook
                             </a>
-                            <a href="https://instagram.com/" target="_blank" rel="noopener" class="social-btn">
+                            <a href="https://instagram.com/barbacoadelacasavieja?cplk=MTNqZHQzYmp0cDVhaA%3D%3D" target="_blank" rel="noopener" class="social-btn">
                                 <i class="fab fa-instagram"></i> Instagram
                             </a>
-                            <a href="https://tiktok.com/" target="_blank" rel="noopener" class="social-btn">
+                            <a href="https://www.tiktok.com/@barbacoadelacasavieja?_r=1&_t=ZS-9AWxVfrEXAa" target="_blank" rel="noopener" class="social-btn">
                                 <i class="fab fa-tiktok"></i> TikTok
                             </a>
                             <a href="https://wa.me/525578677774" target="_blank" rel="noopener" class="social-btn">
                                 <i class="fab fa-whatsapp"></i> WhatsApp
                             </a>
-                            <!-- ▲ REEMPLAZAR ENLACES AQUÍ ▲ -->
                         </div>
                     </div>
 
@@ -993,11 +991,9 @@
                             <i class="fas fa-star" data-val="4"></i>
                             <i class="fas fa-star" data-val="5"></i>
                         </div>
-                        <!-- ▼ REEMPLAZAR ENLACE DE RESEÑAS AQUÍ ▼ -->
-                        <a href="https://g.page/r/REEMPLAZAR_ID_GOOGLE/review" target="_blank" rel="noopener" class="ghost-btn" style="margin-top: 14px;">
+                        <a href="https://search.google.com/local/writereview?placeid=ChIJNy4JvZz40YURNjCk-6Ah2zw" target="_blank" rel="noopener" class="ghost-btn" style="margin-top: 14px;">
                             <i class="fab fa-google"></i> Dejar reseña en Google
                         </a>
-                        <!-- ▲ REEMPLAZAR ENLACE DE RESEÑAS AQUÍ ▲ -->
                     </div>
 
                     <div class="info-card">
@@ -2023,6 +2019,13 @@
 
             // Cargar silenciosamente los datos del cliente
             loadClientDataSilently();
+            
+            // Si la opción por defecto es envío a domicilio, intentar cargar la dirección guardada
+            if (document.querySelector('input[name="deliveryType"][value="delivery"]').checked) {
+                if (!deliveryAddress && !deliveryCoords) {
+                    loadDeliveryDataSilently();
+                }
+            }
 
             renderProducts();
             updateCartDisplay();
@@ -2135,7 +2138,12 @@
                 });
                 star.addEventListener('click', function() {
                     currentRating = parseInt(this.dataset.val);
-                    showNotification(`¡Gracias por calificar con ${currentRating} estrella(s)! 🌟`, 'success');
+                    if (currentRating === 5) {
+                        window.open('https://search.google.com/local/writereview?placeid=ChIJNy4JvZz40YURNjCk-6Ah2zw', '_blank');
+                        showNotification('¡Gracias! Te redirigimos a Google para dejar tu reseña. 🌟', 'success');
+                    } else {
+                        showNotification(`¡Gracias por calificar con ${currentRating} estrella(s)! 🌟`, 'success');
+                    }
                 });
             });
             document.getElementById('ratingStars').addEventListener('mouseleave', function() {
@@ -2170,12 +2178,13 @@
 
             if (value === 'other') {
                 otherHint.classList.add('active');
-                useLocationBtn.innerHTML = '<i class="fas fa-location-arrow"></i> Ubicación actual de quien recibe';
+                useLocationBtn.style.display = 'none'; // Ocultar botón de ubicación
                 addressLabel.innerHTML = '<i class="fas fa-search" style="color: var(--color-ember-orange);"></i> Dirección de quien recibirá el pedido:';
                 addressInput.placeholder = 'Calle, número, colonia de quien recibe';
                 selectedLabel.textContent = 'Dirección de entrega a la otra persona:';
             } else {
                 otherHint.classList.remove('active');
+                useLocationBtn.style.display = 'flex'; // Mostrar botón de ubicación
                 useLocationBtn.innerHTML = '<i class="fas fa-location-arrow"></i> Usar mi ubicación actual';
                 addressLabel.innerHTML = '<i class="fas fa-search" style="color: var(--color-ember-orange);"></i> O ingresa la dirección de entrega:';
                 addressInput.placeholder = 'Calle, número, colonia';
@@ -2852,6 +2861,27 @@
         // ============================================
         // CHECKOUT
         // ============================================
+        function setCheckoutFieldsReadOnly(isReadOnly) {
+            const fields = ['customerName', 'customerPhone', 'customerAddress', 'customerDetails', 'customerNotes', 'cashAmount'];
+            fields.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.readOnly = isReadOnly;
+            });
+            const select = document.getElementById('deliveryTypeFinal');
+            if (select) select.disabled = isReadOnly;
+
+            const cashMethod = document.getElementById('cashMethod');
+            const cardMethod = document.getElementById('cardMethod');
+            if (cashMethod) {
+                cashMethod.style.pointerEvents = isReadOnly ? 'none' : 'auto';
+                cashMethod.style.opacity = isReadOnly ? '0.6' : '1';
+            }
+            if (cardMethod) {
+                cardMethod.style.pointerEvents = isReadOnly ? 'none' : 'auto';
+                cardMethod.style.opacity = isReadOnly ? '0.6' : '1';
+            }
+        }
+
         function handleCheckout() {
             if (cart.length === 0) { showNotification('Tu carrito está vacío', 'error'); return; }
 
@@ -2901,10 +2931,12 @@
                 checkoutFormTitle.textContent = 'Programar Pedido';
                 submitBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Programar por WhatsApp';
                 populateScheduleSelectors();
+                setCheckoutFieldsReadOnly(true);
             } else {
                 scheduleSection.style.display = 'none';
                 checkoutFormTitle.textContent = 'Finalizar Pedido';
                 submitBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Enviar Pedido por WhatsApp';
+                setCheckoutFieldsReadOnly(false);
             }
 
             selectPaymentMethod('card');
@@ -3191,6 +3223,8 @@
             isScheduledOrder = false;
             saveCart();
             document.getElementById('orderForm').reset();
+            // Desbloquear campos para la próxima vez
+            setCheckoutFieldsReadOnly(false);
             // Re-cargar los datos del cliente después del reset del formulario
             loadClientDataSilently();
             document.getElementById('addressInput').value = '';
@@ -3200,19 +3234,20 @@
             document.getElementById('distanceDetails').classList.remove('active');
             document.getElementById('deliveryLimitWarning').classList.remove('active');
             document.getElementById('autoCalculatingStatus').classList.remove('active');
-            document.getElementById('deliveryAddressSection').style.display = 'none';
+            document.getElementById('deliveryAddressSection').style.display = 'block';
             document.getElementById('scheduleSection').style.display = 'none';
             document.getElementById('checkoutFormTitle').textContent = 'Finalizar Pedido';
             document.getElementById('submitOrderBtn').innerHTML = '<i class="fab fa-whatsapp"></i> Enviar Pedido por WhatsApp';
-            document.querySelector('input[name="deliveryType"][value="pickup"]').checked = true;
-            document.getElementById('pickupOption').classList.add('selected');
-            document.getElementById('deliveryOption').classList.remove('selected');
+            document.querySelector('input[name="deliveryType"][value="delivery"]').checked = true;
+            document.getElementById('pickupOption').classList.remove('selected');
+            document.getElementById('deliveryOption').classList.add('selected');
 
             deliveryFor = 'me';
             document.querySelector('input[name="deliveryFor"][value="me"]').checked = true;
             document.getElementById('forMeOption').classList.add('selected');
             document.getElementById('forOtherOption').classList.remove('selected');
             document.getElementById('otherPersonHint').classList.remove('active');
+            document.getElementById('useCurrentLocationBtn').style.display = 'flex';
             document.getElementById('useCurrentLocationBtn').innerHTML = '<i class="fas fa-location-arrow"></i> Usar mi ubicación actual';
             document.getElementById('addressInputLabel').innerHTML = '<i class="fas fa-search" style="color: var(--color-ember-orange);"></i> O ingresa la dirección de entrega:';
             document.getElementById('addressInput').placeholder = 'Calle, número, colonia';

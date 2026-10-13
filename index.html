@@ -399,17 +399,29 @@
         .change-info { background: rgba(255,77,0,0.08); border: 1px solid var(--color-ember-orange); padding: 10px; border-radius: var(--radius-sm); margin-top: 10px; text-align: center; font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; color: var(--color-ember-orange); display: none; }
         .change-info.active { display: block; }
 
-        /* CONFIRMATION SCREEN */
+        /* CONFIRMATION */
         .confirmation-screen { text-align: center; padding: 30px 0 20px; }
         .confirmation-screen .confirmation-logo { height: 84px; width: 84px; object-fit: cover; border-radius: var(--radius-sm); margin: 0 auto 22px; border: 1px solid var(--color-chalk-white); display: block; }
         .confirmation-screen h3 { font-family: var(--font-mono); font-size: 1rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-ember-orange); margin-bottom: 18px; }
-        .confirmation-screen .confirmation-schedule { color: var(--color-ember-orange); font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 18px; display: none; padding: 12px; border: 1px dashed var(--color-ember-orange); border-radius: var(--radius-sm); background: rgba(255,77,0,0.05); }
+        .confirmation-screen .confirmation-schedule { color: var(--color-ember-orange); font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 18px; display: none; padding: 12px; border: 1px dashed var(--color-ember-orange); border-radius: var(--radius-sm); background: rgba(255,77,0,0.05); line-height: 1.6; }
         .confirmation-screen .confirmation-schedule.active { display: block; }
         .confirmation-screen p { font-family: var(--font-mono); font-size: 0.72rem; line-height: 1.6; color: var(--color-ash); margin-bottom: 14px; }
         .confirmation-screen p strong { color: var(--color-bone-white); }
         .calendar-actions { margin-top: 24px; display: flex; flex-direction: column; gap: 10px; }
+        .calendar-actions .hint-text {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            color: var(--color-ash);
+            text-align: center;
+            margin-top: 8px;
+            line-height: 1.7;
+            padding: 12px;
+            border: 1px dashed var(--color-soot);
+            border-radius: var(--radius-sm);
+        }
+        .calendar-actions .hint-text strong { color: var(--color-ember-orange); }
 
-        /* HISTORY SCREEN */
+        /* HISTORY */
         .history-section { background-color: transparent; border-radius: var(--radius-lg); padding: 20px 0; }
         .history-card {
             background: transparent;
@@ -1053,15 +1065,13 @@
                     <p><strong>WhatsApp: +52 55 7867 7774</strong></p>
 
                     <div class="calendar-actions" id="calendarActions" style="display: none;">
-                        <button type="button" class="checkout-btn" id="shareEventBtn">
-                            <i class="fab fa-whatsapp"></i> Compartir evento por WhatsApp
+                        <button type="button" class="checkout-btn" id="copyReplyBtn">
+                            <i class="fas fa-copy"></i> Copiar respuesta para el cliente
                         </button>
-                        <button type="button" class="ghost-btn" id="openGCalBtn">
-                            <i class="fab fa-google"></i> Añadir a Google Calendar
-                        </button>
-                        <button type="button" class="ghost-btn" id="downloadICSBtn">
-                            <i class="fas fa-download"></i> Descargar .ics (Apple/Outlook)
-                        </button>
+                        <div class="hint-text">
+                            Pega el mensaje en el chat del cliente.<br>
+                            Él podrá hacer <strong>long-press → "Evento"</strong> para agendarlo.
+                        </div>
                     </div>
 
                     <button type="button" class="submit-order-btn" id="closeModalBtn" style="margin-top: 20px;">
@@ -1163,7 +1173,6 @@
         const whatsappNumber = "+525578677774";
         const restaurantCoords = { lat: 19.4646, lng: -99.1853 };
         const TIMEZONE = 'America/Mexico_City';
-        const RESTAURANT_LOCATION_NAME = "Barbacoa de la Casa Vieja, Claveria, Azcapotzalco, CDMX";
 
         const MAKE_WEBHOOK_URL = "https://hook.us2.make.com/dflhy5kveofxbpe2ebsysc2g3c938s2e";
 
@@ -1780,6 +1789,13 @@
             return `${dayName.charAt(0).toUpperCase() + dayName.slice(1)} ${dayNum} de ${monthName}`;
         }
 
+        // Fecha natural que WhatsApp parsea mejor: "sábado 18 de octubre de 2025"
+        function buildNaturalDateString(dateObj) {
+            const dayNames = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+            const monthNames = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+            return `${dayNames[dateObj.getDay()]} ${dateObj.getDate()} de ${monthNames[dateObj.getMonth()]} de ${dateObj.getFullYear()}`;
+        }
+
         function getValidTimeSlots(offset) {
             const scheduleT = getOrderingStatus();
             const slots = [];
@@ -1808,6 +1824,7 @@
                     offset,
                     date: d,
                     label: formatScheduleDateLabel(d, offset),
+                    naturalDate: buildNaturalDateString(d),
                     dateStr: `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`
                 });
             }
@@ -1939,143 +1956,6 @@
         }
 
         // ============================================
-        // CALENDARIO (.ics + Google Calendar)
-        // ============================================
-        function buildEventDate(offset, timeMin) {
-            const now = new Date();
-            const d = new Date(now);
-            d.setDate(d.getDate() + offset);
-            d.setHours(Math.floor(timeMin / 60), timeMin % 60, 0, 0);
-            return d;
-        }
-
-        function formatICSDate(d) {
-            return d.getFullYear() +
-                String(d.getMonth()+1).padStart(2,'0') +
-                String(d.getDate()).padStart(2,'0') + 'T' +
-                String(d.getHours()).padStart(2,'0') +
-                String(d.getMinutes()).padStart(2,'0') + '00';
-        }
-
-        function formatUTCStamp(d) {
-            return d.getUTCFullYear() +
-                String(d.getUTCMonth()+1).padStart(2,'0') +
-                String(d.getUTCDate()).padStart(2,'0') + 'T' +
-                String(d.getUTCHours()).padStart(2,'0') +
-                String(d.getUTCMinutes()).padStart(2,'0') +
-                String(d.getUTCSeconds()).padStart(2,'0') + 'Z';
-        }
-
-        function escapeICS(s) {
-            return String(s || '').replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n');
-        }
-
-        function generateICSContent(eventData) {
-            const start = buildEventDate(eventData.offset, eventData.timeMin);
-            const end = new Date(start);
-            end.setHours(end.getHours() + 1);
-
-            const lines = [
-                'BEGIN:VCALENDAR',
-                'VERSION:2.0',
-                'PRODID:-//Barbacoa de la Casa Vieja//Pedido//ES',
-                'CALSCALE:GREGORIAN',
-                'METHOD:PUBLISH',
-                'BEGIN:VEVENT',
-                `UID:pedido-${Date.now()}-${Math.random().toString(36).slice(2,8)}@barbacoa-casavieja`,
-                `DTSTAMP:${formatUTCStamp(new Date())}`,
-                `DTSTART;TZID=America/Mexico_City:${formatICSDate(start)}`,
-                `DTEND;TZID=America/Mexico_City:${formatICSDate(end)}`,
-                `SUMMARY:${escapeICS(eventData.summary)}`,
-                `DESCRIPTION:${escapeICS(eventData.details)}`,
-                `LOCATION:${escapeICS(eventData.location)}`,
-                'STATUS:CONFIRMED',
-                'BEGIN:VALARM',
-                'TRIGGER:-PT30M',
-                'ACTION:DISPLAY',
-                `DESCRIPTION:${escapeICS('Recordatorio: ' + eventData.summary)}`,
-                'END:VALARM',
-                'END:VEVENT',
-                'END:VCALENDAR'
-            ];
-            return lines.join('\r\n');
-        }
-
-        function downloadICSFile(eventData) {
-            try {
-                const icsContent = generateICSContent(eventData);
-                const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                const start = buildEventDate(eventData.offset, eventData.timeMin);
-                const dateStr = `${start.getFullYear()}${String(start.getMonth()+1).padStart(2,'0')}${String(start.getDate()).padStart(2,'0')}`;
-                a.href = url;
-                a.download = `pedido-barbacoa-${dateStr}.ics`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                setTimeout(() => URL.revokeObjectURL(url), 2000);
-                return true;
-            } catch (err) {
-                console.warn('Error generando ICS:', err);
-                return false;
-            }
-        }
-
-        function generateGoogleCalendarLink(eventData) {
-            const start = buildEventDate(eventData.offset, eventData.timeMin);
-            const end = new Date(start);
-            end.setHours(end.getHours() + 1);
-            const params = new URLSearchParams({
-                action: 'TEMPLATE',
-                text: eventData.summary,
-                dates: `${formatICSDate(start)}/${formatICSDate(end)}`,
-                ctz: 'America/Mexico_City',
-                details: eventData.details,
-                location: eventData.location
-            });
-            return `https://calendar.google.com/calendar/render?${params.toString()}`;
-        }
-
-        // ============================================
-        // COMPARTIR EVENTO (WhatsApp)
-        // ============================================
-        async function tryShareEventToWhatsApp(icsFile, messageText) {
-            if (navigator.canShare && navigator.canShare({ files: [icsFile] })) {
-                try {
-                    await navigator.share({
-                        files: [icsFile],
-                        text: messageText,
-                        title: 'Pedido programado - Barbacoa de la Casa Vieja'
-                    });
-                    return 'shared';
-                } catch(e) {
-                    if (e.name === 'AbortError') return 'cancelled';
-                    console.warn('Share files+text falló:', e);
-                }
-                try {
-                    await navigator.share({ files: [icsFile] });
-                    return 'shared-file-only';
-                } catch(e) {
-                    if (e.name === 'AbortError') return 'cancelled';
-                    console.warn('Share file only falló:', e);
-                }
-            }
-            if (navigator.share) {
-                try {
-                    await navigator.share({
-                        text: messageText,
-                        title: 'Pedido programado - Barbacoa de la Casa Vieja'
-                    });
-                    return 'shared-text-only';
-                } catch(e) {
-                    if (e.name === 'AbortError') return 'cancelled';
-                }
-            }
-            return 'not-supported';
-        }
-
-        // ============================================
         // MAKE.COM
         // ============================================
         function sendDataToMake(orderData) {
@@ -2108,8 +1988,6 @@
             params.append('pedido_detalle', orderData.pedido_detalle);
             params.append('pedido_json', JSON.stringify(orderData.cart_raw));
             params.append('aviso_disponibilidad', orderData.aviso_disponibilidad || 'Ninguno');
-            params.append('evento_ics', orderData.evento_ics || 'No');
-            params.append('evento_fecha', orderData.evento_fecha || '');
 
             fetch(MAKE_WEBHOOK_URL, {
                 method: 'POST',
@@ -2207,39 +2085,40 @@
                 navigateTo('home');
             });
 
-            document.getElementById('downloadICSBtn').addEventListener('click', function() {
-                if (lastScheduledEvent) {
-                    downloadICSFile(lastScheduledEvent);
-                    showNotification('Evento descargado', 'success');
-                }
-            });
-
-            document.getElementById('openGCalBtn').addEventListener('click', function() {
-                if (lastScheduledEvent) {
-                    window.open(generateGoogleCalendarLink(lastScheduledEvent), '_blank');
-                }
-            });
-
-            document.getElementById('shareEventBtn').addEventListener('click', async function() {
+            document.getElementById('copyReplyBtn').addEventListener('click', async function() {
                 if (!lastScheduledEvent) return;
+                const e = lastScheduledEvent;
+
+                const replyMsg =
+                    `¡Hola ${e.customerName}! 🍖\n\n` +
+                    `Tu pedido en *Barbacoa de la Casa Vieja* quedó agendado.\n\n` +
+                    `📅 ${e.dateNatural}\n` +
+                    `🕐 ${e.timeLabel}\n\n` +
+                    (e.deliveryType === 'delivery'
+                        ? `📍 Lo llevamos a: ${e.address}\n\n`
+                        : `📍 Pasas a recogerlo a Claveria, Azcapotzalco\n\n`) +
+                    `💰 Total: $${e.total.toFixed(2)}\n\n` +
+                    `_Guarda este mensaje en tu calendario:_\n` +
+                    `_Mantén presionado este mensaje → "Evento"_\n\n` +
+                    `¡Gracias por tu pedido! 🙌`;
+
                 try {
-                    const icsContent = generateICSContent(lastScheduledEvent);
-                    const file = new File([icsContent], 'pedido-barbacoa.ics', { type: 'text/calendar' });
-                    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                        await navigator.share({
-                            files: [file],
-                            title: 'Pedido programado - Barbacoa de la Casa Vieja'
-                        });
-                        showNotification('Evento compartido', 'success');
-                    } else {
-                        downloadICSFile(lastScheduledEvent);
-                        showNotification('Evento descargado', 'info');
+                    await navigator.clipboard.writeText(replyMsg);
+                    showNotification('Respuesta copiada. Pégala en el chat del cliente.', 'success');
+                } catch(err) {
+                    const ta = document.createElement('textarea');
+                    ta.value = replyMsg;
+                    ta.style.position = 'fixed';
+                    ta.style.top = '-9999px';
+                    document.body.appendChild(ta);
+                    ta.select();
+                    try {
+                        document.execCommand('copy');
+                        showNotification('Respuesta copiada.', 'success');
+                    } catch(e2) {
+                        showNotification('No se pudo copiar. Selecciona manualmente.', 'error');
                     }
-                } catch(e) {
-                    if (e.name !== 'AbortError') {
-                        downloadICSFile(lastScheduledEvent);
-                        showNotification('Evento descargado', 'info');
-                    }
+                    document.body.removeChild(ta);
                 }
             });
 
@@ -3063,13 +2942,14 @@
         }
 
         // ============================================
-        // ENVÍO DE PEDIDO (WhatsApp + Make + Calendario + Historial)
+        // ENVÍO DE PEDIDO (WhatsApp nativo + Make + Historial)
         // ============================================
-        async function sendOrderToWhatsApp() {
+        function sendOrderToWhatsApp() {
             let scheduledDateLabel = '';
             let scheduledTimeLabel = '';
             let scheduledTimeMin = null;
             let scheduledOffset = null;
+            let scheduledDateNatural = '';
 
             if (isScheduledOrder) {
                 const dateSelect = document.getElementById('scheduleDate');
@@ -3083,8 +2963,10 @@
                     populateScheduleSelectors();
                     return;
                 }
+                const validDateObj = validDates.find(d => d.offset === scheduledOffset);
                 scheduledDateLabel = dateSelect.options[dateSelect.selectedIndex].textContent;
                 scheduledTimeLabel = formatHour(scheduledTimeMin);
+                scheduledDateNatural = validDateObj.naturalDate;
             }
 
             const customerName = document.getElementById('customerName').value.trim();
@@ -3104,62 +2986,25 @@
 
             const paymentText = paymentMethod === 'cash' ? 'Efectivo' : 'Tarjeta (Terminal)';
             let paymentDetails = '';
+            let cashAmountVal = 0;
+            let cambioVal = 0;
             if (paymentMethod === 'cash') {
-                const cash = parseFloat(document.getElementById('cashAmount').value) || 0;
-                paymentDetails = `*Paga con:* $${cash.toFixed(2)}%0A*Cambio:* $${(cash - total).toFixed(2)}%0A`;
+                cashAmountVal = parseFloat(document.getElementById('cashAmount').value) || 0;
+                cambioVal = cashAmountVal - total;
+                paymentDetails = `*Paga con:* $${cashAmountVal.toFixed(2)}%0A*Cambio:* $${cambioVal.toFixed(2)}%0A`;
             }
 
-            // === EVENTO DE CALENDARIO ===
-            let eventData = null;
-            let icsFile = null;
-            let messagePlainForShare = '';
-
-            if (isScheduledOrder && scheduledOffset !== null && scheduledTimeMin !== null) {
-                const eventSummary = `🍖 Pedido Barbacoa - ${customerName}`;
-                const eventDetails =
-                    `Pedido programado en Barbacoa de la Casa Vieja\n\n` +
-                    `Cliente: ${customerName}\n` +
-                    `Teléfono: ${customerPhone}\n` +
-                    `Tipo: ${deliveryType === 'delivery' ? 'Envío a domicilio' : 'Recoger en local'}\n` +
-                    (deliveryType === 'delivery'
-                        ? `Dirección: ${customerAddress}\n${customerDetails ? 'Detalles: ' + customerDetails + '\n' : ''}`
-                        : `Recoger en: Claveria, Azcapotzalco\n`) +
-                    `\nProductos:\n` +
-                    cart.map(i => `• ${i.quantity}x ${i.name}`).join('\n') +
-                    `\n\nTotal: $${total.toFixed(2)}\n` +
-                    `WhatsApp: +52 55 7867 7774`;
-
-                const eventLocation = deliveryType === 'delivery' ? customerAddress : RESTAURANT_LOCATION_NAME;
-
-                eventData = {
-                    offset: scheduledOffset,
-                    timeMin: scheduledTimeMin,
-                    summary: eventSummary,
-                    details: eventDetails,
-                    location: eventLocation
-                };
-                lastScheduledEvent = eventData;
-
-                try {
-                    const icsContent = generateICSContent(eventData);
-                    icsFile = new File([icsContent], `pedido-barbacoa-${scheduledOffset}.ics`, { type: 'text/calendar' });
-                } catch(e) {
-                    console.warn('No se pudo crear File .ics:', e);
-                }
-            } else {
-                lastScheduledEvent = null;
-            }
-
-            // === MENSAJE WHATSAPP ===
+            // ============ MENSAJE WHATSAPP ============
+            // Formato optimizado para que WhatsApp detecte fecha/hora al long-press → Evento
             let msg = '';
+            msg += `🍖 *Barbacoa de la Casa Vieja*%0A`;
+            msg += `━━━━━━━━━━━━━━━━━━━━%0A%0A`;
+
             if (isScheduledOrder) {
-                msg += `*NUEVO PEDIDO PROGRAMADO - Barbacoa de la Casa Vieja*%0A%0A`;
-                msg += `🗓️ *PROGRAMADO PARA:*%0A`;
-                msg += `*Fecha:* ${scheduledDateLabel}%0A`;
-                msg += `*Hora:* ${scheduledTimeLabel}%0A`;
-                msg += `_Favor de confirmar la fecha y hora con el cliente._%0A%0A`;
-            } else {
-                msg += `*NUEVO PEDIDO - Barbacoa de la Casa Vieja*%0A%0A`;
+                msg += `📅 *${scheduledDateNatural}*%0A`;
+                msg += `🕐 *${scheduledTimeLabel}*%0A%0A`;
+                msg += `_(Mantén presionado este mensaje → "Evento" para agendarlo)_%0A%0A`;
+                msg += `━━━━━━━━━━━━━━━━━━━━%0A%0A`;
             }
 
             msg += `*Cliente:* ${customerName}%0A`;
@@ -3169,11 +3014,10 @@
             if (deliveryType === 'delivery') {
                 msg += `*Pedido para:* ${deliveryFor === 'other' ? 'OTRA PERSONA' : 'El cliente'}%0A`;
                 msg += `*Dirección:* ${customerAddress}%0A`;
-                msg += `*📌 Detalles de ubicación:* ${customerDetails}%0A`;
+                msg += `*📌 Detalles:* ${customerDetails}%0A`;
                 if (deliveryCoords) {
                     const gmapsLink = `https://www.google.com/maps?q=${deliveryCoords.lat},${deliveryCoords.lng}`;
-                    msg += `*Coordenadas GPS:* ${deliveryCoords.lat.toFixed(6)}, ${deliveryCoords.lng.toFixed(6)}%0A`;
-                    msg += `*Ver en mapa:* ${gmapsLink}%0A`;
+                    msg += `*Mapa:* ${gmapsLink}%0A`;
                 }
                 msg += `*Distancia:* ${deliveryDistance.toFixed(1)} km (${deliveryZone})%0A`;
                 msg += `*Costo de envío:* $${currentShippingCost.toFixed(2)}%0A`;
@@ -3193,14 +3037,15 @@
                 showPancitaWarn = scheduleState.pancitaLow;
             }
             if (showMeatWarn || showPancitaWarn) {
-                msg += `%0A*⚠️ CONFIRMAR DISPONIBILIDAD AL CLIENTE:*%0A`;
-                if (showMeatWarn) msg += `- Barbacoa: pedido después de 12 PM — CONFIRMAR.%0A`;
-                if (showPancitaWarn) msg += `- Pancita: pedido después de 1 PM — CONFIRMAR.%0A`;
+                msg += `%0A*⚠️ CONFIRMAR DISPONIBILIDAD:*%0A`;
+                if (showMeatWarn) msg += `- Barbacoa después de 12 PM%0A`;
+                if (showPancitaWarn) msg += `- Pancita después de 1 PM%0A`;
             }
 
-            msg += `%0A*DETALLE DEL PEDIDO:*%0A`;
+            msg += `%0A━━━━━━━━━━━━━━━━━━━━%0A`;
+            msg += `*DETALLE DEL PEDIDO:*%0A`;
             cart.forEach(item => {
-                msg += `• ${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`;
+                msg += `• ${item.quantity}× ${item.name} — $${(item.price * item.quantity).toFixed(2)}`;
                 let mods = [];
                 if (item.selection) mods.push(item.selection.name);
                 if (item.extras?.length) mods = mods.concat(item.extras.map(m => m.name));
@@ -3210,18 +3055,15 @@
 
             msg += `%0A*SUBTOTAL:* $${subtotal.toFixed(2)}%0A`;
             if (deliveryType === 'delivery') msg += `*ENVÍO:* $${currentShippingCost.toFixed(2)}%0A`;
-            msg += `*TOTAL:* $${total.toFixed(2)}%0A%0A`;
-            msg += `_Enviado: ${new Date().toLocaleString('es-MX')}_`;
+            msg += `*TOTAL:* $${total.toFixed(2)}%0A`;
 
-            messagePlainForShare = decodeURIComponent(msg.replace(/%0A/g, '\n'));
-
-            // === GUARDAR EN HISTORIAL ===
+            // ============ GUARDAR EN HISTORIAL ============
             const pedidoId = 'PED-' + Date.now().toString().slice(-8);
             const historyOrder = {
                 id: pedidoId,
                 timestamp: Date.now(),
                 isScheduled: isScheduledOrder,
-                scheduledDate: isScheduledOrder ? scheduledDateLabel : '',
+                scheduledDate: isScheduledOrder ? scheduledDateNatural : '',
                 scheduledTime: isScheduledOrder ? scheduledTimeLabel : '',
                 customerName,
                 customerPhone,
@@ -3250,7 +3092,7 @@
             };
             saveOrderToHistory(historyOrder);
 
-            // === MAKE.COM ===
+            // ============ MAKE.COM ============
             try {
                 const pedidoDetalle = cart.map(item => {
                     let mods = [];
@@ -3260,15 +3102,11 @@
                     return `${item.quantity}x ${item.name}${modsStr} - $${(item.price * item.quantity).toFixed(2)}`;
                 }).join('\n');
 
-                const cashAmountVal = paymentMethod === 'cash'
-                    ? (parseFloat(document.getElementById('cashAmount').value) || 0) : 0;
-                const cambioVal = paymentMethod === 'cash' ? (cashAmountVal - total) : 0;
-
                 sendDataToMake({
                     pedido_id: pedidoId,
                     fecha_envio: new Date().toLocaleString('es-MX', { timeZone: TIMEZONE }),
                     es_programado: isScheduledOrder,
-                    fecha_programada: isScheduledOrder ? scheduledDateLabel : '',
+                    fecha_programada: isScheduledOrder ? scheduledDateNatural : '',
                     hora_programada: isScheduledOrder ? scheduledTimeLabel : '',
                     cliente_nombre: customerName,
                     cliente_telefono: customerPhone,
@@ -3288,45 +3126,35 @@
                     costo_envio: currentShippingCost.toFixed(2),
                     total: total.toFixed(2),
                     pedido_detalle: pedidoDetalle,
-                    cart_raw: cart.map(i => ({
-                        id: i.id, name: i.name, qty: i.quantity, price: i.price,
-                        selection: i.selection ? i.selection.name : null,
-                        extras: (i.extras || []).map(e => e.name)
-                    })),
-                    aviso_disponibilidad: historyOrder.availabilityWarning,
-                    evento_ics: isScheduledOrder ? 'Sí' : 'No',
-                    evento_fecha: isScheduledOrder ? `${scheduledDateLabel} ${scheduledTimeLabel}` : ''
+                    cart_raw: historyOrder.items,
+                    aviso_disponibilidad: historyOrder.availabilityWarning
                 });
             } catch (err) {
                 console.warn('Error preparando datos para Make:', err);
             }
 
-            // === ENVÍO PRINCIPAL ===
+            // ============ ABRIR WHATSAPP ============
             const waLink = `https://wa.me/${whatsappNumber.replace(/\D/g, '')}?text=${msg}`;
+            window.open(waLink, '_blank');
 
-            if (isScheduledOrder && icsFile) {
-                const result = await tryShareEventToWhatsApp(icsFile, messagePlainForShare);
-                if (result === 'shared' || result === 'shared-file-only' || result === 'shared-text-only') {
-                    showNotification('Evento enviado ✓', 'success');
-                } else if (result === 'cancelled') {
-                    window.open(waLink, '_blank');
-                } else {
-                    downloadICSFile(eventData);
-                    window.open(waLink, '_blank');
-                    showNotification('Evento descargado. Adjúntalo al chat.', 'info');
-                }
-            } else {
-                window.open(waLink, '_blank');
-            }
+            // ============ GUARDAR DATOS PARA EL BOTÓN "COPIAR RESPUESTA" ============
+            lastScheduledEvent = isScheduledOrder ? {
+                dateNatural: scheduledDateNatural,
+                timeLabel: scheduledTimeLabel,
+                customerName,
+                deliveryType,
+                address: customerAddress,
+                total
+            } : null;
 
-            // === PANTALLA DE CONFIRMACIÓN ===
+            // ============ PANTALLA DE CONFIRMACIÓN ============
             const confirmTitle = document.getElementById('confirmationTitle');
             const confirmScheduleInfo = document.getElementById('confirmationScheduleInfo');
             const calendarActions = document.getElementById('calendarActions');
 
             if (isScheduledOrder) {
                 confirmTitle.textContent = '¡Pedido Programado!';
-                confirmScheduleInfo.innerHTML = `<i class="fas fa-calendar-check"></i> ${scheduledDateLabel}<br><i class="fas fa-clock"></i> ${scheduledTimeLabel}`;
+                confirmScheduleInfo.innerHTML = `<i class="fas fa-calendar-check"></i> ${scheduledDateNatural}<br><i class="fas fa-clock"></i> ${scheduledTimeLabel}`;
                 confirmScheduleInfo.classList.add('active');
                 calendarActions.style.display = 'flex';
             } else {
@@ -3335,7 +3163,7 @@
                 calendarActions.style.display = 'none';
             }
 
-            // === RESET ===
+            // ============ RESET ============
             cart = [];
             isScheduledOrder = false;
             saveCart();
@@ -3374,7 +3202,6 @@
 
             selectPaymentMethod('card');
             refreshAll();
-
             navigateTo('confirmation');
         }
 

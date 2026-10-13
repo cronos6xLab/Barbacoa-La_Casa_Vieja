@@ -36,8 +36,7 @@
             --page-max-width: 1440px;
         }
 
-        :root,
-        :root[data-theme="light"] {
+        :root, :root[data-theme="light"] {
             color-scheme: light;
             --color-foundry-black: #f5f3ee;
             --color-chalk-white:   #3a3a3a;
@@ -93,7 +92,10 @@
         ::-webkit-scrollbar-thumb:hover { background: var(--color-ash); }
 
         .container { max-width: var(--page-max-width); margin: 0 auto; padding: 0 24px; }
+        .container-medium { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+        .container-narrow { max-width: 640px; margin: 0 auto; padding: 0 20px; }
 
+        /* ============ TICKER ============ */
         .ticker { overflow: hidden; background: var(--color-foundry-black); border-bottom: 1px solid var(--color-chalk-white); }
         .ticker-track { display: flex; align-items: center; gap: 22px; width: max-content; white-space: nowrap; padding: 9px 0; animation: tickerScroll 38s linear infinite; }
         .ticker-track span { font-family: var(--font-mono); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--color-ash); }
@@ -101,6 +103,7 @@
         @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
         @media (prefers-reduced-motion: reduce) { .ticker-track { animation: none; } }
 
+        /* ============ HEADER ============ */
         header {
             background:
                 linear-gradient(var(--header-overlay-top), var(--header-overlay-bottom)),
@@ -108,44 +111,127 @@
             background-size: cover;
             background-position: center;
             color: var(--color-bone-white);
-            padding: 30px 0;
+            padding: 20px 0;
             position: relative;
             z-index: 100;
             border-bottom: 1px solid var(--color-chalk-white);
             transition: border-color 0.25s ease;
         }
-        .header-content { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
-        .logo-container { display: flex; align-items: center; gap: 20px; min-width: 0; flex: 1; }
-        .logo-img { height: 72px; width: 72px; object-fit: cover; border-radius: var(--radius-sm); border: 1px solid var(--color-chalk-white); background: var(--color-foundry-black); flex-shrink: 0; }
-        .logo-text { font-family: var(--font-mono); font-size: 1.25rem; font-weight: 700; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-ember-orange); }
+        .header-content { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+        .logo-container { display: flex; align-items: center; gap: 18px; min-width: 0; flex: 1; }
+        .logo-img { height: 60px; width: 60px; object-fit: cover; border-radius: var(--radius-sm); border: 1px solid var(--color-chalk-white); background: var(--color-foundry-black); flex-shrink: 0; }
+        .logo-text { font-family: var(--font-mono); font-size: 1.1rem; font-weight: 700; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-ember-orange); }
+        .logo-sub { font-family: var(--font-mono); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-ash); margin-top: 2px; }
+
+        .header-back {
+            display: none;
+            background: transparent;
+            border: 1px solid var(--color-soot);
+            width: 38px; height: 38px;
+            border-radius: var(--radius-sm);
+            color: var(--color-bone-white);
+            cursor: pointer;
+            align-items: center; justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+        }
+        .header-back:hover { border-color: var(--color-chalk-white); }
+        .header-screen-title {
+            display: none;
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--color-ember-orange);
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        header.inner-screen .logo-container { display: none; }
+        header.inner-screen .header-back { display: flex; }
+        header.inner-screen .header-screen-title { display: block; }
 
         .theme-toggle {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 9px 12px;
-            background: transparent;
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 9px 12px; background: transparent;
             border: 1px solid var(--color-chalk-white);
             border-radius: var(--radius-sm);
             color: var(--color-bone-white);
             font-family: var(--font-mono);
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            cursor: pointer;
-            transition: background 0.2s ease;
-            flex-shrink: 0;
-            white-space: nowrap;
+            font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em;
+            cursor: pointer; flex-shrink: 0; white-space: nowrap;
         }
         .theme-toggle:hover { background: var(--ghost-hover-bg); }
         .theme-toggle i { color: var(--color-ember-orange); font-size: 0.72rem; }
 
-        .restaurant-info { background: transparent; border: 1px solid var(--color-soot); border-radius: var(--radius-lg); padding: 22px 24px; margin: 28px auto 20px; max-width: 1000px; }
+        /* ============ SCREENS ============ */
+        .screens-wrap { padding-bottom: 100px; min-height: 60vh; }
+        .screen { display: none; }
+        .screen.active { display: block; animation: screenFade 0.28s ease; }
+        @keyframes screenFade {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ============ BOTTOM NAV ============ */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            background: var(--color-foundry-black);
+            border-top: 1px solid var(--color-soot);
+            display: none;
+            z-index: 800;
+            padding-bottom: env(safe-area-inset-bottom, 0);
+            box-shadow: 0 -8px 24px rgba(0,0,0,0.08);
+        }
+        .bottom-nav.visible { display: flex; }
+        .bottom-nav-item {
+            flex: 1;
+            padding: 10px 8px 12px;
+            background: transparent;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: var(--color-ash);
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.2s ease;
+        }
+        .bottom-nav-item i { font-size: 1.15rem; transition: transform 0.2s ease; }
+        .bottom-nav-item.active { color: var(--color-ember-orange); }
+        .bottom-nav-item.active i { transform: translateY(-2px); }
+        .bottom-nav-badge {
+            position: absolute;
+            top: 6px;
+            right: calc(50% - 24px);
+            background: var(--color-ember-orange);
+            color: #fff;
+            min-width: 18px; height: 18px;
+            border-radius: 9px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+            padding: 0 5px;
+            font-family: var(--font-mono);
+        }
+        .bottom-nav-badge.hidden { display: none; }
+
+        /* ============ INFO / BANNER ============ */
+        .restaurant-info { background: transparent; border: 1px solid var(--color-soot); border-radius: var(--radius-lg); padding: 22px 24px; margin: 24px auto 20px; }
         .restaurant-info h3 { color: var(--color-bone-white); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; }
         .restaurant-info h3 i { color: var(--color-ember-orange); margin-right: 8px; }
         .restaurant-info p { color: var(--color-ash); font-size: 0.75rem; letter-spacing: 0.02em; margin-bottom: 4px; }
 
-        .schedule-banner { max-width: 1000px; margin: 0 auto 24px; padding: 14px 16px; border-radius: var(--radius-sm); display: flex; align-items: center; gap: 14px; font-family: var(--font-mono); font-size: 0.78rem; background: transparent; border: 1px solid var(--color-soot); border-left-width: 3px; transition: all 0.3s ease; }
+        .schedule-banner { margin: 0 auto 24px; padding: 14px 16px; border-radius: var(--radius-sm); display: flex; align-items: center; gap: 14px; font-family: var(--font-mono); font-size: 0.78rem; background: transparent; border: 1px solid var(--color-soot); border-left-width: 3px; transition: all 0.3s ease; }
         .schedule-banner .banner-icon { font-size: 1rem; flex-shrink: 0; width: 40px; height: 40px; border-radius: var(--radius-sm); border: 1px solid currentColor; background: transparent; display: flex; align-items: center; justify-content: center; }
         .schedule-banner .banner-text { flex: 1; min-width: 0; }
         .schedule-banner .banner-text strong { display: block; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px; }
@@ -153,23 +239,23 @@
         .schedule-banner.open { border-left-color: var(--color-bone-white); color: var(--color-bone-white); }
         .schedule-banner.limited { border-left-color: var(--color-ember-orange); border-color: rgba(255,77,0,0.35); color: var(--color-ember-orange); }
         .schedule-banner.closed { border-left-color: var(--color-soot); color: var(--color-ash); }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
 
-        .main-content { display: grid; grid-template-columns: 1fr 380px; gap: 24px; margin-bottom: 60px; }
-        .menu-section, .cart-section, .checkout-form { background-color: transparent; border-radius: var(--radius-lg); padding: 24px; border: 1px solid var(--color-soot); }
+        /* ============ MENU ============ */
+        .menu-section { background-color: transparent; border-radius: var(--radius-lg); padding: 4px 0 24px; }
         .section-title { color: var(--color-bone-white); font-family: var(--font-mono); font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 22px; padding-bottom: 12px; border-bottom: 1px solid var(--color-soot); position: relative; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
         .section-title::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 48px; height: 1px; background-color: var(--color-ember-orange); }
         .section-title .clear-cart-btn { font-family: var(--font-mono); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.08em; background: transparent; color: var(--color-ember-orange); border: 1px solid var(--color-ember-orange); border-radius: var(--radius-sm); padding: 6px 10px; cursor: pointer; display: flex; align-items: center; gap: 6px; }
         .section-title .clear-cart-btn:hover { background: rgba(255,77,0,0.1); }
 
-        .menu-categories { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; overflow-x: auto; padding-bottom: 10px; }
+        .menu-categories { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; overflow-x: auto; padding-bottom: 10px; -webkit-overflow-scrolling: touch; }
+        .menu-categories::-webkit-scrollbar { display: none; }
         .category-btn { padding: 8px 14px; background-color: transparent; border: 1px solid var(--color-soot); border-radius: var(--radius-sm); cursor: pointer; font-family: var(--font-mono); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-ash); transition: all 0.2s ease; white-space: nowrap; }
         .category-btn:hover { border-color: var(--color-chalk-white); color: var(--color-bone-white); }
         .category-btn.active { background-color: var(--color-bone-white); border-color: var(--color-bone-white); color: var(--color-foundry-black); font-weight: 700; }
 
         .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
-        .product-card { background: transparent; border: 1px solid var(--color-soot); border-radius: var(--radius-lg); overflow: hidden; transition: border-color 0.2s ease; display: flex; flex-direction: column; height: 100%; cursor: pointer; position: relative; }
-        .product-card:hover { border-color: var(--color-chalk-white); }
+        .product-card { background: transparent; border: 1px solid var(--color-soot); border-radius: var(--radius-lg); overflow: hidden; transition: border-color 0.2s ease, transform 0.2s ease; display: flex; flex-direction: column; height: 100%; cursor: pointer; position: relative; }
+        .product-card:hover { border-color: var(--color-chalk-white); transform: translateY(-2px); }
         .product-img { height: 170px; width: 100%; object-fit: cover; background: var(--img-placeholder-bg); border-bottom: 1px solid var(--color-soot); display: block; }
         .product-info { padding: 14px; display: flex; flex-direction: column; flex-grow: 1; }
         .product-title { font-family: var(--font-mono); font-size: 0.78rem; font-weight: 700; line-height: 1.35; margin-bottom: 8px; color: var(--color-bone-white); }
@@ -189,18 +275,19 @@
         .add-to-cart:hover { background-color: rgba(255,77,0,0.1); }
         .add-to-cart.in-cart { border-color: var(--color-chalk-white); color: var(--color-bone-white); }
 
-        .cart-section { position: sticky; top: 20px; height: fit-content; }
-        .cart-items { max-height: 300px; overflow-y: auto; margin-bottom: 15px; padding-right: 4px; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--color-soot); gap: 10px; }
+        /* ============ CART SCREEN ============ */
+        .cart-section { background-color: transparent; border-radius: var(--radius-lg); padding: 20px 0; }
+        .cart-items { max-height: none; overflow-y: visible; margin-bottom: 18px; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--color-soot); gap: 10px; }
         .cart-item:last-child { border-bottom: none; }
-        .cart-item h4 { font-size: 0.72rem; font-weight: 700; line-height: 1.3; margin-bottom: 4px; color: var(--color-bone-white); }
+        .cart-item h4 { font-size: 0.78rem; font-weight: 700; line-height: 1.3; margin-bottom: 4px; color: var(--color-bone-white); }
         .cart-item-controls { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
         .cart-item-qty { width: 46px; text-align: center; padding: 6px 4px; border: 1px solid var(--color-soot); border-radius: var(--radius-sm); background: transparent; color: var(--color-bone-white); font-size: 0.75rem; font-family: var(--font-mono); }
         .remove-item { background: transparent; color: var(--color-ash); width: 28px; height: 28px; border-radius: var(--radius-sm); border: 1px solid var(--color-soot); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; }
         .remove-item:hover { border-color: var(--color-ember-orange); color: var(--color-ember-orange); }
-        .cart-empty { text-align: center; padding: 30px 15px; color: var(--color-ash); }
-        .cart-empty i { font-size: 1.8rem; color: var(--color-soot); margin-bottom: 12px; display: block; }
-        .cart-empty p { font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; }
+        .cart-empty { text-align: center; padding: 50px 15px; color: var(--color-ash); }
+        .cart-empty i { font-size: 2.6rem; color: var(--color-soot); margin-bottom: 16px; display: block; }
+        .cart-empty p { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; }
 
         .cart-summary { background: transparent; border: 1px solid var(--color-soot); padding: 15px; border-radius: var(--radius-sm); margin-bottom: 15px; }
         .cart-summary-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-ash); }
@@ -211,6 +298,7 @@
         .cart-availability-warning { background: rgba(255,77,0,0.06); border: 1px solid rgba(255,77,0,0.35); border-left: 3px solid var(--color-ember-orange); color: var(--color-ember-orange); padding: 10px 12px; border-radius: var(--radius-sm); margin: 10px 0; font-family: var(--font-mono); font-size: 0.65rem; line-height: 1.55; display: none; }
         .cart-availability-warning.active { display: block; }
 
+        /* ============ BUTTONS ============ */
         .checkout-btn, .submit-order-btn { width: 100%; border-radius: var(--radius-sm); padding: 16px; font-size: 0.72rem; cursor: pointer; text-transform: uppercase; letter-spacing: 0.12em; margin-top: 15px; transition: background 0.2s ease; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--font-mono); }
         .checkout-btn { background-color: transparent; border: 1px solid var(--color-ember-orange); color: var(--color-ember-orange); }
         .checkout-btn:hover:not(:disabled) { background-color: rgba(255,77,0,0.12); }
@@ -218,6 +306,11 @@
         .submit-order-btn:hover:not(:disabled) { background-color: var(--btn-invert-hover); }
         .checkout-btn:disabled, .submit-order-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
+        .ghost-btn { background: transparent; border: 1px solid var(--color-soot); color: var(--color-ash); padding: 12px 16px; border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; width: 100%; margin-top: 10px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+        .ghost-btn:hover { color: var(--color-bone-white); border-color: var(--color-chalk-white); }
+
+        /* ============ FORMS ============ */
+        .checkout-form { background-color: transparent; border-radius: var(--radius-lg); padding: 20px 0; }
         .form-control { width: 100%; padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--color-soot); margin-top: 6px; font-size: 0.78rem; font-family: var(--font-mono); background: transparent; color: var(--color-bone-white); }
         .form-control::placeholder { color: var(--color-ash); opacity: 0.7; }
         .form-control:focus { outline: none; border-color: var(--color-ember-orange); }
@@ -304,20 +397,18 @@
         .change-info { background: rgba(255,77,0,0.08); border: 1px solid var(--color-ember-orange); padding: 10px; border-radius: var(--radius-sm); margin-top: 10px; text-align: center; font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; color: var(--color-ember-orange); display: none; }
         .change-info.active { display: block; }
 
-        .floating-cart-icon { position: fixed; bottom: 24px; right: 24px; background-color: var(--color-bone-white); color: var(--color-foundry-black); width: 52px; height: 52px; border-radius: var(--radius-sm); border: 1px solid var(--color-bone-white); z-index: 999; display: none; align-items: center; justify-content: center; font-size: 1.05rem; cursor: pointer; }
-        .cart-count { position: absolute; top: -9px; right: -9px; background: var(--color-foundry-black); color: var(--color-ember-orange); border: 1px solid var(--color-ember-orange); width: 22px; height: 22px; border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 0.62rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
-        .cart-count.hidden { display: none; }
+        /* ============ CONFIRMATION SCREEN ============ */
+        .confirmation-screen { text-align: center; padding: 30px 0 20px; }
+        .confirmation-screen .confirmation-logo { height: 84px; width: 84px; object-fit: cover; border-radius: var(--radius-sm); margin: 0 auto 22px; border: 1px solid var(--color-chalk-white); display: block; }
+        .confirmation-screen h3 { font-family: var(--font-mono); font-size: 1rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-ember-orange); margin-bottom: 18px; }
+        .confirmation-screen .confirmation-schedule { color: var(--color-ember-orange); font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 18px; display: none; padding: 12px; border: 1px dashed var(--color-ember-orange); border-radius: var(--radius-sm); background: rgba(255,77,0,0.05); }
+        .confirmation-screen .confirmation-schedule.active { display: block; }
+        .confirmation-screen p { font-family: var(--font-mono); font-size: 0.72rem; line-height: 1.6; color: var(--color-ash); margin-bottom: 14px; }
+        .confirmation-screen p strong { color: var(--color-bone-white); }
 
-        .notification { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--color-foundry-black); color: var(--color-bone-white); border: 1px solid var(--color-chalk-white); padding: 12px 20px; border-radius: var(--radius-sm); z-index: 3000; display: none; font-family: var(--font-mono); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.08em; width: max-content; max-width: 90%; text-align: center; }
-        .notification.show { display: block; animation: slideUp 0.25s ease; }
-        .notification.success { border-color: var(--color-bone-white); }
-        .notification.error, .notification.warning { border-color: var(--color-ember-orange); color: var(--color-ember-orange); }
-        @keyframes slideUp { from { opacity: 0; transform: translateX(-50%) translateY(16px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+        .calendar-actions { margin-top: 24px; display: flex; flex-direction: column; gap: 10px; }
 
-        footer { background-color: var(--color-foundry-black); color: var(--color-ash); padding: 40px 0 24px; margin-top: 50px; text-align: center; border-top: 1px solid var(--color-chalk-white); font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; }
-        .footer-logo { height: 56px; width: 56px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 16px; border: 1px solid var(--color-soot); }
-        footer p { margin-bottom: 6px; }
-
+        /* ============ PRODUCT MODAL ============ */
         .product-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
         .product-modal.active { display: flex; }
         .product-modal-content { background: var(--color-foundry-black); border: 1px solid var(--color-chalk-white); border-radius: var(--radius-lg); max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; }
@@ -370,36 +461,39 @@
         .modal-total { background: transparent; border: 1px solid var(--color-soot); padding: 15px; border-radius: var(--radius-sm); margin: 20px 0; text-align: center; font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; color: var(--color-ash); }
         .modal-total-price { color: var(--color-ember-orange); font-size: 1.1rem; font-weight: 700; margin-left: 6px; }
 
-        .confirmation-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
-        .confirmation-modal.active { display: flex; }
-        .confirmation-modal-content { background: var(--color-foundry-black); border: 1px solid var(--color-chalk-white); border-radius: var(--radius-lg); padding: 30px; max-width: 500px; width: 90%; text-align: center; }
-        .confirmation-modal-logo { height: 72px; width: 72px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 20px; border: 1px solid var(--color-chalk-white); }
-        .confirmation-modal-content h3 { font-family: var(--font-mono); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-ember-orange) !important; margin-bottom: 15px; }
-        .confirmation-modal-content p { font-family: var(--font-mono); font-size: 0.7rem; line-height: 1.6; }
+        /* ============ NOTIFICATION ============ */
+        .notification { position: fixed; bottom: 96px; left: 50%; transform: translateX(-50%); background: var(--color-foundry-black); color: var(--color-bone-white); border: 1px solid var(--color-chalk-white); padding: 12px 20px; border-radius: var(--radius-sm); z-index: 3000; display: none; font-family: var(--font-mono); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.08em; width: max-content; max-width: 90%; text-align: center; }
+        .notification.show { display: block; animation: slideUp 0.25s ease; }
+        .notification.success { border-color: var(--color-bone-white); }
+        .notification.error, .notification.warning { border-color: var(--color-ember-orange); color: var(--color-ember-orange); }
+        @keyframes slideUp { from { opacity: 0; transform: translateX(-50%) translateY(16px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
 
-        @media (max-width: 992px) {
-            .main-content { grid-template-columns: 1fr; }
-            .cart-section { order: 2; position: relative; top: 0; }
-        }
+        /* ============ FOOTER ============ */
+        footer { background-color: var(--color-foundry-black); color: var(--color-ash); padding: 40px 0 24px; margin-top: 50px; text-align: center; border-top: 1px solid var(--color-chalk-white); font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; }
+        .footer-logo { height: 56px; width: 56px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 16px; border: 1px solid var(--color-soot); }
+        footer p { margin-bottom: 6px; }
+
+        /* ============ RESPONSIVE ============ */
         @media (max-width: 768px) {
-            .container { padding: 0 16px; }
+            .container, .container-medium { padding: 0 16px; }
+            .container-narrow { padding: 0 16px; }
             .ticker-track span { font-size: 0.58rem; }
-            header { padding: 22px 0; }
+            header { padding: 16px 0; }
             .header-content { flex-direction: row; align-items: center; justify-content: space-between; gap: 12px; }
             .logo-container { flex-direction: row; gap: 12px; align-items: center; flex: 1; min-width: 0; }
-            .logo-img { height: 52px; width: 52px; flex-shrink: 0; }
-            .logo-text { font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+            .logo-img { height: 46px; width: 46px; flex-shrink: 0; }
+            .logo-text { font-size: 0.85rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+            .logo-sub { font-size: 0.55rem; }
             .theme-toggle { padding: 8px; gap: 0; }
             .theme-toggle span { display: none; }
-            .restaurant-info { padding: 18px; margin: 18px auto 16px; }
+            .header-screen-title { font-size: 0.9rem; }
+            .restaurant-info { padding: 18px; margin: 16px auto 14px; }
             .restaurant-info h3 { font-size: 0.82rem; }
             .schedule-banner { padding: 12px 14px; gap: 10px; margin-bottom: 18px; }
             .schedule-banner .banner-icon { width: 34px; height: 34px; font-size: 0.85rem; }
             .schedule-banner .banner-text strong { font-size: 0.68rem; }
             .schedule-banner .banner-text small { font-size: 0.64rem; }
-            .menu-section, .cart-section, .checkout-form { padding: 18px; }
             .products-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-            .product-card { border-radius: var(--radius-lg); }
             .product-img { height: 130px; }
             .product-info { padding: 12px; }
             .product-title { font-size: 0.7rem; line-height: 1.3; }
@@ -408,7 +502,6 @@
             .add-to-cart { padding: 6px 10px; font-size: 0.58rem; }
             .product-footer { flex-direction: column; align-items: stretch; gap: 8px; }
             .product-quantity-controls { justify-content: center; }
-            .floating-cart-icon { display: flex; }
             .for-whom-options { flex-direction: column; }
             .for-whom-option { min-width: auto; }
         }
@@ -421,6 +514,7 @@
 </head>
 <body>
 
+    <!-- TICKER -->
     <div class="ticker" aria-hidden="true">
         <div class="ticker-track">
             <span>Pedidos sábados y domingos 8:00 AM – 2:00 PM</span><i class="fas fa-caret-right"></i>
@@ -436,18 +530,21 @@
         </div>
     </div>
 
-    <div class="floating-cart-icon" id="floatingCartIcon">
-        <i class="fas fa-shopping-bag"></i>
-        <div class="cart-count hidden" id="floatingCartCount">0</div>
-    </div>
-
-    <header>
+    <!-- HEADER -->
+    <header id="appHeader">
         <div class="container">
             <div class="header-content">
+                <button class="header-back" id="headerBack" type="button" aria-label="Regresar">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
                 <div class="logo-container">
                     <img src="https://i.ibb.co/jkWp21kD/IMG-4398.jpg" alt="Logo Barbacoa" class="logo-img">
-                    <h1 class="logo-text">Barbacoa de la Casa Vieja</h1>
+                    <div style="min-width:0;">
+                        <h1 class="logo-text">Barbacoa de la Casa Vieja</h1>
+                        <div class="logo-sub">Claveria · Azcapotzalco</div>
+                    </div>
                 </div>
+                <h2 class="header-screen-title" id="headerScreenTitle">Menú</h2>
                 <button class="theme-toggle" id="themeToggle" type="button" aria-label="Cambiar tema">
                     <i class="fas fa-moon" id="themeToggleIcon"></i>
                     <span id="themeToggleLabel">Oscuro</span>
@@ -456,264 +553,331 @@
         </div>
     </header>
 
-    <div class="container">
-        <div class="restaurant-info">
-            <h3><i class="fas fa-fire-burner"></i> Tradición desde 1989</h3>
-            <p>Sábados y Domingos 8:00 AM - 2:00 PM</p>
-            <p><i class="fas fa-map-pin" style="color:var(--color-ember-orange)"></i> Claveria, Azcapotzalco</p>
-            <p style="margin-top: 12px; background: rgba(255,77,0,0.06); padding: 10px 12px; border-radius: var(--radius-sm); border-left: 3px solid var(--color-ember-orange); color: var(--color-bone-white);">
-                <strong>Envío:</strong> $10 base + $10 por km (hasta 15 km) • Pedido mínimo: $100
-            </p>
-            <p style="margin-top: 8px; color: var(--color-ash); font-size: 0.7rem;">
-                <i class="fas fa-calendar-check" style="color: var(--color-ember-orange);"></i> Horarios programables: 8:45 AM – 1:20 PM
-            </p>
-        </div>
+    <!-- ===================== SCREENS ===================== -->
+    <main class="screens-wrap">
 
-        <div class="schedule-banner" id="scheduleBanner">
-            <div class="banner-icon" id="scheduleBannerIcon">
-                <i class="fas fa-clock" id="scheduleBannerIconInner"></i>
+        <!-- ================= SCREEN: HOME ================= -->
+        <section class="screen active" id="screen-home">
+            <div class="container-medium">
+                <div class="restaurant-info">
+                    <h3><i class="fas fa-fire-burner"></i> Tradición desde 1989</h3>
+                    <p>Sábados y Domingos 8:00 AM - 2:00 PM</p>
+                    <p><i class="fas fa-map-pin" style="color:var(--color-ember-orange)"></i> Claveria, Azcapotzalco</p>
+                    <p style="margin-top: 12px; background: rgba(255,77,0,0.06); padding: 10px 12px; border-radius: var(--radius-sm); border-left: 3px solid var(--color-ember-orange); color: var(--color-bone-white);">
+                        <strong>Envío:</strong> $10 base + $10 por km (hasta 15 km) • Pedido mínimo: $100
+                    </p>
+                    <p style="margin-top: 8px; color: var(--color-ash); font-size: 0.7rem;">
+                        <i class="fas fa-calendar-check" style="color: var(--color-ember-orange);"></i> Horarios programables: 8:45 AM – 1:20 PM
+                    </p>
+                </div>
+
+                <div class="schedule-banner" id="scheduleBanner">
+                    <div class="banner-icon" id="scheduleBannerIcon">
+                        <i class="fas fa-clock" id="scheduleBannerIconInner"></i>
+                    </div>
+                    <div class="banner-text">
+                        <strong id="scheduleTitle">Verificando horario…</strong>
+                        <small id="scheduleSubtitle">Sábados y Domingos 8:00 AM a 2:00 PM</small>
+                    </div>
+                </div>
+
+                <section class="menu-section">
+                    <h2 class="section-title">Menú</h2>
+                    <div class="menu-categories">
+                        <button class="category-btn active" data-category="all">Todo el Menú</button>
+                        <button class="category-btn" data-category="barbacoa">Barbacoa por Kg</button>
+                        <button class="category-btn" data-category="pancita">Pancita</button>
+                        <button class="category-btn" data-category="consome">Consomé</button>
+                        <button class="category-btn" data-category="flautas">Flautas</button>
+                        <button class="category-btn" data-category="postres">Postres</button>
+                        <button class="category-btn" data-category="bebidas">Bebidas</button>
+                    </div>
+                    <div class="products-grid" id="productsGrid"></div>
+                </section>
+
+                <footer>
+                    <img src="https://i.ibb.co/jkWp21kD/IMG-4398.jpg" alt="Logo Footer" class="footer-logo">
+                    <p>&copy; 2025 Barbacoa de la Casa Vieja</p>
+                    <p style="margin-top: 10px;">
+                        <i class="fab fa-whatsapp" style="color: var(--color-ember-orange);"></i> WhatsApp: +52 55 7867 7774
+                    </p>
+                </footer>
             </div>
-            <div class="banner-text">
-                <strong id="scheduleTitle">Verificando horario…</strong>
-                <small id="scheduleSubtitle">Sábados y Domingos 8:00 AM a 2:00 PM</small>
-            </div>
-        </div>
-
-        <div class="main-content" id="mainContent">
-            <section class="menu-section">
-                <h2 class="section-title">Menú</h2>
-                <div class="menu-categories">
-                    <button class="category-btn active" data-category="all">Todo el Menú</button>
-                    <button class="category-btn" data-category="barbacoa">Barbacoa por Kg</button>
-                    <button class="category-btn" data-category="pancita">Pancita</button>
-                    <button class="category-btn" data-category="consome">Consomé</button>
-                    <button class="category-btn" data-category="flautas">Flautas</button>
-                    <button class="category-btn" data-category="postres">Postres</button>
-                    <button class="category-btn" data-category="bebidas">Bebidas</button>
-                </div>
-                <div class="products-grid" id="productsGrid"></div>
-            </section>
-
-            <section class="cart-section" id="cartSection">
-                <h2 class="section-title">
-                    Tu Pedido
-                    <button class="clear-cart-btn" id="clearCartBtn" style="display: none;">
-                        <i class="fas fa-trash-alt"></i> Vaciar
-                    </button>
-                </h2>
-
-                <div class="cart-items" id="cartItems"></div>
-                <div class="cart-availability-warning" id="cartAvailabilityWarning"></div>
-
-                <div class="cart-summary">
-                    <div class="cart-summary-row">
-                        <span>Subtotal:</span>
-                        <span id="subtotal" style="font-weight:bold;">$0.00</span>
-                    </div>
-                    <div class="cart-summary-row" id="shippingRow" style="display: none;">
-                        <span>Envío:</span>
-                        <span id="shippingCost">$0.00</span>
-                    </div>
-                    <div class="cart-summary-row total">
-                        <span>Total:</span>
-                        <span id="total">$0.00</span>
-                    </div>
-                </div>
-
-                <div style="margin-bottom:15px;">
-                    <label class="delivery-option selected" id="pickupOption">
-                        <input type="radio" name="deliveryType" value="pickup" checked>
-                        <i class="fas fa-store" style="color: var(--color-ember-orange);"></i>
-                        <span>Pasar a recoger</span>
-                    </label>
-                    <label class="delivery-option" id="deliveryOption">
-                        <input type="radio" name="deliveryType" value="delivery">
-                        <i class="fas fa-motorcycle" style="color: var(--color-ember-orange);"></i>
-                        <span>Envío a domicilio</span>
-                    </label>
-                </div>
-
-                <div id="deliveryAddressSection" style="display: none;">
-                    <div class="for-whom-block">
-                        <label><i class="fas fa-user-check"></i> ¿Para quién es el pedido?</label>
-                        <div class="for-whom-options">
-                            <label class="for-whom-option selected" id="forMeOption">
-                                <input type="radio" name="deliveryFor" value="me" checked>
-                                <i class="fas fa-user"></i>
-                                <span>Para mí</span>
-                            </label>
-                            <label class="for-whom-option" id="forOtherOption">
-                                <input type="radio" name="deliveryFor" value="other">
-                                <i class="fas fa-user-friends"></i>
-                                <span>Para otra persona</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="other-person-hint" id="otherPersonHint">
-                        <i class="fas fa-info-circle"></i>
-                        <strong>Ingresa la dirección de quien recibirá el pedido.</strong> Verifica que sea la ubicación correcta.
-                    </div>
-
-                    <button id="useCurrentLocationBtn" type="button" class="location-btn">
-                        <i class="fas fa-location-arrow"></i> Usar mi ubicación actual
-                    </button>
-
-                    <div class="address-block">
-                        <label id="addressInputLabel"><i class="fas fa-search" style="color: var(--color-ember-orange);"></i> O ingresa la dirección de entrega:</label>
-                        <div class="address-row">
-                            <input type="text" id="addressInput" class="form-control" placeholder="Calle, número, colonia">
-                            <button type="button" id="searchAddressBtn" title="Buscar">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="selected-address" id="selectedAddressBox">
-                        <strong><i class="fas fa-map-marker-alt"></i> <span id="selectedAddressLabel">Dirección seleccionada:</span></strong>
-                        <div id="deliveryAddressText" style="margin-top: 6px; word-break: break-word;"></div>
-                    </div>
-
-                    <div class="address-block" id="locationDetailsBlock" style="display: none;">
-                        <label><i class="fas fa-info-circle" style="color: var(--color-ember-orange);"></i> Detalles de la ubicación *</label>
-                        <textarea id="locationDetails" class="form-control" rows="3"
-                            placeholder="Ej: Edificio B, interior 302, timbre 2, fachada azul, portón negro, junto a la farmacia..."></textarea>
-                        <small class="details-hint">
-                            <i class="fas fa-lightbulb"></i> Ayuda al repartidor: número de depto/interior, color de fachada, entre calles, referencias, etc.
-                        </small>
-                    </div>
-
-                    <div class="auto-calculating-status" id="autoCalculatingStatus">
-                        <i class="fas fa-sync-alt"></i> Calculando costo de envío...
-                    </div>
-
-                    <div class="distance-details" id="distanceDetails">
-                        <div class="distance-row">
-                            <span>Distancia:</span>
-                            <span id="distanceText">-- km</span>
-                        </div>
-                        <div class="distance-row">
-                            <span>Tiempo estimado:</span>
-                            <span id="timeText">-- min</span>
-                        </div>
-                        <div class="distance-row">
-                            <span>Tarifa base:</span>
-                            <span>$10.00</span>
-                        </div>
-                        <div class="distance-row">
-                            <span>Por km:</span>
-                            <span>$10.00</span>
-                        </div>
-                        <div class="distance-row total">
-                            <span>Costo de envío:</span>
-                            <span id="calculatedShippingCost">$0.00</span>
-                        </div>
-                    </div>
-
-                    <div class="delivery-limit-warning" id="deliveryLimitWarning">
-                        <i class="fas fa-exclamation-triangle"></i> No entregamos a más de 15 km de distancia.
-                    </div>
-                </div>
-
-                <button class="checkout-btn" id="checkoutBtn">
-                    <i class="fas fa-shopping-bag"></i> Proceder al Pedido
-                </button>
-            </section>
-        </div>
-
-        <section class="checkout-form" id="checkoutForm" style="display: none; max-width: 600px; margin: 0 auto;">
-            <h2 class="section-title" id="checkoutFormTitle">Finalizar Pedido</h2>
-            <form id="orderForm" novalidate>
-
-                <div class="schedule-section" id="scheduleSection" style="display: none;">
-                    <div class="schedule-header">
-                        <i class="fas fa-calendar-check"></i>
-                        <div>
-                            <strong>Programar pedido</strong>
-                            <small>El restaurante está cerrado. Elige cuándo quieres recibir o recoger tu pedido.<br>Horarios programables: <strong>8:45 AM a 1:20 PM</strong> (sábados y domingos).</small>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label><i class="fas fa-calendar-day"></i> Fecha *</label>
-                        <select id="scheduleDate" class="form-control" required></select>
-                    </div>
-
-                    <div class="form-group">
-                        <label><i class="fas fa-clock"></i> Hora *</label>
-                        <select id="scheduleTime" class="form-control" required></select>
-                    </div>
-
-                    <div class="schedule-preview" id="schedulePreview"></div>
-                </div>
-
-                <div class="form-group">
-                    <label>Nombre Completo *</label>
-                    <input type="text" id="customerName" class="form-control" required placeholder="Tu nombre">
-                </div>
-                <div class="form-group">
-                    <label>Teléfono *</label>
-                    <input type="tel" id="customerPhone" class="form-control" required placeholder="10 dígitos" inputmode="tel">
-                </div>
-
-                <div class="form-group">
-                    <label>Tipo de Entrega</label>
-                    <select id="deliveryTypeFinal" class="form-control" required>
-                        <option value="pickup">Recoger en local</option>
-                        <option value="delivery">Envío a domicilio</option>
-                    </select>
-                </div>
-
-                <div class="form-group" id="finalAddressSection" style="display: none;">
-                    <label>Dirección de entrega *</label>
-                    <input type="text" id="customerAddress" class="form-control" placeholder="Calle, número, colonia">
-                </div>
-
-                <div class="form-group" id="finalDetailsSection" style="display: none;">
-                    <label>Detalles de la ubicación *</label>
-                    <textarea id="customerDetails" class="form-control" rows="3"
-                        placeholder="Ej: Edificio B, interior 302, timbre 2, fachada azul..."></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label>Método de Pago *</label>
-                    <div class="payment-methods">
-                        <div class="payment-method" id="cashMethod">
-                            <input type="radio" id="cash" name="paymentMethod" value="cash">
-                            <i class="fas fa-money-bill-wave"></i> Efectivo
-                        </div>
-                        <div class="payment-method selected" id="cardMethod">
-                            <input type="radio" id="card" name="paymentMethod" value="card" checked>
-                            <i class="fas fa-credit-card"></i> Tarjeta
-                        </div>
-                    </div>
-
-                    <div class="cash-details" id="cashDetails">
-                        <label style="font-family: var(--font-mono); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-ash);">¿Con cuánto pagarás? *</label>
-                        <input type="number" id="cashAmount" class="form-control" placeholder="Ej. 500.00" min="0" step="0.01" inputmode="decimal">
-                        <div class="change-info" id="changeInfo">
-                            Cambio: <span id="changeAmount">$0.00</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Notas adicionales</label>
-                    <textarea id="customerNotes" class="form-control" rows="2" placeholder="Ej: Sin cebolla, más consomé, etc."></textarea>
-                </div>
-
-                <div id="orderSummaryFinal" style="background: transparent; border: 1px solid var(--color-soot); padding: 15px; border-radius: var(--radius-sm); margin-bottom: 15px; font-family: var(--font-mono); font-size: 0.68rem;"></div>
-
-                <button type="submit" class="submit-order-btn" id="submitOrderBtn">
-                    <i class="fab fa-whatsapp"></i> Enviar Pedido por WhatsApp
-                </button>
-                <button type="button" id="cancelCheckout" style="width:100%; padding:12px; background:transparent; border:none; color:var(--color-ash); margin-top:10px; cursor:pointer; font-family: var(--font-mono); font-size:0.66rem; text-transform:uppercase; letter-spacing:0.1em;">
-                    <i class="fas fa-arrow-left"></i> Regresar al Menú
-                </button>
-            </form>
         </section>
-    </div>
 
+        <!-- ================= SCREEN: CART ================= -->
+        <section class="screen" id="screen-cart">
+            <div class="container-narrow">
+                <section class="cart-section">
+                    <h2 class="section-title">
+                        Tu Pedido
+                        <button class="clear-cart-btn" id="clearCartBtn" style="display: none;">
+                            <i class="fas fa-trash-alt"></i> Vaciar
+                        </button>
+                    </h2>
+
+                    <div class="cart-items" id="cartItems"></div>
+                    <div class="cart-availability-warning" id="cartAvailabilityWarning"></div>
+
+                    <div class="cart-summary">
+                        <div class="cart-summary-row">
+                            <span>Subtotal:</span>
+                            <span id="subtotal" style="font-weight:bold;">$0.00</span>
+                        </div>
+                        <div class="cart-summary-row" id="shippingRow" style="display: none;">
+                            <span>Envío:</span>
+                            <span id="shippingCost">$0.00</span>
+                        </div>
+                        <div class="cart-summary-row total">
+                            <span>Total:</span>
+                            <span id="total">$0.00</span>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom:15px;">
+                        <label class="delivery-option selected" id="pickupOption">
+                            <input type="radio" name="deliveryType" value="pickup" checked>
+                            <i class="fas fa-store" style="color: var(--color-ember-orange);"></i>
+                            <span>Pasar a recoger</span>
+                        </label>
+                        <label class="delivery-option" id="deliveryOption">
+                            <input type="radio" name="deliveryType" value="delivery">
+                            <i class="fas fa-motorcycle" style="color: var(--color-ember-orange);"></i>
+                            <span>Envío a domicilio</span>
+                        </label>
+                    </div>
+
+                    <div id="deliveryAddressSection" style="display: none;">
+                        <div class="for-whom-block">
+                            <label><i class="fas fa-user-check"></i> ¿Para quién es el pedido?</label>
+                            <div class="for-whom-options">
+                                <label class="for-whom-option selected" id="forMeOption">
+                                    <input type="radio" name="deliveryFor" value="me" checked>
+                                    <i class="fas fa-user"></i>
+                                    <span>Para mí</span>
+                                </label>
+                                <label class="for-whom-option" id="forOtherOption">
+                                    <input type="radio" name="deliveryFor" value="other">
+                                    <i class="fas fa-user-friends"></i>
+                                    <span>Para otra persona</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="other-person-hint" id="otherPersonHint">
+                            <i class="fas fa-info-circle"></i>
+                            <strong>Ingresa la dirección de quien recibirá el pedido.</strong> Verifica que sea la ubicación correcta.
+                        </div>
+
+                        <button id="useCurrentLocationBtn" type="button" class="location-btn">
+                            <i class="fas fa-location-arrow"></i> Usar mi ubicación actual
+                        </button>
+
+                        <div class="address-block">
+                            <label id="addressInputLabel"><i class="fas fa-search" style="color: var(--color-ember-orange);"></i> O ingresa la dirección de entrega:</label>
+                            <div class="address-row">
+                                <input type="text" id="addressInput" class="form-control" placeholder="Calle, número, colonia">
+                                <button type="button" id="searchAddressBtn" title="Buscar">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="selected-address" id="selectedAddressBox">
+                            <strong><i class="fas fa-map-marker-alt"></i> <span id="selectedAddressLabel">Dirección seleccionada:</span></strong>
+                            <div id="deliveryAddressText" style="margin-top: 6px; word-break: break-word;"></div>
+                        </div>
+
+                        <div class="address-block" id="locationDetailsBlock" style="display: none;">
+                            <label><i class="fas fa-info-circle" style="color: var(--color-ember-orange);"></i> Detalles de la ubicación *</label>
+                            <textarea id="locationDetails" class="form-control" rows="3"
+                                placeholder="Ej: Edificio B, interior 302, timbre 2, fachada azul, portón negro, junto a la farmacia..."></textarea>
+                            <small class="details-hint">
+                                <i class="fas fa-lightbulb"></i> Ayuda al repartidor: número de depto/interior, color de fachada, entre calles, referencias, etc.
+                            </small>
+                        </div>
+
+                        <div class="auto-calculating-status" id="autoCalculatingStatus">
+                            <i class="fas fa-sync-alt"></i> Calculando costo de envío...
+                        </div>
+
+                        <div class="distance-details" id="distanceDetails">
+                            <div class="distance-row">
+                                <span>Distancia:</span>
+                                <span id="distanceText">-- km</span>
+                            </div>
+                            <div class="distance-row">
+                                <span>Tiempo estimado:</span>
+                                <span id="timeText">-- min</span>
+                            </div>
+                            <div class="distance-row">
+                                <span>Tarifa base:</span>
+                                <span>$10.00</span>
+                            </div>
+                            <div class="distance-row">
+                                <span>Por km:</span>
+                                <span>$10.00</span>
+                            </div>
+                            <div class="distance-row total">
+                                <span>Costo de envío:</span>
+                                <span id="calculatedShippingCost">$0.00</span>
+                            </div>
+                        </div>
+
+                        <div class="delivery-limit-warning" id="deliveryLimitWarning">
+                            <i class="fas fa-exclamation-triangle"></i> No entregamos a más de 15 km de distancia.
+                        </div>
+                    </div>
+
+                    <button class="checkout-btn" id="checkoutBtn">
+                        <i class="fas fa-shopping-bag"></i> Proceder al Pedido
+                    </button>
+                    <button type="button" class="ghost-btn" onclick="navigateTo('home')">
+                        <i class="fas fa-arrow-left"></i> Seguir comprando
+                    </button>
+                </section>
+            </div>
+        </section>
+
+        <!-- ================= SCREEN: CHECKOUT ================= -->
+        <section class="screen" id="screen-checkout">
+            <div class="container-narrow">
+                <section class="checkout-form">
+                    <h2 class="section-title" id="checkoutFormTitle">Finalizar Pedido</h2>
+                    <form id="orderForm" novalidate>
+
+                        <div class="schedule-section" id="scheduleSection" style="display: none;">
+                            <div class="schedule-header">
+                                <i class="fas fa-calendar-check"></i>
+                                <div>
+                                    <strong>Programar pedido</strong>
+                                    <small>El restaurante está cerrado. Elige cuándo quieres recibir o recoger tu pedido.<br>Horarios programables: <strong>8:45 AM a 1:20 PM</strong> (sábados y domingos).</small>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label><i class="fas fa-calendar-day"></i> Fecha *</label>
+                                <select id="scheduleDate" class="form-control" required></select>
+                            </div>
+
+                            <div class="form-group">
+                                <label><i class="fas fa-clock"></i> Hora *</label>
+                                <select id="scheduleTime" class="form-control" required></select>
+                            </div>
+
+                            <div class="schedule-preview" id="schedulePreview"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Nombre Completo *</label>
+                            <input type="text" id="customerName" class="form-control" required placeholder="Tu nombre">
+                        </div>
+                        <div class="form-group">
+                            <label>Teléfono *</label>
+                            <input type="tel" id="customerPhone" class="form-control" required placeholder="10 dígitos" inputmode="tel">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tipo de Entrega</label>
+                            <select id="deliveryTypeFinal" class="form-control" required>
+                                <option value="pickup">Recoger en local</option>
+                                <option value="delivery">Envío a domicilio</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="finalAddressSection" style="display: none;">
+                            <label>Dirección de entrega *</label>
+                            <input type="text" id="customerAddress" class="form-control" placeholder="Calle, número, colonia">
+                        </div>
+
+                        <div class="form-group" id="finalDetailsSection" style="display: none;">
+                            <label>Detalles de la ubicación *</label>
+                            <textarea id="customerDetails" class="form-control" rows="3"
+                                placeholder="Ej: Edificio B, interior 302, timbre 2, fachada azul..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Método de Pago *</label>
+                            <div class="payment-methods">
+                                <div class="payment-method" id="cashMethod">
+                                    <input type="radio" id="cash" name="paymentMethod" value="cash">
+                                    <i class="fas fa-money-bill-wave"></i> Efectivo
+                                </div>
+                                <div class="payment-method selected" id="cardMethod">
+                                    <input type="radio" id="card" name="paymentMethod" value="card" checked>
+                                    <i class="fas fa-credit-card"></i> Tarjeta
+                                </div>
+                            </div>
+
+                            <div class="cash-details" id="cashDetails">
+                                <label style="font-family: var(--font-mono); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-ash);">¿Con cuánto pagarás? *</label>
+                                <input type="number" id="cashAmount" class="form-control" placeholder="Ej. 500.00" min="0" step="0.01" inputmode="decimal">
+                                <div class="change-info" id="changeInfo">
+                                    Cambio: <span id="changeAmount">$0.00</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Notas adicionales</label>
+                            <textarea id="customerNotes" class="form-control" rows="2" placeholder="Ej: Sin cebolla, más consomé, etc."></textarea>
+                        </div>
+
+                        <div id="orderSummaryFinal" style="background: transparent; border: 1px solid var(--color-soot); padding: 15px; border-radius: var(--radius-sm); margin-bottom: 15px; font-family: var(--font-mono); font-size: 0.68rem;"></div>
+
+                        <button type="submit" class="submit-order-btn" id="submitOrderBtn">
+                            <i class="fab fa-whatsapp"></i> Enviar Pedido por WhatsApp
+                        </button>
+                        <button type="button" id="cancelCheckout" class="ghost-btn">
+                            <i class="fas fa-arrow-left"></i> Regresar al Carrito
+                        </button>
+                    </form>
+                </section>
+            </div>
+        </section>
+
+        <!-- ================= SCREEN: CONFIRMATION ================= -->
+        <section class="screen" id="screen-confirmation">
+            <div class="container-narrow">
+                <div class="confirmation-screen">
+                    <img src="https://i.ibb.co/jkWp21kD/IMG-4398.jpg" alt="Logo" class="confirmation-logo">
+                    <h3 id="confirmationTitle">¡Pedido Enviado!</h3>
+                    <p id="confirmationScheduleInfo" class="confirmation-schedule"></p>
+                    <p>Tu pedido ha sido enviado por WhatsApp.<br>Te contactaremos pronto para confirmar.</p>
+                    <p><strong>WhatsApp: +52 55 7867 7774</strong></p>
+
+                    <div class="calendar-actions" id="calendarActions" style="display: none;">
+                        <button type="button" class="checkout-btn" id="downloadICSBtn">
+                            <i class="fas fa-calendar-plus"></i> Añadir a mi calendario
+                        </button>
+                        <button type="button" class="ghost-btn" id="openGCalBtn">
+                            <i class="fab fa-google"></i> Abrir en Google Calendar
+                        </button>
+                    </div>
+
+                    <button type="button" class="submit-order-btn" id="closeModalBtn" style="margin-top: 20px;">
+                        <i class="fas fa-check"></i> Volver al Menú
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- BOTTOM NAV -->
+    <nav class="bottom-nav" id="bottomNav">
+        <button class="bottom-nav-item active" data-screen="home" type="button">
+            <i class="fas fa-utensils"></i>
+            <span>Menú</span>
+        </button>
+        <button class="bottom-nav-item" data-screen="cart" type="button">
+            <i class="fas fa-shopping-bag"></i>
+            <span>Carrito</span>
+            <span class="bottom-nav-badge hidden" id="bottomNavBadge">0</span>
+        </button>
+    </nav>
+
+    <!-- PRODUCT MODAL -->
     <div class="product-modal" id="productModal">
         <div class="product-modal-content">
             <button class="product-modal-close" id="closeProductModal" type="button">
@@ -760,30 +924,7 @@
         </div>
     </div>
 
-    <div class="confirmation-modal" id="confirmationModal">
-        <div class="confirmation-modal-content">
-            <img src="https://i.ibb.co/jkWp21kD/IMG-4398.jpg" alt="Logo" class="confirmation-modal-logo">
-            <h3 id="confirmationTitle">¡Pedido Enviado!</h3>
-            <p id="confirmationScheduleInfo" style="display: none; color: var(--color-ember-orange); font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 15px;"></p>
-            <p style="margin-bottom: 20px; color: var(--color-ash);">Tu pedido ha sido enviado por WhatsApp. Te contactaremos pronto para confirmar.</p>
-            <p style="margin-bottom: 20px; font-weight: 700; color: var(--color-bone-white);">WhatsApp: +52 55 7867 7774</p>
-            <button type="button" class="checkout-btn" id="closeModalBtn">
-                <i class="fas fa-check"></i> Cerrar
-            </button>
-        </div>
-    </div>
-
     <div class="notification" id="notification">Mensaje aquí</div>
-
-    <footer>
-        <div class="container">
-            <img src="https://i.ibb.co/jkWp21kD/IMG-4398.jpg" alt="Logo Footer" class="footer-logo">
-            <p>&copy; 2025 Barbacoa de la Casa Vieja</p>
-            <p style="margin-top: 10px;">
-                <i class="fab fa-whatsapp" style="color: var(--color-ember-orange);"></i> WhatsApp: +52 55 7867 7774
-            </p>
-        </div>
-    </footer>
 
     <script>
         // ============================================
@@ -792,15 +933,9 @@
         const whatsappNumber = "+525578677774";
         const restaurantCoords = { lat: 19.4646, lng: -99.1853 };
         const TIMEZONE = 'America/Mexico_City';
+        const RESTAURANT_LOCATION_NAME = "Barbacoa de la Casa Vieja, Claveria, Azcapotzalco, CDMX";
 
-        // ============================================
-        // 👇 REEMPLAZA ESTA URL CON LA DE TU NUEVO CUSTOM WEBHOOK
-        // ============================================
-        // 1. En Make: elimina el Mailhook y añade "Webhooks → Custom webhook"
-        // 2. Copia la URL que empieza con https://hook.us2.make.com/
-        // 3. Pégala aquí abajo
         const MAKE_WEBHOOK_URL = "https://hook.us2.make.com/dflhy5kveofxbpe2ebsysc2g3c938s2e";
-        // ============================================
 
         const SCHEDULE_LEAD_MINUTES   = 45;
         const SCHEDULE_SLOT_START     = 8 * 60 + 45;
@@ -901,6 +1036,61 @@
         let lastScheduleStateIsOpen = null;
 
         let scheduleState = { isOpen: false, isOpenDay: false, meatLow: false, pancitaLow: false };
+
+        // Para la pantalla de confirmación
+        let lastScheduledEvent = null; // { offset, timeMin, summary, details, location }
+
+        // ============================================
+        // NAVEGACIÓN ENTRE PANTALLAS
+        // ============================================
+        const SCREEN_TITLES = {
+            home: 'Menú',
+            cart: 'Tu Pedido',
+            checkout: 'Finalizar Pedido',
+            confirmation: 'Confirmación'
+        };
+        const BACK_TARGETS = {
+            home: null,
+            cart: 'home',
+            checkout: 'cart',
+            confirmation: 'home'
+        };
+        const NAV_VISIBLE_SCREENS = ['home', 'cart'];
+
+        let currentScreen = 'home';
+
+        function navigateTo(screenName) {
+            const target = document.getElementById('screen-' + screenName);
+            if (!target) return;
+
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            target.classList.add('active');
+
+            // Nav inferior
+            document.querySelectorAll('.bottom-nav-item').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.screen === screenName);
+            });
+            const nav = document.getElementById('bottomNav');
+            nav.classList.toggle('visible', NAV_VISIBLE_SCREENS.includes(screenName));
+
+            // Header
+            const header = document.getElementById('appHeader');
+            const title = document.getElementById('headerScreenTitle');
+            if (screenName === 'home') {
+                header.classList.remove('inner-screen');
+            } else {
+                header.classList.add('inner-screen');
+                title.textContent = SCREEN_TITLES[screenName] || '';
+            }
+
+            currentScreen = screenName;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function goBack() {
+            const target = BACK_TARGETS[currentScreen];
+            if (target) navigateTo(target);
+        }
 
         // ============================================
         // TEMA
@@ -1055,7 +1245,7 @@
             }
             renderProducts();
 
-            if (isScheduledOrder && document.getElementById('checkoutForm').style.display !== 'none') {
+            if (isScheduledOrder && currentScreen === 'checkout') {
                 refreshScheduleSelectorsPreservingSelection();
             }
         }
@@ -1096,19 +1286,15 @@
         function getValidScheduleDates() {
             const now = new Date();
             const validDates = [];
-
             for (let offset = 0; offset < SCHEDULE_SCAN_DAYS && validDates.length < MAX_SCHEDULE_DATES; offset++) {
                 const d = new Date(now);
                 d.setDate(d.getDate() + offset);
                 const dow = d.getDay();
-
                 if (dow !== 0 && dow !== 6) continue;
-
                 if (offset === 0) {
                     const slotsToday = getValidTimeSlots(0);
                     if (slotsToday.length === 0) continue;
                 }
-
                 validDates.push({
                     offset,
                     date: d,
@@ -1148,7 +1334,6 @@
             } else {
                 dateSelect.value = validDates[0].offset;
             }
-
             populateTimeSlots();
         }
 
@@ -1184,7 +1369,6 @@
             if (prevTime && slots.includes(parseInt(prevTime))) {
                 timeSelect.value = prevTime;
             }
-
             updateSchedulePreview();
         }
 
@@ -1246,34 +1430,123 @@
         }
 
         // ============================================
-        // MAKE.COM — ENVÍO DE DATOS (HISTORIAL)
-        // Usa URLSearchParams para que Make reciba campos individuales
+        // CALENDARIO (.ics + Google Calendar)
+        // ============================================
+        function buildEventDate(offset, timeMin) {
+            const now = new Date();
+            const d = new Date(now);
+            d.setDate(d.getDate() + offset);
+            d.setHours(Math.floor(timeMin / 60), timeMin % 60, 0, 0);
+            return d;
+        }
+
+        function formatICSDate(d) {
+            return d.getFullYear() +
+                String(d.getMonth()+1).padStart(2,'0') +
+                String(d.getDate()).padStart(2,'0') + 'T' +
+                String(d.getHours()).padStart(2,'0') +
+                String(d.getMinutes()).padStart(2,'0') + '00';
+        }
+
+        function formatUTCStamp(d) {
+            return d.getUTCFullYear() +
+                String(d.getUTCMonth()+1).padStart(2,'0') +
+                String(d.getUTCDate()).padStart(2,'0') + 'T' +
+                String(d.getUTCHours()).padStart(2,'0') +
+                String(d.getUTCMinutes()).padStart(2,'0') +
+                String(d.getUTCSeconds()).padStart(2,'0') + 'Z';
+        }
+
+        function escapeICS(s) {
+            return String(s || '').replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n');
+        }
+
+        function generateICSContent(eventData) {
+            const start = buildEventDate(eventData.offset, eventData.timeMin);
+            const end = new Date(start);
+            end.setHours(end.getHours() + 1);
+
+            const lines = [
+                'BEGIN:VCALENDAR',
+                'VERSION:2.0',
+                'PRODID:-//Barbacoa de la Casa Vieja//Pedido//ES',
+                'CALSCALE:GREGORIAN',
+                'METHOD:PUBLISH',
+                'BEGIN:VEVENT',
+                `UID:pedido-${Date.now()}-${Math.random().toString(36).slice(2,8)}@barbacoa-casavieja`,
+                `DTSTAMP:${formatUTCStamp(new Date())}`,
+                `DTSTART;TZID=America/Mexico_City:${formatICSDate(start)}`,
+                `DTEND;TZID=America/Mexico_City:${formatICSDate(end)}`,
+                `SUMMARY:${escapeICS(eventData.summary)}`,
+                `DESCRIPTION:${escapeICS(eventData.details)}`,
+                `LOCATION:${escapeICS(eventData.location)}`,
+                'STATUS:CONFIRMED',
+                'BEGIN:VALARM',
+                'TRIGGER:-PT30M',
+                'ACTION:DISPLAY',
+                `DESCRIPTION:${escapeICS('Recordatorio: ' + eventData.summary)}`,
+                'END:VALARM',
+                'END:VEVENT',
+                'END:VCALENDAR'
+            ];
+            return lines.join('\r\n');
+        }
+
+        function downloadICSFile(eventData) {
+            try {
+                const icsContent = generateICSContent(eventData);
+                const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                const start = buildEventDate(eventData.offset, eventData.timeMin);
+                const dateStr = `${start.getFullYear()}${String(start.getMonth()+1).padStart(2,'0')}${String(start.getDate()).padStart(2,'0')}`;
+                a.href = url;
+                a.download = `pedido-barbacoa-${dateStr}.ics`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                setTimeout(() => URL.revokeObjectURL(url), 2000);
+                return true;
+            } catch (err) {
+                console.warn('Error generando ICS:', err);
+                return false;
+            }
+        }
+
+        function generateGoogleCalendarLink(eventData) {
+            const start = buildEventDate(eventData.offset, eventData.timeMin);
+            const end = new Date(start);
+            end.setHours(end.getHours() + 1);
+            const params = new URLSearchParams({
+                action: 'TEMPLATE',
+                text: eventData.summary,
+                dates: `${formatICSDate(start)}/${formatICSDate(end)}`,
+                ctz: 'America/Mexico_City',
+                details: eventData.details,
+                location: eventData.location
+            });
+            return `https://calendar.google.com/calendar/render?${params.toString()}`;
+        }
+
+        // ============================================
+        // MAKE.COM
         // ============================================
         function sendDataToMake(orderData) {
             if (!MAKE_WEBHOOK_URL || MAKE_WEBHOOK_URL.indexOf('tu_url') !== -1) {
                 console.warn('Webhook de Make no configurado');
                 return;
             }
-
             const params = new URLSearchParams();
-
-            // --- Test / origen ---
             params.append('origen', 'barbacoa-casa-vieja');
             params.append('test', 'ok');
-
-            // --- Identificación ---
             params.append('pedido_id', orderData.pedido_id);
             params.append('fecha_envio', orderData.fecha_envio);
             params.append('es_programado', orderData.es_programado ? 'Sí' : 'No');
             params.append('fecha_programada', orderData.fecha_programada || '');
             params.append('hora_programada', orderData.hora_programada || '');
-
-            // --- Cliente ---
             params.append('cliente_nombre', orderData.cliente_nombre);
             params.append('cliente_telefono', orderData.cliente_telefono);
             params.append('notas', orderData.notas || '');
-
-            // --- Entrega ---
             params.append('tipo_entrega', orderData.tipo_entrega);
             params.append('pedido_para', orderData.pedido_para);
             params.append('direccion', orderData.direccion || '');
@@ -1282,35 +1555,25 @@
             params.append('link_mapa', orderData.link_mapa || '');
             params.append('distancia_km', orderData.distancia_km || '');
             params.append('zona', orderData.zona || '');
-
-            // --- Pago ---
             params.append('metodo_pago', orderData.metodo_pago);
             params.append('paga_con', orderData.paga_con || '');
             params.append('cambio', orderData.cambio || '');
-
-            // --- Totales ---
             params.append('subtotal', orderData.subtotal);
             params.append('costo_envio', orderData.costo_envio);
             params.append('total', orderData.total);
-
-            // --- Detalle ---
             params.append('pedido_detalle', orderData.pedido_detalle);
             params.append('pedido_json', JSON.stringify(orderData.cart_raw));
-
-            // --- Avisos ---
             params.append('aviso_disponibilidad', orderData.aviso_disponibilidad || 'Ninguno');
+            params.append('evento_ics', orderData.evento_ics || 'No');
+            params.append('evento_fecha', orderData.evento_fecha || '');
 
             fetch(MAKE_WEBHOOK_URL, {
                 method: 'POST',
                 body: params,
                 keepalive: true
             })
-            .then(() => {
-                console.log('✅ Pedido enviado a Make.com (historial)');
-            })
-            .catch(err => {
-                console.warn('⚠️ No se pudo enviar a Make:', err);
-            });
+            .then(() => console.log('✅ Pedido enviado a Make.com'))
+            .catch(err => console.warn('⚠️ No se pudo enviar a Make:', err));
         }
 
         // ============================================
@@ -1318,8 +1581,13 @@
         // ============================================
         document.addEventListener('DOMContentLoaded', function() {
             applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
-            const themeBtn = document.getElementById('themeToggle');
-            if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+            document.getElementById('headerBack').addEventListener('click', goBack);
+
+            // Nav inferior
+            document.querySelectorAll('.bottom-nav-item').forEach(btn => {
+                btn.addEventListener('click', () => navigateTo(btn.dataset.screen));
+            });
 
             scheduleState = getOrderingStatus();
             lastScheduleStateIsOpen = scheduleState.isOpen;
@@ -1328,6 +1596,9 @@
             applyScheduleState();
             setInterval(applyScheduleState, 30000);
 
+            // Nav inicial
+            navigateTo('home');
+
             document.querySelectorAll('.category-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
@@ -1335,10 +1606,6 @@
                     currentCategory = this.getAttribute('data-category');
                     renderProducts();
                 });
-            });
-
-            document.getElementById('floatingCartIcon').addEventListener('click', function() {
-                document.getElementById('cartSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
 
             document.getElementById('clearCartBtn').addEventListener('click', function() {
@@ -1381,10 +1648,7 @@
             document.getElementById('checkoutBtn').addEventListener('click', function() { handleCheckout(); });
 
             document.getElementById('cancelCheckout').addEventListener('click', function() {
-                isScheduledOrder = false;
-                document.getElementById('checkoutForm').style.display = 'none';
-                document.getElementById('mainContent').style.display = 'grid';
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                navigateTo('cart');
             });
 
             document.getElementById('orderForm').addEventListener('submit', function(e) {
@@ -1393,7 +1657,23 @@
             });
 
             document.getElementById('closeModalBtn').addEventListener('click', function() {
-                document.getElementById('confirmationModal').classList.remove('active');
+                lastScheduledEvent = null;
+                document.getElementById('calendarActions').style.display = 'none';
+                navigateTo('home');
+            });
+
+            document.getElementById('downloadICSBtn').addEventListener('click', function() {
+                if (lastScheduledEvent) {
+                    downloadICSFile(lastScheduledEvent);
+                    showNotification('Evento descargado. Ábrelo para añadirlo a tu calendario.', 'success');
+                }
+            });
+
+            document.getElementById('openGCalBtn').addEventListener('click', function() {
+                if (lastScheduledEvent) {
+                    const link = generateGoogleCalendarLink(lastScheduledEvent);
+                    window.open(link, '_blank');
+                }
             });
 
             document.getElementById('closeProductModal').addEventListener('click', closeProductModal);
@@ -1439,7 +1719,7 @@
 
             if (value === 'other') {
                 otherHint.classList.add('active');
-                useLocationBtn.innerHTML = '<i class="fas fa-location-arrow"></i> Ubicación actual de quien recibe (si estás con ellos)';
+                useLocationBtn.innerHTML = '<i class="fas fa-location-arrow"></i> Ubicación actual de quien recibe';
                 addressLabel.innerHTML = '<i class="fas fa-search" style="color: var(--color-ember-orange);"></i> Dirección de quien recibirá el pedido:';
                 addressInput.placeholder = 'Calle, número, colonia de quien recibe';
                 selectedLabel.textContent = 'Dirección de entrega a la otra persona:';
@@ -1724,7 +2004,7 @@
         // ============================================
         function updateCartDisplay() {
             const cartItemsContainer = document.getElementById('cartItems');
-            const floatingCartCount = document.getElementById('floatingCartCount');
+            const navBadge = document.getElementById('bottomNavBadge');
             const subtotalElement = document.getElementById('subtotal');
             const shippingCostElement = document.getElementById('shippingCost');
             const totalElement = document.getElementById('total');
@@ -1733,11 +2013,11 @@
 
             const totalItems = cart.reduce((s, i) => s + i.quantity, 0);
             if (totalItems > 0) {
-                floatingCartCount.classList.remove('hidden');
-                floatingCartCount.textContent = totalItems;
+                navBadge.classList.remove('hidden');
+                navBadge.textContent = totalItems;
                 clearCartBtn.style.display = 'flex';
             } else {
-                floatingCartCount.classList.add('hidden');
+                navBadge.classList.add('hidden');
                 clearCartBtn.style.display = 'none';
             }
 
@@ -1805,7 +2085,6 @@
             if (cart.length === 0) {
                 btn.disabled = true;
                 btn.innerHTML = '<i class="fas fa-shopping-bag"></i> Carrito vacío';
-                btn.classList.remove('disabled-by-schedule');
             } else if (!scheduleState.isOpen) {
                 const dates = getValidScheduleDates();
                 if (dates.length === 0) {
@@ -1813,13 +2092,11 @@
                     btn.innerHTML = '<i class="fas fa-calendar-times"></i> Sin fechas disponibles';
                 } else {
                     btn.disabled = false;
-                    btn.innerHTML = `<i class="fas fa-calendar-plus"></i> Programar pedido · ${dates[0].label}`;
+                    btn.innerHTML = `<i class="fas fa-calendar-plus"></i> Programar pedido`;
                 }
-                btn.classList.remove('disabled-by-schedule');
             } else {
                 btn.disabled = false;
-                btn.classList.remove('disabled-by-schedule');
-                btn.innerHTML = `<i class="fas fa-shopping-bag"></i> Proceder al Pedido ($${total.toFixed(2)})`;
+                btn.innerHTML = `<i class="fas fa-shopping-bag"></i> Continuar ($${total.toFixed(2)})`;
             }
         }
 
@@ -2074,7 +2351,6 @@
 
                 const offset = parseInt(dateSelect.value);
                 const timeMin = parseInt(timeSelect.value);
-
                 const validDates = getValidScheduleDates();
                 if (!validDates.some(d => d.offset === offset)) {
                     showNotification('La fecha seleccionada ya no está disponible. Elige otra.', 'error');
@@ -2082,7 +2358,6 @@
                     document.getElementById('scheduleSection').scrollIntoView({ behavior: 'smooth', block: 'center' });
                     return false;
                 }
-
                 const validSlots = getValidTimeSlots(offset);
                 if (!validSlots.includes(timeMin)) {
                     showNotification('La hora seleccionada ya no está disponible. Elige otra.', 'error');
@@ -2104,11 +2379,10 @@
                 if (currentShippingCost === 0) { showNotification('Calcula el envío primero', 'error'); return false; }
                 if (deliveryDistance > shippingRates.maxDistance) { showNotification('La dirección excede 15 km', 'error'); return false; }
                 if (!details || details.length < 5) {
-                    showNotification('Agrega detalles de la ubicación (edificio, interior, referencias...)', 'error');
+                    showNotification('Agrega detalles de la ubicación', 'error');
                     document.getElementById('customerDetails').focus();
                     return false;
                 }
-
                 const subtotal = cart.reduce((s, i) => s + i.price * i.quantity, 0);
                 if (subtotal < shippingRates.minOrderForDelivery) {
                     showNotification(`Pedido mínimo para envío: $${shippingRates.minOrderForDelivery}`, 'error');
@@ -2145,7 +2419,7 @@
                 }
                 const details = document.getElementById('locationDetails').value.trim();
                 if (!details || details.length < 5) {
-                    showNotification('Agrega detalles de la ubicación (edificio, interior, referencias...)', 'error');
+                    showNotification('Agrega detalles de la ubicación', 'error');
                     document.getElementById('locationDetails').focus();
                     return;
                 }
@@ -2177,10 +2451,8 @@
             }
 
             selectPaymentMethod('card');
-            document.getElementById('mainContent').style.display = 'none';
-            document.getElementById('checkoutForm').style.display = 'block';
             updateFinalSummary();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            navigateTo('checkout');
         }
 
         function updateFinalSummary() {
@@ -2224,21 +2496,28 @@
         }
 
         // ============================================
-        // WHATSAPP + MAKE
+        // WHATSAPP + MAKE + CALENDARIO
         // ============================================
         function sendOrderToWhatsApp() {
+            let scheduledDateLabel = '';
+            let scheduledTimeLabel = '';
+            let scheduledTimeMin = null;
+            let scheduledOffset = null;
+
             if (isScheduledOrder) {
                 const dateSelect = document.getElementById('scheduleDate');
                 const timeSelect = document.getElementById('scheduleTime');
-                const offset = parseInt(dateSelect.value);
-                const timeMin = parseInt(timeSelect.value);
+                scheduledOffset = parseInt(dateSelect.value);
+                scheduledTimeMin = parseInt(timeSelect.value);
                 const validDates = getValidScheduleDates();
-                const validSlots = getValidTimeSlots(offset);
-                if (!validDates.some(d => d.offset === offset) || !validSlots.includes(timeMin)) {
+                const validSlots = getValidTimeSlots(scheduledOffset);
+                if (!validDates.some(d => d.offset === scheduledOffset) || !validSlots.includes(scheduledTimeMin)) {
                     showNotification('Tu selección de fecha/hora expiró. Vuelve a elegir.', 'error');
                     populateScheduleSelectors();
                     return;
                 }
+                scheduledDateLabel = dateSelect.options[dateSelect.selectedIndex].textContent;
+                scheduledTimeLabel = formatHour(scheduledTimeMin);
             }
 
             const customerName = document.getElementById('customerName').value.trim();
@@ -2263,18 +2542,43 @@
                 paymentDetails = `*Paga con:* $${cash.toFixed(2)}%0A*Cambio:* $${(cash - total).toFixed(2)}%0A`;
             }
 
+            // ============ GENERAR EVENTO DE CALENDARIO ============
+            let eventData = null;
+            let eventGenerated = false;
+            if (isScheduledOrder && scheduledOffset !== null && scheduledTimeMin !== null) {
+                const eventSummary = `Pedido Barbacoa - ${customerName}`;
+                const eventDetails =
+                    `Pedido programado en Barbacoa de la Casa Vieja\n\n` +
+                    `Cliente: ${customerName}\n` +
+                    `Teléfono: ${customerPhone}\n` +
+                    `Tipo: ${deliveryType === 'delivery' ? 'Envío a domicilio' : 'Recoger en local'}\n` +
+                    (deliveryType === 'delivery' ? `Dirección: ${customerAddress}\n${customerDetails ? 'Detalles: ' + customerDetails + '\n' : ''}` : '') +
+                    `\nProductos:\n` +
+                    cart.map(i => `• ${i.quantity}x ${i.name}`).join('\n') +
+                    `\n\nTotal: $${total.toFixed(2)}\n` +
+                    `\nWhatsApp: +52 55 7867 7774`;
+                const eventLocation = deliveryType === 'delivery'
+                    ? customerAddress
+                    : RESTAURANT_LOCATION_NAME;
+
+                eventData = {
+                    offset: scheduledOffset,
+                    timeMin: scheduledTimeMin,
+                    summary: eventSummary,
+                    details: eventDetails,
+                    location: eventLocation
+                };
+                lastScheduledEvent = eventData;
+
+                // Descarga automática del .ics (se ejecuta dentro del gesto de usuario)
+                eventGenerated = downloadICSFile(eventData);
+            } else {
+                lastScheduledEvent = null;
+            }
+
+            // ============ MENSAJE WHATSAPP ============
             let msg = '';
-            let scheduledDateLabel = '';
-            let scheduledTimeLabel = '';
-            let scheduledTimeMin = null;
-
             if (isScheduledOrder) {
-                const dateSelect = document.getElementById('scheduleDate');
-                const timeSelect = document.getElementById('scheduleTime');
-                scheduledDateLabel = dateSelect.options[dateSelect.selectedIndex].textContent;
-                scheduledTimeMin = parseInt(timeSelect.value);
-                scheduledTimeLabel = formatHour(scheduledTimeMin);
-
                 msg += `*NUEVO PEDIDO PROGRAMADO - Barbacoa de la Casa Vieja*%0A%0A`;
                 msg += `🗓️ *PROGRAMADO PARA:*%0A`;
                 msg += `*Fecha:* ${scheduledDateLabel}%0A`;
@@ -2292,7 +2596,6 @@
                 msg += `*Pedido para:* ${deliveryFor === 'other' ? 'OTRA PERSONA' : 'El cliente'}%0A`;
                 msg += `*Dirección:* ${customerAddress}%0A`;
                 msg += `*📌 Detalles de ubicación:* ${customerDetails}%0A`;
-
                 if (deliveryCoords) {
                     const gmapsLink = `https://www.google.com/maps?q=${deliveryCoords.lat},${deliveryCoords.lng}`;
                     msg += `*Coordenadas GPS:* ${deliveryCoords.lat.toFixed(6)}, ${deliveryCoords.lng.toFixed(6)}%0A`;
@@ -2317,8 +2620,8 @@
             }
             if (showMeatWarn || showPancitaWarn) {
                 msg += `%0A*⚠️ CONFIRMAR DISPONIBILIDAD AL CLIENTE:*%0A`;
-                if (showMeatWarn) msg += `- Barbacoa: pedido programado para después de 12 PM — CONFIRMAR con el cliente que aún hay.%0A`;
-                if (showPancitaWarn) msg += `- Pancita: pedido programado para después de 1 PM — CONFIRMAR con el cliente que aún hay.%0A`;
+                if (showMeatWarn) msg += `- Barbacoa: pedido programado después de 12 PM — CONFIRMAR.%0A`;
+                if (showPancitaWarn) msg += `- Pancita: pedido programado después de 1 PM — CONFIRMAR.%0A`;
                 msg += `_Favor de responder al cliente por WhatsApp para confirmar antes de preparar._%0A`;
             }
 
@@ -2337,7 +2640,7 @@
             msg += `*TOTAL:* $${total.toFixed(2)}%0A%0A`;
             msg += `_Enviado: ${new Date().toLocaleString('es-MX')}_`;
 
-            // Enviar a Make
+            // ============ MAKE.COM ============
             try {
                 const pedidoDetalle = cart.map(item => {
                     let mods = [];
@@ -2358,11 +2661,9 @@
                     es_programado: isScheduledOrder,
                     fecha_programada: isScheduledOrder ? scheduledDateLabel : '',
                     hora_programada: isScheduledOrder ? scheduledTimeLabel : '',
-
                     cliente_nombre: customerName,
                     cliente_telefono: customerPhone,
                     notas: customerNotes,
-
                     tipo_entrega: deliveryType,
                     pedido_para: deliveryFor,
                     direccion: customerAddress,
@@ -2371,31 +2672,23 @@
                     link_mapa: deliveryCoords ? `https://www.google.com/maps?q=${deliveryCoords.lat},${deliveryCoords.lng}` : '',
                     distancia_km: deliveryDistance ? deliveryDistance.toFixed(1) : '',
                     zona: deliveryZone || '',
-
                     metodo_pago: paymentMethod,
                     paga_con: cashAmountVal > 0 ? cashAmountVal.toFixed(2) : '',
                     cambio: cambioVal > 0 ? cambioVal.toFixed(2) : '',
-
                     subtotal: subtotal.toFixed(2),
                     costo_envio: currentShippingCost.toFixed(2),
                     total: total.toFixed(2),
-
                     pedido_detalle: pedidoDetalle,
                     cart_raw: cart.map(i => ({
-                        id: i.id,
-                        name: i.name,
-                        qty: i.quantity,
-                        price: i.price,
+                        id: i.id, name: i.name, qty: i.quantity, price: i.price,
                         selection: i.selection ? i.selection.name : null,
                         extras: (i.extras || []).map(e => e.name)
                     })),
-
                     aviso_disponibilidad: (showMeatWarn || showPancitaWarn)
-                        ? [
-                            showMeatWarn ? 'Barbacoa después de 12PM' : null,
-                            showPancitaWarn ? 'Pancita después de 1PM' : null
-                          ].filter(Boolean).join(' | ')
-                        : 'Ninguno'
+                        ? [showMeatWarn ? 'Barbacoa después de 12PM' : null, showPancitaWarn ? 'Pancita después de 1PM' : null].filter(Boolean).join(' | ')
+                        : 'Ninguno',
+                    evento_ics: eventGenerated ? 'Sí' : 'No',
+                    evento_fecha: isScheduledOrder ? `${scheduledDateLabel} ${scheduledTimeLabel}` : ''
                 };
 
                 sendDataToMake(orderData);
@@ -2403,29 +2696,34 @@
                 console.warn('Error preparando datos para Make:', err);
             }
 
-            // Abrir WhatsApp
+            // ============ ABRIR WHATSAPP ============
             const url = `https://wa.me/${whatsappNumber.replace(/\D/g, '')}?text=${msg}`;
-            window.open(url, '_blank');
+            setTimeout(() => window.open(url, '_blank'), 200);
 
+            // ============ MOSTRAR PANTALLA DE CONFIRMACIÓN ============
             const confirmTitle = document.getElementById('confirmationTitle');
             const confirmScheduleInfo = document.getElementById('confirmationScheduleInfo');
+            const calendarActions = document.getElementById('calendarActions');
 
             if (isScheduledOrder) {
                 confirmTitle.textContent = '¡Pedido Programado!';
-                confirmScheduleInfo.innerHTML = `<i class="fas fa-calendar-check"></i> ${scheduledDateLabel} · ${scheduledTimeLabel}`;
-                confirmScheduleInfo.style.display = 'block';
+                confirmScheduleInfo.innerHTML = `<i class="fas fa-calendar-check"></i> ${scheduledDateLabel}<br><i class="fas fa-clock"></i> ${scheduledTimeLabel}`;
+                confirmScheduleInfo.classList.add('active');
+                calendarActions.style.display = 'flex';
+                if (eventGenerated) {
+                    setTimeout(() => showNotification('Evento de calendario descargado. Ábrelo para añadirlo.', 'success'), 800);
+                }
             } else {
                 confirmTitle.textContent = '¡Pedido Enviado!';
-                confirmScheduleInfo.style.display = 'none';
+                confirmScheduleInfo.classList.remove('active');
+                calendarActions.style.display = 'none';
             }
-            document.getElementById('confirmationModal').classList.add('active');
 
+            // ============ RESET ============
             cart = [];
             isScheduledOrder = false;
             saveCart();
             document.getElementById('orderForm').reset();
-            document.getElementById('checkoutForm').style.display = 'none';
-            document.getElementById('mainContent').style.display = 'grid';
             document.getElementById('addressInput').value = '';
             document.getElementById('locationDetails').value = '';
             document.getElementById('selectedAddressBox').classList.remove('active');
@@ -2460,6 +2758,8 @@
 
             selectPaymentMethod('card');
             refreshAll();
+
+            navigateTo('confirmation');
         }
 
         // ============================================

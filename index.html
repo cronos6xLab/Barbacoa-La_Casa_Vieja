@@ -50,6 +50,7 @@
             --img-placeholder-bg:  #ebe7df;
             --btn-invert-hover:    #2a2a2a;
             --ghost-hover-bg:      rgba(18, 18, 18, 0.06);
+            --card-hover-bg:       rgba(255, 77, 0, 0.04);
         }
 
         :root[data-theme="dark"] {
@@ -66,6 +67,7 @@
             --img-placeholder-bg:  #1a1a1a;
             --btn-invert-hover:    #d8dee7;
             --ghost-hover-bg:      rgba(226, 232, 240, 0.08);
+            --card-hover-bg:       rgba(255, 77, 0, 0.06);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -95,7 +97,7 @@
         .container-medium { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
         .container-narrow { max-width: 640px; margin: 0 auto; padding: 0 20px; }
 
-        /* ============ TICKER ============ */
+        /* TICKER */
         .ticker { overflow: hidden; background: var(--color-foundry-black); border-bottom: 1px solid var(--color-chalk-white); }
         .ticker-track { display: flex; align-items: center; gap: 22px; width: max-content; white-space: nowrap; padding: 9px 0; animation: tickerScroll 38s linear infinite; }
         .ticker-track span { font-family: var(--font-mono); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--color-ash); }
@@ -103,7 +105,7 @@
         @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
         @media (prefers-reduced-motion: reduce) { .ticker-track { animation: none; } }
 
-        /* ============ HEADER ============ */
+        /* HEADER */
         header {
             background:
                 linear-gradient(var(--header-overlay-top), var(--header-overlay-bottom)),
@@ -167,7 +169,7 @@
         .theme-toggle:hover { background: var(--ghost-hover-bg); }
         .theme-toggle i { color: var(--color-ember-orange); font-size: 0.72rem; }
 
-        /* ============ SCREENS ============ */
+        /* SCREENS */
         .screens-wrap { padding-bottom: 100px; min-height: 60vh; }
         .screen { display: none; }
         .screen.active { display: block; animation: screenFade 0.28s ease; }
@@ -176,7 +178,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ============ BOTTOM NAV ============ */
+        /* BOTTOM NAV */
         .bottom-nav {
             position: fixed;
             bottom: 0; left: 0; right: 0;
@@ -225,7 +227,7 @@
         }
         .bottom-nav-badge.hidden { display: none; }
 
-        /* ============ INFO / BANNER ============ */
+        /* INFO / BANNER */
         .restaurant-info { background: transparent; border: 1px solid var(--color-soot); border-radius: var(--radius-lg); padding: 22px 24px; margin: 24px auto 20px; }
         .restaurant-info h3 { color: var(--color-bone-white); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; }
         .restaurant-info h3 i { color: var(--color-ember-orange); margin-right: 8px; }
@@ -240,7 +242,7 @@
         .schedule-banner.limited { border-left-color: var(--color-ember-orange); border-color: rgba(255,77,0,0.35); color: var(--color-ember-orange); }
         .schedule-banner.closed { border-left-color: var(--color-soot); color: var(--color-ash); }
 
-        /* ============ MENU ============ */
+        /* MENU */
         .menu-section { background-color: transparent; border-radius: var(--radius-lg); padding: 4px 0 24px; }
         .section-title { color: var(--color-bone-white); font-family: var(--font-mono); font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 22px; padding-bottom: 12px; border-bottom: 1px solid var(--color-soot); position: relative; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
         .section-title::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 48px; height: 1px; background-color: var(--color-ember-orange); }
@@ -275,7 +277,7 @@
         .add-to-cart:hover { background-color: rgba(255,77,0,0.1); }
         .add-to-cart.in-cart { border-color: var(--color-chalk-white); color: var(--color-bone-white); }
 
-        /* ============ CART SCREEN ============ */
+        /* CART */
         .cart-section { background-color: transparent; border-radius: var(--radius-lg); padding: 20px 0; }
         .cart-items { max-height: none; overflow-y: visible; margin-bottom: 18px; }
         .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--color-soot); gap: 10px; }
@@ -298,7 +300,7 @@
         .cart-availability-warning { background: rgba(255,77,0,0.06); border: 1px solid rgba(255,77,0,0.35); border-left: 3px solid var(--color-ember-orange); color: var(--color-ember-orange); padding: 10px 12px; border-radius: var(--radius-sm); margin: 10px 0; font-family: var(--font-mono); font-size: 0.65rem; line-height: 1.55; display: none; }
         .cart-availability-warning.active { display: block; }
 
-        /* ============ BUTTONS ============ */
+        /* BUTTONS */
         .checkout-btn, .submit-order-btn { width: 100%; border-radius: var(--radius-sm); padding: 16px; font-size: 0.72rem; cursor: pointer; text-transform: uppercase; letter-spacing: 0.12em; margin-top: 15px; transition: background 0.2s ease; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--font-mono); }
         .checkout-btn { background-color: transparent; border: 1px solid var(--color-ember-orange); color: var(--color-ember-orange); }
         .checkout-btn:hover:not(:disabled) { background-color: rgba(255,77,0,0.12); }
@@ -309,7 +311,7 @@
         .ghost-btn { background: transparent; border: 1px solid var(--color-soot); color: var(--color-ash); padding: 12px 16px; border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; width: 100%; margin-top: 10px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
         .ghost-btn:hover { color: var(--color-bone-white); border-color: var(--color-chalk-white); }
 
-        /* ============ FORMS ============ */
+        /* FORM */
         .checkout-form { background-color: transparent; border-radius: var(--radius-lg); padding: 20px 0; }
         .form-control { width: 100%; padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--color-soot); margin-top: 6px; font-size: 0.78rem; font-family: var(--font-mono); background: transparent; color: var(--color-bone-white); }
         .form-control::placeholder { color: var(--color-ash); opacity: 0.7; }
@@ -397,7 +399,7 @@
         .change-info { background: rgba(255,77,0,0.08); border: 1px solid var(--color-ember-orange); padding: 10px; border-radius: var(--radius-sm); margin-top: 10px; text-align: center; font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; color: var(--color-ember-orange); display: none; }
         .change-info.active { display: block; }
 
-        /* ============ CONFIRMATION SCREEN ============ */
+        /* CONFIRMATION SCREEN */
         .confirmation-screen { text-align: center; padding: 30px 0 20px; }
         .confirmation-screen .confirmation-logo { height: 84px; width: 84px; object-fit: cover; border-radius: var(--radius-sm); margin: 0 auto 22px; border: 1px solid var(--color-chalk-white); display: block; }
         .confirmation-screen h3 { font-family: var(--font-mono); font-size: 1rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-ember-orange); margin-bottom: 18px; }
@@ -405,10 +407,212 @@
         .confirmation-screen .confirmation-schedule.active { display: block; }
         .confirmation-screen p { font-family: var(--font-mono); font-size: 0.72rem; line-height: 1.6; color: var(--color-ash); margin-bottom: 14px; }
         .confirmation-screen p strong { color: var(--color-bone-white); }
-
         .calendar-actions { margin-top: 24px; display: flex; flex-direction: column; gap: 10px; }
 
-        /* ============ PRODUCT MODAL ============ */
+        /* HISTORY SCREEN */
+        .history-section { background-color: transparent; border-radius: var(--radius-lg); padding: 20px 0; }
+        .history-card {
+            background: transparent;
+            border: 1px solid var(--color-soot);
+            border-radius: var(--radius-lg);
+            margin-bottom: 14px;
+            overflow: hidden;
+            transition: border-color 0.2s ease;
+        }
+        .history-card:hover { border-color: var(--color-chalk-white); }
+        .history-card-header {
+            padding: 14px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            border-bottom: 1px solid var(--color-soot);
+        }
+        .history-order-id {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--color-bone-white);
+            letter-spacing: 0.04em;
+            margin-bottom: 4px;
+        }
+        .history-date {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            color: var(--color-ash);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .history-status-badge {
+            font-family: var(--font-mono);
+            font-size: 0.58rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 5px 9px;
+            border-radius: var(--radius-sm);
+            white-space: nowrap;
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .history-status-badge.sent {
+            border: 1px solid var(--color-chalk-white);
+            color: var(--color-bone-white);
+            background: transparent;
+        }
+        .history-status-badge.scheduled {
+            border: 1px solid var(--color-ember-orange);
+            color: var(--color-ember-orange);
+            background: rgba(255,77,0,0.06);
+        }
+        .history-body { padding: 14px 16px; }
+        .history-items-list {
+            font-family: var(--font-sans);
+            font-size: 0.72rem;
+            color: var(--color-ash);
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+        .history-items-list .history-item-line {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 2px 0;
+        }
+        .history-items-list .history-item-line .qty {
+            color: var(--color-ember-orange);
+            font-family: var(--font-mono);
+            font-weight: 700;
+            margin-right: 4px;
+        }
+        .history-meta {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-ash);
+            margin-bottom: 12px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--color-soot);
+        }
+        .history-meta span i { color: var(--color-ember-orange); margin-right: 4px; }
+        .history-total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: rgba(255,77,0,0.04);
+            border-top: 1px solid var(--color-soot);
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .history-total-row span:last-child { color: var(--color-ember-orange); }
+        .history-actions {
+            display: flex;
+            gap: 8px;
+            padding: 12px 16px;
+            border-top: 1px solid var(--color-soot);
+            flex-wrap: wrap;
+        }
+        .history-btn {
+            flex: 1;
+            min-width: 110px;
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background: transparent;
+            transition: all 0.2s ease;
+        }
+        .history-btn-reorder {
+            border: 1px solid var(--color-ember-orange);
+            color: var(--color-ember-orange);
+        }
+        .history-btn-reorder:hover { background: rgba(255,77,0,0.12); }
+        .history-btn-detail {
+            border: 1px solid var(--color-soot);
+            color: var(--color-bone-white);
+        }
+        .history-btn-detail:hover { border-color: var(--color-chalk-white); }
+        .history-btn-delete {
+            border: 1px solid var(--color-soot);
+            color: var(--color-ash);
+            flex: 0 0 auto;
+            min-width: auto;
+        }
+        .history-btn-delete:hover { border-color: var(--color-ember-orange); color: var(--color-ember-orange); }
+
+        .history-empty {
+            text-align: center;
+            padding: 60px 15px;
+            color: var(--color-ash);
+        }
+        .history-empty i {
+            font-size: 3rem;
+            color: var(--color-soot);
+            margin-bottom: 18px;
+            display: block;
+        }
+        .history-empty p {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 8px;
+        }
+        .history-empty small {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            color: var(--color-soot);
+        }
+
+        .history-detail-expanded {
+            display: none;
+            padding: 14px 16px;
+            background: rgba(255,77,0,0.03);
+            border-top: 1px dashed var(--color-soot);
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            line-height: 1.7;
+            color: var(--color-ash);
+        }
+        .history-detail-expanded.active { display: block; }
+        .history-detail-expanded .detail-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 3px 0;
+        }
+        .history-detail-expanded .detail-row strong {
+            color: var(--color-bone-white);
+            font-weight: 700;
+        }
+        .history-detail-expanded .detail-label {
+            color: var(--color-ember-orange);
+            text-transform: uppercase;
+            font-size: 0.58rem;
+            letter-spacing: 0.06em;
+            margin-top: 10px;
+            margin-bottom: 4px;
+            display: block;
+        }
+        .history-detail-expanded .detail-label:first-child { margin-top: 0; }
+
+        /* PRODUCT MODAL */
         .product-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
         .product-modal.active { display: flex; }
         .product-modal-content { background: var(--color-foundry-black); border: 1px solid var(--color-chalk-white); border-radius: var(--radius-lg); max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; }
@@ -461,19 +665,19 @@
         .modal-total { background: transparent; border: 1px solid var(--color-soot); padding: 15px; border-radius: var(--radius-sm); margin: 20px 0; text-align: center; font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; color: var(--color-ash); }
         .modal-total-price { color: var(--color-ember-orange); font-size: 1.1rem; font-weight: 700; margin-left: 6px; }
 
-        /* ============ NOTIFICATION ============ */
+        /* NOTIFICATION */
         .notification { position: fixed; bottom: 96px; left: 50%; transform: translateX(-50%); background: var(--color-foundry-black); color: var(--color-bone-white); border: 1px solid var(--color-chalk-white); padding: 12px 20px; border-radius: var(--radius-sm); z-index: 3000; display: none; font-family: var(--font-mono); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.08em; width: max-content; max-width: 90%; text-align: center; }
         .notification.show { display: block; animation: slideUp 0.25s ease; }
         .notification.success { border-color: var(--color-bone-white); }
         .notification.error, .notification.warning { border-color: var(--color-ember-orange); color: var(--color-ember-orange); }
         @keyframes slideUp { from { opacity: 0; transform: translateX(-50%) translateY(16px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
 
-        /* ============ FOOTER ============ */
+        /* FOOTER */
         footer { background-color: var(--color-foundry-black); color: var(--color-ash); padding: 40px 0 24px; margin-top: 50px; text-align: center; border-top: 1px solid var(--color-chalk-white); font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; }
         .footer-logo { height: 56px; width: 56px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 16px; border: 1px solid var(--color-soot); }
         footer p { margin-bottom: 6px; }
 
-        /* ============ RESPONSIVE ============ */
+        /* RESPONSIVE */
         @media (max-width: 768px) {
             .container, .container-medium { padding: 0 16px; }
             .container-narrow { padding: 0 16px; }
@@ -504,6 +708,8 @@
             .product-quantity-controls { justify-content: center; }
             .for-whom-options { flex-direction: column; }
             .for-whom-option { min-width: auto; }
+            .history-actions { padding: 10px 12px; }
+            .history-btn { min-width: 90px; font-size: 0.58rem; }
         }
         @media (max-width: 480px) {
             .section-title { font-size: 0.8rem; }
@@ -553,10 +759,10 @@
         </div>
     </header>
 
-    <!-- ===================== SCREENS ===================== -->
+    <!-- SCREENS -->
     <main class="screens-wrap">
 
-        <!-- ================= SCREEN: HOME ================= -->
+        <!-- HOME -->
         <section class="screen active" id="screen-home">
             <div class="container-medium">
                 <div class="restaurant-info">
@@ -605,7 +811,7 @@
             </div>
         </section>
 
-        <!-- ================= SCREEN: CART ================= -->
+        <!-- CART -->
         <section class="screen" id="screen-cart">
             <div class="container-narrow">
                 <section class="cart-section">
@@ -739,7 +945,7 @@
             </div>
         </section>
 
-        <!-- ================= SCREEN: CHECKOUT ================= -->
+        <!-- CHECKOUT -->
         <section class="screen" id="screen-checkout">
             <div class="container-narrow">
                 <section class="checkout-form">
@@ -836,7 +1042,7 @@
             </div>
         </section>
 
-        <!-- ================= SCREEN: CONFIRMATION ================= -->
+        <!-- CONFIRMATION -->
         <section class="screen" id="screen-confirmation">
             <div class="container-narrow">
                 <div class="confirmation-screen">
@@ -847,11 +1053,14 @@
                     <p><strong>WhatsApp: +52 55 7867 7774</strong></p>
 
                     <div class="calendar-actions" id="calendarActions" style="display: none;">
-                        <button type="button" class="checkout-btn" id="downloadICSBtn">
-                            <i class="fas fa-calendar-plus"></i> Añadir a mi calendario
+                        <button type="button" class="checkout-btn" id="shareEventBtn">
+                            <i class="fab fa-whatsapp"></i> Compartir evento por WhatsApp
                         </button>
                         <button type="button" class="ghost-btn" id="openGCalBtn">
-                            <i class="fab fa-google"></i> Abrir en Google Calendar
+                            <i class="fab fa-google"></i> Añadir a Google Calendar
+                        </button>
+                        <button type="button" class="ghost-btn" id="downloadICSBtn">
+                            <i class="fas fa-download"></i> Descargar .ics (Apple/Outlook)
                         </button>
                     </div>
 
@@ -859,6 +1068,22 @@
                         <i class="fas fa-check"></i> Volver al Menú
                     </button>
                 </div>
+            </div>
+        </section>
+
+        <!-- HISTORY -->
+        <section class="screen" id="screen-history">
+            <div class="container-narrow">
+                <section class="history-section">
+                    <h2 class="section-title">
+                        Historial de Pedidos
+                        <button class="clear-cart-btn" id="clearHistoryBtn" style="display: none;">
+                            <i class="fas fa-trash-alt"></i> Borrar todo
+                        </button>
+                    </h2>
+
+                    <div id="historyList"></div>
+                </section>
             </div>
         </section>
 
@@ -874,6 +1099,11 @@
             <i class="fas fa-shopping-bag"></i>
             <span>Carrito</span>
             <span class="bottom-nav-badge hidden" id="bottomNavBadge">0</span>
+        </button>
+        <button class="bottom-nav-item" data-screen="history" type="button">
+            <i class="fas fa-history"></i>
+            <span>Historial</span>
+            <span class="bottom-nav-badge hidden" id="bottomNavHistoryBadge">0</span>
         </button>
     </nav>
 
@@ -943,6 +1173,9 @@
         const SCHEDULE_SLOT_INTERVAL  = 30;
         const MAX_SCHEDULE_DATES      = 8;
         const SCHEDULE_SCAN_DAYS      = 28;
+
+        const HISTORY_KEY = 'orderHistory';
+        const HISTORY_MAX = 40;
 
         const shippingRates = {
             baseRate: 10.00,
@@ -1017,6 +1250,12 @@
             });
         } catch(e) { cart = []; }
 
+        let orderHistory = [];
+        try {
+            orderHistory = JSON.parse(localStorage.getItem(HISTORY_KEY)) || [];
+            if (!Array.isArray(orderHistory)) orderHistory = [];
+        } catch(e) { orderHistory = []; }
+
         let currentCategory = 'all';
         let currentShippingCost = 0;
         let deliveryDistance = 0;
@@ -1036,26 +1275,26 @@
         let lastScheduleStateIsOpen = null;
 
         let scheduleState = { isOpen: false, isOpenDay: false, meatLow: false, pancitaLow: false };
-
-        // Para la pantalla de confirmación
-        let lastScheduledEvent = null; // { offset, timeMin, summary, details, location }
+        let lastScheduledEvent = null;
 
         // ============================================
-        // NAVEGACIÓN ENTRE PANTALLAS
+        // NAVEGACIÓN
         // ============================================
         const SCREEN_TITLES = {
             home: 'Menú',
             cart: 'Tu Pedido',
             checkout: 'Finalizar Pedido',
-            confirmation: 'Confirmación'
+            confirmation: 'Confirmación',
+            history: 'Historial'
         };
         const BACK_TARGETS = {
             home: null,
             cart: 'home',
             checkout: 'cart',
-            confirmation: 'home'
+            confirmation: 'home',
+            history: 'home'
         };
-        const NAV_VISIBLE_SCREENS = ['home', 'cart'];
+        const NAV_VISIBLE_SCREENS = ['home', 'cart', 'history'];
 
         let currentScreen = 'home';
 
@@ -1066,14 +1305,12 @@
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             target.classList.add('active');
 
-            // Nav inferior
             document.querySelectorAll('.bottom-nav-item').forEach(btn => {
                 btn.classList.toggle('active', btn.dataset.screen === screenName);
             });
             const nav = document.getElementById('bottomNav');
             nav.classList.toggle('visible', NAV_VISIBLE_SCREENS.includes(screenName));
 
-            // Header
             const header = document.getElementById('appHeader');
             const title = document.getElementById('headerScreenTitle');
             if (screenName === 'home') {
@@ -1084,6 +1321,7 @@
             }
 
             currentScreen = screenName;
+            if (screenName === 'history') renderHistory();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -1152,6 +1390,277 @@
             document.getElementById('distanceDetails').classList.remove('active');
             document.getElementById('deliveryLimitWarning').classList.remove('active');
             updateCartDisplay();
+        }
+
+        // ============================================
+        // HISTORIAL DE PEDIDOS
+        // ============================================
+        function saveOrderToHistory(orderData) {
+            try {
+                orderHistory.unshift(orderData);
+                if (orderHistory.length > HISTORY_MAX) {
+                    orderHistory = orderHistory.slice(0, HISTORY_MAX);
+                }
+                localStorage.setItem(HISTORY_KEY, JSON.stringify(orderHistory));
+                updateHistoryBadge();
+            } catch(e) {
+                console.warn('No se pudo guardar el pedido en el historial:', e);
+            }
+        }
+
+        function updateHistoryBadge() {
+            const badge = document.getElementById('bottomNavHistoryBadge');
+            if (!badge) return;
+            const count = orderHistory.length;
+            if (count > 0) {
+                badge.classList.remove('hidden');
+                badge.textContent = count > 99 ? '99+' : count;
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        function clearOrderHistory() {
+            if (!confirm('¿Borrar todo el historial de pedidos? Esta acción no se puede deshacer.')) return;
+            orderHistory = [];
+            try { localStorage.removeItem(HISTORY_KEY); } catch(e) {}
+            renderHistory();
+            updateHistoryBadge();
+            showNotification('Historial borrado', 'success');
+        }
+
+        function deleteHistoryOrder(orderId) {
+            if (!confirm('¿Eliminar este pedido del historial?')) return;
+            orderHistory = orderHistory.filter(o => o.id !== orderId);
+            try { localStorage.setItem(HISTORY_KEY, JSON.stringify(orderHistory)); } catch(e) {}
+            renderHistory();
+            updateHistoryBadge();
+            showNotification('Pedido eliminado', 'success');
+        }
+
+        function formatHistoryDate(timestamp) {
+            const d = new Date(timestamp);
+            const dayNames = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+            const monthNames = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+            const now = new Date();
+            const sameDay = d.toDateString() === now.toDateString();
+            const yesterday = new Date(now); yesterday.setDate(yesterday.getDate() - 1);
+            const isYesterday = d.toDateString() === yesterday.toDateString();
+
+            const h = d.getHours();
+            const m = String(d.getMinutes()).padStart(2, '0');
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            const h12 = h % 12 === 0 ? 12 : h % 12;
+            const time = `${h12}:${m} ${ampm}`;
+
+            if (sameDay) return `Hoy · ${time}`;
+            if (isYesterday) return `Ayer · ${time}`;
+            return `${dayNames[d.getDay()].charAt(0).toUpperCase() + dayNames[d.getDay()].slice(1)} ${d.getDate()} de ${monthNames[d.getMonth()]} · ${time}`;
+        }
+
+        function renderHistory() {
+            const list = document.getElementById('historyList');
+            const clearBtn = document.getElementById('clearHistoryBtn');
+            if (!list) return;
+
+            if (orderHistory.length === 0) {
+                clearBtn.style.display = 'none';
+                list.innerHTML = `
+                    <div class="history-empty">
+                        <i class="fas fa-receipt"></i>
+                        <p>Aún no tienes pedidos</p>
+                        <small>Cuando envíes tu primer pedido aparecerá aquí</small>
+                    </div>
+                `;
+                return;
+            }
+
+            clearBtn.style.display = 'flex';
+            list.innerHTML = '';
+
+            orderHistory.forEach(order => {
+                const card = document.createElement('div');
+                card.className = 'history-card';
+
+                const itemsPreview = (order.items || []).slice(0, 3).map(it => {
+                    let mods = '';
+                    if (it.selection) mods += ` · ${it.selection}`;
+                    if (it.extras && it.extras.length) mods += ` · ${it.extras.join(', ')}`;
+                    return `<div class="history-item-line">
+                        <span><span class="qty">${it.quantity}×</span>${it.name}${mods}</span>
+                        <span>$${(it.price * it.quantity).toFixed(2)}</span>
+                    </div>`;
+                }).join('');
+                const moreItems = (order.items || []).length > 3
+                    ? `<div style="text-align:center; color: var(--color-ash); font-size: 0.62rem; font-style: italic; margin-top: 4px;">+${order.items.length - 3} producto(s) más</div>`
+                    : '';
+
+                const statusBadge = order.isScheduled
+                    ? `<div class="history-status-badge scheduled"><i class="fas fa-calendar-check"></i> Programado</div>`
+                    : `<div class="history-status-badge sent"><i class="fas fa-paper-plane"></i> Enviado</div>`;
+
+                const deliveryMeta = order.deliveryType === 'delivery'
+                    ? `<span><i class="fas fa-motorcycle"></i> Envío</span>`
+                    : `<span><i class="fas fa-store"></i> Recoger</span>`;
+
+                const paymentMeta = order.paymentMethod === 'cash'
+                    ? `<span><i class="fas fa-money-bill-wave"></i> Efectivo</span>`
+                    : `<span><i class="fas fa-credit-card"></i> Tarjeta</span>`;
+
+                const scheduleMeta = order.isScheduled && order.scheduledDate
+                    ? `<span><i class="fas fa-clock"></i> ${order.scheduledDate} ${order.scheduledTime || ''}</span>`
+                    : '';
+
+                card.innerHTML = `
+                    <div class="history-card-header">
+                        <div>
+                            <div class="history-order-id">#${order.id}</div>
+                            <div class="history-date">${formatHistoryDate(order.timestamp)}</div>
+                        </div>
+                        ${statusBadge}
+                    </div>
+
+                    <div class="history-body">
+                        <div class="history-items-list">${itemsPreview}${moreItems}</div>
+                        <div class="history-meta">
+                            ${deliveryMeta}
+                            ${paymentMeta}
+                            ${scheduleMeta}
+                        </div>
+                    </div>
+
+                    <div class="history-detail-expanded" id="detail-${order.id}">
+                        <span class="detail-label"><i class="fas fa-user"></i> Cliente</span>
+                        <div class="detail-row"><span>Nombre</span><strong>${order.customerName || '—'}</strong></div>
+                        <div class="detail-row"><span>Teléfono</span><strong>${order.customerPhone || '—'}</strong></div>
+
+                        ${order.deliveryType === 'delivery' ? `
+                            <span class="detail-label"><i class="fas fa-map-marker-alt"></i> Entrega</span>
+                            <div class="detail-row"><span>Dirección</span><strong style="text-align:right; max-width: 60%;">${order.address || '—'}</strong></div>
+                            ${order.locationDetails ? `<div class="detail-row"><span>Detalles</span><strong style="text-align:right; max-width: 60%;">${order.locationDetails}</strong></div>` : ''}
+                            ${order.distanceKm ? `<div class="detail-row"><span>Distancia</span><strong>${order.distanceKm} km (${order.zone || ''})</strong></div>` : ''}
+                        ` : ''}
+
+                        ${order.isScheduled ? `
+                            <span class="detail-label"><i class="fas fa-calendar-check"></i> Programación</span>
+                            <div class="detail-row"><span>Fecha</span><strong>${order.scheduledDate || '—'}</strong></div>
+                            <div class="detail-row"><span>Hora</span><strong>${order.scheduledTime || '—'}</strong></div>
+                        ` : ''}
+
+                        <span class="detail-label"><i class="fas fa-list"></i> Productos</span>
+                        ${(order.items || []).map(it => {
+                            let mods = [];
+                            if (it.selection) mods.push(it.selection);
+                            if (it.extras && it.extras.length) mods = mods.concat(it.extras);
+                            return `<div class="detail-row">
+                                <span>${it.quantity}× ${it.name}${mods.length ? ` <em style="color: var(--color-ember-orange); font-style: normal; font-size: 0.6rem;">(${mods.join(', ')})</em>` : ''}</span>
+                                <strong>$${(it.price * it.quantity).toFixed(2)}</strong>
+                            </div>`;
+                        }).join('')}
+
+                        <span class="detail-label"><i class="fas fa-calculator"></i> Totales</span>
+                        <div class="detail-row"><span>Subtotal</span><strong>$${Number(order.subtotal).toFixed(2)}</strong></div>
+                        ${order.deliveryType === 'delivery' ? `<div class="detail-row"><span>Envío</span><strong>$${Number(order.shippingCost).toFixed(2)}</strong></div>` : ''}
+                        <div class="detail-row"><span>Total</span><strong style="color: var(--color-ember-orange);">$${Number(order.total).toFixed(2)}</strong></div>
+
+                        ${order.notes ? `
+                            <span class="detail-label"><i class="fas fa-sticky-note"></i> Notas</span>
+                            <div style="color: var(--color-ash); font-style: italic;">${order.notes}</div>
+                        ` : ''}
+                    </div>
+
+                    <div class="history-total-row">
+                        <span>Total</span>
+                        <span>$${Number(order.total).toFixed(2)}</span>
+                    </div>
+
+                    <div class="history-actions">
+                        <button class="history-btn history-btn-reorder" data-action="reorder" data-id="${order.id}">
+                            <i class="fas fa-redo"></i> Volver a pedir
+                        </button>
+                        <button class="history-btn history-btn-detail" data-action="detail" data-id="${order.id}">
+                            <i class="fas fa-eye"></i> Ver detalle
+                        </button>
+                        <button class="history-btn history-btn-delete" data-action="delete" data-id="${order.id}" title="Eliminar">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+
+                list.appendChild(card);
+            });
+
+            list.querySelectorAll('.history-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const action = this.dataset.action;
+                    const id = this.dataset.id;
+                    if (action === 'detail') {
+                        const detail = document.getElementById('detail-' + id);
+                        if (detail) detail.classList.toggle('active');
+                    } else if (action === 'delete') {
+                        deleteHistoryOrder(id);
+                    } else if (action === 'reorder') {
+                        reorderFromHistory(id);
+                    }
+                });
+            });
+        }
+
+        function reorderFromHistory(orderId) {
+            const order = orderHistory.find(o => o.id === orderId);
+            if (!order || !order.items || order.items.length === 0) {
+                showNotification('Este pedido no tiene productos disponibles', 'error');
+                return;
+            }
+
+            let addedCount = 0;
+            let skippedCount = 0;
+
+            order.items.forEach(item => {
+                const prod = products.find(p => p.id === item.id);
+                if (!prod) { skippedCount++; return; }
+
+                const selection = item.selection ? (prod.modifiers?.selection || []).find(s => s.name === item.selection) || null : null;
+                const extras = [];
+                if (item.extras && item.extras.length && prod.modifiers?.extras) {
+                    item.extras.forEach(extName => {
+                        const found = prod.modifiers.extras.find(e => e.name === extName);
+                        if (found) extras.push(found);
+                    });
+                }
+
+                const unitPrice = prod.price + (selection ? selection.price : 0) + extras.reduce((s, e) => s + e.price, 0);
+                const uniqueId = makeUniqueId(prod.id, selection, extras);
+
+                const existing = cart.find(c => c.uniqueId === uniqueId);
+                if (existing) {
+                    existing.quantity += item.quantity;
+                } else {
+                    cart.push({
+                        id: prod.id,
+                        name: prod.name,
+                        basePrice: prod.price,
+                        price: unitPrice,
+                        quantity: item.quantity,
+                        selection: selection ? {...selection} : null,
+                        extras: [...extras],
+                        image: prod.image,
+                        uniqueId
+                    });
+                }
+                addedCount++;
+            });
+
+            refreshAll();
+            if (addedCount === 0) {
+                showNotification('No se pudieron añadir productos (fuera de catálogo)', 'warning');
+                return;
+            }
+            const msg = skippedCount > 0
+                ? `${addedCount} producto(s) añadido(s), ${skippedCount} no disponible(s)`
+                : `${addedCount} producto(s) añadido(s) al carrito`;
+            showNotification(msg, 'success');
+            navigateTo('cart');
         }
 
         // ============================================
@@ -1529,13 +2038,48 @@
         }
 
         // ============================================
+        // COMPARTIR EVENTO (WhatsApp)
+        // ============================================
+        async function tryShareEventToWhatsApp(icsFile, messageText) {
+            if (navigator.canShare && navigator.canShare({ files: [icsFile] })) {
+                try {
+                    await navigator.share({
+                        files: [icsFile],
+                        text: messageText,
+                        title: 'Pedido programado - Barbacoa de la Casa Vieja'
+                    });
+                    return 'shared';
+                } catch(e) {
+                    if (e.name === 'AbortError') return 'cancelled';
+                    console.warn('Share files+text falló:', e);
+                }
+                try {
+                    await navigator.share({ files: [icsFile] });
+                    return 'shared-file-only';
+                } catch(e) {
+                    if (e.name === 'AbortError') return 'cancelled';
+                    console.warn('Share file only falló:', e);
+                }
+            }
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        text: messageText,
+                        title: 'Pedido programado - Barbacoa de la Casa Vieja'
+                    });
+                    return 'shared-text-only';
+                } catch(e) {
+                    if (e.name === 'AbortError') return 'cancelled';
+                }
+            }
+            return 'not-supported';
+        }
+
+        // ============================================
         // MAKE.COM
         // ============================================
         function sendDataToMake(orderData) {
-            if (!MAKE_WEBHOOK_URL || MAKE_WEBHOOK_URL.indexOf('tu_url') !== -1) {
-                console.warn('Webhook de Make no configurado');
-                return;
-            }
+            if (!MAKE_WEBHOOK_URL || MAKE_WEBHOOK_URL.indexOf('tu_url') !== -1) return;
             const params = new URLSearchParams();
             params.append('origen', 'barbacoa-casa-vieja');
             params.append('test', 'ok');
@@ -1584,7 +2128,6 @@
             document.getElementById('themeToggle').addEventListener('click', toggleTheme);
             document.getElementById('headerBack').addEventListener('click', goBack);
 
-            // Nav inferior
             document.querySelectorAll('.bottom-nav-item').forEach(btn => {
                 btn.addEventListener('click', () => navigateTo(btn.dataset.screen));
             });
@@ -1593,10 +2136,10 @@
             lastScheduleStateIsOpen = scheduleState.isOpen;
             renderProducts();
             updateCartDisplay();
+            updateHistoryBadge();
             applyScheduleState();
             setInterval(applyScheduleState, 30000);
 
-            // Nav inicial
             navigateTo('home');
 
             document.querySelectorAll('.category-btn').forEach(btn => {
@@ -1616,6 +2159,8 @@
                     showNotification('Pedido vaciado', 'success');
                 }
             });
+
+            document.getElementById('clearHistoryBtn').addEventListener('click', clearOrderHistory);
 
             document.querySelectorAll('input[name="deliveryType"]').forEach(radio => {
                 radio.addEventListener('change', function() {
@@ -1665,14 +2210,36 @@
             document.getElementById('downloadICSBtn').addEventListener('click', function() {
                 if (lastScheduledEvent) {
                     downloadICSFile(lastScheduledEvent);
-                    showNotification('Evento descargado. Ábrelo para añadirlo a tu calendario.', 'success');
+                    showNotification('Evento descargado', 'success');
                 }
             });
 
             document.getElementById('openGCalBtn').addEventListener('click', function() {
                 if (lastScheduledEvent) {
-                    const link = generateGoogleCalendarLink(lastScheduledEvent);
-                    window.open(link, '_blank');
+                    window.open(generateGoogleCalendarLink(lastScheduledEvent), '_blank');
+                }
+            });
+
+            document.getElementById('shareEventBtn').addEventListener('click', async function() {
+                if (!lastScheduledEvent) return;
+                try {
+                    const icsContent = generateICSContent(lastScheduledEvent);
+                    const file = new File([icsContent], 'pedido-barbacoa.ics', { type: 'text/calendar' });
+                    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                        await navigator.share({
+                            files: [file],
+                            title: 'Pedido programado - Barbacoa de la Casa Vieja'
+                        });
+                        showNotification('Evento compartido', 'success');
+                    } else {
+                        downloadICSFile(lastScheduledEvent);
+                        showNotification('Evento descargado', 'info');
+                    }
+                } catch(e) {
+                    if (e.name !== 'AbortError') {
+                        downloadICSFile(lastScheduledEvent);
+                        showNotification('Evento descargado', 'info');
+                    }
                 }
             });
 
@@ -2496,9 +3063,9 @@
         }
 
         // ============================================
-        // WHATSAPP + MAKE + CALENDARIO
+        // ENVÍO DE PEDIDO (WhatsApp + Make + Calendario + Historial)
         // ============================================
-        function sendOrderToWhatsApp() {
+        async function sendOrderToWhatsApp() {
             let scheduledDateLabel = '';
             let scheduledTimeLabel = '';
             let scheduledTimeMin = null;
@@ -2542,24 +3109,27 @@
                 paymentDetails = `*Paga con:* $${cash.toFixed(2)}%0A*Cambio:* $${(cash - total).toFixed(2)}%0A`;
             }
 
-            // ============ GENERAR EVENTO DE CALENDARIO ============
+            // === EVENTO DE CALENDARIO ===
             let eventData = null;
-            let eventGenerated = false;
+            let icsFile = null;
+            let messagePlainForShare = '';
+
             if (isScheduledOrder && scheduledOffset !== null && scheduledTimeMin !== null) {
-                const eventSummary = `Pedido Barbacoa - ${customerName}`;
+                const eventSummary = `🍖 Pedido Barbacoa - ${customerName}`;
                 const eventDetails =
                     `Pedido programado en Barbacoa de la Casa Vieja\n\n` +
                     `Cliente: ${customerName}\n` +
                     `Teléfono: ${customerPhone}\n` +
                     `Tipo: ${deliveryType === 'delivery' ? 'Envío a domicilio' : 'Recoger en local'}\n` +
-                    (deliveryType === 'delivery' ? `Dirección: ${customerAddress}\n${customerDetails ? 'Detalles: ' + customerDetails + '\n' : ''}` : '') +
+                    (deliveryType === 'delivery'
+                        ? `Dirección: ${customerAddress}\n${customerDetails ? 'Detalles: ' + customerDetails + '\n' : ''}`
+                        : `Recoger en: Claveria, Azcapotzalco\n`) +
                     `\nProductos:\n` +
                     cart.map(i => `• ${i.quantity}x ${i.name}`).join('\n') +
                     `\n\nTotal: $${total.toFixed(2)}\n` +
-                    `\nWhatsApp: +52 55 7867 7774`;
-                const eventLocation = deliveryType === 'delivery'
-                    ? customerAddress
-                    : RESTAURANT_LOCATION_NAME;
+                    `WhatsApp: +52 55 7867 7774`;
+
+                const eventLocation = deliveryType === 'delivery' ? customerAddress : RESTAURANT_LOCATION_NAME;
 
                 eventData = {
                     offset: scheduledOffset,
@@ -2570,13 +3140,17 @@
                 };
                 lastScheduledEvent = eventData;
 
-                // Descarga automática del .ics (se ejecuta dentro del gesto de usuario)
-                eventGenerated = downloadICSFile(eventData);
+                try {
+                    const icsContent = generateICSContent(eventData);
+                    icsFile = new File([icsContent], `pedido-barbacoa-${scheduledOffset}.ics`, { type: 'text/calendar' });
+                } catch(e) {
+                    console.warn('No se pudo crear File .ics:', e);
+                }
             } else {
                 lastScheduledEvent = null;
             }
 
-            // ============ MENSAJE WHATSAPP ============
+            // === MENSAJE WHATSAPP ===
             let msg = '';
             if (isScheduledOrder) {
                 msg += `*NUEVO PEDIDO PROGRAMADO - Barbacoa de la Casa Vieja*%0A%0A`;
@@ -2620,9 +3194,8 @@
             }
             if (showMeatWarn || showPancitaWarn) {
                 msg += `%0A*⚠️ CONFIRMAR DISPONIBILIDAD AL CLIENTE:*%0A`;
-                if (showMeatWarn) msg += `- Barbacoa: pedido programado después de 12 PM — CONFIRMAR.%0A`;
-                if (showPancitaWarn) msg += `- Pancita: pedido programado después de 1 PM — CONFIRMAR.%0A`;
-                msg += `_Favor de responder al cliente por WhatsApp para confirmar antes de preparar._%0A`;
+                if (showMeatWarn) msg += `- Barbacoa: pedido después de 12 PM — CONFIRMAR.%0A`;
+                if (showPancitaWarn) msg += `- Pancita: pedido después de 1 PM — CONFIRMAR.%0A`;
             }
 
             msg += `%0A*DETALLE DEL PEDIDO:*%0A`;
@@ -2640,7 +3213,44 @@
             msg += `*TOTAL:* $${total.toFixed(2)}%0A%0A`;
             msg += `_Enviado: ${new Date().toLocaleString('es-MX')}_`;
 
-            // ============ MAKE.COM ============
+            messagePlainForShare = decodeURIComponent(msg.replace(/%0A/g, '\n'));
+
+            // === GUARDAR EN HISTORIAL ===
+            const pedidoId = 'PED-' + Date.now().toString().slice(-8);
+            const historyOrder = {
+                id: pedidoId,
+                timestamp: Date.now(),
+                isScheduled: isScheduledOrder,
+                scheduledDate: isScheduledOrder ? scheduledDateLabel : '',
+                scheduledTime: isScheduledOrder ? scheduledTimeLabel : '',
+                customerName,
+                customerPhone,
+                deliveryType,
+                deliveryFor,
+                address: customerAddress,
+                locationDetails: customerDetails,
+                distanceKm: deliveryType === 'delivery' ? deliveryDistance.toFixed(1) : '',
+                zone: deliveryType === 'delivery' ? deliveryZone : '',
+                shippingCost: currentShippingCost,
+                subtotal,
+                total,
+                paymentMethod,
+                notes: customerNotes,
+                availabilityWarning: (showMeatWarn || showPancitaWarn)
+                    ? [showMeatWarn ? 'Barbacoa 12PM' : null, showPancitaWarn ? 'Pancita 1PM' : null].filter(Boolean).join(' | ')
+                    : 'Ninguno',
+                items: cart.map(i => ({
+                    id: i.id,
+                    name: i.name,
+                    quantity: i.quantity,
+                    price: i.price,
+                    selection: i.selection ? i.selection.name : null,
+                    extras: (i.extras || []).map(e => e.name)
+                }))
+            };
+            saveOrderToHistory(historyOrder);
+
+            // === MAKE.COM ===
             try {
                 const pedidoDetalle = cart.map(item => {
                     let mods = [];
@@ -2651,12 +3261,11 @@
                 }).join('\n');
 
                 const cashAmountVal = paymentMethod === 'cash'
-                    ? (parseFloat(document.getElementById('cashAmount').value) || 0)
-                    : 0;
+                    ? (parseFloat(document.getElementById('cashAmount').value) || 0) : 0;
                 const cambioVal = paymentMethod === 'cash' ? (cashAmountVal - total) : 0;
 
-                const orderData = {
-                    pedido_id: 'PED-' + Date.now().toString().slice(-8),
+                sendDataToMake({
+                    pedido_id: pedidoId,
                     fecha_envio: new Date().toLocaleString('es-MX', { timeZone: TIMEZONE }),
                     es_programado: isScheduledOrder,
                     fecha_programada: isScheduledOrder ? scheduledDateLabel : '',
@@ -2684,23 +3293,33 @@
                         selection: i.selection ? i.selection.name : null,
                         extras: (i.extras || []).map(e => e.name)
                     })),
-                    aviso_disponibilidad: (showMeatWarn || showPancitaWarn)
-                        ? [showMeatWarn ? 'Barbacoa después de 12PM' : null, showPancitaWarn ? 'Pancita después de 1PM' : null].filter(Boolean).join(' | ')
-                        : 'Ninguno',
-                    evento_ics: eventGenerated ? 'Sí' : 'No',
+                    aviso_disponibilidad: historyOrder.availabilityWarning,
+                    evento_ics: isScheduledOrder ? 'Sí' : 'No',
                     evento_fecha: isScheduledOrder ? `${scheduledDateLabel} ${scheduledTimeLabel}` : ''
-                };
-
-                sendDataToMake(orderData);
+                });
             } catch (err) {
                 console.warn('Error preparando datos para Make:', err);
             }
 
-            // ============ ABRIR WHATSAPP ============
-            const url = `https://wa.me/${whatsappNumber.replace(/\D/g, '')}?text=${msg}`;
-            setTimeout(() => window.open(url, '_blank'), 200);
+            // === ENVÍO PRINCIPAL ===
+            const waLink = `https://wa.me/${whatsappNumber.replace(/\D/g, '')}?text=${msg}`;
 
-            // ============ MOSTRAR PANTALLA DE CONFIRMACIÓN ============
+            if (isScheduledOrder && icsFile) {
+                const result = await tryShareEventToWhatsApp(icsFile, messagePlainForShare);
+                if (result === 'shared' || result === 'shared-file-only' || result === 'shared-text-only') {
+                    showNotification('Evento enviado ✓', 'success');
+                } else if (result === 'cancelled') {
+                    window.open(waLink, '_blank');
+                } else {
+                    downloadICSFile(eventData);
+                    window.open(waLink, '_blank');
+                    showNotification('Evento descargado. Adjúntalo al chat.', 'info');
+                }
+            } else {
+                window.open(waLink, '_blank');
+            }
+
+            // === PANTALLA DE CONFIRMACIÓN ===
             const confirmTitle = document.getElementById('confirmationTitle');
             const confirmScheduleInfo = document.getElementById('confirmationScheduleInfo');
             const calendarActions = document.getElementById('calendarActions');
@@ -2710,16 +3329,13 @@
                 confirmScheduleInfo.innerHTML = `<i class="fas fa-calendar-check"></i> ${scheduledDateLabel}<br><i class="fas fa-clock"></i> ${scheduledTimeLabel}`;
                 confirmScheduleInfo.classList.add('active');
                 calendarActions.style.display = 'flex';
-                if (eventGenerated) {
-                    setTimeout(() => showNotification('Evento de calendario descargado. Ábrelo para añadirlo.', 'success'), 800);
-                }
             } else {
                 confirmTitle.textContent = '¡Pedido Enviado!';
                 confirmScheduleInfo.classList.remove('active');
                 calendarActions.style.display = 'none';
             }
 
-            // ============ RESET ============
+            // === RESET ===
             cart = [];
             isScheduledOrder = false;
             saveCart();

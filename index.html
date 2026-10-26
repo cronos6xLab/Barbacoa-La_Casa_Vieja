@@ -1188,106 +1188,99 @@
         </div>
     </div>
 
-    <!-- AVISO DE PRIVACIDAD -->
-    <div class="product-modal privacy-modal" id="privacyModal" role="dialog" aria-modal="true" aria-labelledby="privacyModalTitle">
-        <div class="product-modal-content privacy-modal-content">
-            <button class="product-modal-close" id="closePrivacyModal" type="button" aria-label="Cerrar">
+ <!-- AVISO DE PRIVACIDAD MODAL -->
+    <div class="product-modal" id="privacyModal" role="dialog" aria-modal="true" aria-labelledby="privacyModalTitle">
+        <div class="product-modal-content" style="max-width: 640px;">
+            <button class="product-modal-close" id="closePrivacyModal" type="button" aria-label="Cerrar aviso de privacidad">
                 <i class="fas fa-times"></i>
             </button>
-            <div class="product-modal-info">
-                <h3 id="privacyModalTitle" class="privacy-modal-title">
-                    <i class="fas fa-shield-alt"></i> Aviso de Privacidad Integral
+            <div class="privacy-modal-body">
+                <h3 id="privacyModalTitle" class="product-modal-title" style="margin-bottom: 16px;">
+                    <i class="fas fa-shield-alt" style="color: var(--color-ember-orange); margin-right: 8px;"></i>
+                    Aviso de Privacidad
                 </h3>
-                <div class="privacy-modal-body">
-                    <p>
-                        <strong>Barbacoa de la Casa Vieja</strong>, con domicilio en Claveria, Azcapotzalco,
-                        Ciudad de México, es el <strong>responsable del tratamiento</strong> de los datos
-                        personales que nos proporcione. Éstos serán protegidos conforme a lo dispuesto por la
-                        <strong>Ley Federal de Protección de Datos Personales en Posesión de los Particulares
-                        (LFPDPPP)</strong>, su Reglamento y demás normatividad aplicable en los Estados Unidos
-                        Mexicanos.
-                    </p>
 
-                    <h4>1. Datos personales que recabamos</h4>
-                    <ul>
-                        <li>Nombre completo</li>
-                        <li>Número de teléfono</li>
-                        <li>Dirección de entrega (en caso de envío a domicilio)</li>
-                        <li>Detalles de ubicación (referencias, color de fachada, número interior, etc.)</li>
-                        <li>Coordenadas geográficas (únicamente si usted autoriza el uso de su ubicación)</li>
-                        <li>Preferencias, notas y contenido del pedido</li>
-                    </ul>
-                    <p>No recabamos datos personales sensibles.</p>
+                <p style="font-size: 0.7rem; color: var(--color-ash); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 18px;">
+                    Conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP) y su Reglamento.
+                </p>
 
-                    <h4>2. Finalidades del tratamiento</h4>
-                    <p><strong>Finalidades primarias</strong> (necesarias para la relación con usted):</p>
-                    <ul>
-                        <li>Procesar, preparar y entregar su pedido</li>
-                        <li>Contactarle para confirmar, aclarar o dar seguimiento a su pedido</li>
-                        <li>Calcular el costo de envío y gestionar la entrega a domicilio</li>
-                        <li>Atender aclaraciones, quejas o solicitudes relacionadas con su pedido</li>
-                    </ul>
-                    <p><strong>Finalidades secundarias</strong> (puede oponerse a ellas):</p>
-                    <ul>
-                        <li>Envío de promociones, avisos de disponibilidad y novedades del negocio</li>
-                        <li>Invitaciones a eventos y encuestas de satisfacción</li>
-                    </ul>
+                <h4>1. Identidad y domicilio del responsable</h4>
+                <p>
+                    <strong>Barbacoa de la Casa Vieja</strong> es el responsable del tratamiento de sus datos personales, con domicilio en
+                    <strong>Colonia Clavería, Alcaldía Azcapotzalco, Ciudad de México, México</strong>. Nos dedicamos a la preparación y
+                    venta de barbacoa tradicional los fines de semana desde 1989.
+                </p>
 
-                    <h4>3. Transferencias de datos</h4>
-                    <p>
-                        Sus datos personales <strong>no serán transferidos a terceros</strong> sin su
-                        consentimiento, salvo las excepciones previstas en el artículo 37 de la LFPDPPP.
-                        Podrán ser compartidos con el servicio de mensajería (WhatsApp / Meta) únicamente
-                        para la gestión de su pedido.
-                    </p>
+                <h4>2. Finalidades del tratamiento</h4>
+                <p>Sus datos personales serán utilizados para las siguientes finalidades:</p>
+                <ul>
+                    <li><strong>Primarias:</strong> recibir, preparar y entregar sus pedidos de barbacoa, ya sea para recoger en local o envío a domicilio; contactarle por WhatsApp para confirmar disponibilidad, costo de envío y detalles de entrega; gestionar pagos en efectivo o con terminal bancaria.</li>
+                    <li><strong>Secundarias:</strong> guardar su historial de pedidos para facilitar volver a ordenar; recordar sus datos (nombre, teléfono, dirección) en futuras visitas; mejorar nuestro servicio y menú.</li>
+                </ul>
+                <p style="font-size: 0.7rem; color: var(--color-ash);">Si usted no desea que sus datos sean tratados para finalidades secundarias, puede indicárnoslo por WhatsApp o correo electrónico en cualquier momento.</p>
 
-                    <h4>4. Almacenamiento local en su navegador</h4>
-                    <p>
-                        Este menú digital guarda información de su carrito, historial de pedidos, tema de
-                        preferencia y datos de contacto en el <strong>almacenamiento local (localStorage)</strong>
-                        de su navegador, <strong>exclusivamente en su dispositivo</strong>. Esta información no
-                        se transmite a nuestros servidores salvo cuando usted decide enviar un pedido vía WhatsApp.
-                    </p>
+                <h4>3. Datos personales que recabamos</h4>
+                <ul>
+                    <li><strong>De identificación y contacto:</strong> nombre completo y número de teléfono (10 dígitos).</li>
+                    <li><strong>De entrega:</strong> calle, número, colonia y referencias de la dirección; coordenadas de ubicación (latitud/longitud) cuando usted autoriza el uso de GPS de su dispositivo.</li>
+                    <li><strong>De pedido:</strong> productos seleccionados, cantidades, modificadores (cortes, extras), notas adicionales y método de pago.</li>
+                    <li><strong>De navegación:</strong> preferencia de tema (claro/oscuro) e historial de pedidos. <strong>No</strong> usamos cookies de rastreo ni publicidad de terceros.</li>
+                </ul>
+                <p style="font-size: 0.7rem; color: var(--color-ash);"><strong>No recabamos datos personales sensibles</strong> (salud, creencias religiosas, afiliación política, etc.) ni datos financieros bancarios. Los pagos con tarjeta se realizan presencialmente con terminal bancaria en el momento de la entrega; no almacenamos números de tarjeta.</p>
 
-                    <h4>5. Derechos ARCO</h4>
-                    <p>
-                        Usted tiene derecho a <strong>Acceder, Rectificar, Cancelar u Oponerse</strong> al
-                        tratamiento de sus datos personales (Derechos ARCO), así como a
-                        <strong>revocar su consentimiento</strong>. Para ejercerlos, envíe su solicitud a:
-                    </p>
-                    <ul>
-                        <li><strong>Correo:</strong> <a href="mailto:contacto@casavieja.mx">contacto@casavieja.mx</a></li>
-                        <li><strong>WhatsApp:</strong> <a href="https://wa.me/525578677774" target="_blank" rel="noopener">+52 55 7867 7774</a></li>
-                    </ul>
-                    <p>
-                        Su solicitud deberá incluir: nombre completo, medio de contacto, copia de
-                        identificación oficial y descripción clara del derecho que desea ejercer.
-                        Le responderemos en un plazo máximo de <strong>20 días hábiles</strong>.
-                    </p>
+                <h4>4. Transferencias de datos</h4>
+                <p>Sus datos podrán transferirse a los siguientes proveedores, únicamente para cumplir con la finalidad del servicio:</p>
+                <ul>
+                    <li><strong>WhatsApp (Meta Platforms, Inc.)</strong> — para enviarle la confirmación del pedido. Sujeto al aviso de privacidad de Meta.</li>
+                    <li><strong>OpenStreetMap (Nominatim) y OSRM</strong> — para geocodificar su dirección y calcular distancia/tiempo de envío.</li>
+                    <li><strong>Google Maps</strong> — para mostrarle la ubicación del local y un enlace navegable de su dirección de entrega.</li>
+                    <li><strong>Make.com</strong> — para automatizar internamente la recepción y gestión del pedido en el restaurante.</li>
+                </ul>
+                <p style="font-size: 0.7rem; color: var(--color-ash);">No transferimos sus datos a terceros para fines comerciales o publicitarios. No vendemos ni alquilamos su información.</p>
 
-                    <h4>6. Limitación del uso o divulgación</h4>
-                    <p>
-                        Puede solicitar la limitación del uso o divulgación de sus datos personales
-                        enviando un correo a la dirección señalada en el punto anterior.
-                    </p>
+                <h4>5. Conservación de los datos</h4>
+                <p>
+                    Sus datos se conservan <strong>únicamente en el almacenamiento local de su navegador (localStorage)</strong>, no en nuestros servidores.
+                    El historial de pedidos y los datos guardados se mantienen en su dispositivo hasta que usted los elimine (borrando datos del sitio o
+                    utilizando la opción «Borrar todo» del historial) o hasta que desinstale el navegador. Los datos enviados vía WhatsApp y Make.com
+                    se conservan conforme a las políticas de dichos servicios.
+                </p>
 
-                    <h4>7. Cambios al presente aviso</h4>
-                    <p>
-                        Nos reservamos el derecho de modificar este Aviso de Privacidad en cualquier
-                        momento. Las modificaciones serán publicadas en este mismo menú digital.
-                    </p>
+                <h4>6. Medios para ejercer sus derechos ARCO</h4>
+                <p>Usted tiene derecho a:</p>
+                <ul>
+                    <li><strong>Acceder</strong> a sus datos personales en nuestra posesión;</li>
+                    <li><strong>Rectificar</strong> datos inexactos o incompletos;</li>
+                    <li><strong>Cancelar</strong> (suprimir) sus datos cuando lo solicite;</li>
+                    <li><strong>Oponerse</strong> al tratamiento de sus datos para fines específicos;</li>
+                    <li>Así como <strong>revocar el consentimiento</strong> otorgado para el tratamiento.</li>
+                </ul>
+                <p>Para ejercer cualquiera de estos derechos, puede contactarnos a través de los siguientes medios, indicando su solicitud y acompañando copia de identificación oficial:</p>
 
-                    <h4>8. Consentimiento</h4>
-                    <p>
-                        Al proporcionar sus datos personales y enviar un pedido, usted
-                        <strong>acepta los términos de este Aviso de Privacidad</strong>.
-                    </p>
-
-                    <p class="privacy-updated"><i class="fas fa-sync-alt"></i> Última actualización: 2025</p>
+                <div class="privacy-contact">
+                    <strong><i class="fab fa-whatsapp"></i> WhatsApp:</strong> +52 55 7867 7774<br>
+                    <strong><i class="fas fa-envelope"></i> Correo:</strong> contacto@casavieja.mx<br>
+                    <strong><i class="fas fa-map-marker-alt"></i> Domicilio:</strong> Clavería, Azcapotzalco, Ciudad de México
                 </div>
+
+                <p style="margin-top: 14px;">Atenderemos su solicitud en un plazo máximo de <strong>20 días hábiles</strong> contados desde la recepción de la misma, y le comunicaremos la respuesta a través del mismo medio por el que la haya presentado, conforme al artículo 32 de la LFPDPPP.</p>
+
+                <h4>7. Cambios al aviso de privacidad</h4>
+                <p>
+                    Este aviso de privacidad podrá ser modificado en cualquier momento para reflejar cambios en nuestras prácticas de tratamiento de datos
+                    o en la legislación aplicable. La versión vigente estará siempre disponible en este menú digital y la fecha de última actualización se
+                    indica al final. Le recomendamos consultarlo periódicamente.
+                </p>
+
+                <p class="privacy-updated">
+                    Última actualización: 27 de octubre de 2026 · Versión 1.0<br>
+                    Barbacoa de la Casa Vieja · Clavería, Azcapotzalco · CDMX
+                </p>
             </div>
         </div>
     </div>
+
+
 
     <div class="notification" id="notification">Mensaje aquí</div>
 

@@ -1110,6 +1110,9 @@
         const restaurantCoords = { lat: 19.4646, lng: -99.1853 };
         const TIMEZONE = 'America/Mexico_City';
 
+        // 🔴 URL de tu Google Apps Script (publicada como Web App)
+        const MENU_API_URL = "https://script.google.com/macros/s/AKfycbzd--JXY7YSpT-_QEdibpaKxSLjVzUGXt4Vaauo5cdhEBTUYtfpq2APCKBAiOvlat8/exec";
+
         const MAKE_WEBHOOK_URL = "https://hook.us2.make.com/dflhy5kveofxbpe2ebsysc2g3c938s2e";
 
         const SCHEDULE_LEAD_MINUTES   = 45;
@@ -1142,7 +1145,7 @@
         };
 
         // ============================================
-        // PRODUCTOS
+        // MODIFICADORES (catálogos fijos en el código)
         // ============================================
         const CORTES_BARBACOA = [
             { id: 100, name: "Maciza o pierna", description: "Selección de corte", price: 0.00 },
@@ -1161,27 +1164,71 @@
             { id: 112, name: "Tamarindo", description: "Agridulce", price: 0.00 },
             { id: 113, name: "Jamaica", description: "Floral", price: 0.00 }
         ];
-
-        const products = [
-            { id: 1, name: "Kilogramo de barbacoa", category: "barbacoa", description: "Deliciosa barbacoa de borrego cocida a fuego lento por horas. Incluye tortillas, cebolla, cilantro, salsa y limón.", price: 780.00, image: "https://i.ibb.co/8nq6VhpF/IMG-4420.jpg", modifiers: { selection: CORTES_BARBACOA, extras: EXTRAS_BARBACOA } },
-            { id: 2, name: "1/2 Kilogramo de barbacoa", category: "barbacoa", description: "Media porción de nuestra deliciosa barbacoa de borrego. Incluye tortillas, cebolla, cilantro, salsa y limón.", price: 390.00, image: "https://i.ibb.co/fYGGQmbQ/IMG-4423.jpg", modifiers: { selection: CORTES_BARBACOA, extras: EXTRAS_BARBACOA } },
-            { id: 3, name: "1/4 Kilogramo de barbacoa", category: "barbacoa", description: "Cuarto de kilogramo de barbacoa de borrego. Incluye tortillas, cebolla, cilantro, salsa y limón.", price: 195.00, image: "https://i.ibb.co/21HD2W3h/IMG-4428.png", modifiers: { selection: CORTES_BARBACOA, extras: EXTRAS_BARBACOA } },
-            { id: 4, name: "Kilogramo de pancita", category: "pancita", description: "Menudo de pancita de res, cocido a la perfección con nuestro sazón especial.", price: 780.00, image: "https://i.ibb.co/v4fr6mGB/Photoroom-20260103-133225.jpg", modifiers: { selection: [], extras: EXTRAS_BARBACOA } },
-            { id: 5, name: "1/2 Kilogramo de pancita", category: "pancita", description: "Media porción de nuestra deliciosa pancita de res.", price: 390.00, image: "https://i.ibb.co/4gMSF82Y/Photoroom-20260103-132344.jpg", modifiers: { selection: [], extras: EXTRAS_BARBACOA } },
-            { id: 6, name: "1/4 Kilogramo de pancita", category: "pancita", description: "Cuarto de kilogramo de pancita de res.", price: 195.00, image: "https://i.ibb.co/4gMSF82Y/Photoroom-20260103-132344.jpg", modifiers: { selection: [], extras: EXTRAS_BARBACOA } },
-            { id: 7, name: "Litro de consomé", category: "consome", description: "Un litro de nuestro delicioso consomé de borrego.", price: 180.00, image: "https://i.ibb.co/sdFbnRs0/IMG-4490.jpg", modifiers: { selection: [], extras: [{ id: 107, name: "Sin garbanzo", description: "Preparado sin garbanzo", price: 0.00 }] } },
-            { id: 8, name: "1/2 Litro de consomé", category: "consome", description: "Medio litro de consomé de borrego.", price: 90.00, image: "https://i.ibb.co/sdTLHhTW/IMG-4491.jpg", modifiers: { selection: [], extras: [{ id: 107, name: "Sin garbanzo", description: "Preparado sin garbanzo", price: 0.00 }] } },
-            { id: 9, name: "Flautas doradas de barbacoa, orden de tres", category: "flautas", description: "Tres flautas doradas rellenas de barbacoa, bañadas en crema, queso y lechuga.", price: 145.00, image: "https://i.ibb.co/PknjzJZ/Photoroom-20260124-142420.jpg", modifiers: { selection: [], extras: [{ id: 108, name: "Extra crema", description: "Crema adicional", price: 5.00 }, { id: 109, name: "Extra queso", description: "Queso rallado adicional", price: 5.00 }] } },
-            { id: 10, name: "Flautas doradas de barbacoa, orden de seis", category: "flautas", description: "Seis flautas doradas rellenas de barbacoa, bañadas en crema, queso y lechuga.", price: 290.00, image: "https://i.ibb.co/PknjzJZ/Photoroom-20260124-142420.jpg", modifiers: { selection: [], extras: [{ id: 108, name: "Extra crema", description: "Crema adicional", price: 5.00 }, { id: 109, name: "Extra queso", description: "Queso rallado adicional", price: 5.00 }] } },
-            { id: 11, name: "Flautas doradas de barbacoa, orden de nueve", category: "flautas", description: "Nueve flautas doradas rellenas de barbacoa, bañadas en crema, queso y lechuga.", price: 435.00, image: "https://i.ibb.co/PknjzJZ/Photoroom-20260124-142420.jpg", modifiers: { selection: [], extras: [{ id: 108, name: "Extra crema", description: "Crema adicional", price: 5.00 }, { id: 109, name: "Extra queso", description: "Queso rallado adicional", price: 5.00 }] } },
-            { id: 12, name: "Flan de cajeta", category: "postres", description: "Tradicional flan casero de cajeta.", price: 35.00, image: "https://i.ibb.co/Kx9J9yQD/IMG-4615.png", modifiers: { selection: [], extras: [] } },
-            { id: 13, name: "Flan de queso", category: "postres", description: "Flan con un toque especial de queso crema.", price: 35.00, image: "https://i.ibb.co/WNvTLTpF/IMG-4617.png", modifiers: { selection: [], extras: [] } },
-            { id: 14, name: "Flan de mazapán", category: "postres", description: "Flan con sabor a mazapán.", price: 35.00, image: "https://i.ibb.co/jPtZQnCr/IMG-4616.png", modifiers: { selection: [], extras: [] } },
-            { id: 15, name: "Agua del día 1 litro", category: "bebidas", description: "Agua fresca del día 1 litro. Elige tu sabor favorito.", price: 80.00, image: "https://i.ibb.co/jPYcqcj3/Photoroom-20260124-141051.jpg", modifiers: { selection: SABORES_AGUA, extras: [] } },
-            { id: 16, name: "Agua del día 1/2 litro", category: "bebidas", description: "Agua fresca del día 1/2 litro. Elige tu sabor favorito.", price: 40.00, image: "https://i.ibb.co/jPYcqcj3/Photoroom-20260124-141051.jpg", modifiers: { selection: SABORES_AGUA, extras: [] } },
-            { id: 17, name: "Café de olla", category: "bebidas", description: "Café tradicional mexicano preparado con canela y piloncillo.", price: 38.00, image: "https://i.ibb.co/Kcm8QRb1/IMG-4614.png", modifiers: { selection: [], extras: [] } },
-            { id: 18, name: "Coca-Cola regular (300 ml)", category: "bebidas", description: "Refresco de cola regular.", price: 35.00, image: "https://i.ibb.co/tpkfLmfw/Photoroom-20260113-234527.jpg", modifiers: { selection: [], extras: [] } }
+        const EXTRA_SIN_GARBANZO = [
+            { id: 107, name: "Sin garbanzo", description: "Preparado sin garbanzo", price: 0.00 }
         ];
+        const EXTRA_FLAUTAS = [
+            { id: 108, name: "Extra crema", description: "Crema adicional", price: 5.00 },
+            { id: 109, name: "Extra queso", description: "Queso rallado adicional", price: 5.00 }
+        ];
+
+        // Asigna los modificadores según la categoría (y nombre para aguas)
+        function getModifiersForProduct(product) {
+            const category = String(product.category || '').toLowerCase();
+            const name = String(product.name || '').toLowerCase();
+            if (category === 'barbacoa') return { selection: CORTES_BARBACOA, extras: EXTRAS_BARBACOA };
+            if (category === 'pancita')  return { selection: [], extras: EXTRAS_BARBACOA };
+            if (category === 'consome')  return { selection: [], extras: EXTRA_SIN_GARBANZO };
+            if (category === 'flautas')  return { selection: [], extras: EXTRA_FLAUTAS };
+            if (category === 'bebidas' && name.includes('agua')) return { selection: SABORES_AGUA, extras: [] };
+            return { selection: [], extras: [] };
+        }
+
+        // ============================================
+        // ESTADO DE PRODUCTOS (se llenan desde Apps Script)
+        // ============================================
+        let products = [];
+        let productsState = 'loading'; // 'loading' | 'loaded' | 'error'
+
+        async function loadProducts() {
+            productsState = 'loading';
+            if (currentScreen === 'home') renderProducts();
+
+            try {
+                const url = MENU_API_URL + (MENU_API_URL.includes('?') ? '&' : '?') + 't=' + Date.now();
+                const response = await fetch(url, { cache: 'no-store' });
+                if (!response.ok) throw new Error('HTTP ' + response.status);
+                const raw = await response.json();
+
+                if (!Array.isArray(raw)) {
+                    if (raw && raw.error) throw new Error(raw.error);
+                    throw new Error('Respuesta inválida del servidor');
+                }
+
+                products = raw
+                    .filter(p => p && p.available !== false && String(p.available).toUpperCase() !== 'FALSE')
+                    .map(p => {
+                        const base = {
+                            id: Number(p.id),
+                            name: p.name || 'Producto',
+                            category: String(p.category || '').toLowerCase(),
+                            description: p.description || '',
+                            price: Number(p.price) || 0,
+                            image: p.image || 'https://via.placeholder.com/400x300?text=Imagen'
+                        };
+                        return { ...base, modifiers: getModifiersForProduct(base) };
+                    })
+                    .sort((a, b) => a.id - b.id);
+
+                productsState = 'loaded';
+                renderProducts();
+                updateCartAvailabilityWarning();
+            } catch (err) {
+                console.error('Error cargando productos:', err);
+                productsState = 'error';
+                renderProducts();
+            }
+        }
 
         // ============================================
         // ESTADO GLOBAL
@@ -1299,7 +1346,6 @@
                     btn.setAttribute('title', 'Cambiar a modo oscuro');
                 }
             }
-            // Sincronizar botón del info screen
             const infoIcon = document.getElementById('infoThemeToggleIcon');
             const infoLabel = document.getElementById('infoThemeToggleLabel');
             if (infoIcon && infoLabel) {
@@ -1321,7 +1367,7 @@
         }
 
         // ============================================
-        // GUARDADO SILencioso DE DATOS DEL CLIENTE
+        // GUARDADO SILENCIOSO DE DATOS DEL CLIENTE
         // ============================================
         function saveClientDataSilently() {
             try {
@@ -1368,7 +1414,6 @@
             try {
                 const data = JSON.parse(localStorage.getItem(DELIVERY_DATA_KEY) || '{}');
                 if (!data || !data.address || !data.coords) return false;
-                // No sobrescribir si ya hay una dirección seleccionada
                 if (deliveryAddress && deliveryCoords) return false;
                 deliveryAddress = data.address;
                 deliveryCoords = data.coords;
@@ -1775,7 +1820,7 @@
             if (currentModalProduct && document.getElementById('productModal').classList.contains('active')) {
                 updateModalAvailabilityWarning();
             }
-            renderProducts();
+            if (productsState === 'loaded') renderProducts();
 
             if (isScheduledOrder && currentScreen === 'checkout') {
                 refreshScheduleSelectorsPreservingSelection();
@@ -1969,7 +2014,7 @@
         }
 
         // ============================================
-        // MAKE.COM  (la respuesta para copiar se envía aquí, no se muestra al cliente)
+        // MAKE.COM
         // ============================================
         function sendDataToMake(orderData) {
             if (!MAKE_WEBHOOK_URL || MAKE_WEBHOOK_URL.indexOf('tu_url') !== -1) return;
@@ -2001,7 +2046,6 @@
             params.append('pedido_detalle', orderData.pedido_detalle);
             params.append('pedido_json', JSON.stringify(orderData.cart_raw));
             params.append('aviso_disponibilidad', orderData.aviso_disponibilidad || 'Ninguno');
-            // Texto de respuesta para el cliente (copiar desde Google Sheets)
             params.append('respuesta_cliente', orderData.respuesta_cliente || '');
 
             fetch(MAKE_WEBHOOK_URL, {
@@ -2009,7 +2053,7 @@
                 body: params,
                 keepalive: true
             })
-            .then(() => console.log('✅ Pedido enviado a Make.com (con respuesta para Google Sheets)'))
+            .then(() => console.log('✅ Pedido enviado a Make.com'))
             .catch(err => console.warn('⚠️ No se pudo enviar a Make:', err));
         }
 
@@ -2029,23 +2073,23 @@
             scheduleState = getOrderingStatus();
             lastScheduleStateIsOpen = scheduleState.isOpen;
 
-            // Cargar silenciosamente los datos del cliente
             loadClientDataSilently();
-            
-            // Si la opción por defecto es envío a domicilio, intentar cargar la dirección guardada
+
             if (document.querySelector('input[name="deliveryType"][value="delivery"]').checked) {
                 if (!deliveryAddress && !deliveryCoords) {
                     loadDeliveryDataSilently();
                 }
             }
 
-            renderProducts();
             updateCartDisplay();
             updateHistoryBadge();
             applyScheduleState();
             setInterval(applyScheduleState, 30000);
 
             navigateTo('home');
+
+            // 🔴 Cargar productos desde Apps Script (reemplaza el renderizado inicial)
+            loadProducts();
 
             document.querySelectorAll('.category-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -2074,7 +2118,6 @@
                     document.getElementById('deliveryOption').classList.toggle('selected', dt === 'delivery');
                     if (dt === 'delivery') {
                         document.getElementById('deliveryAddressSection').style.display = 'block';
-                        // Cargar dirección guardada silenciosamente si no hay una seleccionada
                         if (!deliveryAddress && !deliveryCoords) {
                             await loadDeliveryDataSilently();
                         }
@@ -2095,7 +2138,6 @@
                 if (e.key === 'Enter') { e.preventDefault(); searchAddress(); }
             });
 
-            // Guardado silencioso en blur de los campos del cliente
             ['customerName', 'customerPhone', 'customerNotes', 'locationDetails', 'customerDetails'].forEach(id => {
                 const el = document.getElementById(id);
                 if (el) {
@@ -2140,7 +2182,6 @@
             document.getElementById('scheduleDate').addEventListener('change', function() { populateTimeSlots(); });
             document.getElementById('scheduleTime').addEventListener('change', function() { updateSchedulePreview(); });
 
-            // Estrellas de calificación en Info
             const ratingStars = document.querySelectorAll('#ratingStars i');
             let currentRating = 0;
             ratingStars.forEach(star => {
@@ -2190,18 +2231,17 @@
 
             if (value === 'other') {
                 otherHint.classList.add('active');
-                useLocationBtn.style.display = 'none'; // Ocultar botón de ubicación
+                useLocationBtn.style.display = 'none';
                 addressLabel.innerHTML = '<i class="fas fa-search" style="color: var(--color-ember-orange);"></i> Dirección de quien recibirá el pedido:';
                 addressInput.placeholder = 'Calle, número, colonia de quien recibe';
                 selectedLabel.textContent = 'Dirección de entrega a la otra persona:';
             } else {
                 otherHint.classList.remove('active');
-                useLocationBtn.style.display = 'flex'; // Mostrar botón de ubicación
+                useLocationBtn.style.display = 'flex';
                 useLocationBtn.innerHTML = '<i class="fas fa-location-arrow"></i> Usar mi ubicación actual';
                 addressLabel.innerHTML = '<i class="fas fa-search" style="color: var(--color-ember-orange);"></i> O ingresa la dirección de entrega:';
                 addressInput.placeholder = 'Calle, número, colonia';
                 selectedLabel.textContent = 'Dirección seleccionada:';
-                // Si vuelve a "Para mí", cargar la dirección guardada
                 if (!deliveryAddress && !deliveryCoords) {
                     loadDeliveryDataSilently();
                 }
@@ -2213,7 +2253,31 @@
         // ============================================
         function renderProducts() {
             const grid = document.getElementById('productsGrid');
+            if (!grid) return;
             grid.innerHTML = '';
+
+            if (productsState === 'loading') {
+                grid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px;">
+                        <i class="fas fa-sync-alt fa-spin" style="font-size: 2rem; color: var(--color-ember-orange); margin-bottom: 16px; display: block;"></i>
+                        <p style="color: var(--color-ash); font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em;">Cargando menú…</p>
+                    </div>
+                `;
+                return;
+            }
+
+            if (productsState === 'error') {
+                grid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 40px 20px;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 2rem; color: var(--color-ember-orange); margin-bottom: 16px; display: block;"></i>
+                        <p style="color: var(--color-ash); font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px;">No se pudo cargar el menú</p>
+                        <button type="button" onclick="loadProducts()" class="ghost-btn" style="display: inline-flex; width: auto; padding: 10px 20px; margin-top: 0;">
+                            <i class="fas fa-redo"></i> Reintentar
+                        </button>
+                    </div>
+                `;
+                return;
+            }
 
             const filtered = currentCategory === 'all' ? products : products.filter(p => p.category === currentCategory);
             if (filtered.length === 0) {
@@ -2375,7 +2439,7 @@
                 const group = document.createElement('div');
                 let title = 'Selecciona una opción:';
                 if (currentModalProduct.category === 'barbacoa') title = 'Selecciona el corte:';
-                else if (currentModalProduct.id === 15 || currentModalProduct.id === 16) title = 'Selecciona el sabor:';
+                else if (currentModalProduct.category === 'bebidas' && String(currentModalProduct.name || '').toLowerCase().includes('agua')) title = 'Selecciona el sabor:';
                 group.innerHTML = `<div class="modifiers-title">${title}</div>`;
 
                 modifiers.selection.forEach(mod => {
@@ -3038,7 +3102,6 @@
                 paymentDetails = `*Paga con:* $${cashAmountVal.toFixed(2)}%0A*Cambio:* $${cambioVal.toFixed(2)}%0A`;
             }
 
-            // ============ GUARDAR DATOS DEL CLIENTE (silencioso) ============
             try {
                 localStorage.setItem(CLIENT_DATA_KEY, JSON.stringify({
                     name: customerName,
@@ -3048,7 +3111,6 @@
             } catch(e) {}
             if (deliveryType === 'delivery') saveDeliveryDataSilently();
 
-            // ============ TEXTO DE RESPUESTA (se envía a Make/Google Sheets, no se muestra al cliente) ============
             let respuestaCliente = '';
             if (isScheduledOrder) {
                 respuestaCliente =
@@ -3064,7 +3126,6 @@
                     `¡Gracias por tu pedido! 🙌`;
             }
 
-            // ============ MENSAJE WHATSAPP ============
             let msg = '';
             msg += `🍖 *Barbacoa de la Casa Vieja*%0A`;
             msg += `━━━━━━━━━━━━━━━━━━━━%0A%0A`;
@@ -3125,7 +3186,6 @@
             if (deliveryType === 'delivery') msg += `*ENVÍO:* $${currentShippingCost.toFixed(2)}%0A`;
             msg += `*TOTAL:* $${total.toFixed(2)}%0A`;
 
-            // ============ GUARDAR EN HISTORIAL ============
             const pedidoId = 'PED-' + Date.now().toString().slice(-8);
             const historyOrder = {
                 id: pedidoId,
@@ -3160,7 +3220,6 @@
             };
             saveOrderToHistory(historyOrder);
 
-            // ============ MAKE.COM (Enviar ANTES de abrir WhatsApp para evitar que el navegador cancele la petición) ============
             try {
                 const pedidoDetalle = cart.map(item => {
                     let mods = [];
@@ -3202,11 +3261,9 @@
                 console.warn('Error preparando datos para Make:', err);
             }
 
-            // ============ ABRIR WHATSAPP ============
             const waLink = `https://wa.me/${whatsappNumber.replace(/\D/g, '')}?text=${msg}`;
             window.open(waLink, '_blank');
 
-            // ============ PANTALLA DE CONFIRMACIÓN ============
             const confirmTitle = document.getElementById('confirmationTitle');
             const confirmScheduleInfo = document.getElementById('confirmationScheduleInfo');
 
@@ -3219,14 +3276,11 @@
                 confirmScheduleInfo.classList.remove('active');
             }
 
-            // ============ RESET ============
             cart = [];
             isScheduledOrder = false;
             saveCart();
             document.getElementById('orderForm').reset();
-            // Desbloquear campos para la próxima vez
             setDeliveryFieldsReadOnly(false);
-            // Re-cargar los datos del cliente después del reset del formulario
             loadClientDataSilently();
             document.getElementById('addressInput').value = '';
             document.getElementById('locationDetails').value = '';

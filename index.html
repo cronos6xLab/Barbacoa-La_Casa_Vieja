@@ -1047,9 +1047,10 @@
             <span>Carrito</span>
             <span class="bottom-nav-badge hidden" id="bottomNavBadge">0</span>
         </button>
-        <button class="bottom-nav-item" data-screen="history" type="button">
+        <button class="bottom-nav-item" data-screen="history" type="button" aria-label="Historial de pedidos">
             <i class="fas fa-history"></i>
             <span>Historial</span>
+            <span class="bottom-nav-badge hidden" id="bottomNavHistoryBadge">0</span>
         </button>
         <button class="bottom-nav-item" data-screen="info" type="button">
             <i class="fas fa-info-circle"></i>
@@ -1058,7 +1059,7 @@
     </nav>
 
     <!-- PRODUCT MODAL -->
-    <div class="product-modal" id="productModal">
+    <div class="product-modal" id="productModal" role="dialog" aria-modal="true" aria-labelledby="modalProductTitle">
         <div class="product-modal-content">
             <button class="product-modal-close" id="closeProductModal" type="button">
                 <i class="fas fa-times"></i>
@@ -1209,9 +1210,20 @@
                 }
 
                 products = raw
-                    .filter(p => p && p.id && p.name) 
+                    .filter(p => p && p.id !== undefined && p.id !== null && p.id !== '' && p.name) 
                     .map(p => {
-                        const isAvailable = p.available !== false && String(p.available).toUpperCase() !== 'FALSE';
+                        // Maneja available: false, "false", "FALSE", 0, "0" como NO disponible
+                        const availRaw = p.available;
+                        let isAvailable;
+                        if (availRaw === undefined || availRaw === null) {
+                            isAvailable = true; // por defecto disponible
+                        } else if (typeof availRaw === 'boolean') {
+                            isAvailable = availRaw;
+                        } else if (typeof availRaw === 'number') {
+                            isAvailable = availRaw !== 0;
+                        } else {
+                            isAvailable = String(availRaw).toUpperCase() !== 'FALSE' && String(availRaw) !== '0';
+                        }
                         const base = {
                             id: Number(p.id),
                             name: p.name || 'Producto',
@@ -1219,7 +1231,7 @@
                             description: p.description || '',
                             price: Number(p.price) || 0,
                             image: p.image || 'https://via.placeholder.com/400x300?text=Imagen',
-                            available: isAvailable // <--- GUARDAMOS EL ESTADO
+                            available: isAvailable
                         };
                         return { ...base, modifiers: getModifiersForProduct(base) };
                     })
@@ -1419,9 +1431,15 @@
             try {
                 const data = JSON.parse(localStorage.getItem(DELIVERY_DATA_KEY) || '{}');
                 if (!data || !data.address || !data.coords) return false;
+                // Valida que las coordenadas sean números válidos
+                const lat = parseFloat(data.coords.lat);
+                const lng = parseFloat(data.coords.lng);
+                if (isNaN(lat) || isNaN(lng) || lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+                    return false;
+                }
                 if (deliveryAddress && deliveryCoords) return false;
                 deliveryAddress = data.address;
-                deliveryCoords = data.coords;
+                deliveryCoords = { lat, lng };
                 if (data.details) {
                     document.getElementById('locationDetails').value = data.details;
                 }
@@ -1448,6 +1466,17 @@
         function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); }
         function refreshAll() { saveCart(); updateCartDisplay(); renderProducts(); updateCartAvailabilityWarning(); }
         function roundPeso(n) { return Math.round(n); }
+
+        // Escapa HTML para prevenir XSS al insertar datos del usuario en innerHTML
+        function escapeHtml(str) {
+            if (str === undefined || str === null) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
 
         function resetDeliveryLocation() {
             deliveryCoords = null;
@@ -1557,10 +1586,10 @@
 
                 const itemsPreview = (order.items || []).slice(0, 3).map(it => {
                     let mods = '';
-                    if (it.selection) mods += ` · ${it.selection}`;
-                    if (it.extras && it.extras.length) mods += ` · ${it.extras.join(', ')}`;
+                    if (it.selection) mods += ` · ${escapeHtml(it.selection)}`;
+                    if (it.extras && it.extras.length) mods += ` · ${it.extras.map(escapeHtml).join(', ')}`;
                     return `<div class="history-item-line">
-                        <span><span class="qty">${it.quantity}×</span>${it.name}${mods}</span>
+                        <span><span class="qty">${it.quantity}×</span>${escapeHtml(it.name)}${mods}</span>
                         <span>$${(it.price * it.quantity).toFixed(2)}</span>
                     </div>`;
                 }).join('');
@@ -1604,20 +1633,20 @@
 
                     <div class="history-detail-expanded" id="detail-${order.id}">
                         <span class="detail-label"><i class="fas fa-user"></i> Cliente</span>
-                        <div class="detail-row"><span>Nombre</span><strong>${order.customerName || '—'}</strong></div>
-                        <div class="detail-row"><span>Teléfono</span><strong>${order.customerPhone || '—'}</strong></div>
+                        <div class="detail-row"><span>Nombre</span><strong>${escapeHtml(order.customerName) || '—'}</strong></div>
+                        <div class="detail-row"><span>Teléfono</span><strong>${escapeHtml(order.customerPhone) || '—'}</strong></div>
 
                         ${order.deliveryType === 'delivery' ? `
                             <span class="detail-label"><i class="fas fa-map-marker-alt"></i> Entrega</span>
-                            <div class="detail-row"><span>Dirección</span><strong style="text-align:right; max-width: 60%;">${order.address || '—'}</strong></div>
-                            ${order.locationDetails ? `<div class="detail-row"><span>Detalles</span><strong style="text-align:right; max-width: 60%;">${order.locationDetails}</strong></div>` : ''}
-                            ${order.distanceKm ? `<div class="detail-row"><span>Distancia</span><strong>${order.distanceKm} km (${order.zone || ''})</strong></div>` : ''}
+                            <div class="detail-row"><span>Dirección</span><strong style="text-align:right; max-width: 60%;">${escapeHtml(order.address) || '—'}</strong></div>
+                            ${order.locationDetails ? `<div class="detail-row"><span>Detalles</span><strong style="text-align:right; max-width: 60%;">${escapeHtml(order.locationDetails)}</strong></div>` : ''}
+                            ${order.distanceKm ? `<div class="detail-row"><span>Distancia</span><strong>${escapeHtml(order.distanceKm)} km (${escapeHtml(order.zone) || ''})</strong></div>` : ''}
                         ` : ''}
 
                         ${order.isScheduled ? `
                             <span class="detail-label"><i class="fas fa-calendar-check"></i> Programación</span>
-                            <div class="detail-row"><span>Fecha</span><strong>${order.scheduledDate || '—'}</strong></div>
-                            <div class="detail-row"><span>Hora</span><strong>${order.scheduledTime || '—'}</strong></div>
+                            <div class="detail-row"><span>Fecha</span><strong>${escapeHtml(order.scheduledDate) || '—'}</strong></div>
+                            <div class="detail-row"><span>Hora</span><strong>${escapeHtml(order.scheduledTime) || '—'}</strong></div>
                         ` : ''}
 
                         <span class="detail-label"><i class="fas fa-list"></i> Productos</span>
@@ -1626,7 +1655,7 @@
                             if (it.selection) mods.push(it.selection);
                             if (it.extras && it.extras.length) mods = mods.concat(it.extras);
                             return `<div class="detail-row">
-                                <span>${it.quantity}× ${it.name}${mods.length ? ` <em style="color: var(--color-ember-orange); font-style: normal; font-size: 0.6rem;">(${mods.join(', ')})</em>` : ''}</span>
+                                <span>${it.quantity}× ${escapeHtml(it.name)}${mods.length ? ` <em style="color: var(--color-ember-orange); font-style: normal; font-size: 0.6rem;">(${mods.map(escapeHtml).join(', ')})</em>` : ''}</span>
                                 <strong>$${(it.price * it.quantity).toFixed(2)}</strong>
                             </div>`;
                         }).join('')}
@@ -1638,7 +1667,7 @@
 
                         ${order.notes ? `
                             <span class="detail-label"><i class="fas fa-sticky-note"></i> Notas</span>
-                            <div style="color: var(--color-ash); font-style: italic;">${order.notes}</div>
+                            <div style="color: var(--color-ash); font-style: italic;">${escapeHtml(order.notes)}</div>
                         ` : ''}
                     </div>
 
@@ -1692,6 +1721,8 @@
             order.items.forEach(item => {
                 const prod = products.find(p => p.id === item.id);
                 if (!prod) { skippedCount++; return; }
+                // Verifica si el producto está agotado
+                if (!prod.available) { skippedCount++; return; }
 
                 const selection = item.selection ? (prod.modifiers?.selection || []).find(s => s.name === item.selection) || null : null;
                 const extras = [];
@@ -1825,11 +1856,22 @@
             if (currentModalProduct && document.getElementById('productModal').classList.contains('active')) {
                 updateModalAvailabilityWarning();
             }
-            if (productsState === 'loaded') renderProducts();
+            // Solo re-renderiza productos si cambió el estado de disponibilidad
+            // (evita parpadeo cada 30s cuando el usuario está interactuando)
+            if (productsState === 'loaded' && lastScheduleAvailabilityKey !== scheduleAvailabilityKey()) {
+                lastScheduleAvailabilityKey = scheduleAvailabilityKey();
+                renderProducts();
+            }
 
             if (isScheduledOrder && currentScreen === 'checkout') {
                 refreshScheduleSelectorsPreservingSelection();
             }
+        }
+
+        // Clave que resume el estado de disponibilidad (para detectar cambios)
+        let lastScheduleAvailabilityKey = '';
+        function scheduleAvailabilityKey() {
+            return `${scheduleState.isOpen}|${scheduleState.meatLow}|${scheduleState.pancitaLow}`;
         }
 
         function productAvailabilityKind(product) {
@@ -2059,7 +2101,13 @@
                 body: params,
                 keepalive: true
             })
-            .then(() => console.log('✅ Pedido enviado a Make.com (vía Worker)'))
+            .then(response => {
+                if (!response.ok) {
+                    console.warn('⚠️ Make respondió HTTP ' + response.status);
+                } else {
+                    console.log('✅ Pedido enviado a Make.com (vía Worker)');
+                }
+            })
             .catch(err => console.warn('⚠️ No se pudo enviar a Make:', err));
         }
 
@@ -2078,6 +2126,7 @@
 
             scheduleState = getOrderingStatus();
             lastScheduleStateIsOpen = scheduleState.isOpen;
+            lastScheduleAvailabilityKey = scheduleAvailabilityKey();
 
             loadClientDataSilently();
 
@@ -2156,7 +2205,26 @@
 
             document.getElementById('cashMethod').addEventListener('click', () => selectPaymentMethod('cash'));
             document.getElementById('cardMethod').addEventListener('click', () => selectPaymentMethod('card'));
+            // Sincroniza paymentMethod si el usuario cambia el radio directamente
+            document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    if (this.checked) selectPaymentMethod(this.value);
+                });
+            });
             document.getElementById('cashAmount').addEventListener('input', calculateChange);
+
+            // Listener para el select de tipo de entrega en checkout
+            // (muestra/oculta los campos de dirección dinámicamente cuando no es readonly)
+            document.getElementById('deliveryTypeFinal').addEventListener('change', function() {
+                const isDelivery = this.value === 'delivery';
+                document.getElementById('finalAddressSection').style.display = isDelivery ? 'block' : 'none';
+                document.getElementById('finalDetailsSection').style.display = isDelivery ? 'block' : 'none';
+                if (!isDelivery) {
+                    // Si cambia a pickup, resetea el envío
+                    currentShippingCost = 0;
+                    updateCartDisplay();
+                }
+            });
 
             document.getElementById('checkoutBtn').addEventListener('click', function() { handleCheckout(); });
 
@@ -2198,7 +2266,7 @@
                 star.addEventListener('click', function() {
                     currentRating = parseInt(this.dataset.val);
                     if (currentRating === 5) {
-                        window.open('https://search.google.com/local/writereview?placeid=ChIJNy4JvZz40YURNjCk-6Ah2zw', '_blank');
+                        window.open('https://search.google.com/local/writereview?placeid=ChIJNy4JvZz40YURNjCk-6Ah2zw', '_blank', 'noopener,noreferrer');
                         showNotification('¡Gracias! Te redirigimos a Google para dejar tu reseña. 🌟', 'success');
                     } else {
                         showNotification(`¡Gracias por calificar con ${currentRating} estrella(s)! 🌟`, 'success');
@@ -2211,8 +2279,10 @@
 
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
-                    document.getElementById('productModal').classList.remove('active');
-                    document.body.style.overflow = '';
+                    const modal = document.getElementById('productModal');
+                    if (modal.classList.contains('active')) {
+                        closeProductModal();
+                    }
                 }
             });
         });
@@ -2342,10 +2412,10 @@
                 card.innerHTML = `
                     ${badgeHTML}
                     ${!isOutOfStock && hasMods ? '<div class="customizable-badge"><i class="fas fa-sliders-h"></i> Opciones</div>' : ''}
-                    <img src="${product.image}" alt="${product.name}" class="product-img" loading="lazy" onerror="this.src='https://via.placeholder.com/400x300?text=Imagen'">
+                    <img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}" class="product-img" loading="lazy" onerror="this.src='https://via.placeholder.com/400x300?text=Imagen'">
                     <div class="product-info">
-                        <h3 class="product-title">${product.name}</h3>
-                        <p class="product-desc">${product.description}</p>
+                        <h3 class="product-title">${escapeHtml(product.name)}</h3>
+                        <p class="product-desc">${escapeHtml(product.description)}</p>
                         <div class="product-footer">
                             <div class="product-price">$${product.price.toFixed(2)}</div>
                             <div class="product-quantity-controls">${controlsHTML}</div>
@@ -2470,8 +2540,8 @@
                         <div class="radio-indicator"></div>
                         <label>
                             <div class="modifier-option-text">
-                                <div class="modifier-name">${mod.name}</div>
-                                ${mod.description ? `<div class="modifier-desc">${mod.description}</div>` : ''}
+                                <div class="modifier-name">${escapeHtml(mod.name)}</div>
+                                ${mod.description ? `<div class="modifier-desc">${escapeHtml(mod.description)}</div>` : ''}
                             </div>
                             <div class="option-price">${mod.price > 0 ? `+$${mod.price.toFixed(2)}` : 'Gratis'}</div>
                         </label>
@@ -2495,8 +2565,8 @@
                     item.className = 'modifier-item';
                     item.innerHTML = `
                         <div class="modifier-info">
-                            <div class="modifier-name">${mod.name}</div>
-                            ${mod.description ? `<div class="modifier-desc">${mod.description}</div>` : ''}
+                            <div class="modifier-name">${escapeHtml(mod.name)}</div>
+                            ${mod.description ? `<div class="modifier-desc">${escapeHtml(mod.description)}</div>` : ''}
                         </div>
                         <div style="display: flex; align-items: center; gap: 15px;">
                             <div class="modifier-price">${mod.price > 0 ? `+$${mod.price.toFixed(2)}` : 'Gratis'}</div>
@@ -2607,18 +2677,18 @@
                     const el = document.createElement('div');
                     el.className = 'cart-item';
                     let modsText = '';
-                    if (item.selection) modsText += `<small style="color: var(--color-ember-orange); font-size: 0.6rem; display:block; letter-spacing:0.02em;">Corte: ${item.selection.name}</small>`;
-                    if (item.extras?.length) modsText += `<small style="color: var(--color-ember-orange); font-size: 0.6rem; display:block; letter-spacing:0.02em;">Extras: ${item.extras.map(m => m.name).join(', ')}</small>`;
+                    if (item.selection) modsText += `<small style="color: var(--color-ember-orange); font-size: 0.6rem; display:block; letter-spacing:0.02em;">Corte: ${escapeHtml(item.selection.name)}</small>`;
+                    if (item.extras?.length) modsText += `<small style="color: var(--color-ember-orange); font-size: 0.6rem; display:block; letter-spacing:0.02em;">Extras: ${item.extras.map(m => escapeHtml(m.name)).join(', ')}</small>`;
 
                     el.innerHTML = `
                         <div style="flex:1; min-width:0;">
-                            <h4 style="overflow:hidden; text-overflow:ellipsis;">${item.name}</h4>
+                            <h4 style="overflow:hidden; text-overflow:ellipsis;">${escapeHtml(item.name)}</h4>
                             ${modsText}
                             <small style="color: var(--color-ash); font-size: 0.62rem;">$${item.price.toFixed(2)} c/u</small>
                         </div>
                         <div class="cart-item-controls">
-                            <input type="number" min="1" value="${item.quantity}" class="cart-item-qty" data-uid="${item.uniqueId}" inputmode="numeric">
-                            <button type="button" class="remove-item" data-uid="${item.uniqueId}" title="Eliminar">
+                            <input type="number" min="1" value="${item.quantity}" class="cart-item-qty" data-uid="${item.uniqueId}" inputmode="numeric" aria-label="Cantidad de ${item.name}">
+                            <button type="button" class="remove-item" data-uid="${item.uniqueId}" title="Eliminar" aria-label="Eliminar ${item.name} del carrito">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>
@@ -2875,7 +2945,9 @@
         function calculateChange() {
             const subtotal = cart.reduce((s, i) => s + i.price * i.quantity, 0);
             const total = subtotal + currentShippingCost;
-            const cash = parseFloat(document.getElementById('cashAmount').value) || 0;
+            // Sanitiza el monto: si es negativo o NaN, lo trata como 0
+            let cash = parseFloat(document.getElementById('cashAmount').value);
+            if (isNaN(cash) || cash < 0) cash = 0;
             const changeInfo = document.getElementById('changeInfo');
             if (cash > 0 && cash >= total) {
                 document.getElementById('changeAmount').textContent = `$${(cash - total).toFixed(2)}`;
@@ -2887,7 +2959,11 @@
             const subtotal = cart.reduce((s, i) => s + i.price * i.quantity, 0);
             const total = subtotal + currentShippingCost;
             if (paymentMethod === 'cash') {
-                const cash = parseFloat(document.getElementById('cashAmount').value) || 0;
+                let cash = parseFloat(document.getElementById('cashAmount').value);
+                if (isNaN(cash) || cash < 0) {
+                    showNotification('Ingresa un monto válido', 'error');
+                    return false;
+                }
                 if (cash === 0) { showNotification('Ingresa el monto con el que pagarás', 'error'); return false; }
                 if (cash < total) { showNotification(`El monto debe ser ≥ $${total.toFixed(2)}`, 'error'); return false; }
             }
@@ -3060,7 +3136,7 @@
                 if (item.selection) mods.push(item.selection.name);
                 if (item.extras?.length) mods = mods.concat(item.extras.map(m => m.name));
                 html += `<div style="display:flex; justify-content:space-between; margin-bottom:6px; gap:10px;">
-                    <span>${item.quantity}x ${item.name}${mods.length ? ` <small style="color:var(--color-ember-orange);">(${mods.join(', ')})</small>` : ''}</span>
+                    <span>${item.quantity}x ${escapeHtml(item.name)}${mods.length ? ` <small style="color:var(--color-ember-orange);">(${mods.map(escapeHtml).join(', ')})</small>` : ''}</span>
                     <span>$${(item.price * item.quantity).toFixed(2)}</span>
                 </div>`;
             });
@@ -3282,11 +3358,15 @@
                 console.warn('Error preparando datos para Make:', err);
             }
 
-            // Retrasamos 1 segundo la apertura de WhatsApp para que Make reciba los datos
-            setTimeout(() => {
-                const waLink = `https://wa.me/${whatsappNumber.replace(/\D/g, '')}?text=${msg}`;
-                window.open(waLink, '_blank');
-            }, 1000);
+            // Abrimos WhatsApp INMEDIATAMENTE (sin setTimeout) para evitar bloqueos
+            // de popup en móviles (iOS Safari bloquea window.open asíncrono).
+            // Make.com recibe los datos en paralelo vía fetch keepalive.
+            // El msg contiene %0A pre-codificados; los convertimos a \n reales y
+            // luego codificamos todo con encodeURIComponent para que caracteres
+            // especiales (&, =, #, espacios, acentos) no rompan la URL.
+            const msgForUrl = msg.replace(/%0A/g, '\n');
+            const waLink = `https://wa.me/${whatsappNumber.replace(/\D/g, '')}?text=${encodeURIComponent(msgForUrl)}`;
+            window.open(waLink, '_blank', 'noopener,noreferrer');
 
             const confirmTitle = document.getElementById('confirmationTitle');
             const confirmScheduleInfo = document.getElementById('confirmationScheduleInfo');

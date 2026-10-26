@@ -6,9 +6,37 @@
     <title>Barbacoa de la Casa Vieja - Menú</title>
 
     <script>
+        // ============================================
+        // IDENTIFICADOR ÚNICO DE TIENDA (STORE_ID)
+        // Evita que el navegador mezcle carritos, historial,
+        // tema y datos del cliente entre menús que viven en
+        // el mismo dominio. Cada tienda tiene su propio
+        // "compartimiento" aislado en localStorage.
+        // ============================================
+        var STORE_ID = 'barbacoa_casa_vieja_89x7';
+
+        // Migración one-time: si existen llaves viejas (sin namespace) y las
+        // nuevas aún no existen, las copiamos. Así no perdemos datos de
+        // usuarios recurrentes cuando se despliega este cambio.
+        (function migrateOldKeys(){
+            try {
+                var LEGACY = ['cart', 'theme', 'orderHistory', 'clientProfileData', 'lastDeliveryProfile'];
+                LEGACY.forEach(function(k){
+                    var newKey = STORE_ID + '_' + k;
+                    if (localStorage.getItem(newKey) === null) {
+                        var oldVal = localStorage.getItem(k);
+                        if (oldVal !== null) {
+                            localStorage.setItem(newKey, oldVal);
+                        }
+                    }
+                });
+            } catch(e) { /* localStorage bloqueado o privado */ }
+        })();
+
+        // Aplica el tema ANTES de pintar la página para evitar parpadeo (FOUC).
         (function(){
             try {
-                var t = localStorage.getItem('theme') || 'light';
+                var t = localStorage.getItem(STORE_ID + '_theme') || 'light';
                 if (t !== 'dark') t = 'light';
                 document.documentElement.setAttribute('data-theme', t);
             } catch(e) {
@@ -568,6 +596,72 @@
             .social-grid { grid-template-columns: 1fr 1fr; }
         }
 
+
+        /* ===== AVISO DE PRIVACIDAD ===== */
+        .privacy-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: var(--color-ash);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            cursor: pointer;
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            background: transparent;
+            border: none;
+            padding: 4px 8px;
+            transition: color 0.2s ease;
+        }
+        .privacy-link:hover { color: var(--color-ember-orange); }
+        .privacy-link i { margin-right: 6px; color: var(--color-ember-orange); }
+
+        .privacy-modal-body {
+            padding: 28px 26px 32px;
+            font-family: var(--font-sans);
+            color: var(--color-ash);
+            font-size: 0.78rem;
+            line-height: 1.75;
+            letter-spacing: normal;
+        }
+        .privacy-modal-body h4 {
+            font-family: var(--font-mono);
+            color: var(--color-ember-orange);
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin: 20px 0 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--color-soot);
+        }
+        .privacy-modal-body h4:first-child { margin-top: 0; }
+        .privacy-modal-body p { margin-bottom: 10px; }
+        .privacy-modal-body p strong { color: var(--color-bone-white); font-weight: 700; }
+        .privacy-modal-body ul { padding-left: 20px; margin: 8px 0 14px; }
+        .privacy-modal-body ul li { margin-bottom: 6px; }
+        .privacy-modal-body .privacy-contact {
+            background: rgba(255,77,0,0.06);
+            border: 1px solid rgba(255,77,0,0.35);
+            border-left: 3px solid var(--color-ember-orange);
+            border-radius: var(--radius-sm);
+            padding: 14px;
+            margin-top: 16px;
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            line-height: 1.7;
+            color: var(--color-ember-orange);
+        }
+        .privacy-modal-body .privacy-contact strong { color: var(--color-bone-white); }
+        .privacy-modal-body .privacy-updated {
+            margin-top: 18px;
+            padding-top: 12px;
+            border-top: 1px dashed var(--color-soot);
+            font-size: 0.65rem;
+            color: var(--color-ash);
+            font-style: italic;
+        }
+
         /* ===== FIX ZOOM iOS ===== */
         input[type="text"],input[type="search"],input[type="tel"],input[type="number"],input[type="email"],input[type="url"],input[type="password"],textarea,select{font-size:16px !important}
         @media (min-width:769px){input[type="text"],input[type="search"],input[type="tel"],input[type="number"],input[type="email"],input[type="url"],input[type="password"],textarea,select{font-size:13px !important}}
@@ -656,6 +750,11 @@
                 <footer>
                     <img src="https://i.ibb.co/jkWp21kD/IMG-4398.jpg" alt="Logo Footer" class="footer-logo">
                     <p>&copy; 2025 Barbacoa de la Casa Vieja</p>
+                    <p style="margin-top: 8px;">
+                        <button type="button" class="privacy-link" aria-label="Abrir aviso de privacidad">
+                            <i class="fas fa-shield-alt"></i> Aviso de Privacidad
+                        </button>
+                    </p>
                     <p style="margin-top: 10px;">
                         <i class="fab fa-whatsapp" style="color: var(--color-ember-orange);"></i> WhatsApp: +52 55 7867 7774
                     </p>
@@ -1019,6 +1118,11 @@
                     <footer style="margin-top: 30px;">
                         <img src="https://i.ibb.co/jkWp21kD/IMG-4398.jpg" alt="Logo Footer" class="footer-logo">
                         <p>&copy; 2025 Barbacoa de la Casa Vieja</p>
+                        <p style="margin-top: 8px;">
+                            <button type="button" class="privacy-link" aria-label="Abrir aviso de privacidad">
+                                <i class="fas fa-shield-alt"></i> Aviso de Privacidad
+                            </button>
+                        </p>
                         <p style="margin-top: 10px;">
                             <i class="fab fa-whatsapp" style="color: var(--color-ember-orange);"></i> +52 55 7867 7774
                         </p>
@@ -1130,12 +1234,22 @@
         const MAX_SCHEDULE_DATES      = 8;
         const SCHEDULE_SCAN_DAYS      = 28;
 
-        const HISTORY_KEY = 'orderHistory';
+        // ============================================
+        // IDENTIFICADOR ÚNICO DE TIENDA
+        // Se define también aquí para que el resto del script
+        // tenga acceso al STORE_ID. Debe coincidir con el del <head>.
+        // ============================================
+        const STORE_ID = 'barbacoa_casa_vieja_89x7';
+
+        const HISTORY_KEY = STORE_ID + '_orderHistory';
         const HISTORY_MAX = 40;
 
-        // Claves para guardar datos del cliente silenciosamente
-        const CLIENT_DATA_KEY = 'clientProfileData';
-        const DELIVERY_DATA_KEY = 'lastDeliveryProfile';
+        // Claves para guardar datos del cliente silenciosamente (namespaced)
+        const CLIENT_DATA_KEY  = STORE_ID + '_clientProfileData';
+        const DELIVERY_DATA_KEY = STORE_ID + '_lastDeliveryProfile';
+
+        // Llave del carrito namespaced
+        const CART_KEY = STORE_ID + '_cart';
 
         const shippingRates = {
             baseRate: 10.00,
@@ -1262,7 +1376,7 @@
         // ============================================
         let cart = [];
         try {
-            cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
             cart = cart.map(item => {
                 if (!item.uniqueId) {
                     const selId = item.selection ? item.selection.id : 'none';
@@ -1389,7 +1503,7 @@
         function toggleTheme() {
             const current = document.documentElement.getAttribute('data-theme') || 'light';
             const next = current === 'dark' ? 'light' : 'dark';
-            try { localStorage.setItem('theme', next); } catch(e) {}
+            try { localStorage.setItem(STORE_ID + '_theme', next); } catch(e) {}
             applyTheme(next);
         }
 
@@ -1473,7 +1587,7 @@
         function getProductTotalQuantity(productId) {
             return cart.filter(item => item.id === productId).reduce((s, i) => s + i.quantity, 0);
         }
-        function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); }
+        function saveCart() { localStorage.setItem(CART_KEY, JSON.stringify(cart)); }
         function refreshAll() { saveCart(); updateCartDisplay(); renderProducts(); updateCartAvailabilityWarning(); }
         function roundPeso(n) { return Math.round(n); }
 
@@ -3448,5 +3562,155 @@
             notifTimeout = setTimeout(() => notif.classList.remove('show'), 3800);
         }
     </script>
+
+    <!-- AVISO DE PRIVACIDAD MODAL -->
+    <div class="product-modal" id="privacyModal" role="dialog" aria-modal="true" aria-labelledby="privacyModalTitle">
+        <div class="product-modal-content" style="max-width: 640px;">
+            <button class="product-modal-close" id="closePrivacyModal" type="button" aria-label="Cerrar aviso de privacidad">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="privacy-modal-body">
+                <h3 id="privacyModalTitle" class="product-modal-title" style="margin-bottom: 16px;">
+                    <i class="fas fa-shield-alt" style="color: var(--color-ember-orange); margin-right: 8px;"></i>
+                    Aviso de Privacidad
+                </h3>
+
+                <p style="font-size: 0.7rem; color: var(--color-ash); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 18px;">
+                    Conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP) y su Reglamento.
+                </p>
+
+                <h4>1. Identidad y domicilio del responsable</h4>
+                <p>
+                    <strong>Barbacoa de la Casa Vieja</strong> es el responsable del tratamiento de sus datos personales, con domicilio en
+                    <strong>Colonia Clavería, Alcaldía Azcapotzalco, Ciudad de México, México</strong>. Nos dedicamos a la preparación y
+                    venta de barbacoa tradicional los fines de semana desde 1989.
+                </p>
+
+                <h4>2. Finalidades del tratamiento</h4>
+                <p>Sus datos personales serán utilizados para las siguientes finalidades:</p>
+                <ul>
+                    <li><strong>Primarias:</strong> recibir, preparar y entregar sus pedidos de barbacoa, ya sea para recoger en local o envío a domicilio; contactarle por WhatsApp para confirmar disponibilidad, costo de envío y detalles de entrega; gestionar pagos en efectivo o con terminal bancaria.</li>
+                    <li><strong>Secundarias:</strong> guardar su historial de pedidos para facilitar volver a ordenar; recordar sus datos (nombre, teléfono, dirección) en futuras visitas; mejorar nuestro servicio y menú.</li>
+                </ul>
+                <p style="font-size: 0.7rem; color: var(--color-ash);">Si usted no desea que sus datos sean tratados para finalidades secundarias, puede indicárnoslo por WhatsApp o correo electrónico en cualquier momento.</p>
+
+                <h4>3. Datos personales que recabamos</h4>
+                <ul>
+                    <li><strong>De identificación y contacto:</strong> nombre completo y número de teléfono (10 dígitos).</li>
+                    <li><strong>De entrega:</strong> calle, número, colonia y referencias de la dirección; coordenadas de ubicación (latitud/longitud) cuando usted autoriza el uso de GPS de su dispositivo.</li>
+                    <li><strong>De pedido:</strong> productos seleccionados, cantidades, modificadores (cortes, extras), notas adicionales y método de pago.</li>
+                    <li><strong>De navegación:</strong> preferencia de tema (claro/oscuro) e historial de pedidos. <strong>No</strong> usamos cookies de rastreo ni publicidad de terceros.</li>
+                </ul>
+                <p style="font-size: 0.7rem; color: var(--color-ash);"><strong>No recabamos datos personales sensibles</strong> (salud, creencias religiosas, afiliación política, etc.) ni datos financieros bancarios. Los pagos con tarjeta se realizan presencialmente con terminal bancaria en el momento de la entrega; no almacenamos números de tarjeta.</p>
+
+                <h4>4. Transferencias de datos</h4>
+                <p>Sus datos podrán transferirse a los siguientes proveedores, únicamente para cumplir con la finalidad del servicio:</p>
+                <ul>
+                    <li><strong>WhatsApp (Meta Platforms, Inc.)</strong> — para enviarle la confirmación del pedido. Sujeto al aviso de privacidad de Meta.</li>
+                    <li><strong>OpenStreetMap (Nominatim) y OSRM</strong> — para geocodificar su dirección y calcular distancia/tiempo de envío.</li>
+                    <li><strong>Google Maps</strong> — para mostrarle la ubicación del local y un enlace navegable de su dirección de entrega.</li>
+                    <li><strong>Make.com</strong> — para automatizar internamente la recepción y gestión del pedido en el restaurante.</li>
+                </ul>
+                <p style="font-size: 0.7rem; color: var(--color-ash);">No transferimos sus datos a terceros para fines comerciales o publicitarios. No vendemos ni alquilamos su información.</p>
+
+                <h4>5. Conservación de los datos</h4>
+                <p>
+                    Sus datos se conservan <strong>únicamente en el almacenamiento local de su navegador (localStorage)</strong>, no en nuestros servidores.
+                    El historial de pedidos y los datos guardados se mantienen en su dispositivo hasta que usted los elimine (borrando datos del sitio o
+                    utilizando la opción «Borrar todo» del historial) o hasta que desinstale el navegador. Los datos enviados vía WhatsApp y Make.com
+                    se conservan conforme a las políticas de dichos servicios.
+                </p>
+
+                <h4>6. Medios para ejercer sus derechos ARCO</h4>
+                <p>Usted tiene derecho a:</p>
+                <ul>
+                    <li><strong>Acceder</strong> a sus datos personales en nuestra posesión;</li>
+                    <li><strong>Rectificar</strong> datos inexactos o incompletos;</li>
+                    <li><strong>Cancelar</strong> (suprimir) sus datos cuando lo solicite;</li>
+                    <li><strong>Oponerse</strong> al tratamiento de sus datos para fines específicos;</li>
+                    <li>Así como <strong>revocar el consentimiento</strong> otorgado para el tratamiento.</li>
+                </ul>
+                <p>Para ejercer cualquiera de estos derechos, puede contactarnos a través de los siguientes medios, indicando su solicitud y acompañando copia de identificación oficial:</p>
+
+                <div class="privacy-contact">
+                    <strong><i class="fab fa-whatsapp"></i> WhatsApp:</strong> +52 55 7867 7774<br>
+                    <strong><i class="fas fa-envelope"></i> Correo:</strong> contacto@casavieja.mx<br>
+                    <strong><i class="fas fa-map-marker-alt"></i> Domicilio:</strong> Clavería, Azcapotzalco, Ciudad de México
+                </div>
+
+                <p style="margin-top: 14px;">Atenderemos su solicitud en un plazo máximo de <strong>20 días hábiles</strong> contados desde la recepción de la misma, y le comunicaremos la respuesta a través del mismo medio por el que la haya presentado, conforme al artículo 32 de la LFPDPPP.</p>
+
+                <h4>7. Cambios al aviso de privacidad</h4>
+                <p>
+                    Este aviso de privacidad podrá ser modificado en cualquier momento para reflejar cambios en nuestras prácticas de tratamiento de datos
+                    o en la legislación aplicable. La versión vigente estará siempre disponible en este menú digital y la fecha de última actualización se
+                    indica al final. Le recomendamos consultarlo periódicamente.
+                </p>
+
+                <p class="privacy-updated">
+                    Última actualización: 27 de octubre de 2026 · Versión 1.0<br>
+                    Barbacoa de la Casa Vieja · Clavería, Azcapotzalco · CDMX
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== Lógica del modal de privacidad =====
+        (function(){
+            function openPrivacyModal() {
+                var m = document.getElementById('privacyModal');
+                if (!m) return;
+                m.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                m.scrollTop = 0;
+            }
+            function closePrivacyModal() {
+                var m = document.getElementById('privacyModal');
+                if (!m) return;
+                m.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            function attachPrivacyHandlers() {
+                // Abre el modal al hacer clic en cualquier enlace con clase .privacy-link
+                document.querySelectorAll('.privacy-link').forEach(function(link){
+                    if (link.__privacyBound) return;
+                    link.__privacyBound = true;
+                    link.addEventListener('click', function(e){
+                        e.preventDefault();
+                        openPrivacyModal();
+                    });
+                });
+                var closeBtn = document.getElementById('closePrivacyModal');
+                if (closeBtn && !closeBtn.__privacyBound) {
+                    closeBtn.__privacyBound = true;
+                    closeBtn.addEventListener('click', closePrivacyModal);
+                }
+                var modal = document.getElementById('privacyModal');
+                if (modal && !modal.__privacyBound) {
+                    modal.__privacyBound = true;
+                    modal.addEventListener('click', function(e){
+                        if (e.target === modal) closePrivacyModal();
+                    });
+                }
+                // ESC cierra el modal de privacidad
+                if (!window.__privacyEscBound) {
+                    window.__privacyEscBound = true;
+                    document.addEventListener('keydown', function(e){
+                        if (e.key === 'Escape') {
+                            var m = document.getElementById('privacyModal');
+                            if (m && m.classList.contains('active')) closePrivacyModal();
+                        }
+                    });
+                }
+            }
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', attachPrivacyHandlers);
+            } else {
+                attachPrivacyHandlers();
+            }
+        })();
+    </script>
+
 </body>
 </html>

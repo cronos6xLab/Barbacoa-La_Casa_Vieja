@@ -3039,7 +3039,9 @@
                         const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&zoom=18&addressdetails=1&accept-language=es`;
                         const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
                         const data = await res.json();
-                        deliveryAddress = data.display_name || `Lat: ${lat.toFixed(5)}, Lng: ${lng.toFixed(5)}`;
+                        // Construye una dirección legible desde los componentes
+                        const built = buildDisplayAddress(data, '');
+                        deliveryAddress = built || `Lat: ${lat.toFixed(5)}, Lng: ${lng.toFixed(5)}`;
                     } catch (err) {
                         deliveryAddress = `Lat: ${lat.toFixed(5)}, Lng: ${lng.toFixed(5)}`;
                     }
@@ -3063,10 +3065,68 @@
             );
         }
 
+        // ============================================
+        // GEOCODIFICACIÓN MEJORADA (Nominatim)
+        // ============================================
+
+        // Tipos de resultado de Nominatim que indican una resolución
+        // solo a nivel colonia/ciudad (NO a nivel calle+número).
+        const COARSE_PLACE_TYPES = [
+            'suburb', 'neighbourhood', 'neighbourhood_around', 'city',
+            'town', 'village', 'hamlet', 'administrative', 'locality',
+            'quarter', 'borough', 'postcode', 'municipality', 'state'
+        ];
+
+        // De una lista de resultados de Nominatim, elige el más específico.
+        // Prioridad: calle+número > solo calle > primero disponible.
+        function pickBestNominatimResult(results) {
+            if (!Array.isArray(results) || results.length === 0) return null;
+            const withHouseAndRoad = results.find(r => r.address && r.address.road && r.address.house_number);
+            if (withHouseAndRoad) return withHouseAndRoad;
+            const withRoad = results.find(r => r.address && r.address.road);
+            if (withRoad) return withRoad;
+            return results[0];
+        }
+
+        // Construye una dirección legible combinando los componentes de Nominatim.
+        // Si el resultado NO tiene calle+número, mezcla la query original del
+        // usuario (que sí contiene la calle/número que él escribió) con el
+        // contexto resuelto (colonia, ciudad, estado).
+        function buildDisplayAddress(place, originalQuery) {
+            if (!place) return originalQuery || '';
+            const a = place.address || {};
+            const hasSpecific = !!(a.road && a.house_number);
+
+            if (hasSpecific) {
+                const parts = [];
+                parts.push(a.road + ' ' + a.house_number);
+                if (a.neighbourhood) parts.push(a.neighbourhood);
+                else if (a.suburb) parts.push(a.suburb);
+                else if (a.quarter) parts.push(a.quarter);
+                if (a.postcode) parts.push('CP ' + a.postcode);
+                if (a.city || a.town || a.village) parts.push(a.city || a.town || a.village);
+                if (a.state) parts.push(a.state);
+                return parts.join(', ');
+            }
+
+            // Sin calle+número: combina query original con el contexto resuelto
+            const contextual = [];
+            if (a.neighbourhood) contextual.push(a.neighbourhood);
+            else if (a.suburb) contextual.push(a.suburb);
+            else if (a.quarter) contextual.push(a.quarter);
+            if (a.city || a.town || a.village) contextual.push(a.city || a.town || a.village);
+            if (a.state) contextual.push(a.state);
+
+            if (originalQuery && contextual.length > 0) {
+                return originalQuery + ', ' + contextual.join(', ');
+            }
+            return originalQuery || place.display_name || '';
+        }
+
         async function searchAddress() {
             const input = document.getElementById('addressInput');
-            const address = input.value.trim();
-            if (!address) { showNotification('Ingresa una dirección', 'error'); return; }
+            const rawAddress = input.value.trim();
+            if (!rawAddress) { showNotification('Ingresa una dirección', 'error'); return; }
 
             const btn = document.getElementById('searchAddressBtn');
             btn.disabled = true;
@@ -3074,23 +3134,72 @@
             document.getElementById('autoCalculatingStatus').classList.add('active');
 
             try {
-                const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json&limit=1&countrycodes=mx&addressdetails=1&accept-language=es`;
-                const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
-                const data = await res.json();
+                // 1) Construye la query con contexto geográfico si el usuario no lo incluyó
+                const lower = rawAddress.toLowerCase();
+                const hasContext = /(mexico|méxico|cdmx|ciudad de m|azcapotzalco|distrito federal|\bdf\b)/.test(lower);
+                const contextualQuery = hasContext
+                    ? rawAddress
+                    : rawAddress + ', Azcapotzalco, Ciudad de México, México';
 
-                if (!data || data.length === 0) {
-                    showNotification('Dirección no encontrada. Intenta con más detalles.', 'error');
+                // 2) viewbox alrededor del restaurante (~15 km) para sesgar resultados
+                const d = 0.15;
+                const viewbox = `${restaurantCoords.lng - d},${restaurantCoords.lat - d},${restaurantCoords.lng + d},${restaurantCoords.lat + d}`;
+
+                const params = new URLSearchParams({
+                    q: contextualQuery,
+                    format: 'json',
+                    limit: '5',
+                    countrycodes: 'mx',
+                    addressdetails: '1',
+                    'accept-language': 'es',
+                    viewbox: viewbox,
+                    bounded: '0'
+                });
+
+                let url = `https://nominatim.openstreetmap.org/search?${params.toString()}`;
+                let res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+                let data = await res.json();
+
+                // 3) Si con contexto no hubo resultados, reintenta con la query original
+                if (!Array.isArray(data) || data.length === 0) {
+                    const fallbackUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(rawAddress)}&format=json&limit=5&countrycodes=mx&addressdetails=1&accept-language=es`;
+                    res = await fetch(fallbackUrl, { headers: { 'Accept': 'application/json' } });
+                    data = await res.json();
+                }
+
+                if (!Array.isArray(data) || data.length === 0) {
+                    showNotification('Dirección no encontrada. Intenta con más detalles (calle, número, colonia).', 'error');
                     document.getElementById('autoCalculatingStatus').classList.remove('active');
                     return;
                 }
-                const place = data[0];
-                deliveryCoords = { lat: parseFloat(place.lat), lng: parseFloat(place.lon) };
-                deliveryAddress = place.display_name;
+
+                // 4) Elige el mejor resultado y aplica
+                const best = pickBestNominatimResult(data);
+                const lat = parseFloat(best.lat);
+                const lon = parseFloat(best.lon);
+                if (isNaN(lat) || isNaN(lon)) {
+                    showNotification('No se pudieron obtener coordenadas válidas. Intenta con otra dirección.', 'error');
+                    document.getElementById('autoCalculatingStatus').classList.remove('active');
+                    return;
+                }
+
+                deliveryCoords = { lat, lng: lon };
+                const displayAddr = buildDisplayAddress(best, rawAddress);
+                deliveryAddress = displayAddr;
                 showSelectedAddress(deliveryAddress);
+
+                // 5) Si el resultado es impreciso, avisa al usuario
+                const placeType = (best.type || '').toLowerCase();
+                const isCoarse = COARSE_PLACE_TYPES.includes(placeType) || !best.address || !best.address.road;
+                if (isCoarse) {
+                    showNotification('Ubicación aproximada. Verifica el mapa y agrega los detalles de la ubicación (número, color de fachada, referencias).', 'warning');
+                }
+
                 await calculateDistanceAndCost();
                 saveDeliveryDataSilently();
             } catch (err) {
-                showNotification('Error al buscar la dirección. Intenta de nuevo.', 'error');
+                console.warn('Error en búsqueda de dirección:', err);
+                showNotification('Error al buscar la dirección. Revisa tu conexión e intenta de nuevo.', 'error');
                 document.getElementById('autoCalculatingStatus').classList.remove('active');
             } finally {
                 btn.disabled = false;

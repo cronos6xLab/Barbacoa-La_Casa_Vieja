@@ -262,6 +262,11 @@
         .availability-badge { position: absolute; top: 10px; left: 10px; background: var(--color-foundry-black); color: var(--color-ember-orange); border: 1px solid var(--color-ember-orange); font-family: var(--font-mono); font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 7px; border-radius: var(--radius-sm); display: flex; align-items: center; gap: 4px; animation: pulseSoft 2s ease-in-out infinite; }
         @keyframes pulseSoft { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
 
+        /* ESTILOS PARA PRODUCTOS AGOTADOS */
+        .product-card.out-of-stock { opacity: 0.6; filter: grayscale(1); cursor: not-allowed; }
+        .product-card.out-of-stock .add-to-cart, .product-card.out-of-stock .quantity-btn { pointer-events: none; opacity: 0.5; }
+        .sold-out-badge { position: absolute; top: 10px; left: 10px; background: #333; color: #fff; border: 1px solid #555; font-family: var(--font-mono); font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 7px; border-radius: var(--radius-sm); display: flex; align-items: center; gap: 4px; z-index: 2; }
+
         .product-quantity-controls { display: flex; align-items: center; gap: 6px; flex: 1; justify-content: flex-end; }
         .quantity-btn { width: 30px; height: 30px; border-radius: var(--radius-sm); background-color: transparent; border: 1px solid var(--color-soot); color: var(--color-bone-white); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.65rem; }
         .quantity-btn:hover:not(:disabled) { border-color: var(--color-chalk-white); }
@@ -1206,15 +1211,17 @@
                 }
 
                 products = raw
-                    .filter(p => p && p.available !== false && String(p.available).toUpperCase() !== 'FALSE')
+                    .filter(p => p && p.id && p.name) 
                     .map(p => {
+                        const isAvailable = p.available !== false && String(p.available).toUpperCase() !== 'FALSE';
                         const base = {
                             id: Number(p.id),
                             name: p.name || 'Producto',
                             category: String(p.category || '').toLowerCase(),
                             description: p.description || '',
                             price: Number(p.price) || 0,
-                            image: p.image || 'https://via.placeholder.com/400x300?text=Imagen'
+                            image: p.image || 'https://via.placeholder.com/400x300?text=Imagen',
+                            available: isAvailable // <--- GUARDAMOS EL ESTADO
                         };
                         return { ...base, modifiers: getModifiersForProduct(base) };
                     })
@@ -2289,9 +2296,19 @@
                 const totalQty = getProductTotalQuantity(product.id);
                 const hasMods = productHasModifiers(product);
                 const availKind = productAvailabilityKind(product);
+                
+                // 🔴 NUEVO: Verificamos si está agotado según el estado del producto
+                const isOutOfStock = !product.available;
 
                 let controlsHTML = '';
-                if (hasMods) {
+                if (isOutOfStock) {
+                    // Si está agotado, mostramos un botón deshabilitado
+                    controlsHTML = `
+                        <button type="button" class="add-to-cart" disabled style="border-color: var(--color-soot); color: var(--color-ash); cursor: not-allowed;">
+                            <i class="fas fa-ban"></i> Agotado
+                        </button>
+                    `;
+                } else if (hasMods) {
                     controlsHTML = `
                         <button type="button" class="add-to-cart ${totalQty > 0 ? 'in-cart' : ''}" data-action="open-modal">
                             <i class="fas fa-${totalQty > 0 ? 'check' : 'cart-plus'}"></i>
@@ -2314,15 +2331,21 @@
                     }
                 }
 
-                const availBadge = availKind
-                    ? `<div class="availability-badge"><i class="fas fa-exclamation-triangle"></i> ${availKind === 'carne' ? 'Poca carne' : 'Poca pancita'}</div>`
-                    : '';
+                // Badge de Poca Disponibilidad o Agotado
+                let badgeHTML = '';
+                if (isOutOfStock) {
+                    badgeHTML = `<div class="sold-out-badge"><i class="fas fa-ban"></i> Agotado</div>`;
+                } else if (availKind) {
+                    badgeHTML = `<div class="availability-badge"><i class="fas fa-exclamation-triangle"></i> ${availKind === 'carne' ? 'Poca carne' : 'Poca pancita'}</div>`;
+                }
 
                 const card = document.createElement('div');
-                card.className = 'product-card';
+                // 🔴 NUEVO: Agregamos la clase 'out-of-stock' para el filtro en blanco y negro
+                card.className = 'product-card' + (isOutOfStock ? ' out-of-stock' : '');
+                
                 card.innerHTML = `
-                    ${availBadge}
-                    ${hasMods ? '<div class="customizable-badge"><i class="fas fa-sliders-h"></i> Opciones</div>' : ''}
+                    ${badgeHTML}
+                    ${!isOutOfStock && hasMods ? '<div class="customizable-badge"><i class="fas fa-sliders-h"></i> Opciones</div>' : ''}
                     <img src="${product.image}" alt="${product.name}" class="product-img" loading="lazy" onerror="this.src='https://via.placeholder.com/400x300?text=Imagen'">
                     <div class="product-info">
                         <h3 class="product-title">${product.name}</h3>
@@ -2335,12 +2358,14 @@
                 `;
 
                 card.addEventListener('click', function(e) {
-                    if (!e.target.closest('button')) openProductModal(product.id);
+                    if (!e.target.closest('button') && !isOutOfStock) openProductModal(product.id);
                 });
 
                 card.querySelectorAll('button[data-action]').forEach(btn => {
                     btn.addEventListener('click', function(e) {
                         e.stopPropagation();
+                        if (isOutOfStock) return; // 🔴 Bloquear si está agotado
+
                         const action = this.dataset.action;
                         if (action === 'open-modal') openProductModal(product.id);
                         else if (action === 'inc') {

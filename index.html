@@ -2057,6 +2057,7 @@
 
             fetch(MAKE_WEBHOOK_URL, {
                 method: 'POST',
+                mode: 'no-cors', // 🔥 FIX: Evita bloqueos de CORS
                 body: params,
                 keepalive: true
             })
@@ -2302,7 +2303,6 @@
 
                 let controlsHTML = '';
                 if (isOutOfStock) {
-                    // Si está agotado, mostramos un botón deshabilitado
                     controlsHTML = `
                         <button type="button" class="add-to-cart" disabled style="border-color: var(--color-soot); color: var(--color-ash); cursor: not-allowed;">
                             <i class="fas fa-ban"></i> Agotado
@@ -2331,7 +2331,6 @@
                     }
                 }
 
-                // Badge de Poca Disponibilidad o Agotado
                 let badgeHTML = '';
                 if (isOutOfStock) {
                     badgeHTML = `<div class="sold-out-badge"><i class="fas fa-ban"></i> Agotado</div>`;
@@ -2340,7 +2339,6 @@
                 }
 
                 const card = document.createElement('div');
-                // 🔴 NUEVO: Agregamos la clase 'out-of-stock' para el filtro en blanco y negro
                 card.className = 'product-card' + (isOutOfStock ? ' out-of-stock' : '');
                 
                 card.innerHTML = `
@@ -2364,7 +2362,7 @@
                 card.querySelectorAll('button[data-action]').forEach(btn => {
                     btn.addEventListener('click', function(e) {
                         e.stopPropagation();
-                        if (isOutOfStock) return; // 🔴 Bloquear si está agotado
+                        if (isOutOfStock) return;
 
                         const action = this.dataset.action;
                         if (action === 'open-modal') openProductModal(product.id);
@@ -3286,8 +3284,11 @@
                 console.warn('Error preparando datos para Make:', err);
             }
 
-            const waLink = `https://wa.me/${whatsappNumber.replace(/\D/g, '')}?text=${msg}`;
-            window.open(waLink, '_blank');
+            // 🔥 FIX: Retrasamos 1 segundo la apertura de WhatsApp para que Make reciba los datos
+            setTimeout(() => {
+                const waLink = `https://wa.me/${whatsappNumber.replace(/\D/g, '')}?text=${msg}`;
+                window.open(waLink, '_blank');
+            }, 1000);
 
             const confirmTitle = document.getElementById('confirmationTitle');
             const confirmScheduleInfo = document.getElementById('confirmationScheduleInfo');

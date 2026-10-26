@@ -2150,7 +2150,6 @@
             navigateTo('home');
 
             // ✅ Cargar productos desde el Worker (que hace proxy a Apps Script)
-            console.log('🚀 Iniciando carga de productos desde:', MENU_API_URL);
             loadProducts();
 
             document.querySelectorAll('.category-btn').forEach(btn => {
@@ -2355,7 +2354,7 @@
                     <div style="grid-column: 1/-1; text-align: center; padding: 40px 20px;">
                         <i class="fas fa-exclamation-triangle" style="font-size: 2rem; color: var(--color-ember-orange); margin-bottom: 16px; display: block;"></i>
                         <p style="color: var(--color-ash); font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;">No se pudo cargar el menú</p>
-                        <p style="color: var(--color-soot); font-family: var(--font-mono); font-size: 0.65rem; margin-bottom: 16px; word-break: break-word; max-width: 500px; margin-left: auto; margin-right: auto;">${escapeHtml(errMsg)}</p>
+                        <p style="color: var(--color-soot); font-family: var(--font-mono); font-size: 0.65rem; margin-bottom: 16px; word-break: break-word; max-width: 500px; margin-left: auto; margin-right: auto;">${esc(errMsg)}</p>
                         <button type="button" onclick="loadProducts()" class="ghost-btn" style="display: inline-flex; width: auto; padding: 10px 20px; margin-top: 0;">
                             <i class="fas fa-redo"></i> Reintentar
                         </button>
@@ -3433,9 +3432,9 @@
             navigateTo('confirmation');
         }
 
-        // ===========================================
+        // ============================================
         // NOTIFICACIONES
-        // ===========================================
+        // ============================================
         let notifTimeout;
         function showNotification(text, type = 'info') {
             const notif = document.getElementById('notification');

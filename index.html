@@ -1025,7 +1025,6 @@
                         <p style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-ash); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px;">
                             <i class="fas fa-laptop-code" style="color: var(--color-ember-orange); margin-right: 6px;"></i> Menú digital creado por <strong style="color: var(--color-bone-white);">CRONOS6XLAB</strong>
                         </p>
-                        <!-- CONFIGURA AQUÍ TU ENLACE PERSONALIZADO DE CONTACTO -->
                         <a href="https://cronos6xla-bio.vercel.app/" target="_blank" rel="noopener" class="ghost-btn" style="display: inline-flex; width: auto; padding: 8px 16px; margin-top: 0;">
                             <i class="fas fa-rocket"></i> Quiero uno para mi negocio
                         </a>
@@ -1115,10 +1114,9 @@
         const restaurantCoords = { lat: 19.4646, lng: -99.1853 };
         const TIMEZONE = 'America/Mexico_City';
 
-        // 🔴 URL de tu Google Apps Script (publicada como Web App)
-        const MENU_API_URL = "https://script.google.com/macros/s/AKfycbzd--JXY7YSpT-_QEdibpaKxSLjVzUGXt4Vaauo5cdhEBTUYtfpq2APCKBAiOvlat8/exec";
-
-        const MAKE_WEBHOOK_URL = "https://hook.us2.make.com/dflhy5kveofxbpe2ebsysc2g3c938s2e";
+        // ✅ URLs del proxy (las reales viven en el Worker de Cloudflare)
+        const MENU_API_URL = "https://barbacoa-proxy.cronos6xlab.workers.dev/menu";
+        const MAKE_WEBHOOK_URL = "https://barbacoa-proxy.cronos6xlab.workers.dev/order";
 
         const SCHEDULE_LEAD_MINUTES   = 45;
         const SCHEDULE_SLOT_START     = 8 * 60 + 45;
@@ -2021,7 +2019,7 @@
         }
 
         // ============================================
-        // MAKE.COM
+        // MAKE.COM (vía Worker proxy)
         // ============================================
         function sendDataToMake(orderData) {
             if (!MAKE_WEBHOOK_URL || MAKE_WEBHOOK_URL.indexOf('tu_url') !== -1) return;
@@ -2055,13 +2053,13 @@
             params.append('aviso_disponibilidad', orderData.aviso_disponibilidad || 'Ninguno');
             params.append('respuesta_cliente', orderData.respuesta_cliente || '');
 
+            // El Worker se encarga del CORS, por eso ya NO usamos 'no-cors'
             fetch(MAKE_WEBHOOK_URL, {
                 method: 'POST',
-                mode: 'no-cors', // 🔥 FIX: Evita bloqueos de CORS
                 body: params,
                 keepalive: true
             })
-            .then(() => console.log('✅ Pedido enviado a Make.com'))
+            .then(() => console.log('✅ Pedido enviado a Make.com (vía Worker)'))
             .catch(err => console.warn('⚠️ No se pudo enviar a Make:', err));
         }
 
@@ -2096,7 +2094,7 @@
 
             navigateTo('home');
 
-            // 🔴 Cargar productos desde Apps Script
+            // ✅ Cargar productos desde el Worker (que hace proxy a Apps Script)
             loadProducts();
 
             document.querySelectorAll('.category-btn').forEach(btn => {
@@ -2298,7 +2296,7 @@
                 const hasMods = productHasModifiers(product);
                 const availKind = productAvailabilityKind(product);
                 
-                // 🔴 NUEVO: Verificamos si está agotado según el estado del producto
+                // Verificamos si está agotado según el estado del producto
                 const isOutOfStock = !product.available;
 
                 let controlsHTML = '';
@@ -3073,7 +3071,7 @@
         }
 
         // ============================================
-        // ENVÍO DE PEDIDO (WhatsApp nativo + Make + Historial)
+        // ENVÍO DE PEDIDO (WhatsApp nativo + Worker → Make + Historial)
         // ============================================
         function sendOrderToWhatsApp() {
             let scheduledDateLabel = '';
@@ -3284,7 +3282,7 @@
                 console.warn('Error preparando datos para Make:', err);
             }
 
-            // 🔥 FIX: Retrasamos 1 segundo la apertura de WhatsApp para que Make reciba los datos
+            // Retrasamos 1 segundo la apertura de WhatsApp para que Make reciba los datos
             setTimeout(() => {
                 const waLink = `https://wa.me/${whatsappNumber.replace(/\D/g, '')}?text=${msg}`;
                 window.open(waLink, '_blank');
